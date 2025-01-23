@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import PWABadge from './PWABadge.tsx'
 import './App.css'
 
