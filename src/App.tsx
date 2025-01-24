@@ -1,10 +1,14 @@
+import BattleScreen from './pages/battleScreen.tsx'
 import PWABadge from './PWABadge.tsx'
+import { potions } from './data/data.ts'
 
 function App() {
   return (
     <>
-   
-      <h1 className=' text-6xl text-center'>kaotika-battle-mobile</h1>
+
+      <BattleScreen potions={potions}>
+
+      </BattleScreen>
       <PWABadge />
     </>
   )
