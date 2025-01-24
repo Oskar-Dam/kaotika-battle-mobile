@@ -1,10 +1,12 @@
+import { useState } from 'react'
 import PWABadge from './PWABadge.tsx'
+import LoginScreen from './pages/LoginScreen.tsx'
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState<Boolean>(false)
   return (
     <>
-   
-      <h1 className=' text-6xl text-center'>kaotika-battle-mobile</h1>
+      {isLoggedIn ? <h1>Logged in</h1> : <LoginScreen/>}
       <PWABadge />
     </>
   )
