@@ -1,10 +1,10 @@
 import PWABadge from './PWABadge.tsx'
-import './App.css'
 
 function App() {
   return (
     <>
-      <h1>kaotika-battle-mobile</h1>
+   
+      <h1 className=' text-6xl text-center'>kaotika-battle-mobile</h1>
       <PWABadge />
     </>
   )
