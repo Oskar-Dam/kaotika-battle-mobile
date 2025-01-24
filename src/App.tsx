@@ -4,6 +4,7 @@ import PWABadge from './PWABadge.tsx'
 
 function App() {
   const [showWaitingScreen, setShowWaitingScreen] = useState(false);
+  setShowWaitingScreen(false); // delete this line  when the setusestate is used 
   return (
     <>
       {showWaitingScreen && <WaitingScreen />}
