@@ -10,12 +10,13 @@ const LoginScreen: React.FC = () => {
         <h1 className="text-5xl text-white">Kaotika</h1>
         <h1 className="text-5xl text-white">The Final Battle</h1>
       </div>
-      <div className="flex items-center justify-center w-[100%] h-[50%] border-4 border-white">
-        <div className="relative mb-6">
-          <div className="mb-6">
-            <input type="text" placeholder='Enter your email' id="default-input" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></input>
-          </div>
+      <div className="flex flex-col items-center justify-center w-full max-w-[630px] h-[40%] border-4 border-white" style={{ backgroundImage: 'url(/images/LoginFrame.png)', backgroundSize: '100% 100%' }}>
+        <div className="w-[80%]">
+          <input type="text 2xl" placeholder='Enter your email' id="default-input" className="border border-yellow-600 text-yellow-600 text-sm rounded-lg  w-full p-2.5 bg-red-950 placeholder-yellow-600"></input>
         </div>
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-[10%]">
+          Enter the battle
+        </button>
       </div>
     </div>
   );
