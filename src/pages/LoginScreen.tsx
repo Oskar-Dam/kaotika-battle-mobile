@@ -1,5 +1,7 @@
 import React, { ChangeEvent } from 'react';
 import { LoginScreenInterface } from '../interfaces/LoginScreenInterface';
+import socket from '../sockets/socket';
+import { SOCKET_EVENTS } from '../sockets/events';
 
 const LoginScreen: React.FC<LoginScreenInterface> = ({ email, setEmail, setIsLoggedIn }) => {
 
@@ -9,6 +11,11 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({ email, setEmail, setIsLog
 
   const handleEnterBattle = () => {
     console.log('Email:', email);
+    // Emit an event with an object containing the email and socket ID
+    socket.emit(SOCKET_EVENTS.SEND_SOCKETID, {
+      email: email,
+      socketId: socket.id
+    });
     setIsLoggedIn(true);
   };
 
