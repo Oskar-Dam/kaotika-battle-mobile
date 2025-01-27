@@ -1,8 +1,10 @@
-import { useState } from "react";
-import AttackButton from "../components/AttackButton";
-import PotionContainer from "../components/PotionContainer";
+import {useState } from "react";
 import { Potion } from "../interfaces/Potion";
 import SelectOponentModal from "../components/SelectOponentModal";
+import Actions from "../components/Actions";
+import NickName from "../components/NickName";
+import ClassImage from "../components/ClassImage"; // Import the new component
+import socket from "../sockets/socket";
 
 interface BattleScreenProps {
   potions: Potion[];
@@ -11,30 +13,30 @@ interface BattleScreenProps {
 const BattleScreen: React.FC<BattleScreenProps> = ({
   potions,
 }) => {
-   
+  //remove this log when sockect is used for the first time
+  console.log(socket);
+  
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
-      setIsModalOpen(true);
+    setIsModalOpen(true);
   };
 
   const closeModal = () => {
-      setIsModalOpen(false);
+    setIsModalOpen(false);
   };
+
 
   return (
     <>
-      <div className='w-full flex flex-col items-center justify-center'>
-        <AttackButton
-          text={'Attack'}
-          onClick={openModal}
-        />
-        <div className='w-full flex items-center justify-center m-[10%]'>
-          <PotionContainer
-            potions={potions}
-          />
-        </div>
+      <div
+        className='w-full h-screen flex flex-col items-center justify-center'
+        style={{ backgroundImage: 'url(/images/LoginBackground.png)', backgroundSize: 'cover' }}>
+        <ClassImage />
 
+        <NickName />
+
+        <Actions potions={potions} openModal={openModal} />
       </div>
       {isModalOpen && (
         <SelectOponentModal
