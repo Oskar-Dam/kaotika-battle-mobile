@@ -12,14 +12,8 @@ function App() {
   const [email, setEmail] = useState<string>('');
   const [player, setPlayer] = useState<PlayerInterface | null>(null);
 
-  player;
-
-  isLoggedIn;
-  setIsLoggedIn;
-
   const [showWaitingScreen, setShowWaitingScreen] = useState(false);
-  console.log(setShowWaitingScreen);
-
+  setShowWaitingScreen;
 
   return (
     <>
