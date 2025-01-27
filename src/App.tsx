@@ -5,6 +5,7 @@ import PWABadge from './PWABadge.tsx'
 import LoginScreen from './pages/LoginScreen.tsx'
 import { potions } from './data/data.ts'
 
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [email, setEmail] = useState<string>('');
@@ -14,11 +15,13 @@ function App() {
 
   const [showWaitingScreen, setShowWaitingScreen] = useState(false);
   console.log(setShowWaitingScreen);
+
+
   return (
     <>
-      {showWaitingScreen && <WaitingScreen/>}
-      {isLoggedIn ? <BattleScreen potions={potions}/>
-      : <LoginScreen email={email} setEmail={setEmail} setIsLoggedIn={setIsLoggedIn}/>}
+      {showWaitingScreen && <WaitingScreen />}
+      {isLoggedIn ? <BattleScreen potions={potions} />
+        : <LoginScreen email={email} setEmail={setEmail} setIsLoggedIn={setIsLoggedIn} />}
       <PWABadge />
     </>
   )
