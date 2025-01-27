@@ -34,7 +34,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
     <>
       <div
         className='w-full h-screen flex flex-col items-center justify-center'
-        style={{ backgroundImage: 'url(/images/LoginBackground.png)', backgroundSize: 'cover' }}>
+        style={{ backgroundImage: 'url(/images/BattleFrame.png)', backgroundSize: '100% 100%' }}>
         <ClassImage />
 
         <NickName nickname={player?.nickname!}/>

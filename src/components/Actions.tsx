@@ -10,7 +10,7 @@ interface ActionsProps {
 
 const Actions: React.FC<ActionsProps> = ({ potions, openModal }) => {
   return (
-    <div className="flex flex-col items-center justify-center w-full h-[49%] border-4 border-black">
+    <div className="flex flex-col items-center justify-center w-full h-[49%] border-0 border-yellow-400">
       <AttackButton
         text={'Attack'}
         onClick={openModal}
