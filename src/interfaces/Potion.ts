@@ -6,8 +6,7 @@ export interface Potion {
   type: string;
   rarity: string;
   effects: {
-    primary: Effect,
+    primary: Effect;
   };
-
   image: string;
 }

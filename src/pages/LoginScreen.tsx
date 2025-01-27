@@ -2,6 +2,8 @@ import React, { ChangeEvent } from 'react';
 import { LoginScreenInterface } from '../interfaces/LoginScreenInterface';
 import { mockPlayer } from '../mocks/PlayerMock';
 
+import socket from '../sockets/socket';
+import { SOCKET_EVENTS } from '../sockets/events';
 
 const LoginScreen: React.FC<LoginScreenInterface> = ({ email, setEmail, setIsLoggedIn, setPlayer }) => {
 
@@ -20,7 +22,12 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({ email, setEmail, setIsLog
 
       // console.log('Player data:', playerData);
       
-      setIsLoggedIn(true);
+      // Emit an event with an object containing the email and socket ID
+    socket.emit(SOCKET_EVENTS.SEND_SOCKETID, {
+      email: email,
+      socketId: socket.id
+    });
+    setIsLoggedIn(true);
       setPlayer(mockPlayer);
     } catch (error) {
       console.error('Fetch error:', error);
