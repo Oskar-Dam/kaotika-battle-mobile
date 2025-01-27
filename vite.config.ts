@@ -15,10 +15,33 @@ export default defineConfig({
     },
 
     manifest: {
-      name: 'kaotika-battle-mobile',
-      short_name: 'kaotika-battle-mobile',
-      description: 'kaotika-battle-mobile',
-      theme_color: '#ffffff',
+      name: "Final Battle",
+      short_name: "The Final Battle",
+      theme_color: "#232428",
+      background_color: "#232428",
+      orientation: "portrait",
+      display: "standalone",
+      lang: "en-US",
+      start_url: "/index.html",
+      icons: [
+        {
+          sizes: "144x144",
+          src: "/icons/icon144.png",
+          type: "image/png",
+        },
+        {
+          purpose: "maskable",
+          sizes: "512x512",
+          src: "/icons/icon512_maskable.png",
+          type: "image/png",
+        },
+        {
+          purpose: "any",
+          sizes: "512x512",
+          src: "/icons/icon512_rounded.png",
+          type: "image/png",
+        },
+      ],
     },
 
     workbox: {
