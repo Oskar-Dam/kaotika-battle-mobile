@@ -24,7 +24,7 @@ function App() {
   return (
     <>
       {showWaitingScreen && <WaitingScreen />}
-      {isLoggedIn ? <BattleScreen potions={potions} />
+      {isLoggedIn ? <BattleScreen potions={potions} player={player}/>
         : <LoginScreen email={email} setEmail={setEmail} setIsLoggedIn={setIsLoggedIn} setPlayer={setPlayer}/>}
       <PWABadge />
     </>
