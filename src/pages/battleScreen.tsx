@@ -1,6 +1,4 @@
 import { useState } from "react";
-import AttackButton from "../components/AttackButton";
-import PotionContainer from "../components/PotionContainer";
 import { Potion } from "../interfaces/Potion";
 import SelectOponentModal from "../components/SelectOponentModal";
 import Actions from "../components/Actions";
