@@ -1,7 +1,8 @@
 import React, { ChangeEvent } from 'react';
 import { LoginScreenInterface } from '../interfaces/LoginScreenInterface';
+import { mockPlayer } from '../mocks/PlayerMock';
 
-const LoginScreen: React.FC<LoginScreenInterface> = ({ email, setEmail, setIsLoggedIn }) => {
+const LoginScreen: React.FC<LoginScreenInterface> = ({ email, setEmail, setIsLoggedIn, setPlayer }) => {
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -10,6 +11,7 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({ email, setEmail, setIsLog
   const handleEnterBattle = () => {
     console.log('Email:', email);
     setIsLoggedIn(true);
+    setPlayer(mockPlayer);
   };
 
   return (
