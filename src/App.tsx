@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import BattleScreen from './pages/battleScreen.tsx'
+import BattleScreen from './pages/BattleScreen.tsx'
 import WaitingScreen from './components/Waiting.tsx'
 import PWABadge from './PWABadge.tsx'
 import LoginScreen from './pages/LoginScreen.tsx'
