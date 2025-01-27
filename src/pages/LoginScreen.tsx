@@ -1,5 +1,6 @@
 import React, { ChangeEvent } from 'react';
 import { LoginScreenInterface } from '../interfaces/LoginScreenInterface';
+import { mockPlayer } from '../mocks/PlayerMock';
 
 
 const LoginScreen: React.FC<LoginScreenInterface> = ({ email, setEmail, setIsLoggedIn, setPlayer }) => {
@@ -11,16 +12,16 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({ email, setEmail, setIsLog
   const handleEnterBattle = async () => {
     console.log('Email:', email);
     try {
-      const response = await fetch(`https://kaotika-battle-server.onrender.com/api/player/${email}`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch player data');
-      }
-      const playerData = await response.json();
+      // const response = await fetch(`https://kaotika-battle-server.onrender.com/api/player/${email}`);
+      // if (!response.ok) {
+      //   throw new Error('Failed to fetch player data');
+      // }
+      // const playerData = await response.json();
 
-      console.log('Player data:', playerData);
+      // console.log('Player data:', playerData);
       
       setIsLoggedIn(true);
-      setPlayer(playerData);
+      setPlayer(mockPlayer);
     } catch (error) {
       console.error('Fetch error:', error);
     }
