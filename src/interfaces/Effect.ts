@@ -1,3 +1,3 @@
 export interface Effect {
-    attribute: string,
+  attribute: string;
 }

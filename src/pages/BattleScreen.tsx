@@ -1,4 +1,4 @@
-import {useState } from "react";
+import { useState } from "react";
 import { Potion } from "../interfaces/Potion";
 import SelectOponentModal from "../components/SelectOponentModal";
 import Actions from "../components/Actions";
@@ -15,7 +15,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
 }) => {
   //remove this log when sockect is used for the first time
   console.log(socket);
-  
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
