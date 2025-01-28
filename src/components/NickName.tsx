@@ -1,5 +1,5 @@
 interface NickNameProps {
-  nickname: string;
+  nickname?: string;
 }
 
 

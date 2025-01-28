@@ -11,7 +11,7 @@ export const potions: Potion[] = [
                 attribute: "fireResistance",
             },
         },
-        image: "image_1.webp",
+        image: "antidote_1.png",
     },
     {
         id: "potion_002",
@@ -23,7 +23,7 @@ export const potions: Potion[] = [
                 attribute: "iceResistance",
             },
         },
-        image: "image_2.webp",
+        image: "enhancer_2.png",
     },
     {
         id: "potion_003",
@@ -35,6 +35,6 @@ export const potions: Potion[] = [
                 attribute: "fireResistance",
             },
         },
-        image: "image_3.webp",
+        image: "antidote_1.png",
     },
 ];
