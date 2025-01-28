@@ -1,10 +1,9 @@
-import {useState } from "react";
+import { useState } from "react";
 import { Potion } from "../interfaces/Potion";
 import SelectOponentModal from "../components/SelectOponentModal";
 import Actions from "../components/Actions";
 import NickName from "../components/NickName";
-import ClassImage from "../components/ClassImage"; // Import the new component
-import socket from "../sockets/socket";
+import ClassImage from "../components/ClassImage";
 
 interface BattleScreenProps {
   potions: Potion[];
@@ -13,10 +12,9 @@ interface BattleScreenProps {
 const BattleScreen: React.FC<BattleScreenProps> = ({
   potions,
 }) => {
-  //remove this log when sockect is used for the first time
-  console.log(socket);
-  
+
   const [isModalOpen, setIsModalOpen] = useState(false);
+
 
   const openModal = () => {
     setIsModalOpen(true);
