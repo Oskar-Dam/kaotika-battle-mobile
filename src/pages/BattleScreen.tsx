@@ -36,20 +36,30 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
   return (
     <>
     {showWaitingScreen && <Waiting setAllPlayers={setAllPlayers} />}
-      <div
-        className='w-full h-screen flex flex-col items-center justify-center'
-        style={{ backgroundImage: 'url(/images/BattleFrame2.png)', backgroundSize: '100% 100%' }}>
-        <ClassImage />
+
+      {player?.isBetrayer ? <div className='w-full h-screen flex flex-col items-center justify-center top-0'
+        style={{ backgroundImage: 'url(/images/frame_betrayer.png)', backgroundSize: '100% 100%' }}>
+        <ClassImage avatar={player.avatar}/>
 
         <NickName nickname={player?.nickname}/>
 
         <Actions potions={potions} openModal={openModal} />
       </div>
+        : <div className='w-full h-screen flex flex-col items-center justify-center'
+          style={{ backgroundImage: 'url(/images/frame_loyal.png)', backgroundSize: '100% 100%' }}>
+          <ClassImage avatar={player?.avatar!}/>
+
+          <NickName nickname={player?.nickname!} />
+
+          <Actions potions={potions} openModal={openModal} />
+        </div>}
+
       {isModalOpen && (
         <SelectOponentModal
           closeModal={closeModal}
         />
-      )}
+      )
+      }
     </>
   );
 };
