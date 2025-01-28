@@ -25,3 +25,19 @@ body {
 
 
 }
+
+@keyframes saturationAnimation {
+  0% {
+    filter: saturate(1.65);
+  }
+  50% {
+    filter: saturate(0.5);
+  }
+  100% {
+    filter: saturate(1.65);
+  }
+}
+
+.animate-saturation {
+  animation: saturationAnimation 2s infinite;
+}
