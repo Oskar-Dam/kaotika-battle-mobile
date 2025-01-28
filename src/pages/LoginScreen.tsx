@@ -13,7 +13,7 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({ email, setEmail, setIsLog
   const handleEnterBattle = async () => {
     console.log('Email:', email);
     try {
-      const response = await fetch(`https://kaotika-battle-server.onrender.com/api/player/aldatz.frutos@ikasle.aeg.eus`);
+      const response = await fetch(`https://kaotika-battle-server.onrender.com/api/player/${email}`);
 
       if (!response.ok) {
         throw new Error('Failed to fetch player data in response');
