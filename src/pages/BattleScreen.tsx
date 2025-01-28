@@ -36,7 +36,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
         style={{ backgroundImage: 'url(/images/BattleFrame2.png)', backgroundSize: '100% 100%' }}>
         <ClassImage />
 
-        <NickName nickname={player?.nickname!}/>
+        <NickName nickname={player?.nickname}/>
 
         <Actions potions={potions} openModal={openModal} />
       </div>

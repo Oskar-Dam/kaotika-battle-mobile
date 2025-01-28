@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import BattleScreen from './pages/BattleScreen.tsx'
 import WaitingScreen from './components/Waiting.tsx'
 import PWABadge from './PWABadge.tsx'
@@ -11,13 +11,18 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [email, setEmail] = useState<string>('');
   const [player, setPlayer] = useState<PlayerInterface | null>(null);
+  const [allPlayers, setAllPlayers] = useState<PlayerInterface[]>([]);
 
   const [showWaitingScreen, setShowWaitingScreen] = useState(false);
   setShowWaitingScreen;
+  useEffect(() => {
+    console.log("Players: ");
+    console.log(allPlayers);
+  }, [allPlayers]);
 
   return (
     <>
-      {showWaitingScreen && <WaitingScreen />}
+      {showWaitingScreen && isLoggedIn && <WaitingScreen setAllPlayers={setAllPlayers} />}
       {isLoggedIn ? <BattleScreen potions={potions} player={player}/>
         : <LoginScreen email={email} setEmail={setEmail} setIsLoggedIn={setIsLoggedIn} setPlayer={setPlayer}/>}
       <PWABadge />
