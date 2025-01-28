@@ -8,7 +8,7 @@ interface PotionContainerProps {
 const PotionContainer: React.FC<PotionContainerProps> = ({
   potions,
 }) => {
-  let filteredPotions = potions
+  const filteredPotions = potions
 
   const PotionsPerRow = filteredPotions.length;
   const startIndex = 0;
