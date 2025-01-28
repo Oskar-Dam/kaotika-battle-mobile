@@ -1,6 +1,5 @@
 import React, { ChangeEvent } from 'react';
 import { LoginScreenInterface } from '../interfaces/LoginScreenInterface';
-import { mockPlayer } from '../mocks/PlayerMock';
 
 import socket from '../sockets/socket';
 import { SOCKET_EVENTS } from '../sockets/events';
@@ -15,9 +14,11 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({ email, setEmail, setIsLog
     console.log('Email:', email);
     try {
       const response = await fetch(`https://kaotika-battle-server.onrender.com/api/player/aldatz.frutos@ikasle.aeg.eus`);
+
       if (!response.ok) {
-        throw new Error('Failed to fetch player data');
+        throw new Error('Failed to fetch player data in response');
       }
+
       const playerData = await response.json();
 
       console.log('Player data:', playerData);
@@ -28,7 +29,7 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({ email, setEmail, setIsLog
       socketId: socket.id
     });
     setIsLoggedIn(true);
-      setPlayer(mockPlayer);
+      setPlayer(playerData.data);
     } catch (error) {
       console.error('Fetch error:', error);
     }
