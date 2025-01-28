@@ -24,10 +24,7 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({ email, setEmail, setIsLog
       console.log('Player data:', playerData);
       
       // Emit an event with an object containing the email and socket ID
-    socket.emit(SOCKET_EVENTS.SEND_SOCKETID, {
-      email: email,
-      socketId: socket.id
-    });
+    socket.emit(SOCKET_EVENTS.SEND_SOCKETID, email);
     setIsLoggedIn(true);
       setPlayer(playerData.data);
     } catch (error) {
