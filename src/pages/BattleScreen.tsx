@@ -6,19 +6,23 @@ import NickName from "../components/NickName";
 import ClassImage from "../components/ClassImage"; // Import the new component
 import socket from "../sockets/socket";
 import PlayerInterface from "../interfaces/PlayerInterface";
+import Waiting from "../components/Waiting";
 
 interface BattleScreenProps {
   potions: Potion[];
   player: PlayerInterface | null;
+  setAllPlayers: React.Dispatch<React.SetStateAction<PlayerInterface[]>>;
 }
 
 const BattleScreen: React.FC<BattleScreenProps> = ({
-  potions, player
+  potions, player,setAllPlayers
 }) => {
   //remove this log when sockect is used for the first time
   console.log(socket);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showWaitingScreen, setShowWaitingScreen] = useState(false);
+  setShowWaitingScreen;
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -31,6 +35,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
 
   return (
     <>
+    {showWaitingScreen && <Waiting setAllPlayers={setAllPlayers} />}
       <div
         className='w-full h-screen flex flex-col items-center justify-center'
         style={{ backgroundImage: 'url(/images/BattleFrame2.png)', backgroundSize: '100% 100%' }}>
