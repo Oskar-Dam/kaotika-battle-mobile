@@ -64,9 +64,10 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({ email, setEmail, setIsLog
             onChange={handleEmailChange}></input>
         </div>
         <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-[10%]"
+          className="mt-[10%] flex flex-col items-center justify-center"
           onClick={handleEnterBattle}>
-          Enter the battle
+          <img src="/images/ENTER_BUTTON.png" alt="Enter the battle" style={{ width: '45%' }}/>
+          <span className="text-white mt-2 text-3xl mb-2" style={{ fontFamily: 'Kaotika', position: 'absolute' }}>ENTER</span>
         </button>
       </div>
     </div>
