@@ -19,7 +19,17 @@ const PotionContainer: React.FC<PotionContainerProps> = ({
       {potionsToDisplay.length > 0 ? (
         <div className="w-[75%] flex flex-row">
           {potionsToDisplay.map((potion: Potion, potionIndex) => (
-            <div key={potionIndex} className="w-[33%] break-normal md:break-all">
+            <div
+            key={potionIndex}
+            className="relative w-[33%] max-w-[200px] m-2 aspect-square" // Controla el tamaño y mantiene proporciones cuadradas
+            style={{
+              backgroundImage: 'url(/images/potion_container.png)',
+              backgroundSize: 'cover', // La imagen de fondo se ajusta sin deformarse
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
+            }}
+          >
+              
               <PotionCard
                 potion={potion}
               />
