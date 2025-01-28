@@ -17,7 +17,7 @@ const PotionContainer: React.FC<PotionContainerProps> = ({
   return (
     <div className='flex-row w-full rounded-3xl flex items-center justify-center'>
       {potionsToDisplay.length > 0 ? (
-        <div className="w-[90%] flex flex-row">
+        <div className="w-[75%] flex flex-row">
           {potionsToDisplay.map((potion: Potion, potionIndex) => (
             <div key={potionIndex} className="w-[33%] break-normal md:break-all">
               <PotionCard

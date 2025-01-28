@@ -1,18 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Spinner from './Spinner';
 import Button from './Button';
+import { clearListenToServerEventsBattleScreen, listenToServerEventsBattleScreen } from "../sockets/SocketListeners";
+import PlayerInterface from "../interfaces/PlayerInterface";
+import socket from '../sockets/socket';
+import { SOCKET_EVENTS } from '../sockets/events';
 
 // the Waiting component is a modal that displays a spinner and a message while waiting for the game to start(mortimer) or if you are mortimer, you can start the game
 interface WaitingProps {
-    role?: string;
+  role?: string;
+  setAllPlayers: React.Dispatch<React.SetStateAction<PlayerInterface[]>>;
 }
-const Waiting: React.FC<WaitingProps> = ({role = "MORTIMER"}) => {
-    return (
-        <div className="fixed inset-0 flex items-center justify-center bg-gray-900/80 z-50">
-           {role === "MORTIMER" ? <Button text={'Start the game'} onClick={() => {console.log("game started");
-           }} /> : <Spinner text={'Waiting for Mortimer to start the game'} />}
-        </div>
-    );
+const Waiting: React.FC<WaitingProps> = ({ role = "MORTIMER", setAllPlayers }) => {
+
+
+  useEffect(() => {
+    listenToServerEventsBattleScreen(setAllPlayers)
+    return () => {
+      clearListenToServerEventsBattleScreen();
+    };
+  }, []);
+  const handleStartGame = (): void => {
+    console.log("game started");
+    socket.emit(SOCKET_EVENTS.GAME_START);
+  }
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-gray-900/80 z-50">
+      {role === "MORTIMER" ? <Button text={'Start the game'} onClick={handleStartGame} /> : <Spinner text={'Waiting for Mortimer to start the game'} />}
+    </div>
+  );
 };
 
 export default Waiting;
