@@ -11,7 +11,7 @@ const Avatar: React.FC<AvatarProps> = ({ avatar }) => {
     >
       <img
         src={avatar}
-        alt={avatar}
+        alt={"?"}
         className="w-[90%] mb-2 object-contain rounded-lg"
       />
     </div>
