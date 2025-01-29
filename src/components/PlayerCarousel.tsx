@@ -1,123 +1,172 @@
-import React, { useState, useRef, useEffect } from "react";
-import { motion, useMotionValue } from "framer-motion";
+import { useState, useRef, useEffect, useCallback } from "react";
+import { motion, useMotionValue, animate } from "framer-motion";
 import { playersMock } from "../mocks/PlayersMock";
 
-/**
- * Carrusel para selección de jugadores, desplazándose de a uno.
- * - Mantenemos placeholders al inicio y final para centrar primer y último jugador.
- * - Mantenemos 3 cartas a la vista (central + adyacentes).
- * - Al hacer drag y soltar, avanza o retrocede sólo un card.
- */
-
-// Dimensiones
-const CARD_WIDTH = 120;
-const GAP = 32;
-
-// Extendemos el array para placeholders
+// We extend with placeholders at the beginning and end
 const extendedPlayers = [
-  { id: "placeholder-start", name: "", avatar: "", placeholder: true },
+  { id: "placeholder-start", placeholder: true, name: "", avatar: "" },
   ...playersMock,
-  { id: "placeholder-end", name: "", avatar: "", placeholder: true },
+  { id: "placeholder-end", placeholder: true, name: "", avatar: "" },
 ];
 
+// valid indices
+const MIN_SELECTABLE = 1;
+const MAX_SELECTABLE = extendedPlayers.length - 2;
+
 export default function DraggableCarousel() {
-  // Empezamos centrado en el primer jugador real => índice 1.
-  const [selectedIndex, setSelectedIndex] = useState(1);
+  // State to know which card is selected
+  const [selectedIndex, setSelectedIndex] = useState(MIN_SELECTABLE);
+  // We use a MotionValue for x
   const x = useMotionValue(0);
 
-  const containerRef = useRef(null);
+  // Reference to the container
+  const containerRef = useRef<HTMLDivElement>(null);
+  // We store its width
   const [containerWidth, setContainerWidth] = useState(0);
 
-  const totalCards = extendedPlayers.length;
-  const totalContentWidth = totalCards * (CARD_WIDTH + GAP) - GAP;
+  // Additionally, we store the dynamic width of the cards.
+  // For example, each card takes up 60% of the container.
+  const [cardWidth, setCardWidth] = useState(0);
 
-  // Calculamos el ancho del contenedor
+  // Aspect ratio between height and width.
+  // Originally it was 255 (height) / 200 (width) = 1.275
+  const ASPECT_RATIO = 1.275;
+
+  // Gap between each card
+  const GAP = 16;
+
+  // Total number of cards
+  const totalCards = extendedPlayers.length;
+
   useEffect(() => {
     function handleResize() {
-      if (containerRef.current) {
-        setContainerWidth(containerRef.current.offsetWidth);
-      }
+      if (!containerRef.current) return;
+      const newContainerWidth = containerRef.current.offsetWidth;
+      setContainerWidth(newContainerWidth);
+      // Adjust the factor here if you want it to be larger or smaller.
+      // For example, 0.6 => 60% of the container
+      setCardWidth(newContainerWidth * 0.5);
     }
+
     window.addEventListener("resize", handleResize);
-    handleResize();
+    handleResize(); // Call on mount
     return () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
 
-  // Ajustamos límites de arrastre
-  const maxDrag = Math.max(totalContentWidth - containerWidth, 0);
-  const dragConstraints = { left: -maxDrag, right: 0 };
+  // Recalculates the "maximum" position we can drag
+  // based on the calculated cardWidth.
+  const maxDrag = Math.max(
+    totalCards * (cardWidth + GAP) - GAP - containerWidth,
+    0
+  );
 
-  // Cada vez que cambie el selectedIndex, centramos la carta correspondiente
+  // Function to center the card at the given index
+  const centerOnIndex = useCallback(
+    (index: number) => {
+      if (!containerWidth || !cardWidth) return;
+
+      // targetOffset: the position that brings the card to the center
+      const targetOffset =
+        -(index * (cardWidth + GAP)) + containerWidth / 2 - cardWidth / 2;
+      const clamped = Math.max(Math.min(targetOffset, 0), -maxDrag);
+
+      animate(x, clamped, {
+        type: "spring",
+        stiffness: 300,
+        damping: 25,
+      });
+    },
+    [containerWidth, cardWidth, GAP, maxDrag, x]
+  );
+
+  // When selectedIndex changes => center
   useEffect(() => {
-    if (!containerWidth) return;
+    centerOnIndex(selectedIndex);
+  }, [selectedIndex, centerOnIndex]);
 
-    // Cálculo para centrar la carta en selectedIndex
-    const targetOffset = -(selectedIndex * (CARD_WIDTH + GAP))
-      + containerWidth / 2
-      - CARD_WIDTH / 2;
+  const handleDragEnd = (_: any, info: any) => {
+    if (!cardWidth) return;
 
-    const clamped = Math.max(Math.min(targetOffset, 0), -maxDrag);
-    x.set(clamped);
-  }, [containerWidth, selectedIndex, x, maxDrag]);
-
-  // Al soltar, avanza o retrocede solo 1 card según la dirección del drag
-  const handleDragEnd = (_, info) => {
     const offsetX = info.offset.x;
+    const threshold = 50;
+
     let newIndex = selectedIndex;
 
-    // Si se arrastra hacia la izquierda (> 50 px), avanzamos al siguiente
-    if (offsetX < -50) {
-      newIndex = Math.min(selectedIndex + 1, totalCards - 1);
+    // threshold to the left => next
+    if (offsetX < -threshold) {
+      newIndex = selectedIndex + 1;
     }
-    // Si se arrastra hacia la derecha (> 50 px), retrocedemos al anterior
-    else if (offsetX > 50) {
-      newIndex = Math.max(selectedIndex - 1, 0);
+    // threshold to the right => previous
+    else if (offsetX > threshold) {
+      newIndex = selectedIndex - 1;
     }
 
-    setSelectedIndex(newIndex);
+    // Prevent passing beyond placeholders
+    if (newIndex < MIN_SELECTABLE) newIndex = MIN_SELECTABLE;
+    if (newIndex > MAX_SELECTABLE) newIndex = MAX_SELECTABLE;
+
+    if (newIndex !== selectedIndex) {
+      setSelectedIndex(newIndex);
+    } else {
+      centerOnIndex(selectedIndex);
+    }
   };
+
+  // We calculate a height based on cardWidth and the aspect ratio
+  const cardHeight = cardWidth * ASPECT_RATIO;
 
   return (
     <div
       ref={containerRef}
-      className="overflow-hidden w-[80vw] h-[300px] mx-auto bg-gray-200 border border-blue-500 relative"
+      className="flex items-center overflow-hidden w-[80vw] mx-autorelativ"
+      style={{ height: cardHeight + 100 }}
+      // We leave extra space for the top/bottom
     >
       <motion.div
-        className="flex gap-8 px-4 py-4"
+        className="flex gap-4"
         style={{ x }}
         drag="x"
-        dragConstraints={dragConstraints}
         onDragEnd={handleDragEnd}
       >
         {extendedPlayers.map((player, index) => {
           const isActive = index === selectedIndex;
-          // Solo 3 cartas visibles: la seleccionada y las adyacentes
-          const isVisible = index >= selectedIndex - 1 && index <= selectedIndex + 1;
-
-          if (!isVisible) {
-            return <React.Fragment key={player.id} />;
-          }
-
-          return (
+     
+            return (
             <motion.div
               key={player.id}
-              className="relative flex-shrink-0 w-[120px] h-[170px] border-2 border-white shadow-lg overflow-hidden"
-              animate={{ scale: isActive ? 1.2 : 1 }}
+              className="relative flex-shrink-0 shadow-lg overflow-hidden"
+              style={{
+                width: cardWidth,
+                height: cardHeight,
+              }}
+              animate={{
+                transform: isActive
+                  ? "translate(0px, -25px) scale(1.15)"
+                  : "translate(0px, 20px) scale(0.90)",
+                filter: isActive
+                    ? `saturate(1) blur(0px) drop-shadow(10px 6px 4px rgba(92, 22, 17, .5))`
+                    : `saturate(0.5) blur(2px)`,
+                opacity: isActive ? 1 : 0.75, 
+                
+              }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
-              {/* Sólo mostramos imagen si no es placeholder */}
+              {/* We do not render content for placeholders */}
               {!player.placeholder && (
                 <>
                   <img
                     src="/images/carousel-frame.png"
-                    className="absolute top-0 left-0 z-10 w-full h-full"
+                    className="absolute z-10 w-full h-full "
                   />
                   <img
                     src={player.avatar}
                     alt={player.name}
                     className="w-full absolute top-1/2 -translate-y-[40%] z-0"
+                    style={{
+                      clipPath: "polygon(30% 0%, 70% 0%, 89% 30%, 89% 100%, 70% 100%, 30% 100%, 9% 100%, 10% 31%)",
+                    }}
                   />
                 </>
               )}
