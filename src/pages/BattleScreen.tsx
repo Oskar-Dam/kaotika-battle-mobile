@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Potion } from "../interfaces/Potion";
 import Actions from "../components/Actions";
-import ClassImage from "../components/ClassImage"; // Import the new component
+import CarouselContainer from "../components/CarouselContainer";
 import socket from "../sockets/socket";
 import PlayerInterface from "../interfaces/PlayerInterface";
 import Waiting from "../components/Waiting";
+import Avatar from "../components/Avatar";
 
 interface BattleScreenProps {
   potions: Potion[];
@@ -34,7 +35,10 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
       >
 
         {/* AVATAR */}
-        <ClassImage avatar={player?.avatar}/>
+        <Avatar avatar={player?.avatar}/>
+
+        {/* CAROUSEL CONTAINER */}
+        <CarouselContainer/>
 
         {/* ACTION BUTTONS */}
         <Actions potions={potions} />
