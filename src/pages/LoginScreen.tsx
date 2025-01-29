@@ -21,7 +21,7 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({ email, setEmail, setIsLog
     try {
       const playerData = await getPlayerByEmail(email);
       console.log('Player data:', playerData);
-      
+
       // Emit an event with an object containing the email and socket ID
       socket.emit(SOCKET_EVENTS.SEND_SOCKETID, email);
       setIsLoggedIn(true);
@@ -51,8 +51,8 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({ email, setEmail, setIsLog
         <h1 className="text-5xl text-white">Kaotika</h1>
         <h1 className="text-5xl text-white">The Final Battle</h1>
       </div>
-      <div className="flex flex-col items-center justify-center w-full max-w-[630px] h-[36%] border-0 border-white" style={{ backgroundImage: 'url(/images/LoginFrame.png)', backgroundSize: '100% 100%' }}>
-        <div className="w-[80%]">
+      <div className="flex flex-col items-center justify-center w-full max-w-[630px] h-[40%] border-0 border-white" style={{ backgroundImage: 'url(/images/LoginFrame.png)', backgroundSize: '100% 100%' }}>
+        <div className="w-[80%] h-[15%] mt-[10%]">
           <input
             type="search"
             placeholder='Enter your email'
@@ -62,21 +62,19 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({ email, setEmail, setIsLog
             style={{ fontFamily: 'Kaotika' }}
             onChange={handleEmailChange}></input>
         </div>
-        
+
         <button
-          className="mt-[2%] flex flex-col items-center justify-center"
+          className="mt-[5%] flex flex-col items-center justify-center bg-gray-500 h-[15%]"
           onClick={handleEnterBattle}
-          style={{ filter: email === '' ? 'grayscale(100%)' : 'none', transition: 'filter 0.3s ease', pointerEvents: email === '' ? 'none' : 'auto' }}
+          style={{ filter: email === '' ? 'grayscale(100%)' : 'none', transition: 'filter 0.3s ease', pointerEvents: email === '' ? 'none' : 'auto', width: '45%', height: 'auto' }}
           disabled={email === ''}>
-          <img src="/images/ENTER_BUTTON.png" alt="Enter the battle" style={{ width: '45%' }}/>
+          <img src="/images/ENTER_BUTTON.png" alt="Enter the battle" style={{ width: '100%' }} />
           <span className="text-white mt-2 text-3xl mb-2" style={{ fontFamily: 'Kaotika', position: 'absolute' }}>ENTER</span>
         </button>
 
-        {errorMessage && (
-          <div className="text-red-500 mt-2 text-2xl" style={{ fontFamily: 'Kaotika' }}>
-            {errorMessage}
-          </div>
-        )}
+        <div className="text-red-500 mt-2 text-2xl" style={{ fontFamily: 'Kaotika', minHeight: '2em' }}>
+          {errorMessage || <span>&nbsp;</span>}
+        </div>
       </div>
     </div>
   );
