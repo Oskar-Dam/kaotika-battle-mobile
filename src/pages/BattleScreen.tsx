@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Potion } from "../interfaces/Potion";
-import SelectOponentModal from "../components/SelectOponentModal";
 import Actions from "../components/Actions";
 import NickName from "../components/NickName";
 import ClassImage from "../components/ClassImage"; // Import the new component
@@ -20,17 +19,8 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
   //remove this log when sockect is used for the first time
   console.log(socket);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [showWaitingScreen, setShowWaitingScreen] = useState(false);
   setShowWaitingScreen;
-
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
 
   const frameBackground = player?.isBetrayer ? 'url(/images/frame_betrayer.png)' : 'url(/images/frame_loyal.png)';
 
@@ -51,16 +41,10 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
         <NickName nickname={player?.nickname}/>
 
         {/* ACTION BUTTONS */}
-        <Actions potions={potions} openModal={openModal} />
+        <Actions potions={potions} />
 
       </div>
 
-      {isModalOpen && (
-        <SelectOponentModal
-          closeModal={closeModal}
-        />
-      )
-      }
     </>
   );
 };
