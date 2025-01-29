@@ -48,7 +48,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
 
       {/* MAIN FRAME */}
       <div  
-        className='w-full h-screen flex flex-col items-center justify-center top-0'
+        className='w-full h-screen flex flex-col items-center justify-center top-0 z-20'
         style={{ backgroundImage: frameBackground, backgroundSize: '100% 100%' }}
       >
 
@@ -63,13 +63,14 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
 
       </div>
 
+
+
       {isModalOpen && selectedPotion && (
         <PotionModal
           potion={selectedPotion}
           closeModal={closeModal}
         />
-      )
-      }
+      )}
     </>
   );
 };
