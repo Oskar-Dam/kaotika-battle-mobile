@@ -1,15 +1,18 @@
 import PlayerCarousel from "./PlayerCarousel";
 
 interface CarouselContainerProps {
-
+  setSelectedPlayer: (player: any) => void;
 }
 
-const CarouselContainer: React.FC<CarouselContainerProps> = () => {
+const CarouselContainer: React.FC<CarouselContainerProps> = ({setSelectedPlayer}) => {
   return (
-    // <div className="relative flex justify-center h-[60%] opacity-50 border-0 border-blue-500 bg-amber-200 w-[80vw]" >
-      
-      <PlayerCarousel />
-    // </div>
+    <div className="" >
+      <div className="grid grid-cols-2 text-center">
+        <p>L0UAR</p>
+        <p>BETREYR</p>
+      </div>
+      <PlayerCarousel setSelectedPlayer={setSelectedPlayer} />
+    </div>
   );
 };
 

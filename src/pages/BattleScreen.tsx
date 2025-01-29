@@ -7,6 +7,7 @@ import PlayerInterface from "../interfaces/PlayerInterface";
 import Waiting from "../components/Waiting";
 import PotionModal from "../components/PotionModal";
 import Avatar from "../components/Avatar";
+import NickName from "../components/NickName";
 
 interface BattleScreenProps {
   potions: Potion[];
@@ -23,6 +24,8 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
   const [selectedPotion, setSelectedPotion] = useState<Potion | null>(null);
   const [showWaitingScreen, setShowWaitingScreen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPlayer, setSelectedPlayer] = useState<any>(undefined);
+
   setShowWaitingScreen;
 
   const openModal = (potion: Potion) => {
@@ -50,8 +53,11 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
         <Avatar avatar={player?.avatar}/>
 
         {/* CAROUSEL CONTAINER */}
-        <CarouselContainer/>
-
+        <CarouselContainer setSelectedPlayer={setSelectedPlayer} />
+        
+        {/* SELECTED PLAYER NICK */}
+        <NickName nickname={selectedPlayer?.nickname} />
+        
         {/* ACTION BUTTONS */}
         <Actions potions={potions} openModal={openModal}/>
 

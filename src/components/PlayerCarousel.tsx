@@ -13,7 +13,11 @@ const extendedPlayers = [
 const MIN_SELECTABLE = 1;
 const MAX_SELECTABLE = extendedPlayers.length - 2;
 
-export default function DraggableCarousel() {
+interface PlayerCarouselProps {
+  setSelectedPlayer: (player: any) => void
+}
+
+const PlayerCarousel: React.FC<PlayerCarouselProps> = ({setSelectedPlayer}) => {
   // State to know which card is selected
   const [selectedIndex, setSelectedIndex] = useState(MIN_SELECTABLE);
   // We use a MotionValue for x
@@ -84,6 +88,7 @@ export default function DraggableCarousel() {
   // When selectedIndex changes => center
   useEffect(() => {
     centerOnIndex(selectedIndex);
+    setSelectedPlayer(playersMock[selectedIndex-1]);
   }, [selectedIndex, centerOnIndex]);
 
   const handleDragEnd = (_: any, info: any) => {
@@ -120,7 +125,7 @@ export default function DraggableCarousel() {
   return (
     <div
       ref={containerRef}
-      className="flex items-center overflow-hidden w-[80vw] mx-autorelativ"
+      className="flex items-center overflow-hidden w-[80vw] mx-autorelative"
       style={{ height: cardHeight + 100 }}
       // We leave extra space for the top/bottom
     >
@@ -133,10 +138,10 @@ export default function DraggableCarousel() {
         {extendedPlayers.map((player, index) => {
           const isActive = index === selectedIndex;
      
-            return (
+          return (
             <motion.div
               key={player.id}
-              className="relative flex-shrink-0 shadow-lg overflow-hidden"
+              className="relative flex-shrink-0 overflow-hidden"
               style={{
                 width: cardWidth,
                 height: cardHeight,
@@ -177,3 +182,5 @@ export default function DraggableCarousel() {
     </div>
   );
 }
+
+export default PlayerCarousel;
