@@ -2,10 +2,11 @@ import { Potion } from "../interfaces/Potion";
 
 interface PotionCardProps {
   potion: Potion;
+  onClick: (potion: Potion) => void
 }
 
 const PotionCard: React.FC<PotionCardProps> = ({
-  potion
+  potion, onClick
 }) => {
   return (
     <>
@@ -14,6 +15,7 @@ const PotionCard: React.FC<PotionCardProps> = ({
           src={`/images/${potion.image}`}
           alt={potion.name}
           className="w-[70%] mb-1 h-auto object-contain"
+          onClick={() => onClick(potion)}
         />
       </div>
     </>

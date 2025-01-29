@@ -3,10 +3,12 @@ import PotionCard from './Potion';
 
 interface PotionContainerProps {
   potions: Potion[];
+  onClick: (potion: Potion) => void
 }
 
 const PotionContainer: React.FC<PotionContainerProps> = ({
   potions,
+  onClick
 }) => {
   const filteredPotions = potions
 
@@ -20,18 +22,19 @@ const PotionContainer: React.FC<PotionContainerProps> = ({
         <div className="w-[75%] flex flex-row">
           {potionsToDisplay.map((potion: Potion, potionIndex) => (
             <div
-            key={potionIndex}
-            className="relative w-[33%] max-w-[200px] m-2 aspect-square" // Controla el tamaño y mantiene proporciones cuadradas
-            style={{
-              backgroundImage: 'url(/images/potion_container.png)',
-              backgroundSize: 'cover', // La imagen de fondo se ajusta sin deformarse
-              backgroundPosition: 'center',
-              backgroundRepeat: 'no-repeat',
-            }}
-          >
-              
+              key={potionIndex}
+              className="relative w-[33%] max-w-[200px] m-2 aspect-square" // Controla el tamaño y mantiene proporciones cuadradas
+              style={{
+                backgroundImage: 'url(/images/potion_container.png)',
+                backgroundSize: 'cover', // La imagen de fondo se ajusta sin deformarse
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+              }}
+            >
+
               <PotionCard
                 potion={potion}
+                onClick={onClick}
               />
             </div>
           ))}

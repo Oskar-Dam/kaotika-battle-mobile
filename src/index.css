@@ -38,6 +38,22 @@ body {
   }
 }
 
+@keyframes blueSaturationAnimation {
+  0% {
+    filter: saturate(1.65) hue-rotate(200deg);
+  }
+  50% {
+    filter: saturate(0.5) hue-rotate(200deg);
+  }
+  100% {
+    filter: saturate(1.65) hue-rotate(200deg);
+  }
+}
+
 .animate-saturation {
   animation: saturationAnimation 2s infinite;
+}
+
+.animate-saturation-blue {
+  animation: blueSaturationAnimation 2s infinite;
 }
