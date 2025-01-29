@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Potion } from "../interfaces/Potion";
-import SelectOponentModal from "../components/SelectOponentModal";
 import Actions from "../components/Actions";
 import NickName from "../components/NickName";
 import ClassImage from "../components/ClassImage"; // Import the new component
 import socket from "../sockets/socket";
 import PlayerInterface from "../interfaces/PlayerInterface";
 import Waiting from "../components/Waiting";
+import PotionModal from "../components/PotionModal";
 
 interface BattleScreenProps {
   potions: Potion[];
@@ -21,10 +21,12 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
   console.log(socket);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPotion, setSelectedPotion] = useState<Potion | null>(null);
   const [showWaitingScreen, setShowWaitingScreen] = useState(false);
   setShowWaitingScreen;
 
-  const openModal = () => {
+  const openModal = (potion: Potion) => {
+    setSelectedPotion(potion);
     setIsModalOpen(true);
   };
 
@@ -54,8 +56,9 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
           <Actions potions={potions} openModal={openModal} />
         </div>}
 
-      {isModalOpen && (
-        <SelectOponentModal
+      {isModalOpen && selectedPotion && (
+        <PotionModal
+          potion={selectedPotion}
           closeModal={closeModal}
         />
       )
