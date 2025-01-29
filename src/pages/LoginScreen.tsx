@@ -26,7 +26,7 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({ email, setEmail, setIsLog
       socket.emit(SOCKET_EVENTS.SEND_SOCKETID, email);
       setIsLoggedIn(true);
       setIsLoading(false);
-      setPlayer(playerData.data);
+      setPlayer(playerData);
     } catch (error: unknown) {
       console.error('Fetch error:', error);
       if (error instanceof Error) {

@@ -10,5 +10,5 @@ export const getPlayerByEmail = async (email: string) => {
   }
 
   const playerData = await response.json();
-  return playerData;
+  return playerData.data;
 };
