@@ -22,7 +22,7 @@ const PotionModal: React.FC<PotionModalProps> = ({
             X
           </button>
         </div>
-        <h1 className="text-white text-2xl font-bold my-[2%]">{potion.name}</h1>
+        <h1 className="text-white text-2xl font-bold my-[2%] max-w-[85%] text-center">{potion.name}</h1>
         <h2 className="text-white text-xl capitalize my-[1%]">Type: {potion.type}</h2>
         <h2 className="text-white text-xl capitalize my-[2%]">Effect: {potion.effects.primary.attribute}</h2>
 
