@@ -7,6 +7,7 @@ import socket from "../sockets/socket";
 import PlayerInterface from "../interfaces/PlayerInterface";
 import Waiting from "../components/Waiting";
 import PotionModal from "../components/PotionModal";
+import BlockedScreen from "../components/BlockedScreen";
 
 interface BattleScreenProps {
   potions: Potion[];
@@ -17,8 +18,10 @@ interface BattleScreenProps {
 }
 
 const BattleScreen: React.FC<BattleScreenProps> = ({
-  potions, player,setAllPlayers
+  potions, player,setAllPlayers, isMyTurn, setIsMyTurn
 }) => {
+
+  setIsMyTurn;
   //remove this log when sockect is used for the first time
   console.log(socket);
 
@@ -40,7 +43,8 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
 
   return (
     <>
-    {showWaitingScreen && <Waiting setAllPlayers={setAllPlayers} />}
+      {!isMyTurn && <BlockedScreen />}
+      {showWaitingScreen && <Waiting setAllPlayers={setAllPlayers} />}
 
       {/* MAIN FRAME */}
       <div  
