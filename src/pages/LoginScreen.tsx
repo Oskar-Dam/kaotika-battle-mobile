@@ -3,36 +3,38 @@ import { LoginScreenInterface } from '../interfaces/LoginScreenInterface';
 import Spinner from '../components/Spinner';
 import socket from '../sockets/socket';
 import { SOCKET_EVENTS } from '../sockets/events';
+import { getPlayerByEmail } from '../api/getPlayerByEmail';
 
 const LoginScreen: React.FC<LoginScreenInterface> = ({ email, setEmail, setIsLoggedIn, setPlayer }) => {
 
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
+    setErrorMessage(''); // Clear error message when email changes
   };
 
   const handleEnterBattle = async () => {
     setIsLoading(true);
     console.log('Email:', email);
     try {
-      const response = await fetch(`https://kaotika-battle-server.onrender.com/api/player/${email}`);
-
-      if (!response.ok) {
-        throw new Error('Failed to fetch player data in response');
-      }
-
-      const playerData = await response.json();
-
+      const playerData = await getPlayerByEmail(email);
       console.log('Player data:', playerData);
-      
+
       // Emit an event with an object containing the email and socket ID
-    socket.emit(SOCKET_EVENTS.SEND_SOCKETID, email);
-    setIsLoggedIn(true);
-    setIsLoading(false);
-      setPlayer(playerData.data);
-    } catch (error) {
+      socket.emit(SOCKET_EVENTS.SEND_SOCKETID, email);
+      setIsLoggedIn(true);
+      setIsLoading(false);
+      setPlayer(playerData);
+    } catch (error: unknown) {
       console.error('Fetch error:', error);
+      if (error instanceof Error) {
+        setErrorMessage(error.message);
+      } else {
+        setErrorMessage('An unknown error occurred');
+      }
+      setIsLoading(false);
     }
   };
 
@@ -50,7 +52,7 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({ email, setEmail, setIsLog
         <h1 className="text-5xl text-white">The Final Battle</h1>
       </div>
       <div className="flex flex-col items-center justify-center w-full max-w-[630px] h-[40%] border-0 border-white" style={{ backgroundImage: 'url(/images/LoginFrame.png)', backgroundSize: '100% 100%' }}>
-        <div className="w-[80%]">
+        <div className="w-[80%] h-[15%] mt-[10%]">
           <input
             type="search"
             placeholder='Enter your email'
@@ -60,12 +62,19 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({ email, setEmail, setIsLog
             style={{ fontFamily: 'Kaotika' }}
             onChange={handleEmailChange}></input>
         </div>
+
         <button
-          className="mt-[10%] flex flex-col items-center justify-center"
-          onClick={handleEnterBattle}>
-          <img src="/images/ENTER_BUTTON.png" alt="Enter the battle" style={{ width: '45%' }}/>
+          className="mt-[5%] flex flex-col items-center justify-center bg-gray-500 h-[15%]"
+          onClick={handleEnterBattle}
+          style={{ filter: email === '' ? 'grayscale(100%)' : 'none', transition: 'filter 0.3s ease', pointerEvents: email === '' ? 'none' : 'auto', width: '45%', height: 'auto' }}
+          disabled={email === ''}>
+          <img src="/images/ENTER_BUTTON.png" alt="Enter the battle" style={{ width: '100%' }} />
           <span className="text-white mt-2 text-3xl mb-2" style={{ fontFamily: 'Kaotika', position: 'absolute' }}>ENTER</span>
         </button>
+
+        <div className="text-red-500 mt-2 text-2xl" style={{ fontFamily: 'Kaotika', minHeight: '2em' }}>
+          {errorMessage || <span>&nbsp;</span>}
+        </div>
       </div>
     </div>
   );

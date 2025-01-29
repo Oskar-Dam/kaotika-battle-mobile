@@ -5,6 +5,7 @@ import CarouselContainer from "../components/CarouselContainer";
 import socket from "../sockets/socket";
 import PlayerInterface from "../interfaces/PlayerInterface";
 import Waiting from "../components/Waiting";
+import PotionModal from "../components/PotionModal";
 import Avatar from "../components/Avatar";
 
 interface BattleScreenProps {
@@ -19,8 +20,19 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
   //remove this log when sockect is used for the first time
   console.log(socket);
 
+  const [selectedPotion, setSelectedPotion] = useState<Potion | null>(null);
   const [showWaitingScreen, setShowWaitingScreen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   setShowWaitingScreen;
+
+  const openModal = (potion: Potion) => {
+    setSelectedPotion(potion);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   const frameBackground = player?.isBetrayer ? 'url(/images/frame_betrayer.png)' : 'url(/images/frame_loyal.png)';
 
@@ -41,10 +53,17 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
         <CarouselContainer/>
 
         {/* ACTION BUTTONS */}
-        <Actions potions={potions} />
+        <Actions potions={potions} openModal={openModal}/>
 
       </div>
 
+      {isModalOpen && selectedPotion && (
+        <PotionModal
+          potion={selectedPotion}
+          closeModal={closeModal}
+        />
+      )
+      }
     </>
   );
 };
