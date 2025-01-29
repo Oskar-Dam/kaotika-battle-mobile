@@ -1,6 +1,4 @@
-import PlayerInterface from "../interfaces/PlayerInterface";
-
-export const mockPlayer: PlayerInterface = {
+export const mockPlayer: any = {
   attributes: {
     intelligence: 10,
     dexterity: 10,
