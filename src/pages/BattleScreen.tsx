@@ -32,27 +32,28 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
     setIsModalOpen(false);
   };
 
+  const frameBackground = player?.isBetrayer ? 'url(/images/frame_betrayer.png)' : 'url(/images/frame_loyal.png)';
 
   return (
     <>
     {showWaitingScreen && <Waiting setAllPlayers={setAllPlayers} />}
 
-      {player?.isBetrayer ? <div className='w-full h-screen flex flex-col items-center justify-center top-0'
-        style={{ backgroundImage: 'url(/images/frame_betrayer.png)', backgroundSize: '100% 100%' }}>
-        <ClassImage avatar={player.avatar}/>
+      {/* MAIN FRAME */}
+      <div  
+        className='w-full h-screen flex flex-col items-center justify-center top-0'
+        style={{ backgroundImage: frameBackground, backgroundSize: '100% 100%' }}
+      >
 
+        {/* AVATAR */}
+        <ClassImage avatar={player?.avatar}/>
+
+        {/* NICKNAME */}
         <NickName nickname={player?.nickname}/>
 
+        {/* ACTION BUTTONS */}
         <Actions potions={potions} openModal={openModal} />
+
       </div>
-        : <div className='w-full h-screen flex flex-col items-center justify-center'
-          style={{ backgroundImage: 'url(/images/frame_loyal.png)', backgroundSize: '100% 100%' }}>
-          <ClassImage avatar={player?.avatar!}/>
-
-          <NickName nickname={player?.nickname!} />
-
-          <Actions potions={potions} openModal={openModal} />
-        </div>}
 
       {isModalOpen && (
         <SelectOponentModal
