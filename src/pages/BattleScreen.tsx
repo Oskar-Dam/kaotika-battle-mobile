@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Potion } from "../interfaces/Potion";
 import Actions from "../components/Actions";
-import NickName from "../components/NickName";
 import ClassImage from "../components/ClassImage"; // Import the new component
 import socket from "../sockets/socket";
 import PlayerInterface from "../interfaces/PlayerInterface";
@@ -36,9 +35,6 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
 
         {/* AVATAR */}
         <ClassImage avatar={player?.avatar}/>
-
-        {/* NICKNAME */}
-        <NickName nickname={player?.nickname}/>
 
         {/* ACTION BUTTONS */}
         <Actions potions={potions} />
