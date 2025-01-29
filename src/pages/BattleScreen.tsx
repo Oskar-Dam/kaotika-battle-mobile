@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { Potion } from "../interfaces/Potion";
 import Actions from "../components/Actions";
-import NickName from "../components/NickName";
-import ClassImage from "../components/ClassImage"; // Import the new component
+import CarouselContainer from "../components/CarouselContainer";
 import socket from "../sockets/socket";
 import PlayerInterface from "../interfaces/PlayerInterface";
 import Waiting from "../components/Waiting";
 import PotionModal from "../components/PotionModal";
 import BlockedScreen from "../components/BlockedScreen";
+import Avatar from "../components/Avatar";
+import NickName from "../components/NickName";
 
 interface BattleScreenProps {
   potions: Potion[];
@@ -28,6 +29,8 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
   const [selectedPotion, setSelectedPotion] = useState<Potion | null>(null);
   const [showWaitingScreen, setShowWaitingScreen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPlayer, setSelectedPlayer] = useState<any>(undefined);
+
   setShowWaitingScreen;
 
   const openModal = (potion: Potion) => {
@@ -53,11 +56,14 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
       >
 
         {/* AVATAR */}
-        <ClassImage avatar={player?.avatar}/>
+        <Avatar avatar={player?.avatar}/>
 
-        {/* NICKNAME */}
-        <NickName nickname={player?.nickname}/>
-
+        {/* CAROUSEL CONTAINER */}
+        <CarouselContainer setSelectedPlayer={setSelectedPlayer} />
+        
+        {/* SELECTED PLAYER NICK */}
+        <NickName nickname={selectedPlayer?.nickname} />
+        
         {/* ACTION BUTTONS */}
         <Actions potions={potions} openModal={openModal} isMyTurn={isMyTurn}/>
 
