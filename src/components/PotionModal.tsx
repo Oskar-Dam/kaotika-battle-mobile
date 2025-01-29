@@ -26,7 +26,7 @@ const PotionModal: React.FC<PotionModalProps> = ({
         <h2 className="text-white text-xl capitalize my-[1%]">Type: {potion.type}</h2>
         <h2 className="text-white text-xl capitalize my-[2%]">Effect: {potion.effects.primary.attribute}</h2>
 
-        <button className="mt-4 w-[60%]">
+        <button className="mt-4 w-[60%] animate-saturation-blue">
           <img src="/images/ATTACK_BUTTON.png" alt="Attack Button" />
         </button>
       </div>
