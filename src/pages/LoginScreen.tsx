@@ -27,10 +27,7 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({ email, setEmail, setIsLog
       console.log('Player data:', playerData);
       
       // Emit an event with an object containing the email and socket ID
-    socket.emit(SOCKET_EVENTS.SEND_SOCKETID, {
-      email: email,
-      socketId: socket.id
-    });
+    socket.emit(SOCKET_EVENTS.SEND_SOCKETID, email);
     setIsLoggedIn(true);
     setIsLoading(false);
       setPlayer(playerData.data);
@@ -64,9 +61,10 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({ email, setEmail, setIsLog
             onChange={handleEmailChange}></input>
         </div>
         <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-[10%]"
+          className="mt-[10%] flex flex-col items-center justify-center"
           onClick={handleEnterBattle}>
-          Enter the battle
+          <img src="/images/ENTER_BUTTON.png" alt="Enter the battle" style={{ width: '45%' }}/>
+          <span className="text-white mt-2 text-3xl mb-2" style={{ fontFamily: 'Kaotika', position: 'absolute' }}>ENTER</span>
         </button>
       </div>
     </div>

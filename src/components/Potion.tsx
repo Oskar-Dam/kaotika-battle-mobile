@@ -9,17 +9,12 @@ const PotionCard: React.FC<PotionCardProps> = ({
 }) => {
   return (
     <>
-      <div
-        className="w-auto flex flex-col break-normal items-center justify-center"
-      >
+      <div className="flex items-center justify-center w-full h-full">
         <img
-          src={"public/images/" + potion.image}
+          src={`/images/${potion.image}`}
           alt={potion.name}
-          className="w-[90%] h-auto mb-2 object-contain rounded-lg"
+          className="w-[70%] mb-1 h-auto object-contain"
         />
-        <strong className="text-black text-center text-[80%] font-semibold px-2 max-w-[100%] break-word">
-          {potion.name}
-        </strong>
       </div>
     </>
   );

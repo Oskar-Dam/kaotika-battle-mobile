@@ -54,6 +54,7 @@ interface PlayerInterface {
   profile: Profile;
   role: string;
   resistance: number;
+  isBetrayer: Boolean;
 }
 
 export default PlayerInterface;
