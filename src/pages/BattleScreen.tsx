@@ -20,9 +20,9 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
   //remove this log when sockect is used for the first time
   console.log(socket);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPotion, setSelectedPotion] = useState<Potion | null>(null);
   const [showWaitingScreen, setShowWaitingScreen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   setShowWaitingScreen;
 
   const openModal = (potion: Potion) => {
@@ -53,7 +53,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
         <NickName nickname={player?.nickname}/>
 
         {/* ACTION BUTTONS */}
-        <Actions potions={potions} openModal={openModal} />
+        <Actions potions={potions} openModal={openModal}/>
 
       </div>
 
