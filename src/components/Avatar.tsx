@@ -1,9 +1,8 @@
 interface AvatarProps {
-  avatar: string;
+  avatar?: string;
 }
 
 const Avatar: React.FC<AvatarProps> = ({ avatar }) => {
-  console.log(avatar);
   
   return (
     <div

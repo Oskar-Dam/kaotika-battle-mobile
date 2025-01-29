@@ -1,7 +1,7 @@
 import Avatar from "./Avatar";
 
 interface ClassImageProps {
-  avatar: string
+  avatar?: string
 }
 
 const ClassImage: React.FC<ClassImageProps> = ({ avatar }) => {
