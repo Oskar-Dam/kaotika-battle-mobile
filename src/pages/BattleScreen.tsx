@@ -12,6 +12,8 @@ interface BattleScreenProps {
   potions: Potion[];
   player: PlayerInterface | null;
   setAllPlayers: React.Dispatch<React.SetStateAction<PlayerInterface[]>>;
+  isMyTurn: boolean;
+  setIsMyTurn: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const BattleScreen: React.FC<BattleScreenProps> = ({
