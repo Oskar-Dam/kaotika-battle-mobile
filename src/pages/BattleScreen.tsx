@@ -28,10 +28,6 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
   setIsMyTurn
 }) => {
 
-  setIsMyTurn;
-  //remove this log when sockect is used for the first time
-  console.log(socket);
-
   const [selectedPotion, setSelectedPotion] = useState<Potion | null>(null);
   const [showWaitingScreen, setShowWaitingScreen] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
