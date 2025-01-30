@@ -13,7 +13,7 @@ const AttackButton: React.FC<AttackButtonProps> = ({ text = 'Void', onClick, isM
       <button
         className={`relative px-25 py-10 text-2xl font-bold text-gray-100 ${isMyTurn ? 'animate-saturation' : ''}`}
         style={{
-          backgroundImage: 'url(/public/images/ATTACK_BUTTON.png)',
+          backgroundImage: 'url(/public/images/attack-button.webp)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           filter: isMyTurn ? 'saturate(1)' : 'saturate(0)'
