@@ -9,6 +9,18 @@ export const listenToServerEventsBattleScreen = (setAllPlayers: (players: Player
   });
 };
 
-export const clearListenToServerEventsBattleScreen = ():void =>{
+export const clearListenToServerEventsBattleScreen = (): void => {
   socket.off(SOCKET_EVENTS.RECIVE_USERS);
 }
+
+export const listenToDesconnections = (setdisconnection: (disconnection: boolean) => void) => {
+  socket.on(SOCKET_EVENTS.DISCONNECT, () => {
+    console.log("desconnection modal on");
+    setdisconnection(true);
+  });
+  socket.on(SOCKET_EVENTS.CONNECT, () => {
+    console.log("desconnection modal off");
+    setdisconnection(false);
+  });
+}
+
