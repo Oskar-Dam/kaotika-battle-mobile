@@ -29,7 +29,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
   console.log(socket);
 
   const [selectedPotion, setSelectedPotion] = useState<Potion | null>(null);
-  const [showWaitingScreen, setShowWaitingScreen] = useState(false);
+  const [showWaitingScreen, setShowWaitingScreen] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState<any>(undefined);
 
@@ -63,7 +63,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
   return (
     <>
       {!isMyTurn && <BlockedScreen />}
-      {showWaitingScreen && <Waiting setAllPlayers={setAllPlayers} />}
+      {showWaitingScreen && <Waiting setAllPlayers={setAllPlayers} setShowWaitingScreen={setShowWaitingScreen}/>}
 
       {/* MAIN FRAME */}
       <div  
