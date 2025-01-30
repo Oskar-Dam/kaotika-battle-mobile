@@ -125,7 +125,7 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({setSelectedPlayer}) => {
   return (
     <div
       ref={containerRef}
-      className="flex items-center overflow-hidden w-[80vw] mx-autorelative"
+      className="flex items-center overflow-hidden w-[80vw]"
       style={{ height: cardHeight + 100 }}
       // We leave extra space for the top/bottom
     >
@@ -148,10 +148,10 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({setSelectedPlayer}) => {
               }}
               animate={{
                 transform: isActive
-                  ? "translate(0px, -25px) scale(1.15)"
-                  : "translate(0px, 20px) scale(0.90)",
+                  ? "translate(0px, -15px) scale(1.15)"
+                  : "translate(0px, 30px) scale(0.90)",
                 filter: isActive
-                    ? `saturate(1) blur(0px) drop-shadow(10px 6px 4px rgba(92, 22, 17, .5))`
+                    ? `saturate(1) blur(0px) drop-shadow(0px 6px 8px rgba(92, 22, 17, .5)) drop-shadow(0px 6px 15px rgba(255, 255, 255, .15))`
                     : `saturate(0.5) blur(2px)`,
                 opacity: isActive ? 1 : 0.75, 
                 
