@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Potion } from "../interfaces/Potion";
 import Actions from "../components/Actions";
 import CarouselContainer from "../components/CarouselContainer";
@@ -33,6 +33,20 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
 
   setShowWaitingScreen;
 
+  useEffect(() => {
+    socket.on("assign-turn", (_id: string) => {
+      if (player?._id === _id) {
+        setIsMyTurn(true);
+      } else {
+        setIsMyTurn(false);
+      }
+    });
+
+    return () => {
+      socket.off("assign-turn");
+    };
+  }, [player, setIsMyTurn]);
+
   const openModal = (potion: Potion) => {
     setSelectedPotion(potion);
     setIsModalOpen(true);
@@ -42,7 +56,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
     setIsModalOpen(false);
   };
 
-  const frameBackground = player?.isBetrayer ? 'url(/images/frame_betrayer.png)' : 'url(/images/frame_loyal.png)';
+  const frameBackground = player?.isBetrayer ? 'url(/images/frame-betrayer.webp)' : 'url(/images/frame-loyal.webp)';
 
   return (
     <>
@@ -51,7 +65,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
 
       {/* MAIN FRAME */}
       <div  
-        className='w-full h-screen flex flex-col items-center justify-center top-0 z-20'
+        className='w-screen h-screen flex flex-col items-center justify-center top-0 z-20'
         style={{ backgroundImage: frameBackground, backgroundSize: '100% 100%' }}
       >
 

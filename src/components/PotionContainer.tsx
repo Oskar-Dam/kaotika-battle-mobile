@@ -25,7 +25,7 @@ const PotionContainer: React.FC<PotionContainerProps> = ({
               key={potionIndex}
               className="relative w-[33%] max-w-[200px] m-2 aspect-square" // Controla el tamaño y mantiene proporciones cuadradas
               style={{
-                backgroundImage: 'url(/images/potion_container.png)',
+                backgroundImage: 'url(/images/potion-container.webp)',
                 backgroundSize: 'cover', // La imagen de fondo se ajusta sin deformarse
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
