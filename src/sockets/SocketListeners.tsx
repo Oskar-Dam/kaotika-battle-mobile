@@ -20,6 +20,7 @@ export const listenToGameStart = (setShowWaitingScreen: React.Dispatch<React.Set
 
 export const clearListenToServerEventsBattleScreen = (): void => {
   socket.off(SOCKET_EVENTS.RECIVE_USERS);
+  socket.off(SOCKET_EVENTS.GAME_STARTED);
 }
 
 export const listenToDesconnections = (setdisconnection: (disconnection: boolean) => void) => {
