@@ -11,6 +11,8 @@ function App() {
   const [email, setEmail] = useState<string>('');
   const [player, setPlayer] = useState<PlayerInterface | null>(null);
   const [allPlayers, setAllPlayers] = useState<PlayerInterface[]>([]);
+  const [isMyTurn, setIsMyTurn] = useState<boolean>(false);
+
   useEffect(() => {
     console.log("Players: ");
     console.log(allPlayers);
@@ -18,8 +20,17 @@ function App() {
 
   return (
     <>
-      {isLoggedIn ? <BattleScreen potions={potions} player={player} setAllPlayers={setAllPlayers}/>
-        : <LoginScreen email={email} setEmail={setEmail} setIsLoggedIn={setIsLoggedIn} setPlayer={setPlayer}/>}
+      {isLoggedIn ? <BattleScreen
+        potions={potions} 
+        player={player} 
+        setAllPlayers={setAllPlayers} 
+        isMyTurn={isMyTurn} 
+        setIsMyTurn={setIsMyTurn} />
+        : <LoginScreen 
+        email={email} 
+        setEmail={setEmail} 
+        setIsLoggedIn={setIsLoggedIn} 
+        setPlayer={setPlayer} />}
       <PWABadge />
     </>
   )
