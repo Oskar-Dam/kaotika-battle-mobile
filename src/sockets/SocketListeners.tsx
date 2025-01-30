@@ -1,13 +1,19 @@
 import socket from './socket';
 import { SOCKET_EVENTS } from './events';
 import PlayerInterface from '../interfaces/PlayerInterface';
+import { factions } from '../mocks/FactionsMock';
 
 export const listenToServerEventsBattleScreen = (setAllPlayers: (players: PlayerInterface[]) => void) => {
   socket.on(SOCKET_EVENTS.RECIVE_USERS, (players: PlayerInterface[]) => {
-    console.log('Players: ' + players);
-    setAllPlayers(players);
-  });
+    // console.log('Players: ' + players);
+    // setAllPlayers(players);
+    // ⬇️ Mocking purpose ⬇️
 
+    console.log("ENTRA AQUIIIII");
+    console.log([...factions.betrayers, ...factions.loyals]);
+    setAllPlayers([...factions.betrayers, ...factions.loyals]);
+
+  });
 };
 
 export const listenToGameStart = (setShowWaitingScreen: React.Dispatch<React.SetStateAction<boolean>>) => {

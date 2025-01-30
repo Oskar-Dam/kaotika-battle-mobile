@@ -21,7 +21,11 @@ interface BattleScreenProps {
 }
 
 const BattleScreen: React.FC<BattleScreenProps> = ({
-  potions, player,setAllPlayers, isMyTurn, setIsMyTurn
+  potions, 
+  player,
+  setAllPlayers,
+  isMyTurn,
+  setIsMyTurn
 }) => {
 
   setIsMyTurn;
