@@ -34,8 +34,6 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
   const [selectedPlayer, setSelectedPlayer] = useState<any>(undefined);
   const [filteredFaction, setFilteredFaction] = useState<Factions|undefined>(undefined);
 
-  setShowWaitingScreen;
-
   useEffect(() => {
     socket.on("assign-turn", (_id: string) => {
       if (player?._id === _id) {
