@@ -11,7 +11,7 @@ import Avatar from "../components/Avatar";
 import NickName from "../components/NickName";
 import StaminaBar from "../components/StaminaBar";
 import HitPointsBar from "../components/HitPointsBar";
-
+import { Factions } from "../interfaces/Factions";
 interface BattleScreenProps {
   potions: Potion[];
   player: PlayerInterface | null;
@@ -32,6 +32,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
   const [showWaitingScreen, setShowWaitingScreen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState<any>(undefined);
+  const [filteredFaction, setFilteredFaction] = useState<Factions|undefined>(undefined);
 
   setShowWaitingScreen;
 
@@ -77,7 +78,11 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
         <Avatar avatar={player?.avatar}/>
 
         {/* CAROUSEL CONTAINER */}
-        <CarouselContainer setSelectedPlayer={setSelectedPlayer} />
+        <CarouselContainer
+           setSelectedPlayer={setSelectedPlayer}
+           filteredFaction={filteredFaction}
+           setFilteredFaction={setFilteredFaction}
+        />
         
         {/* SELECTED PLAYER NICK */}
         <NickName nickname={selectedPlayer?.nickname} />
