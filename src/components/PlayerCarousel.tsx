@@ -162,7 +162,7 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({setSelectedPlayer}) => {
               {!player.placeholder && (
                 <>
                   <img
-                    src="/images/carousel-frame.png"
+                    src="/images/carousel-frame.webp"
                     className="absolute z-10 w-full h-full "
                   />
                   <img
