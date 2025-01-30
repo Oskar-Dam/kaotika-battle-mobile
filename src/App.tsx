@@ -14,7 +14,7 @@ function App() {
   const [player, setPlayer] = useState<PlayerInterface | null>(null);
   const [allPlayers, setAllPlayers] = useState<PlayerInterface[]>([]);
   const [isMyTurn, setIsMyTurn] = useState<boolean>(true);
-  const [desconnection, setDesconnection] = useState<boolean>(false);
+  const [desconnection, setDesconnection] = useState<boolean>(true);
 
 
   useEffect(() => {

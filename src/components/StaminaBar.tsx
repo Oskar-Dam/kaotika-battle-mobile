@@ -9,7 +9,7 @@ const StaminaBar: React.FC<StaminaBarProps> = ({ }) => {
       className="absolute top-[2.65%] left-[12.7%]"
     >
       <img
-        src="/images/stamina_bar.webp"
+        src="/images/stamina-bar.webp"
         alt={"?"}
         className="w-[10.7vh] mb-2"
       />
