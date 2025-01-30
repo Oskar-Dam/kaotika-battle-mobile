@@ -9,6 +9,8 @@ import PotionModal from "../components/PotionModal";
 import BlockedScreen from "../components/BlockedScreen";
 import Avatar from "../components/Avatar";
 import NickName from "../components/NickName";
+import StaminaBar from "../components/StaminaBar";
+import HitPointsBar from "../components/HitPointsBar";
 
 interface BattleScreenProps {
   potions: Potion[];
@@ -68,6 +70,8 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
         className='w-screen h-screen flex flex-col items-center justify-center top-0 z-20'
         style={{ backgroundImage: frameBackground, backgroundSize: '100% 100%' }}
       >
+        <StaminaBar/>
+        <HitPointsBar/>
 
         {/* AVATAR */}
         <Avatar avatar={player?.avatar}/>
