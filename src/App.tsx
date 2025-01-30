@@ -11,7 +11,7 @@ function App() {
   const [email, setEmail] = useState<string>('');
   const [player, setPlayer] = useState<PlayerInterface | null>(null);
   const [allPlayers, setAllPlayers] = useState<PlayerInterface[]>([]);
-  const [isMyTurn, setIsMyTurn] = useState<boolean>(false);
+  const [isMyTurn, setIsMyTurn] = useState<boolean>(true);
 
   useEffect(() => {
     console.log("Players: ");
