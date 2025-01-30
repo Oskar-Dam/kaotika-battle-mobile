@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Potion } from "../interfaces/Potion";
 import Actions from "../components/Actions";
 import CarouselContainer from "../components/CarouselContainer";
@@ -32,6 +32,20 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
   const [selectedPlayer, setSelectedPlayer] = useState<any>(undefined);
 
   setShowWaitingScreen;
+
+  useEffect(() => {
+    socket.on("assign-turn", (_id: string) => {
+      if (player?._id === _id) {
+        setIsMyTurn(true);
+      } else {
+        setIsMyTurn(false);
+      }
+    });
+
+    return () => {
+      socket.off("assign-turn");
+    };
+  }, [player, setIsMyTurn]);
 
   const openModal = (potion: Potion) => {
     setSelectedPotion(potion);
