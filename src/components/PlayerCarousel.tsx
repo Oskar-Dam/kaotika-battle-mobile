@@ -140,7 +140,7 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({setSelectedPlayer}) => {
      
           return (
             <motion.div
-              key={player.id}
+              key={index}
               className="relative flex-shrink-0 overflow-hidden"
               style={{
                 width: cardWidth,
