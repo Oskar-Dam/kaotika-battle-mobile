@@ -7,10 +7,20 @@ export const listenToServerEventsBattleScreen = (setAllPlayers: (players: Player
     console.log('Players: ' + players);
     setAllPlayers(players);
   });
+
+};
+
+export const listenToGameStart = (setShowWaitingScreen: React.Dispatch<React.SetStateAction<boolean>>) => {
+  socket.on(SOCKET_EVENTS.GAME_STARTED, (showWaitingScreen: boolean) => {
+    showWaitingScreen = false;
+    setShowWaitingScreen(false);
+  });
+
 };
 
 export const clearListenToServerEventsBattleScreen = (): void => {
   socket.off(SOCKET_EVENTS.RECIVE_USERS);
+  socket.off(SOCKET_EVENTS.GAME_STARTED);
 }
 
 export const listenToDesconnections = (setdisconnection: (disconnection: boolean) => void) => {

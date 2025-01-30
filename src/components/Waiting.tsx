@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Spinner from './Spinner';
 import Button from './Button';
-import { clearListenToServerEventsBattleScreen, listenToServerEventsBattleScreen } from "../sockets/SocketListeners";
+import { clearListenToServerEventsBattleScreen, listenToGameStart, listenToServerEventsBattleScreen } from "../sockets/SocketListeners";
 import PlayerInterface from "../interfaces/PlayerInterface";
 import socket from '../sockets/socket';
 import { SOCKET_EVENTS } from '../sockets/events';
@@ -10,12 +10,14 @@ import { SOCKET_EVENTS } from '../sockets/events';
 interface WaitingProps {
   role?: string;
   setAllPlayers: React.Dispatch<React.SetStateAction<PlayerInterface[]>>;
+  setShowWaitingScreen: React.Dispatch<React.SetStateAction<boolean>>;
 }
-const Waiting: React.FC<WaitingProps> = ({ role = "MORTIMER", setAllPlayers }) => {
+const Waiting: React.FC<WaitingProps> = ({ role = "MORTIMER", setAllPlayers, setShowWaitingScreen }) => {
 
 
   useEffect(() => {
     listenToServerEventsBattleScreen(setAllPlayers)
+    listenToGameStart(setShowWaitingScreen);
     return () => {
       clearListenToServerEventsBattleScreen();
     };
