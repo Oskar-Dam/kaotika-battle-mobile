@@ -8,6 +8,7 @@ export const listenToServerEventsBattleScreen = (setKaotikaPlayers: (players: Pl
     
     // setAllPlayers(players.kaotika);
     // setAllPlayers(players.dravocar);
+    console.log(players);
 
     console.warn("Take into account that the players are Mocked!")
     setKaotikaPlayers(factions.kaotika);
