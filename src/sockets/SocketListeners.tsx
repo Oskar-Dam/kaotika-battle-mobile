@@ -3,15 +3,15 @@ import { SOCKET_EVENTS } from './events';
 import PlayerInterface from '../interfaces/PlayerInterface';
 import { factions } from '../mocks/FactionsMock';
 
-export const listenToServerEventsBattleScreen = (setAllPlayers: (players: PlayerInterface[]) => void) => {
+export const listenToServerEventsBattleScreen = (setKaotikaPlayers: (players: PlayerInterface[]) => void, setDravocarPlayers: (players: PlayerInterface[]) => void) => {
   socket.on(SOCKET_EVENTS.RECIVE_USERS, (players: PlayerInterface[]) => {
-    // console.log('Players: ' + players);
-    // setAllPlayers(players);
-    // ⬇️ Mocking purpose ⬇️
+    
+    // setAllPlayers(players.kaotika);
+    // setAllPlayers(players.dravocar);
 
-    console.log("ENTRA AQUIIIII");
-    console.log([...factions.betrayers, ...factions.loyals]);
-    setAllPlayers([...factions.betrayers, ...factions.loyals]);
+    console.warn("Take into account that the players are Mocked!")
+    setKaotikaPlayers(factions.kaotika);
+    setDravocarPlayers(factions.dravocar);
 
   });
 };

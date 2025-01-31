@@ -12,10 +12,10 @@ import NickName from "../components/NickName";
 import StaminaBar from "../components/StaminaBar";
 import HitPointsBar from "../components/HitPointsBar";
 import { Factions } from "../interfaces/Factions";
+import { factions } from "../mocks/FactionsMock";
 interface BattleScreenProps {
   potions: Potion[];
   player: PlayerInterface | null;
-  setAllPlayers: React.Dispatch<React.SetStateAction<PlayerInterface[]>>;
   isMyTurn: boolean;
   setIsMyTurn: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -23,7 +23,6 @@ interface BattleScreenProps {
 const BattleScreen: React.FC<BattleScreenProps> = ({
   potions, 
   player,
-  setAllPlayers,
   isMyTurn,
   setIsMyTurn
 }) => {
@@ -33,6 +32,15 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState<any>(undefined);
   const [filteredFaction, setFilteredFaction] = useState<Factions|undefined>(undefined);
+  const [kaotikaPlayers, setKaotikaPlayers] = useState<PlayerInterface[]>([]);
+  const [dravocarPlayers, setDravocarPlayers] = useState<PlayerInterface[]>([]);
+
+  useEffect(() => {
+    // ⬇️ MOCK PLAYERS ⬇️ // 
+    console.warn("Take into account that the players are Mocked!")
+    setKaotikaPlayers(factions.kaotika);
+    setDravocarPlayers(factions.dravocar);
+  }, []);
 
   useEffect(() => {
     socket.on("assign-turn", (_id: string) => {
@@ -62,7 +70,14 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
   return (
     <>
       {!isMyTurn && <BlockedScreen />}
-      {showWaitingScreen && <Waiting setAllPlayers={setAllPlayers} setShowWaitingScreen={setShowWaitingScreen}/>}
+
+      {showWaitingScreen && (
+        <Waiting 
+          setDravocarPlayers={setDravocarPlayers}
+          setKaotikaPlayers={setKaotikaPlayers}
+          setShowWaitingScreen={setShowWaitingScreen}
+        />)
+      }
 
       {/* MAIN FRAME */}
       <div  
@@ -80,6 +95,8 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
            setSelectedPlayer={setSelectedPlayer}
            filteredFaction={filteredFaction}
            setFilteredFaction={setFilteredFaction}
+           kaotikaPlayers={kaotikaPlayers}
+           dravocarPlayers={dravocarPlayers}
         />
         
         {/* SELECTED PLAYER NICK */}
