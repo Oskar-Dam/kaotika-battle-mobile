@@ -2,7 +2,7 @@ interface StaminaBarProps {
 
 }
 
-const StaminaBar: React.FC<StaminaBarProps> = ({ }) => {
+const StaminaBar: React.FC<StaminaBarProps> = () => {
 
   return (
     <div

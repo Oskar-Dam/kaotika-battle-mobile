@@ -19,7 +19,7 @@ export const listenToServerEventsBattleScreen = (setKaotikaPlayers: (players: Pl
 export const listenToGameStart = (setShowWaitingScreen: React.Dispatch<React.SetStateAction<boolean>>) => {
   socket.on(SOCKET_EVENTS.GAME_STARTED, (showWaitingScreen: boolean) => {
     showWaitingScreen = false;
-    setShowWaitingScreen(false);
+    setShowWaitingScreen(showWaitingScreen);
   });
 
 };
