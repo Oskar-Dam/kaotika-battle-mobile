@@ -21,7 +21,7 @@ interface BattleScreenProps {
 }
 
 const BattleScreen: React.FC<BattleScreenProps> = ({
-  potions, player,setAllPlayers, isMyTurn, setIsMyTurn
+  potions, player, setAllPlayers, isMyTurn, setIsMyTurn
 }) => {
 
   setIsMyTurn;
@@ -66,24 +66,30 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
       {showWaitingScreen && <Waiting setAllPlayers={setAllPlayers} />}
 
       {/* MAIN FRAME */}
-      <div  
+      <div
         className='w-screen h-screen flex flex-col items-center justify-center top-0 z-20'
         style={{ backgroundImage: frameBackground, backgroundSize: '100% 100%' }}
       >
-        <StaminaBar/>
-        <HitPointsBar/>
+        <StaminaBar
+          resistance={player?.attributes.resistance ?? 0}
+          base_resistance={player?.base_attributes.resistance ?? 0}
+        />
+        <HitPointsBar
+          hp={player?.attributes.hit_points ?? 0}
+          base_hp={player?.base_attributes.hit_points ?? 0}
+        />
 
         {/* AVATAR */}
-        <Avatar avatar={player?.avatar}/>
+        <Avatar avatar={player?.avatar} />
 
         {/* CAROUSEL CONTAINER */}
         <CarouselContainer setSelectedPlayer={setSelectedPlayer} />
-        
+
         {/* SELECTED PLAYER NICK */}
         <NickName nickname={selectedPlayer?.nickname} />
-        
+
         {/* ACTION BUTTONS */}
-        <Actions potions={potions} openModal={openModal} isMyTurn={isMyTurn}/>
+        <Actions potions={potions} openModal={openModal} isMyTurn={isMyTurn} />
 
       </div>
 
