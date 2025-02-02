@@ -4,7 +4,7 @@ interface HitPointsBarProps {
 }
 const HitPointsBar: React.FC<HitPointsBarProps> = ({hp, base_hp}) => {
 
-  const actualPercent = 14 / base_hp * 100;
+  const actualPercent = hp / base_hp * 100;
 
   return (
     <div

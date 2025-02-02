@@ -11,29 +11,33 @@ import Avatar from "../components/Avatar";
 import NickName from "../components/NickName";
 import StaminaBar from "../components/StaminaBar";
 import HitPointsBar from "../components/HitPointsBar";
-
+import { Factions } from "../interfaces/Factions";
+import { factions } from "../mocks/FactionsMock";
 interface BattleScreenProps {
   potions: Potion[];
   player: PlayerInterface | null;
-  setAllPlayers: React.Dispatch<React.SetStateAction<PlayerInterface[]>>;
   isMyTurn: boolean;
   setIsMyTurn: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const BattleScreen: React.FC<BattleScreenProps> = ({
-  potions, player, setAllPlayers, isMyTurn, setIsMyTurn
+  potions, player, isMyTurn, setIsMyTurn
 }) => {
 
-  setIsMyTurn;
-  //remove this log when sockect is used for the first time
-  console.log(socket);
-
   const [selectedPotion, setSelectedPotion] = useState<Potion | null>(null);
-  const [showWaitingScreen, setShowWaitingScreen] = useState(false);
+  const [showWaitingScreen, setShowWaitingScreen] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState<any>(undefined);
+  const [filteredFaction, setFilteredFaction] = useState<Factions|undefined>(undefined);
+  const [kaotikaPlayers, setKaotikaPlayers] = useState<PlayerInterface[]>([]);
+  const [dravocarPlayers, setDravocarPlayers] = useState<PlayerInterface[]>([]);
 
-  setShowWaitingScreen;
+  useEffect(() => {
+    // ⬇️ MOCK PLAYERS ⬇️ // 
+    console.warn("Take into account that the players are Mocked!")
+    setKaotikaPlayers(factions.kaotika);
+    setDravocarPlayers(factions.dravocar);
+  }, []);
 
   useEffect(() => {
     socket.on("assign-turn", (_id: string) => {
@@ -63,7 +67,14 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
   return (
     <>
       {!isMyTurn && <BlockedScreen />}
-      {showWaitingScreen && <Waiting setAllPlayers={setAllPlayers} />}
+
+      {showWaitingScreen && (
+        <Waiting 
+          setDravocarPlayers={setDravocarPlayers}
+          setKaotikaPlayers={setKaotikaPlayers}
+          setShowWaitingScreen={setShowWaitingScreen}
+        />)
+      }
 
       {/* MAIN FRAME */}
       <div
@@ -83,13 +94,19 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
         <Avatar avatar={player?.avatar} />
 
         {/* CAROUSEL CONTAINER */}
-        <CarouselContainer setSelectedPlayer={setSelectedPlayer} />
-
+        <CarouselContainer
+           setSelectedPlayer={setSelectedPlayer}
+           filteredFaction={filteredFaction}
+           setFilteredFaction={setFilteredFaction}
+           kaotikaPlayers={kaotikaPlayers}
+           dravocarPlayers={dravocarPlayers}
+        />
+        
         {/* SELECTED PLAYER NICK */}
         <NickName nickname={selectedPlayer?.nickname} />
 
         {/* ACTION BUTTONS */}
-        <Actions potions={potions} openModal={openModal} isMyTurn={isMyTurn} />
+        <Actions potions={potions} openModal={openModal} isMyTurn={isMyTurn} setIsMyTurn={setIsMyTurn}/>
 
       </div>
 

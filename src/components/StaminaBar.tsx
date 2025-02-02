@@ -5,7 +5,7 @@ interface StaminaBarProps {
 
 const StaminaBar: React.FC<StaminaBarProps> = ({ resistance, base_resistance }) => {
 
-  const actualPercent = 16 / base_resistance * 100;
+  const actualPercent = resistance / base_resistance * 100;
 
   return (
     <div
