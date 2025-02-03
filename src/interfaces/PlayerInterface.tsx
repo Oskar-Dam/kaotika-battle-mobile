@@ -5,7 +5,10 @@ interface Attributes {
   charisma: number;
   constitution: number;
   strength: number;
+  hit_points: number;
+  resistance: number
 }
+interface BaseAttributes extends Attributes {}
 
 interface Equipment {
   helmet: object;
@@ -42,6 +45,7 @@ interface Profile {
 
 interface PlayerInterface {
   attributes: Attributes;
+  base_attributes: BaseAttributes;
   equipment: Equipment;
   inventory: Inventory;
   status: Status;
@@ -53,7 +57,6 @@ interface PlayerInterface {
   level: number;
   profile: Profile;
   role: string;
-  resistance: number;
   isBetrayer: Boolean;
 }
 

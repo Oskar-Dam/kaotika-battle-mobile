@@ -1,23 +1,25 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, useMotionValue, animate } from "framer-motion";
-import { playersMock } from "../mocks/PlayersMock";
-
-// We extend with placeholders at the beginning and end
-const extendedPlayers = [
-  { id: "placeholder-start", placeholder: true, name: "", avatar: "" },
-  ...playersMock,
-  { id: "placeholder-end", placeholder: true, name: "", avatar: "" },
-];
-
-// valid indices
-const MIN_SELECTABLE = 1;
-const MAX_SELECTABLE = extendedPlayers.length - 2;
+import PlayerInterface from "../interfaces/PlayerInterface";
 
 interface PlayerCarouselProps {
-  setSelectedPlayer: (player: any) => void
+  setSelectedPlayer: (player: any) => void;
+  displayedPlayers: PlayerInterface[];
 }
 
-const PlayerCarousel: React.FC<PlayerCarouselProps> = ({setSelectedPlayer}) => {
+const PlayerCarousel: React.FC<PlayerCarouselProps> = ({setSelectedPlayer, displayedPlayers}) => {
+
+  // We extend with placeholders at the beginning and end
+  const extendedPlayers = [
+    { _id: "placeholder", name: "", avatar: "" },
+    ...displayedPlayers,
+    { _id: "placeholder", name: "", avatar: "" },
+  ];
+
+  // valid indices
+  const MIN_SELECTABLE = 1;
+  const MAX_SELECTABLE = extendedPlayers.length - 2;
+
   // State to know which card is selected
   const [selectedIndex, setSelectedIndex] = useState(MIN_SELECTABLE);
   // We use a MotionValue for x
@@ -88,8 +90,8 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({setSelectedPlayer}) => {
   // When selectedIndex changes => center
   useEffect(() => {
     centerOnIndex(selectedIndex);
-    setSelectedPlayer(playersMock[selectedIndex-1]);
-  }, [selectedIndex, centerOnIndex]);
+    setSelectedPlayer(displayedPlayers[selectedIndex-1]);
+  }, [selectedIndex, centerOnIndex, displayedPlayers, setSelectedPlayer]);
 
   const handleDragEnd = (_: any, info: any) => {
     if (!cardWidth) return;
@@ -159,7 +161,7 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({setSelectedPlayer}) => {
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
               {/* We do not render content for placeholders */}
-              {!player.placeholder && (
+              {player._id !== "placeholder" && (
                 <>
                   <img
                     src="/images/carousel-frame.webp"
