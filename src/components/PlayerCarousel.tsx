@@ -93,6 +93,14 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({setSelectedPlayer, displ
     setSelectedPlayer(displayedPlayers[selectedIndex-1]);
   }, [selectedIndex, centerOnIndex, displayedPlayers, setSelectedPlayer]);
 
+  // When the displayed players data changes recalculate the selected index.
+  useEffect(() => {
+    if (displayedPlayers.length===0) {return}
+    const maxPossibleIndex = displayedPlayers.length;
+    const newIndex = Math.min(maxPossibleIndex, selectedIndex);
+    setSelectedIndex(newIndex);
+  }, [displayedPlayers, selectedIndex]);
+
   const handleDragEnd = (_: any, info: any) => {
     if (!cardWidth) return;
 
