@@ -9,7 +9,7 @@ interface PlayerCarouselProps {
 
 const PlayerCarousel: React.FC<PlayerCarouselProps> = ({setSelectedPlayer, displayedPlayers}) => {
 
-  // We extend with placeholders at the beginning and end
+  // We extend with placeholders at the beginning and end to keep the first and last elements centered
   const extendedPlayers = [
     { _id: "placeholder", name: "", avatar: "" },
     ...displayedPlayers,
@@ -22,20 +22,20 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({setSelectedPlayer, displ
 
   // State to know which card is selected
   const [selectedIndex, setSelectedIndex] = useState(MIN_SELECTABLE);
+
   // We use a MotionValue for x
   const x = useMotionValue(0);
 
   // Reference to the container
   const containerRef = useRef<HTMLDivElement>(null);
-  // We store its width
+
+  // We store the containers width
   const [containerWidth, setContainerWidth] = useState(0);
 
-  // Additionally, we store the dynamic width of the cards.
-  // For example, each card takes up 60% of the container.
+  // The width of the cards.
   const [cardWidth, setCardWidth] = useState(0);
 
   // Aspect ratio between height and width.
-  // Originally it was 255 (height) / 200 (width) = 1.275
   const ASPECT_RATIO = 1.275;
 
   // Gap between each card
@@ -45,12 +45,13 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({setSelectedPlayer, displ
   const totalCards = extendedPlayers.length;
 
   useEffect(() => {
-    function handleResize() {
+    
+    const handleResize = () => {
       if (!containerRef.current) return;
       const newContainerWidth = containerRef.current.offsetWidth;
       setContainerWidth(newContainerWidth);
       // Adjust the factor here if you want it to be larger or smaller.
-      // For example, 0.6 => 60% of the container
+      // For example, 0.5 => 50% of the container
       setCardWidth(newContainerWidth * 0.5);
     }
 
@@ -61,8 +62,7 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({setSelectedPlayer, displ
     };
   }, []);
 
-  // Recalculates the "maximum" position we can drag
-  // based on the calculated cardWidth.
+  // Recalculates the "maximum" position we can drag based on the calculated cardWidth.
   const maxDrag = Math.max(
     totalCards * (cardWidth + GAP) - GAP - containerWidth,
     0
@@ -74,8 +74,7 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({setSelectedPlayer, displ
       if (!containerWidth || !cardWidth) return;
 
       // targetOffset: the position that brings the card to the center
-      const targetOffset =
-        -(index * (cardWidth + GAP)) + containerWidth / 2 - cardWidth / 2;
+      const targetOffset = -(index * (cardWidth + GAP)) + containerWidth / 2 - cardWidth / 2;
       const clamped = Math.max(Math.min(targetOffset, 0), -maxDrag);
 
       animate(x, clamped, {
@@ -173,12 +172,12 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({setSelectedPlayer, displ
                 <>
                   <img
                     src="/images/carousel-frame.webp"
-                    className="absolute z-10 w-full h-full "
+                    className="absolute z-10 w-full h-full"
                   />
                   <img
                     src={player.avatar}
                     alt={player.name}
-                    className="w-full absolute top-1/2 -translate-y-[40%] z-0"
+                    className="w-full absolute top-1/2 -translate-y-[42%] z-0"
                     style={{
                       clipPath: "polygon(30% 0%, 70% 0%, 89% 30%, 89% 100%, 70% 100%, 30% 100%, 9% 100%, 10% 31%)",
                     }}
