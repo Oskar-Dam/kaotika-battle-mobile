@@ -10,6 +10,7 @@ interface CarouselContainerProps {
   setSelectedPlayer: (player: any) => void;
   kaotikaPlayers: PlayerInterface[];
   dravocarPlayers: PlayerInterface[];
+  selectedPlayer: PlayerInterface;
 }
 
 const CarouselContainer: React.FC<CarouselContainerProps> = ({
@@ -18,6 +19,7 @@ const CarouselContainer: React.FC<CarouselContainerProps> = ({
   setSelectedPlayer,
   kaotikaPlayers,
   dravocarPlayers,
+  selectedPlayer
 }) => {
 
   const [displayedPlayers, setDisplayedPlayers] = useState<PlayerInterface[]>([]);
@@ -69,6 +71,7 @@ const CarouselContainer: React.FC<CarouselContainerProps> = ({
       <PlayerCarousel 
         setSelectedPlayer={setSelectedPlayer}
         displayedPlayers={displayedPlayers}
+        selectedPlayer={selectedPlayer}
       />
 
     </div>
