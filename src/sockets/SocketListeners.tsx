@@ -25,6 +25,23 @@ export const listenToGameStart = (setShowWaitingScreen: React.Dispatch<React.Set
 
 };
 
+export const listenToUpdatePlayer = (setKaotikaPlayers: (players: PlayerInterface[]) => void, setDravocarPlayers: (players: PlayerInterface[]) => void) => {
+  socket.on("update-player", (player: { _id: string, attributes: any }) => {
+    let updated = false;
+
+    if (updatePlayerAttributes(player, factions.kaotika)) {
+      setKaotikaPlayers([...factions.kaotika]);
+      updated = true;
+    }
+
+    if (updatePlayerAttributes(player, factions.dravocar)) {
+      setDravocarPlayers([...factions.dravocar]);
+      updated = true;
+    }
+
+  });
+}
+
 export const clearListenToServerEventsBattleScreen = (): void => {
   socket.off(SOCKET_EVENTS.RECIVE_USERS);
   socket.off(SOCKET_EVENTS.GAME_STARTED);
@@ -41,3 +58,11 @@ export const listenToDesconnections = (setdisconnection: (disconnection: boolean
   });
 }
 
+const updatePlayerAttributes = (player: { _id: string, attributes: any }, players: PlayerInterface[]): boolean => {
+  const playerToUpdate = players.find(p => p._id === player._id);
+  if (playerToUpdate) {
+    playerToUpdate.attributes = player.attributes;
+    return true;
+  }
+  return false;
+};
