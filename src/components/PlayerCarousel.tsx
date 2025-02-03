@@ -1,13 +1,15 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, useMotionValue, animate } from "framer-motion";
 import PlayerInterface from "../interfaces/PlayerInterface";
+import socket from "../sockets/socket";
 
 interface PlayerCarouselProps {
   setSelectedPlayer: (player: any) => void;
+  selectedPlayer: PlayerInterface;
   displayedPlayers: PlayerInterface[];
 }
 
-const PlayerCarousel: React.FC<PlayerCarouselProps> = ({setSelectedPlayer, displayedPlayers}) => {
+const PlayerCarousel: React.FC<PlayerCarouselProps> = ({setSelectedPlayer, displayedPlayers, selectedPlayer}) => {
 
   // We extend with placeholders at the beginning and end to keep the first and last elements centered
   const extendedPlayers = [
@@ -91,6 +93,12 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({setSelectedPlayer, displ
     centerOnIndex(selectedIndex);
     setSelectedPlayer(displayedPlayers[selectedIndex-1]);
   }, [selectedIndex, centerOnIndex, displayedPlayers, setSelectedPlayer]);
+
+  useEffect(() => {
+    if (selectedPlayer) {
+      socket.emit("mobile-setSelectPlayer", selectedPlayer._id);
+    }
+  }, [selectedPlayer]);
 
   // When the displayed players data changes recalculate the selected index.
   useEffect(() => {

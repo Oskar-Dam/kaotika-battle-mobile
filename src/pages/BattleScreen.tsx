@@ -100,6 +100,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
            setFilteredFaction={setFilteredFaction}
            kaotikaPlayers={kaotikaPlayers}
            dravocarPlayers={dravocarPlayers}
+            selectedPlayer={selectedPlayer}
         />
         
         {/* SELECTED PLAYER NICK */}
