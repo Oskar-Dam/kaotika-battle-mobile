@@ -8,12 +8,12 @@ import { SOCKET_EVENTS } from '../sockets/events';
 
 // the Waiting component is a modal that displays a spinner and a message while waiting for the game to start(mortimer) or if you are mortimer, you can start the game
 interface WaitingProps {
-  role?: string;
+  role: string | undefined;
   setShowWaitingScreen: React.Dispatch<React.SetStateAction<boolean>>;
   setDravocarPlayers: (players: PlayerInterface[]) => void;
   setKaotikaPlayers: (players: PlayerInterface[]) => void;
 }
-const Waiting: React.FC<WaitingProps> = ({ role = "MORTIMER", setDravocarPlayers, setKaotikaPlayers, setShowWaitingScreen }) => {
+const Waiting: React.FC<WaitingProps> = ({ role, setDravocarPlayers, setKaotikaPlayers, setShowWaitingScreen }) => {
 
   useEffect(() => {
     listenToServerEventsBattleScreen(setDravocarPlayers, setKaotikaPlayers)
