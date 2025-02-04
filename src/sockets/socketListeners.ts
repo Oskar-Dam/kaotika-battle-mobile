@@ -1,12 +1,12 @@
 import socket from './socket';
 import { SOCKET_EVENTS } from './events';
-import PlayerInterface from '../interfaces/PlayerInterface';
-// import { factions } from '../mocks/FactionsMock';
+import { factions } from '../mocks/FactionsMock';
+import { Player } from '../interfaces/Player';
+import { Modifier } from '../interfaces/Modifier';
 import { updatePlayerAttributes } from '../utils/players';
 
-export const listenToServerEventsBattleScreen = (setKaotikaPlayers: (players: PlayerInterface[]) => void, setDravocarPlayers: (players: PlayerInterface[]) => void) => {
- 
-  socket.on(SOCKET_EVENTS.RECIVE_USERS, (players: {kaotika: PlayerInterface[], dravocar: PlayerInterface[]}) => {
+export const listenToServerEventsBattleScreen = (setKaotikaPlayers: (players: Player[]) => void, setDravocarPlayers: (players: Player[]) => void) => {
+  socket.on(SOCKET_EVENTS.RECIVE_USERS, (players: {kaotika: Player[], dravocar: Player[]}) => {
     
     setKaotikaPlayers(players.kaotika);
     setDravocarPlayers(players.dravocar);
@@ -24,40 +24,43 @@ export const listenToGameStart = (setShowWaitingScreen: React.Dispatch<React.Set
 
 };
 
-export const listenToUpdatePlayer = (setKaotikaPlayers: (players: PlayerInterface[]) => void, setDravocarPlayers: (players: PlayerInterface[]) => void, kaotikaPlayers: PlayerInterface[], dravocarPlayers: PlayerInterface[]) => {
+export const listenToUpdatePlayer = (setKaotikaPlayers: (players: Player[]) => void, setDravocarPlayers: (players: Player[]) => void, kaotikaPlayers: Player[], dravocarPlayers: Player[]) => {
   
-  socket.on("updatePlayer", ({_id, attributes, totalDamage}) => {
+  socket.on("updatePlayer", (player: {_id: string, attributes: Modifier, totalDamage: number}) => {
 
     console.log("Update Player not implemented yet.");
-    console.log(_id, attributes, totalDamage);
+    console.log(player);
 
-    // const factionsSetters = {
-    //   "kaotika": setKaotikaPlayers,
-    //   "dravocar": setDravocarPlayers
-    // }
+    const factionsSetters = {
+      "kaotika": setKaotikaPlayers,
+      "dravocar": setDravocarPlayers
+    }
 
-    // const factionsData = {
-    //   "kaotika": kaotikaPlayers,
-    //   "dravocar": dravocarPlayers
-    // }
+    const factionsData = {
+      "kaotika": kaotikaPlayers,
+      "dravocar": dravocarPlayers
+    }
 
-    // updatePlayerAttributes(_id, factionsData, factionsSetters);
+    console.log(factionsData);
+    console.log(factionsSetters);
+
+    // updatePlayerAttributes(player._id, factionsData, factionsSetters);
 
   });
-}
+};
 
 export const clearListenToServerEventsBattleScreen = (): void => {
   socket.off(SOCKET_EVENTS.RECIVE_USERS);
   socket.off(SOCKET_EVENTS.GAME_STARTED);
-}
+};
 
 export const listenToDesconnections = (setdisconnection: (disconnection: boolean) => void) => {
   socket.on(SOCKET_EVENTS.DISCONNECT, () => {
-    console.log("desconnection modal on");
+    console.log('desconnection modal on');
     setdisconnection(true);
   });
   socket.on(SOCKET_EVENTS.CONNECT, () => {
-    console.log("desconnection modal off");
+    console.log('desconnection modal off');
     setdisconnection(false);
   });
 }

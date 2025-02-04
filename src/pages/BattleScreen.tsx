@@ -3,7 +3,6 @@ import { Potion } from '../interfaces/Potion';
 import Actions from '../components/Actions';
 import CarouselContainer from '../components/CarouselContainer';
 import socket from '../sockets/socket';
-import PlayerInterface from '../interfaces/PlayerInterface';
 import Waiting from '../components/Waiting';
 import PotionModal from '../components/PotionModal';
 import BlockedScreen from '../components/BlockedScreen';
@@ -13,10 +12,10 @@ import StaminaBar from '../components/StaminaBar';
 import HitPointsBar from '../components/HitPointsBar';
 import { Factions } from '../interfaces/Factions';
 import { listenToUpdatePlayer } from '../sockets/socketListeners';
-
+import { Player } from '../interfaces/Player';
 interface BattleScreenProps {
   potions: Potion[];
-  player: PlayerInterface | null;
+  player: Player | null;
   isMyTurn: boolean;
   setIsMyTurn: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -28,10 +27,10 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
   const [selectedPotion, setSelectedPotion] = useState<Potion | null>(null);
   const [showWaitingScreen, setShowWaitingScreen] = useState<boolean>(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedPlayer, setSelectedPlayer] = useState<any>(undefined);
+  const [selectedPlayer, setSelectedPlayer] = useState<Player>();
   const [filteredFaction, setFilteredFaction] = useState<Factions|undefined>(undefined);
-  const [kaotikaPlayers, setKaotikaPlayers] = useState<PlayerInterface[]>([]);
-  const [dravocarPlayers, setDravocarPlayers] = useState<PlayerInterface[]>([]);
+  const [kaotikaPlayers, setKaotikaPlayers] = useState<Player[]>([]);
+  const [dravocarPlayers, setDravocarPlayers] = useState<Player[]>([]);
 
   useEffect(() => {
 
@@ -105,7 +104,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
           setFilteredFaction={setFilteredFaction}
           kaotikaPlayers={kaotikaPlayers}
           dravocarPlayers={dravocarPlayers}
-          selectedPlayer={selectedPlayer}
+          selectedPlayer={selectedPlayer!}
         />
         
         {/* SELECTED PLAYER NICK */}

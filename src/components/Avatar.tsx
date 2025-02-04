@@ -10,7 +10,7 @@ const Avatar: React.FC<AvatarProps> = ({ avatar }) => {
     >
       <img
         src={avatar}
-        alt={"?"}
+        alt={'?'}
         className="w-[9vh] mb-2 object-contain rounded-lg"
       />
     </div>

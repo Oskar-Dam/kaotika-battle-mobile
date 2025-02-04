@@ -1,21 +1,21 @@
-import { useState, useRef, useEffect, useCallback } from "react";
-import { motion, useMotionValue, animate } from "framer-motion";
-import PlayerInterface from "../interfaces/PlayerInterface";
-import socket from "../sockets/socket";
+import { useState, useRef, useEffect, useCallback } from 'react';
+import { motion, useMotionValue, animate, PanInfo } from 'framer-motion';
+import socket from '../sockets/socket';
+import { Player } from '../interfaces/Player';
 
 interface PlayerCarouselProps {
-  setSelectedPlayer: (player: any) => void;
-  selectedPlayer: PlayerInterface;
-  displayedPlayers: PlayerInterface[];
+  setSelectedPlayer: (player: Player) => void;
+  selectedPlayer: Player;
+  displayedPlayers: Player[];
 }
 
 const PlayerCarousel: React.FC<PlayerCarouselProps> = ({setSelectedPlayer, displayedPlayers, selectedPlayer}) => {
 
   // We extend with placeholders at the beginning and end to keep the first and last elements centered
   const extendedPlayers = [
-    { _id: "placeholder", name: "", avatar: "" },
+    { _id: 'placeholder', name: '', avatar: '' },
     ...displayedPlayers,
-    { _id: "placeholder", name: "", avatar: "" },
+    { _id: 'placeholder', name: '', avatar: '' },
   ];
 
   // valid indices
@@ -55,38 +55,34 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({setSelectedPlayer, displ
       // Adjust the factor here if you want it to be larger or smaller.
       // For example, 0.5 => 50% of the container
       setCardWidth(newContainerWidth * 0.5);
-    }
+    };
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
     handleResize(); // Call on mount
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
   // Recalculates the "maximum" position we can drag based on the calculated cardWidth.
-  const maxDrag = Math.max(
-    totalCards * (cardWidth + GAP) - GAP - containerWidth,
-    0
-  );
+  const maxDrag = Math.max(totalCards * (cardWidth + GAP) - GAP - containerWidth,
+    0);
 
   // Function to center the card at the given index
-  const centerOnIndex = useCallback(
-    (index: number) => {
-      if (!containerWidth || !cardWidth) return;
+  const centerOnIndex = useCallback((index: number) => {
+    if (!containerWidth || !cardWidth) return;
 
-      // targetOffset: the position that brings the card to the center
-      const targetOffset = -(index * (cardWidth + GAP)) + containerWidth / 2 - cardWidth / 2;
-      const clamped = Math.max(Math.min(targetOffset, 0), -maxDrag);
+    // targetOffset: the position that brings the card to the center
+    const targetOffset = -(index * (cardWidth + GAP)) + containerWidth / 2 - cardWidth / 2;
+    const clamped = Math.max(Math.min(targetOffset, 0), -maxDrag);
 
-      animate(x, clamped, {
-        type: "spring",
-        stiffness: 300,
-        damping: 25,
-      });
-    },
-    [containerWidth, cardWidth, GAP, maxDrag, x]
-  );
+    animate(x, clamped, {
+      type: 'spring',
+      stiffness: 300,
+      damping: 25,
+    });
+  },
+  [containerWidth, cardWidth, GAP, maxDrag, x]);
 
   // When selectedIndex changes => center
   useEffect(() => {
@@ -96,20 +92,20 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({setSelectedPlayer, displ
 
   useEffect(() => {
     if (selectedPlayer) {
-      console.log("mobile-setSelectedPlayer SENT: ", selectedPlayer._id);
-      socket.emit("mobile-setSelectedPlayer", selectedPlayer._id);
+      console.log('mobile-setSelectedPlayer SENT: ', selectedPlayer._id);
+      socket.emit('mobile-setSelectedPlayer', selectedPlayer._id);
     }
   }, [selectedPlayer]);
 
   // When the displayed players data changes recalculate the selected index.
   useEffect(() => {
-    if (displayedPlayers.length===0) {return}
+    if (displayedPlayers.length===0) {return;}
     const maxPossibleIndex = displayedPlayers.length;
     const newIndex = Math.min(maxPossibleIndex, selectedIndex);
     setSelectedIndex(newIndex);
   }, [displayedPlayers, selectedIndex]);
 
-  const handleDragEnd = (_: any, info: any) => {
+  const handleDragEnd = (_: MouseEvent | TouchEvent, info: PanInfo) => {
     if (!cardWidth) return;
 
     const offsetX = info.offset.x;
@@ -166,18 +162,18 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({setSelectedPlayer, displ
               }}
               animate={{
                 transform: isActive
-                  ? "translate(0px, -15px) scale(1.15)"
-                  : "translate(0px, 30px) scale(0.90)",
+                  ? 'translate(0px, -15px) scale(1.15)'
+                  : 'translate(0px, 30px) scale(0.90)',
                 filter: isActive
-                    ? `saturate(1) blur(0px) drop-shadow(0px 6px 8px rgba(92, 22, 17, .5)) drop-shadow(0px 6px 15px rgba(255, 255, 255, .15))`
-                    : `saturate(0.5) blur(2px)`,
+                  ? 'saturate(1) blur(0px) drop-shadow(0px 6px 8px rgba(92, 22, 17, .5)) drop-shadow(0px 6px 15px rgba(255, 255, 255, .15))'
+                  : 'saturate(0.5) blur(2px)',
                 opacity: isActive ? 1 : 0.75, 
                 
               }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             >
               {/* We do not render content for placeholders */}
-              {player._id !== "placeholder" && (
+              {player._id !== 'placeholder' && (
                 <>
                   <img
                     src="/images/carousel-frame.webp"
@@ -188,7 +184,7 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({setSelectedPlayer, displ
                     alt={player.name}
                     className="w-full absolute top-1/2 -translate-y-[42%] z-0"
                     style={{
-                      clipPath: "polygon(30% 0%, 70% 0%, 89% 30%, 89% 100%, 70% 100%, 30% 100%, 9% 100%, 10% 31%)",
+                      clipPath: 'polygon(30% 0%, 70% 0%, 89% 30%, 89% 100%, 70% 100%, 30% 100%, 9% 100%, 10% 31%)',
                     }}
                   />
                 </>
@@ -199,6 +195,6 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({setSelectedPlayer, displ
       </motion.div>
     </div>
   );
-}
+};
 
 export default PlayerCarousel;

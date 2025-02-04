@@ -1,4 +1,6 @@
-export const mockPlayer: any = {
+import PlayerInterface from '../interfaces/PlayerInterface';
+
+export const mockPlayer: PlayerInterface = {
   attributes: {
     intelligence: 10,
     dexterity: 10,
@@ -6,6 +8,8 @@ export const mockPlayer: any = {
     charisma: 10,
     constitution: 10,
     strength: 10,
+    hit_points: 100,
+    resistance: 100,
   },
   equipment: {
     helmet: {},
@@ -43,5 +47,15 @@ export const mockPlayer: any = {
     attributes: [],
   },
   role: 'ACOLYTE',
-  resistance: 100,
+  base_attributes: {
+    intelligence: 10,
+    dexterity: 10,
+    insanity: 10,
+    charisma: 10,
+    constitution: 10,
+    strength: 10,
+    hit_points: 100,
+    resistance: 100,
+  },
+  isBetrayer: false
 };
