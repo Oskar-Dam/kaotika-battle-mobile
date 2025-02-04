@@ -13,9 +13,9 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({setSelectedPlayer, displ
 
   // We extend with placeholders at the beginning and end to keep the first and last elements centered
   const extendedPlayers = [
-    { _id: 'placeholder', name: '', avatar: '' },
+    { _id: 'placeholder', name: '', avatar: '', isBetrayer: undefined },
     ...displayedPlayers,
-    { _id: 'placeholder', name: '', avatar: '' },
+    { _id: 'placeholder', name: '', avatar: '', isBetrayer: undefined },
   ];
 
   // valid indices
@@ -176,7 +176,7 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({setSelectedPlayer, displ
               {player._id !== 'placeholder' && (
                 <>
                   <img
-                    src="/images/carousel-frame.webp"
+                    src={player?.isBetrayer ? '/images/carousel-red-frame.webp' : '/images/carousel-blue-frame.webp'} 
                     className="absolute z-10 w-full h-full"
                   />
                   <img
