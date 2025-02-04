@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { motion, useMotionValue, animate } from 'framer-motion';
+import { motion, useMotionValue, animate, PanInfo } from 'framer-motion';
 import socket from '../sockets/socket';
 import { Player } from '../interfaces/Player';
 
@@ -104,7 +104,7 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({setSelectedPlayer, displ
     setSelectedIndex(newIndex);
   }, [displayedPlayers, selectedIndex]);
 
-  const handleDragEnd = (_: any, info: any) => {
+  const handleDragEnd = (_: MouseEvent | TouchEvent, info: PanInfo) => {
     if (!cardWidth) return;
 
     const offsetX = info.offset.x;
