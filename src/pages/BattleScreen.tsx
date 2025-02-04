@@ -1,18 +1,18 @@
-import { useState, useEffect } from "react";
-import { Potion } from "../interfaces/Potion";
-import Actions from "../components/Actions";
-import CarouselContainer from "../components/CarouselContainer";
-import socket from "../sockets/socket";
-import PlayerInterface from "../interfaces/PlayerInterface";
-import Waiting from "../components/Waiting";
-import PotionModal from "../components/PotionModal";
-import BlockedScreen from "../components/BlockedScreen";
-import Avatar from "../components/Avatar";
-import NickName from "../components/NickName";
-import StaminaBar from "../components/StaminaBar";
-import HitPointsBar from "../components/HitPointsBar";
-import { Factions } from "../interfaces/Factions";
-import { listenToUpdatePlayer } from "../sockets/SocketListeners";
+import { useState, useEffect } from 'react';
+import { Potion } from '../interfaces/Potion';
+import Actions from '../components/Actions';
+import CarouselContainer from '../components/CarouselContainer';
+import socket from '../sockets/socket';
+import PlayerInterface from '../interfaces/PlayerInterface';
+import Waiting from '../components/Waiting';
+import PotionModal from '../components/PotionModal';
+import BlockedScreen from '../components/BlockedScreen';
+import Avatar from '../components/Avatar';
+import NickName from '../components/NickName';
+import StaminaBar from '../components/StaminaBar';
+import HitPointsBar from '../components/HitPointsBar';
+import { Factions } from '../interfaces/Factions';
+import { listenToUpdatePlayer } from '../sockets/socketListeners';
 
 interface BattleScreenProps {
   potions: Potion[];
@@ -44,7 +44,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
   });
 
   useEffect(() => {
-    socket.on("assign-turn", (_id: string) => {
+    socket.on('assign-turn', (_id: string) => {
       if (player?._id === _id) {
         setIsMyTurn(true);
       } else {
@@ -53,7 +53,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
     });
 
     return () => {
-      socket.off("assign-turn");
+      socket.off('assign-turn');
     };
   }, [player, setIsMyTurn]);
 
@@ -74,6 +74,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
 
       {showWaitingScreen && (
         <Waiting 
+          role={player?.role}
           setDravocarPlayers={setDravocarPlayers}
           setKaotikaPlayers={setKaotikaPlayers}
           setShowWaitingScreen={setShowWaitingScreen}
@@ -99,12 +100,12 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
 
         {/* CAROUSEL CONTAINER */}
         <CarouselContainer
-           setSelectedPlayer={setSelectedPlayer}
-           filteredFaction={filteredFaction}
-           setFilteredFaction={setFilteredFaction}
-           kaotikaPlayers={kaotikaPlayers}
-           dravocarPlayers={dravocarPlayers}
-            selectedPlayer={selectedPlayer}
+          setSelectedPlayer={setSelectedPlayer}
+          filteredFaction={filteredFaction}
+          setFilteredFaction={setFilteredFaction}
+          kaotikaPlayers={kaotikaPlayers}
+          dravocarPlayers={dravocarPlayers}
+          selectedPlayer={selectedPlayer}
         />
         
         {/* SELECTED PLAYER NICK */}
