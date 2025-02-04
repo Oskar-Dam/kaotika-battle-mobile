@@ -21,10 +21,10 @@ const Waiting: React.FC<WaitingProps> = ({ role, setDravocarPlayers, setKaotikaP
     return () => {
       clearListenToServerEventsBattleScreen();
     };
-  }, [setDravocarPlayers, setKaotikaPlayers, setShowWaitingScreen]);
+  }, []);
 
   const handleStartGame = (): void => {
-    console.log('game started');
+    console.log('Game start button pressed');
     socket.emit(SOCKET_EVENTS.GAME_START);
   };
   
