@@ -1,5 +1,6 @@
+
 export const getPlayerByEmail = async (email: string) => {
-  const response = await fetch(`https://kaotika-battle-server.onrender.com/api/player/${email.toLowerCase()}`);
+  const response = await fetch(`${import.meta.env.VITE_SOCKET_URL}/api/player/${email.toLowerCase()}`);
 
   if (!response.ok) {
     if (response.status === 500) {
