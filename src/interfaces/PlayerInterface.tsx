@@ -40,7 +40,7 @@ interface Profile {
   name: string;
   description: string;
   image: string;
-  attributes: any[];
+  attributes: Attributes[];
 }
 
 interface PlayerInterface {
@@ -57,7 +57,7 @@ interface PlayerInterface {
   level: number;
   profile: Profile;
   role: string;
-  isBetrayer: Boolean;
+  isBetrayer: boolean;
 }
 
 export default PlayerInterface;

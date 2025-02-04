@@ -1,4 +1,4 @@
-import { Potion } from "../interfaces/Potion";
+import { Potion } from '../interfaces/Potion';
 
 interface PotionCardProps {
   potion: Potion;

@@ -1,7 +1,7 @@
 import React from 'react';
-import AttackButton from "./AttackButton";
-import PotionContainer from "./PotionContainer";
-import { Potion } from "../interfaces/Potion";
+import AttackButton from './AttackButton';
+import PotionContainer from './PotionContainer';
+import { Potion } from '../interfaces/Potion';
 import socket from '../sockets/socket';
 
 interface ActionsProps {

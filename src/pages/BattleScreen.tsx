@@ -1,18 +1,18 @@
-import { useState, useEffect } from "react";
-import { Potion } from "../interfaces/Potion";
-import Actions from "../components/Actions";
-import CarouselContainer from "../components/CarouselContainer";
-import socket from "../sockets/socket";
-import PlayerInterface from "../interfaces/PlayerInterface";
-import Waiting from "../components/Waiting";
-import PotionModal from "../components/PotionModal";
-import BlockedScreen from "../components/BlockedScreen";
-import Avatar from "../components/Avatar";
-import NickName from "../components/NickName";
-import StaminaBar from "../components/StaminaBar";
-import HitPointsBar from "../components/HitPointsBar";
-import { Factions } from "../interfaces/Factions";
-import { factions } from "../mocks/FactionsMock";
+import { useState, useEffect } from 'react';
+import { Potion } from '../interfaces/Potion';
+import Actions from '../components/Actions';
+import CarouselContainer from '../components/CarouselContainer';
+import socket from '../sockets/socket';
+import PlayerInterface from '../interfaces/PlayerInterface';
+import Waiting from '../components/Waiting';
+import PotionModal from '../components/PotionModal';
+import BlockedScreen from '../components/BlockedScreen';
+import Avatar from '../components/Avatar';
+import NickName from '../components/NickName';
+import StaminaBar from '../components/StaminaBar';
+import HitPointsBar from '../components/HitPointsBar';
+import { Factions } from '../interfaces/Factions';
+import { factions } from '../mocks/FactionsMock';
 interface BattleScreenProps {
   potions: Potion[];
   player: PlayerInterface | null;
@@ -27,20 +27,20 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
   const [selectedPotion, setSelectedPotion] = useState<Potion | null>(null);
   const [showWaitingScreen, setShowWaitingScreen] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedPlayer, setSelectedPlayer] = useState<any>(undefined);
+  const [selectedPlayer, setSelectedPlayer] = useState<PlayerInterface>();
   const [filteredFaction, setFilteredFaction] = useState<Factions|undefined>(undefined);
   const [kaotikaPlayers, setKaotikaPlayers] = useState<PlayerInterface[]>([]);
   const [dravocarPlayers, setDravocarPlayers] = useState<PlayerInterface[]>([]);
 
   useEffect(() => {
     // ⬇️ MOCK PLAYERS ⬇️ // 
-    console.warn("Take into account that the players are Mocked!")
+    console.warn('Take into account that the players are Mocked!');
     setKaotikaPlayers(factions.kaotika);
     setDravocarPlayers(factions.dravocar);
   }, []);
 
   useEffect(() => {
-    socket.on("assign-turn", (_id: string) => {
+    socket.on('assign-turn', (_id: string) => {
       if (player?._id === _id) {
         setIsMyTurn(true);
       } else {
@@ -49,7 +49,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
     });
 
     return () => {
-      socket.off("assign-turn");
+      socket.off('assign-turn');
     };
   }, [player, setIsMyTurn]);
 
@@ -95,19 +95,23 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
 
         {/* CAROUSEL CONTAINER */}
         <CarouselContainer
-           setSelectedPlayer={setSelectedPlayer}
-           filteredFaction={filteredFaction}
-           setFilteredFaction={setFilteredFaction}
-           kaotikaPlayers={kaotikaPlayers}
-           dravocarPlayers={dravocarPlayers}
-            selectedPlayer={selectedPlayer}
+          setSelectedPlayer={setSelectedPlayer}
+          filteredFaction={filteredFaction}
+          setFilteredFaction={setFilteredFaction}
+          kaotikaPlayers={kaotikaPlayers}
+          dravocarPlayers={dravocarPlayers}
+          selectedPlayer={selectedPlayer}
         />
         
         {/* SELECTED PLAYER NICK */}
         <NickName nickname={selectedPlayer?.nickname} />
 
         {/* ACTION BUTTONS */}
-        <Actions potions={potions} openModal={openModal} isMyTurn={isMyTurn} setIsMyTurn={setIsMyTurn}/>
+        <Actions
+          potions={potions}
+          openModal={openModal}
+          isMyTurn={isMyTurn}
+          setIsMyTurn={setIsMyTurn}/>
 
       </div>
 

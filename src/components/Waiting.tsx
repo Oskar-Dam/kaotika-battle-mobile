@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import Spinner from './Spinner';
 import Button from './Button';
-import { clearListenToServerEventsBattleScreen, listenToGameStart, listenToServerEventsBattleScreen } from "../sockets/SocketListeners";
-import PlayerInterface from "../interfaces/PlayerInterface";
+import { clearListenToServerEventsBattleScreen, listenToGameStart, listenToServerEventsBattleScreen } from '../sockets/SocketListeners';
+import PlayerInterface from '../interfaces/PlayerInterface';
 import socket from '../sockets/socket';
 import { SOCKET_EVENTS } from '../sockets/events';
 
@@ -13,24 +13,26 @@ interface WaitingProps {
   setDravocarPlayers: (players: PlayerInterface[]) => void;
   setKaotikaPlayers: (players: PlayerInterface[]) => void;
 }
-const Waiting: React.FC<WaitingProps> = ({ role = "MORTIMER", setDravocarPlayers, setKaotikaPlayers, setShowWaitingScreen }) => {
+const Waiting: React.FC<WaitingProps> = ({ role = 'MORTIMER', setDravocarPlayers, setKaotikaPlayers, setShowWaitingScreen }) => {
 
   useEffect(() => {
-    listenToServerEventsBattleScreen(setDravocarPlayers, setKaotikaPlayers)
+    listenToServerEventsBattleScreen(setDravocarPlayers, setKaotikaPlayers);
     listenToGameStart(setShowWaitingScreen);
     return () => {
       clearListenToServerEventsBattleScreen();
     };
-  }, []);
+  }, [setDravocarPlayers, setKaotikaPlayers, setShowWaitingScreen]);
 
   const handleStartGame = (): void => {
-    console.log("game started");
+    console.log('game started');
     socket.emit(SOCKET_EVENTS.GAME_START);
-  }
+  };
   
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-900/80 z-50">
-      {role === "MORTIMER" ? <Button text={'Start the game'} onClick={handleStartGame} /> : <Spinner text={'Waiting for Mortimer to start the game'} />}
+      {role === 'MORTIMER' ? <Button
+        text={'Start the game'}
+        onClick={handleStartGame} /> : <Spinner text={'Waiting for Mortimer to start the game'} />}
     </div>
   );
 };

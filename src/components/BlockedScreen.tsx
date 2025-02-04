@@ -18,7 +18,8 @@ const BlockedScreen: React.FC = () => {
           backgroundColor: 'black',
           opacity: 0.8
         }}></div>
-      <div className="absolute top-0 left-0 w-[100%] h-[100%]"
+      <div
+        className="absolute top-0 left-0 w-[100%] h-[100%]"
         style={{
           backgroundImage: 'url(/images/blocked-chains-no-bg.webp)',
           backgroundSize: '120% 100%', backgroundPosition: '45% 0%',

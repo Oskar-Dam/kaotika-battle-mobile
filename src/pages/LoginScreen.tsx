@@ -47,11 +47,15 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({ email, setEmail, setIsLog
           <Spinner text={'Retrieving player from database, please wait...'} />
         </div>
       )}
-      <div className="absolute top-[4%] w-full text-center" style={{ fontFamily: 'Kaotika' }}>
+      <div
+        className="absolute top-[4%] w-full text-center"
+        style={{ fontFamily: 'Kaotika' }}>
         <h1 className="text-5xl text-white">Kaotika</h1>
         <h1 className="text-5xl text-white">The Final Battle</h1>
       </div>
-      <div className="flex flex-col items-center justify-center w-full max-w-[630px] h-[40%] border-0 border-white" style={{ backgroundImage: 'url(/images/login-frame.webp)', backgroundSize: '100% 100%' }}>
+      <div
+        className="flex flex-col items-center justify-center w-full max-w-[630px] h-[40%] border-0 border-white"
+        style={{ backgroundImage: 'url(/images/login-frame.webp)', backgroundSize: '100% 100%' }}>
         <div className="w-[80%] h-[15%] mt-[10%]">
           <input
             type="search"
@@ -68,17 +72,24 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({ email, setEmail, setIsLog
           onClick={handleEnterBattle}
           style={{ filter: email === '' ? 'grayscale(100%)' : 'none', transition: 'filter 0.3s ease', pointerEvents: email === '' ? 'none' : 'auto', width: '45%', height: 'auto' }}
           disabled={email === ''}>
-          <img src="/images/enter-button.webp" alt="Enter the battle" style={{ width: '100%' }} />
-          <span className="text-white mt-2 text-3xl mb-2" style={{ fontFamily: 'Kaotika', position: 'absolute' }}>ENTER</span>
+          <img
+            src="/images/enter-button.webp"
+            alt="Enter the battle"
+            style={{ width: '100%' }} />
+          <span
+            className="text-white mt-2 text-3xl mb-2"
+            style={{ fontFamily: 'Kaotika', position: 'absolute' }}>ENTER</span>
         </button>
 
-        <div className="text-red-500 mt-2 text-2xl" style={{ fontFamily: 'Kaotika', minHeight: '2em' }}>
+        <div
+          className="text-red-500 mt-2 text-2xl"
+          style={{ fontFamily: 'Kaotika', minHeight: '2em' }}>
           {errorMessage || <span>&nbsp;</span>}
         </div>
       </div>
     </div>
   );
 
-}
+};
 
 export default LoginScreen;

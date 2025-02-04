@@ -1,8 +1,8 @@
-import PlayerCarousel from "./PlayerCarousel";
-import CarouselFilterButton from "./CarouselFilterButton";
-import { Factions } from "../interfaces/Factions";
-import PlayerInterface from "../interfaces/PlayerInterface";
-import { useEffect, useState } from "react";
+import PlayerCarousel from './PlayerCarousel';
+import CarouselFilterButton from './CarouselFilterButton';
+import { Factions } from '../interfaces/Factions';
+import PlayerInterface from '../interfaces/PlayerInterface';
+import { useEffect, useState } from 'react';
 
 interface CarouselContainerProps {
   filteredFaction: Factions | undefined;
@@ -28,9 +28,9 @@ const CarouselContainer: React.FC<CarouselContainerProps> = ({
 
     let newDisplayedPlayers;
 
-    if (filteredFaction === "KAOTIKA") {
+    if (filteredFaction === 'KAOTIKA') {
       newDisplayedPlayers = [...kaotikaPlayers];
-    } else if (filteredFaction === "DRAVOCAR") {
+    } else if (filteredFaction === 'DRAVOCAR') {
       newDisplayedPlayers = [...dravocarPlayers];
     } else {
       newDisplayedPlayers = [...kaotikaPlayers, ...dravocarPlayers];
@@ -44,7 +44,7 @@ const CarouselContainer: React.FC<CarouselContainerProps> = ({
   const handleFactionSelection = (pressedFaction: Factions) => {
     const newFilteredFaction = filteredFaction === pressedFaction ? undefined : pressedFaction;
     setFilteredFaction(newFilteredFaction);
-  }
+  };
 
   return (
     
@@ -55,14 +55,14 @@ const CarouselContainer: React.FC<CarouselContainerProps> = ({
        
         <CarouselFilterButton 
           faction="KAOTIKA"
-          selected={filteredFaction==="KAOTIKA"}
-          onClick={() => handleFactionSelection("KAOTIKA")}
+          selected={filteredFaction==='KAOTIKA'}
+          onClick={() => handleFactionSelection('KAOTIKA')}
         />
 
         <CarouselFilterButton
           faction="DRAVOCAR"
-          selected={filteredFaction==="DRAVOCAR"}
-          onClick={() => handleFactionSelection("DRAVOCAR")}
+          selected={filteredFaction==='DRAVOCAR'}
+          onClick={() => handleFactionSelection('DRAVOCAR')}
         />
 
       </div>

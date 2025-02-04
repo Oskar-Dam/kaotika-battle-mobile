@@ -1,4 +1,4 @@
-import PlayerInterface from "./PlayerInterface";
+import PlayerInterface from './PlayerInterface';
 
 export interface LoginScreenInterface {
   email: string;
