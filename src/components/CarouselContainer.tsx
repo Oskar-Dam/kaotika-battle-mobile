@@ -1,16 +1,16 @@
-import PlayerCarousel from "./PlayerCarousel";
-import CarouselFilterButton from "./CarouselFilterButton";
-import { Factions } from "../interfaces/Factions";
-import PlayerInterface from "../interfaces/PlayerInterface";
-import { useEffect, useState } from "react";
+import PlayerCarousel from './PlayerCarousel';
+import CarouselFilterButton from './CarouselFilterButton';
+import { Factions } from '../interfaces/Factions';
+import { useEffect, useState } from 'react';
+import { Player } from '../interfaces/Player';
 
 interface CarouselContainerProps {
   filteredFaction: Factions | undefined;
   setFilteredFaction: (filteredFaction: Factions | undefined) => void;
-  setSelectedPlayer: (player: any) => void;
-  kaotikaPlayers: PlayerInterface[];
-  dravocarPlayers: PlayerInterface[];
-  selectedPlayer: PlayerInterface;
+  setSelectedPlayer: (player: Player) => void;
+  kaotikaPlayers: Player[];
+  dravocarPlayers: Player[];
+  selectedPlayer: Player;
 }
 
 const CarouselContainer: React.FC<CarouselContainerProps> = ({
@@ -22,15 +22,15 @@ const CarouselContainer: React.FC<CarouselContainerProps> = ({
   selectedPlayer
 }) => {
 
-  const [displayedPlayers, setDisplayedPlayers] = useState<PlayerInterface[]>([]);
+  const [displayedPlayers, setDisplayedPlayers] = useState<Player[]>([]);
 
   useEffect(() => {
 
     let newDisplayedPlayers;
 
-    if (filteredFaction === "KAOTIKA") {
+    if (filteredFaction === 'KAOTIKA') {
       newDisplayedPlayers = [...kaotikaPlayers];
-    } else if (filteredFaction === "DRAVOCAR") {
+    } else if (filteredFaction === 'DRAVOCAR') {
       newDisplayedPlayers = [...dravocarPlayers];
     } else {
       newDisplayedPlayers = [...kaotikaPlayers, ...dravocarPlayers];
@@ -44,7 +44,7 @@ const CarouselContainer: React.FC<CarouselContainerProps> = ({
   const handleFactionSelection = (pressedFaction: Factions) => {
     const newFilteredFaction = filteredFaction === pressedFaction ? undefined : pressedFaction;
     setFilteredFaction(newFilteredFaction);
-  }
+  };
 
   return (
     
@@ -55,14 +55,14 @@ const CarouselContainer: React.FC<CarouselContainerProps> = ({
        
         <CarouselFilterButton 
           faction="KAOTIKA"
-          selected={filteredFaction==="KAOTIKA"}
-          onClick={() => handleFactionSelection("KAOTIKA")}
+          selected={filteredFaction==='KAOTIKA'}
+          onClick={() => handleFactionSelection('KAOTIKA')}
         />
 
         <CarouselFilterButton
           faction="DRAVOCAR"
-          selected={filteredFaction==="DRAVOCAR"}
-          onClick={() => handleFactionSelection("DRAVOCAR")}
+          selected={filteredFaction==='DRAVOCAR'}
+          onClick={() => handleFactionSelection('DRAVOCAR')}
         />
 
       </div>
