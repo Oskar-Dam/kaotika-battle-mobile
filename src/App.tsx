@@ -3,8 +3,8 @@ import BattleScreen from './pages/BattleScreen.tsx';
 import PWABadge from './PWABadge.tsx';
 import LoginScreen from './pages/LoginScreen.tsx';
 import { potions } from './data/data.ts';
-import DesconnectionModal from './components/DisconnectionModal.tsx';
-import { listenToDesconnections } from './sockets/socketListeners.ts';
+import DisconnectionModal from './components/DisconnectionModal.tsx';
+import { listenToDisconnections } from './sockets/socketListeners.ts';
 import { Player } from './interfaces/Player.ts';
 
 
@@ -13,11 +13,11 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [email, setEmail] = useState<string>('');
   const [player, setPlayer] = useState<Player | null>(null);
-  const [isMyTurn, setIsMyTurn] = useState<boolean>(true);
-  const [desconnection, setDesconnection] = useState<boolean>(true);
+  const [isMyTurn, setIsMyTurn] = useState<boolean>(false);
+  const [disconnection, setDisconnection] = useState<boolean>(true);
 
   useEffect(() => {
-    listenToDesconnections(setDesconnection);
+    listenToDisconnections(setDisconnection);
   }, []);
 
   return (
@@ -37,7 +37,7 @@ function App() {
           setPlayer={setPlayer} 
         />}
           
-      {desconnection && <DesconnectionModal /> }
+      {disconnection && <DisconnectionModal /> }
       <PWABadge />
     </>
   );
