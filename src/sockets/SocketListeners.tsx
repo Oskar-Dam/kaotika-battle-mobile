@@ -1,18 +1,17 @@
 import socket from './socket';
 import { SOCKET_EVENTS } from './events';
 import PlayerInterface from '../interfaces/PlayerInterface';
-import { factions } from '../mocks/FactionsMock';
+// import { factions } from '../mocks/FactionsMock';
+import { updatePlayerAttributes } from '../utils/players';
 
 export const listenToServerEventsBattleScreen = (setKaotikaPlayers: (players: PlayerInterface[]) => void, setDravocarPlayers: (players: PlayerInterface[]) => void) => {
   socket.on(SOCKET_EVENTS.RECIVE_USERS, (players: PlayerInterface[]) => {
     
-    // setAllPlayers(players.kaotika);
-    // setAllPlayers(players.dravocar);
-    console.log(players);
-
-    console.warn("Take into account that the players are Mocked!")
-    setKaotikaPlayers(factions.kaotika);
-    setDravocarPlayers(factions.dravocar);
+    setKaotikaPlayers(players.kaotika);
+    setDravocarPlayers(players.dravocar);
+    // console.warn("Take into account that the players are Mocked!")
+    // setKaotikaPlayers(factions.kaotika);
+    // setDravocarPlayers(factions.dravocar);
 
   });
 };
