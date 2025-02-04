@@ -3,9 +3,9 @@ import BattleScreen from './pages/BattleScreen.tsx'
 import PWABadge from './PWABadge.tsx'
 import LoginScreen from './pages/LoginScreen.tsx'
 import { potions } from './data/data.ts'
-import PlayerInterface from './interfaces/PlayerInterface.tsx'
-import DesconnectionModal from './components/DesconnectionModal.tsx'
-import { listenToDesconnections } from './sockets/SocketListeners.tsx'
+import PlayerInterface from './interfaces/PlayerInterface.ts'
+import DesconnectionModal from './components/DisconnectionModal.tsx'
+import { listenToDesconnections } from './sockets/socketListeners.ts'
 
 
 function App() {
