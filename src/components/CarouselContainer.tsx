@@ -1,16 +1,16 @@
 import PlayerCarousel from './PlayerCarousel';
 import CarouselFilterButton from './CarouselFilterButton';
 import { Factions } from '../interfaces/Factions';
-import PlayerInterface from '../interfaces/PlayerInterface';
 import { useEffect, useState } from 'react';
+import { Player } from '../interfaces/Player';
 
 interface CarouselContainerProps {
   filteredFaction: Factions | undefined;
   setFilteredFaction: (filteredFaction: Factions | undefined) => void;
-  setSelectedPlayer: (player: any) => void;
-  kaotikaPlayers: PlayerInterface[];
-  dravocarPlayers: PlayerInterface[];
-  selectedPlayer: PlayerInterface;
+  setSelectedPlayer: (player: Player) => void;
+  kaotikaPlayers: Player[];
+  dravocarPlayers: Player[];
+  selectedPlayer: Player;
 }
 
 const CarouselContainer: React.FC<CarouselContainerProps> = ({
@@ -22,7 +22,7 @@ const CarouselContainer: React.FC<CarouselContainerProps> = ({
   selectedPlayer
 }) => {
 
-  const [displayedPlayers, setDisplayedPlayers] = useState<PlayerInterface[]>([]);
+  const [displayedPlayers, setDisplayedPlayers] = useState<Player[]>([]);
 
   useEffect(() => {
 

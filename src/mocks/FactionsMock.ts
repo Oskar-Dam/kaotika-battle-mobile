@@ -1,8 +1,8 @@
 import { Player } from '../interfaces/Player';
 
 interface FactionsPlayers {
-    'dravocar': Player[],
-    'kaotika': Player[],
+  'dravocar': Player[],
+  'kaotika': Player[],
 }
 
 export const factions: FactionsPlayers = {
@@ -117,7 +117,15 @@ export const factions: FactionsPlayers = {
             'constitution': 0,
             'insanity': 20,
             'charisma': 0,
-            'strength': 0
+            'strength': 0,
+            'hit_points': 100,
+            attack: 0,
+            defense: 0,
+            magic_resistance: 0,
+            CFP: 0,
+            BCFA: 0,
+            resistance: 100
+
           },
           '_id': '668bca135319ea9afdff076b',
           'name': 'Elixir of Madness',
@@ -135,21 +143,25 @@ export const factions: FactionsPlayers = {
             'constitution': 10,
             'insanity': 0,
             'charisma': 5,
-            'strength': 0
+            'strength': 0,
+            'hit_points': 100,
+            attack: 0,
+            defense: 0,
+            magic_resistance: 0,
+            CFP: 0,
+            BCFA: 0,
+            resistance: 100
           },
           '_id': '66fa608285f0d4f8e349dadb',
           'name': 'Sword of the Frosted Veil',
           'description': 'A blade that freezes the air around it.',
           'type': 'weapon',
           'image': '/images/equipment/weapons/sword_76.png',
-          'value': 16000,
           'base_percentage': 18,
           'min_lvl': 20,
           'die_faces': 20,
           'die_modifier': 2,
           'die_num': 5,
-          'isUnique': true,
-          'isActive': false
         }
       },
       'inventory': {
@@ -275,7 +287,14 @@ export const factions: FactionsPlayers = {
             'constitution': 20,
             'insanity': 0,
             'charisma': 0,
-            'strength': 0
+            'strength': 0,
+            'hit_points': 100,
+            attack: 0,
+            defense: 0,
+            magic_resistance: 0,
+            CFP: 0,
+            BCFA: 0,
+            resistance: 100
           },
           '_id': '668bca135319ea9afdff076f',
           'name': 'Elixir of Increase Constitution',
@@ -293,21 +312,25 @@ export const factions: FactionsPlayers = {
             'constitution': 5,
             'insanity': 30,
             'charisma': 10,
-            'strength': 0
+            'strength': 0,
+            'hit_points': 100,
+            attack: 0,
+            defense: 0,
+            magic_resistance: 0,
+            CFP: 0,
+            BCFA: 0,
+            resistance: 100
           },
           '_id': '67616050317c38e05431c530',
           'name': 'Dagger of Venomous Promises',
           'description': 'A poisoned blade that cuts through both flesh and trust.',
           'type': 'weapon',
           'image': '/images/betrayar/weapon.png',
-          'value': 60,
           'base_percentage': 40,
           'min_lvl': 2,
           'die_faces': 100,
           'die_modifier': 0,
           'die_num': 1,
-          'isUnique': true,
-          'isActive': false
         }
       },
       'inventory': {
@@ -431,7 +454,14 @@ export const factions: FactionsPlayers = {
             'constitution': 20,
             'insanity': 0,
             'charisma': 0,
-            'strength': 0
+            'strength': 0,
+            'hit_points': 100,
+            attack: 0,
+            defense: 0,
+            magic_resistance: 0,
+            CFP: 0,
+            BCFA: 0,
+            resistance: 100
           },
           '_id': '668bca135319ea9afdff076f',
           'name': 'Elixir of Increase Constitution',
@@ -449,21 +479,25 @@ export const factions: FactionsPlayers = {
             'constitution': 5,
             'insanity': 30,
             'charisma': 10,
-            'strength': 0
+            'strength': 0,
+            'hit_points': 100,
+            attack: 0,
+            defense: 0,
+            magic_resistance: 0,
+            CFP: 0,
+            BCFA: 0,
+            resistance: 100
           },
           '_id': '67616050317c38e05431c530',
           'name': 'Dagger of Venomous Promises',
           'description': 'A poisoned blade that cuts through both flesh and trust.',
           'type': 'weapon',
           'image': '/images/betrayar/weapon.png',
-          'value': 60,
           'base_percentage': 40,
           'min_lvl': 2,
           'die_faces': 100,
           'die_modifier': 0,
           'die_num': 1,
-          'isUnique': true,
-          'isActive': false
         }
       },
       'inventory': {
@@ -587,7 +621,14 @@ export const factions: FactionsPlayers = {
             'constitution': 20,
             'insanity': 0,
             'charisma': 0,
-            'strength': 0
+            'strength': 0,
+            'hit_points': 100,
+            attack: 0,
+            defense: 0,
+            magic_resistance: 0,
+            CFP: 0,
+            BCFA: 0,
+            resistance: 100
           },
           '_id': '668bca135319ea9afdff076f',
           'name': 'Elixir of Increase Constitution',
@@ -605,21 +646,25 @@ export const factions: FactionsPlayers = {
             'constitution': 5,
             'insanity': 30,
             'charisma': 10,
-            'strength': 0
+            'strength': 0,
+            'hit_points': 100,
+            attack: 0,
+            defense: 0,
+            magic_resistance: 0,
+            CFP: 0,
+            BCFA: 0,
+            resistance: 100
           },
           '_id': '67616050317c38e05431c530',
           'name': 'Dagger of Venomous Promises',
           'description': 'A poisoned blade that cuts through both flesh and trust.',
           'type': 'weapon',
           'image': '/images/betrayar/weapon.png',
-          'value': 60,
           'base_percentage': 40,
           'min_lvl': 2,
           'die_faces': 100,
           'die_modifier': 0,
           'die_num': 1,
-          'isUnique': true,
-          'isActive': false
         }
       },
       'inventory': {

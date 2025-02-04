@@ -1,23 +1,23 @@
-import { useEffect, useState } from 'react'
-import BattleScreen from './pages/BattleScreen.tsx'
-import PWABadge from './PWABadge.tsx'
-import LoginScreen from './pages/LoginScreen.tsx'
-import { potions } from './data/data.ts'
-import PlayerInterface from './interfaces/PlayerInterface.tsx'
-import DesconnectionModal from './components/DesconnectionModal.tsx'
-import { listenToDesconnections } from './sockets/SocketListeners.tsx'
+import { useEffect, useState } from 'react';
+import BattleScreen from './pages/BattleScreen.tsx';
+import PWABadge from './PWABadge.tsx';
+import LoginScreen from './pages/LoginScreen.tsx';
+import { potions } from './data/data.ts';
+import DesconnectionModal from './components/DesconnectionModal.tsx';
+import { listenToDesconnections } from './sockets/SocketListeners.tsx';
+import { Player } from './interfaces/Player.ts';
 
 
 function App() {
   
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [email, setEmail] = useState<string>('');
-  const [player, setPlayer] = useState<PlayerInterface | null>(null);
+  const [player, setPlayer] = useState<Player | null>(null);
   const [isMyTurn, setIsMyTurn] = useState<boolean>(true);
   const [desconnection, setDesconnection] = useState<boolean>(true);
 
   useEffect(() => {
-    listenToDesconnections(setDesconnection)
+    listenToDesconnections(setDesconnection);
   }, []);
 
   return (
@@ -35,7 +35,7 @@ function App() {
       {desconnection && <DesconnectionModal/>  }
       <PWABadge />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

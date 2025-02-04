@@ -1,11 +1,11 @@
 import socket from './socket';
 import { SOCKET_EVENTS } from './events';
-import PlayerInterface from '../interfaces/PlayerInterface';
 import { factions } from '../mocks/FactionsMock';
-import { Attributes } from 'react';
+import { Player } from '../interfaces/Player';
+import { Modifier } from '../interfaces/Modifier';
 
-export const listenToServerEventsBattleScreen = (setKaotikaPlayers: (players: PlayerInterface[]) => void, setDravocarPlayers: (players: PlayerInterface[]) => void) => {
-  socket.on(SOCKET_EVENTS.RECIVE_USERS, (players: PlayerInterface[]) => {
+export const listenToServerEventsBattleScreen = (setKaotikaPlayers: (players: Player[]) => void, setDravocarPlayers: (players: Player[]) => void) => {
+  socket.on(SOCKET_EVENTS.RECIVE_USERS, (players: Player[]) => {
     
     // setAllPlayers(players.kaotika);
     // setAllPlayers(players.dravocar);
@@ -26,8 +26,8 @@ export const listenToGameStart = (setShowWaitingScreen: React.Dispatch<React.Set
 
 };
 
-export const listenToUpdatePlayer = (setKaotikaPlayers: (players: PlayerInterface[]) => void, setDravocarPlayers: (players: PlayerInterface[]) => void) => {
-  socket.on('update-player', (player: { _id: string, attributes: Attributes }) => {
+export const listenToUpdatePlayer = (setKaotikaPlayers: (players: Player[]) => void, setDravocarPlayers: (players: Player[]) => void) => {
+  socket.on('update-player', (player: { _id: string, attributes: Modifier }) => {
 
     if (updatePlayerAttributes(player, factions.kaotika)) {
       setKaotikaPlayers([...factions.kaotika]);
@@ -56,7 +56,7 @@ export const listenToDesconnections = (setdisconnection: (disconnection: boolean
   });
 };
 
-const updatePlayerAttributes = (player: { _id: string, attributes: Attributes }, players: PlayerInterface[]): boolean => {
+const updatePlayerAttributes = (player: { _id: string, attributes: Modifier }, players: Player[]): boolean => {
   const playerToUpdate = players.find(p => p._id === player._id);
   if (playerToUpdate) {
     playerToUpdate.attributes = player.attributes;

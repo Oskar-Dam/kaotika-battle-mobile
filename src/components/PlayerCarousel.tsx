@@ -1,12 +1,12 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, useMotionValue, animate } from 'framer-motion';
-import PlayerInterface from '../interfaces/PlayerInterface';
 import socket from '../sockets/socket';
+import { Player } from '../interfaces/Player';
 
 interface PlayerCarouselProps {
-  setSelectedPlayer: (player: any) => void;
-  selectedPlayer: PlayerInterface;
-  displayedPlayers: PlayerInterface[];
+  setSelectedPlayer: (player: Player) => void;
+  selectedPlayer: Player;
+  displayedPlayers: Player[];
 }
 
 const PlayerCarousel: React.FC<PlayerCarouselProps> = ({setSelectedPlayer, displayedPlayers, selectedPlayer}) => {
