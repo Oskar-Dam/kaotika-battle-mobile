@@ -14,7 +14,7 @@ const StaminaBar: React.FC<StaminaBarProps> = ({ resistance, base_resistance }) 
       <img
         style={{ maskImage: `linear-gradient(to right, white ${actualPercent}%, transparent ${actualPercent + 10}%)` }}
         src="/images/stamina-bar.webp"
-        alt={"?"}
+        alt={'?'}
         className="w-[10.7vh] mb-2"
       />
     </div>

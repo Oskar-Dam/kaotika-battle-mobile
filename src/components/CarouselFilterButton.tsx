@@ -1,4 +1,4 @@
-import { Factions } from "../interfaces/Factions";
+import { Factions } from '../interfaces/Factions';
 
 interface CarouselFilterButtonProps {
   faction: Factions;
@@ -8,7 +8,7 @@ interface CarouselFilterButtonProps {
 
 const CarouselFilterButton: React.FC<CarouselFilterButtonProps> = ({faction, selected, onClick}) => {
 
-  if (!['KAOTIKA', 'DRAVOCAR'].includes(faction)) return
+  if (!['KAOTIKA', 'DRAVOCAR'].includes(faction)) return;
 
   const buttonBackground = faction === 'DRAVOCAR' 
     ? 'url(/images/filter-button-dravocar.webp)' 
@@ -27,7 +27,7 @@ const CarouselFilterButton: React.FC<CarouselFilterButtonProps> = ({faction, sel
       onClick={onClick}
     >
     </button>
-  )
-}
+  );
+};
 
 export default CarouselFilterButton;

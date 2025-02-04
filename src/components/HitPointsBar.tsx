@@ -13,7 +13,7 @@ const HitPointsBar: React.FC<HitPointsBarProps> = ({hp, base_hp}) => {
       <img
         style={{maskImage: `linear-gradient(to left, white ${actualPercent}%, transparent ${actualPercent + 10}%)`}}
         src="/images/hp-bar.webp"
-        alt={"?"}
+        alt={'?'}
         className="w-[10.7vh] mb-2 object-contain rounded-lg"
       />
     </div>

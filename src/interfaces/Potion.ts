@@ -1,4 +1,4 @@
-import { Effect } from "./Effect";
+import { Effect } from './Effect';
 
 export interface Potion {
   id: string;
