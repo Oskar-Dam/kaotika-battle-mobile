@@ -76,13 +76,13 @@ export const clearListenToServerEventsBattleScreen = (): void => {
   socket.off(SOCKET_EVENTS.GAME_STARTED);
 };
 
-export const listenToDesconnections = (setdisconnection: (disconnection: boolean) => void) => {
+export const listenToDisconnections = (setdisconnection: (disconnection: boolean) => void) => {
   socket.on(SOCKET_EVENTS.DISCONNECT, () => {
-    console.log('desconnection modal on');
+    console.log('Disconnection modal on');
     setdisconnection(true);
   });
   socket.on(SOCKET_EVENTS.CONNECT, () => {
-    console.log('desconnection modal off');
+    console.log('Disconnection modal off');
     setdisconnection(false);
   });
 };
