@@ -25,16 +25,24 @@ export const listenToGameStart = (setShowWaitingScreen: React.Dispatch<React.Set
 
 };
 
-export const listenToUpdatePlayer = (setKaotikaPlayers: (players: PlayerInterface[]) => void, setDravocarPlayers: (players: PlayerInterface[]) => void) => {
-  socket.on("update-player", (player: { _id: string, attributes: any }) => {
+export const listenToUpdatePlayer = (setKaotikaPlayers: (players: PlayerInterface[]) => void, setDravocarPlayers: (players: PlayerInterface[]) => void, kaotikaPlayers: PlayerInterface[], dravocarPlayers: PlayerInterface[]) => {
+  
+  socket.on("updatePlayer", ({_id, attributes, totalDamage}) => {
 
-    if (updatePlayerAttributes(player, factions.kaotika)) {
-      setKaotikaPlayers([...factions.kaotika]);
+    console.log("Update Player not implemented yet.");
+    console.log(_id, attributes, totalDamage);
+
+    // const factionsSetters = {
+    //   "kaotika": setKaotikaPlayers,
+    //   "dravocar": setDravocarPlayers
+    // }
+
+    const factionsData = {
+      "kaotika": kaotikaPlayers,
+      "dravocar": dravocarPlayers
     }
 
-    if (updatePlayerAttributes(player, factions.dravocar)) {
-      setDravocarPlayers([...factions.dravocar]);
-    }
+    updatePlayerAttributes(_id, factionsData, factionsSetters);
 
   });
 }
@@ -54,12 +62,3 @@ export const listenToDesconnections = (setdisconnection: (disconnection: boolean
     setdisconnection(false);
   });
 }
-
-const updatePlayerAttributes = (player: { _id: string, attributes: any }, players: PlayerInterface[]): boolean => {
-  const playerToUpdate = players.find(p => p._id === player._id);
-  if (playerToUpdate) {
-    playerToUpdate.attributes = player.attributes;
-    return true;
-  }
-  return false;
-};
