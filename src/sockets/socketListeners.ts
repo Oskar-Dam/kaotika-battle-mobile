@@ -1,9 +1,8 @@
 import socket from './socket';
 import { SOCKET_EVENTS } from './events';
-import { factions } from '../mocks/FactionsMock';
 import { Player } from '../interfaces/Player';
 import { Modifier } from '../interfaces/Modifier';
-import { updatePlayerAttributes } from '../utils/players';
+// import { updatePlayerAttributes } from '../utils/players';
 
 export const listenToServerEventsBattleScreen = (setKaotikaPlayers: (players: Player[]) => void, setDravocarPlayers: (players: Player[]) => void) => {
   socket.on(SOCKET_EVENTS.RECIVE_USERS, (players: {kaotika: Player[], dravocar: Player[]}) => {
