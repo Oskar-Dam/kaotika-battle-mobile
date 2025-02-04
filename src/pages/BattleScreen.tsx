@@ -12,7 +12,8 @@ import NickName from "../components/NickName";
 import StaminaBar from "../components/StaminaBar";
 import HitPointsBar from "../components/HitPointsBar";
 import { Factions } from "../interfaces/Factions";
-import { factions } from "../mocks/FactionsMock";
+import { listenToUpdatePlayer } from "../sockets/SocketListeners";
+
 interface BattleScreenProps {
   potions: Potion[];
   player: PlayerInterface | null;
@@ -25,7 +26,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
 }) => {
 
   const [selectedPotion, setSelectedPotion] = useState<Potion | null>(null);
-  const [showWaitingScreen, setShowWaitingScreen] = useState<boolean>(false);
+  const [showWaitingScreen, setShowWaitingScreen] = useState<boolean>(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState<any>(undefined);
   const [filteredFaction, setFilteredFaction] = useState<Factions|undefined>(undefined);
@@ -33,11 +34,14 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
   const [dravocarPlayers, setDravocarPlayers] = useState<PlayerInterface[]>([]);
 
   useEffect(() => {
+
+    listenToUpdatePlayer(setKaotikaPlayers, setDravocarPlayers, kaotikaPlayers, dravocarPlayers);
+
     // ⬇️ MOCK PLAYERS ⬇️ // 
-    console.warn("Take into account that the players are Mocked!")
-    setKaotikaPlayers(factions.kaotika);
-    setDravocarPlayers(factions.dravocar);
-  }, []);
+    // console.warn("Take into account that the players are Mocked!")
+    // setKaotikaPlayers(factions.kaotika);
+    // setDravocarPlayers(factions.dravocar);
+  });
 
   useEffect(() => {
     socket.on("assign-turn", (_id: string) => {
