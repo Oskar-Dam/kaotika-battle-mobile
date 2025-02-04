@@ -4,7 +4,7 @@ import PWABadge from './PWABadge.tsx';
 import LoginScreen from './pages/LoginScreen.tsx';
 import { potions } from './data/data.ts';
 import DesconnectionModal from './components/DisconnectionModal.tsx';
-import { listenToDesconnections } from './sockets/SocketListeners.tsx';
+import { listenToDesconnections } from './sockets/socketListeners.ts';
 import { Player } from './interfaces/Player.ts';
 
 

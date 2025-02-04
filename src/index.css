@@ -2,7 +2,7 @@
 
 @font-face {
     font-family: 'Kaotika';
-    src: url('../public/fonts/kaotika.ttf') format('truetype');
+    src: url('/fonts/kaotika.ttf') format('truetype');
 }
 
 :root {
