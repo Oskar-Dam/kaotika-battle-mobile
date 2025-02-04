@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Potion } from '../interfaces/Potion';
 import Actions from '../components/Actions';
 import CarouselContainer from '../components/CarouselContainer';
-import socket from '../sockets/socket';
 import Waiting from '../components/Waiting';
 import PotionModal from '../components/PotionModal';
 import BlockedScreen from '../components/BlockedScreen';
@@ -11,7 +10,7 @@ import NickName from '../components/NickName';
 import StaminaBar from '../components/StaminaBar';
 import HitPointsBar from '../components/HitPointsBar';
 import { Factions } from '../interfaces/Factions';
-import { listenToRemovePlayer, listenToUpdatePlayer } from '../sockets/socketListeners';
+import { listenToChangeTurn, listenToRemovePlayer, listenToUpdatePlayer } from '../sockets/socketListeners';
 import { Player } from '../interfaces/Player';
 interface BattleScreenProps {
   potions: Potion[];
@@ -36,6 +35,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
 
     listenToUpdatePlayer(setKaotikaPlayers, setDravocarPlayers, kaotikaPlayers, dravocarPlayers);
     listenToRemovePlayer(setKaotikaPlayers, setDravocarPlayers, kaotikaPlayers, dravocarPlayers);
+    listenToChangeTurn(setIsMyTurn, player);
 
     // ⬇️ MOCK PLAYERS ⬇️ // 
     // console.warn("Take into account that the players are Mocked!")
@@ -43,21 +43,6 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
     // setDravocarPlayers(factions.dravocar);
   }, []);
 
-  useEffect(() => {
-    socket.on('assign-turn', (_id: string) => {
-      console.log('turn changed');
-      
-      if (player?._id === _id) {
-        setIsMyTurn(true);
-      } else {
-        setIsMyTurn(false);
-      }
-    });
-
-    return () => {
-      socket.off('assign-turn');
-    };
-  }, [player, setIsMyTurn]);
 
   const openModal = (potion: Potion) => {
     setSelectedPotion(potion);

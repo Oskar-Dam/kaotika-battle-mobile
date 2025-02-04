@@ -6,13 +6,21 @@ import { Modifier } from '../interfaces/Modifier';
 
 export const listenToServerEventsBattleScreen = (setKaotikaPlayers: (players: Player[]) => void, setDravocarPlayers: (players: Player[]) => void) => {
   socket.on(SOCKET_EVENTS.RECIVE_USERS, (players: {kaotika: Player[], dravocar: Player[]}) => {
-    
     setKaotikaPlayers(players.kaotika);
     setDravocarPlayers(players.dravocar);
     // console.warn("Take into account that the players are Mocked!")
     // setKaotikaPlayers(factions.kaotika);
     // setDravocarPlayers(factions.dravocar);
-
+  });
+};
+export const listenToChangeTurn = (setIsMyTurn: (turn: boolean) => void,player: Player | null) => {
+  socket.on(SOCKET_EVENTS.TURN_CHANGE, (_id: string) => {
+    console.log('TURN CHANGED');
+    if (player?._id === _id) {
+      setIsMyTurn(true);
+    } else {
+      setIsMyTurn(false);
+    }
   });
 };
 
@@ -20,7 +28,6 @@ export const listenToGameStart = (setShowWaitingScreen: React.Dispatch<React.Set
   socket.on(SOCKET_EVENTS.GAME_STARTED, () => {
     setShowWaitingScreen(false);
   });
-
 };
 
 export const listenToUpdatePlayer = (setKaotikaPlayers: (players: Player[]) => void, setDravocarPlayers: (players: Player[]) => void, kaotikaPlayers: Player[], dravocarPlayers: Player[]) => {
@@ -74,6 +81,7 @@ export const listenToRemovePlayer = (setKaotikaPlayers: (players: Player[]) => v
 export const clearListenToServerEventsBattleScreen = (): void => {
   socket.off(SOCKET_EVENTS.RECIVE_USERS);
   socket.off(SOCKET_EVENTS.GAME_STARTED);
+  socket.off(SOCKET_EVENTS.TURN_CHANGE);
 };
 
 export const listenToDesconnections = (setdisconnection: (disconnection: boolean) => void) => {
