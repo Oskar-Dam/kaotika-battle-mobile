@@ -70,6 +70,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
 
       {showWaitingScreen && (
         <Waiting 
+          role={player?.role}
           setDravocarPlayers={setDravocarPlayers}
           setKaotikaPlayers={setKaotikaPlayers}
           setShowWaitingScreen={setShowWaitingScreen}
