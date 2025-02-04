@@ -2,10 +2,10 @@ import React from 'react';
 import Spinner from './Spinner';
 
 
-interface DesconnectionModalProps {
+interface DisconnectionModalProps {
   
 }
-const DesconnectionModal: React.FC<DesconnectionModalProps> = () => {
+const DisconnectionModal: React.FC<DisconnectionModalProps> = () => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-900/80 z-50">
@@ -14,4 +14,4 @@ const DesconnectionModal: React.FC<DesconnectionModalProps> = () => {
   );
 };
 
-export default DesconnectionModal;
+export default DisconnectionModal;
