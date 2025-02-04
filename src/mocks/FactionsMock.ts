@@ -221,20 +221,61 @@ export const factions: FactionsPlayers = {
       'equipment': {
         'healing_potion': {
           'modifiers': {
-            'hit_points': 20,
-            'intelligence': 0,
+            'hit_points': 70,
+            'intelligence': -15,
             'dexterity': 0,
             'constitution': 0,
             'insanity': 0,
             'charisma': 0,
             'strength': 0
           },
-          '_id': '668bca125319ea9afdff0750',
-          'name': 'Essence of Vitality',
-          'description': 'A rejuvenating potion that restores vigor and vitality to the drinker.',
+          '_id': '668bca125319ea9afdff0759',
+          'name': 'Essence of Restoration',
+          'description': 'The Essence of Restoration is a potent elixir that accelerates healing and revitalizes the body.',
           'type': 'essence',
-          'image': '/images/equipment/potions/healing/healing_1.png',
+          'image': '/images/equipment/potions/healing/healing_3.png',
           'value': 10,
+          'min_lvl': 1
+        },
+        'antidote_potion': {
+          'modifiers': {
+            'hit_points': 0,
+            'intelligence': 10,
+            'dexterity': 0,
+            'constitution': 0,
+            'insanity': 0,
+            'charisma': 0,
+            'strength': 0
+          },
+          '_id': '668bca125319ea9afdff0761',
+          'name': 'Antidote of Ethereal Consumption',
+          'description': 'A mystical tonic made from binding agents and ethereal dust, anchoring the afflicted back to the material plane.',
+          'type': 'antidote',
+          'image': '/images/equipment/potions/antidote/antidote_2.png',
+          'value': 10,
+          'recovery_effect': {
+            'modifiers': {
+              'hit_points': 0,
+              'intelligence': -10,
+              'dexterity': 0,
+              'insanity': 6,
+              'charisma': 0,
+              'constitution': 0,
+              'strength': 0
+            },
+            '_id': '6693fd5846527d0df5f0efeb',
+            'name': 'Ethereal Consumption',
+            'description': 'A spectral illness that causes the afflicted to slowly fade into the ethereal plane, losing touch with reality.',
+            'type': 'illness',
+            'antidote_effects': [
+              'restore_intelligence',
+              'lesser_restore_insanity'
+            ],
+            'poison_effects': [
+              'damage_intelligence',
+              'lesser_damage_insanity'
+            ]
+          },
           'min_lvl': 1
         },
         'enhancer_potion': {
