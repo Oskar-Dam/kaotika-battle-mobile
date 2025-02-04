@@ -11,9 +11,11 @@ interface CarouselContainerProps {
   kaotikaPlayers: Player[];
   dravocarPlayers: Player[];
   selectedPlayer: Player;
+  isBetrayer?: boolean;
 }
 
 const CarouselContainer: React.FC<CarouselContainerProps> = ({
+  isBetrayer,
   filteredFaction,
   setFilteredFaction,
   setSelectedPlayer,
@@ -33,7 +35,7 @@ const CarouselContainer: React.FC<CarouselContainerProps> = ({
     } else if (filteredFaction === 'DRAVOCAR') {
       newDisplayedPlayers = [...dravocarPlayers];
     } else {
-      newDisplayedPlayers = [...kaotikaPlayers, ...dravocarPlayers];
+      newDisplayedPlayers = isBetrayer ? [...dravocarPlayers, ...kaotikaPlayers] : [...kaotikaPlayers, ...dravocarPlayers];
     }
 
     setDisplayedPlayers(newDisplayedPlayers);
