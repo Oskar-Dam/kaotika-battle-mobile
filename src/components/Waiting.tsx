@@ -16,7 +16,7 @@ interface WaitingProps {
 const Waiting: React.FC<WaitingProps> = ({ role, setDravocarPlayers, setKaotikaPlayers, setShowWaitingScreen }) => {
 
   useEffect(() => {
-    listenToServerEventsBattleScreen(setDravocarPlayers, setKaotikaPlayers);
+    listenToServerEventsBattleScreen(setKaotikaPlayers, setDravocarPlayers);
     listenToGameStart(setShowWaitingScreen);
     return () => {
       clearListenToServerEventsBattleScreen();
