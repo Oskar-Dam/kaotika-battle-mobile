@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Spinner from './Spinner';
 import Button from './Button';
-import { clearListenToServerEventsBattleScreen, listenToGameStart, listenToServerEventsBattleScreen } from "../sockets/SocketListeners";
+import { clearListenToServerEventsBattleScreen, listenToGameStart, listenToServerEventsBattleScreen } from "../sockets/socketListeners";
 import PlayerInterface from "../interfaces/PlayerInterface";
 import socket from '../sockets/socket';
 import { SOCKET_EVENTS } from '../sockets/events';

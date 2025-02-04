@@ -3,7 +3,7 @@ import { LoginScreenInterface } from '../interfaces/LoginScreenInterface';
 import Spinner from '../components/Spinner';
 import socket from '../sockets/socket';
 import { SOCKET_EVENTS } from '../sockets/events';
-import { getPlayerByEmail } from '../api/getPlayerByEmail';
+import { getPlayerByEmail } from '../api/player';
 
 const LoginScreen: React.FC<LoginScreenInterface> = ({ email, setEmail, setIsLoggedIn, setPlayer }) => {
 
