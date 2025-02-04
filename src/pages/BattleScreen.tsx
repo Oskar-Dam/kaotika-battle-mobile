@@ -44,7 +44,9 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
   }, []);
 
   useEffect(() => {
-    socket.on('assign-turn', (_id: string) => {
+    socket.on('assing-turn', (_id: string) => {
+      console.log('turn changed');
+      
       if (player?._id === _id) {
         setIsMyTurn(true);
       } else {
@@ -53,7 +55,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
     });
 
     return () => {
-      socket.off('assign-turn');
+      socket.off('assing-turn');
     };
   }, [player, setIsMyTurn]);
 
