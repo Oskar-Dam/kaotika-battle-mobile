@@ -6,7 +6,7 @@ interface FactionsPlayers {
 }
 
 export const factions: FactionsPlayers = {
-  'dravocar': [
+  'kaotika': [
     {
       '_id': '66dec0006301a115d494bd0d',
       'name': 'ASIER ARGUINCHONA LORENZO',
@@ -176,7 +176,7 @@ export const factions: FactionsPlayers = {
       }
     }
   ],
-  'kaotika': [
+  'dravocar': [
     {
       '_id': '66deb3668bf95849f32ef444',
       'name': 'JON PAZOS HIDALGO',
