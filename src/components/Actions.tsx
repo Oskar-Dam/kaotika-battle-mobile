@@ -18,7 +18,7 @@ const Actions: React.FC<ActionsProps> = ({ potions, openModal, isMyTurn, setIsMy
       <AttackButton
         text={'Attack'}
         onClick={() => {
-          console.log("Attacking ", playerId)
+          console.log('Attacking ', playerId);
           socket.emit('mobile-attack', playerId);
           setIsMyTurn(false);
         }}

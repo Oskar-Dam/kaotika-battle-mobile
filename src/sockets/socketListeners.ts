@@ -25,20 +25,20 @@ export const listenToGameStart = (setShowWaitingScreen: React.Dispatch<React.Set
 
 export const listenToUpdatePlayer = (setKaotikaPlayers: (players: Player[]) => void, setDravocarPlayers: (players: Player[]) => void, kaotikaPlayers: Player[], dravocarPlayers: Player[]) => {
   
-  socket.on("updatePlayer", (player: {_id: string, attributes: Modifier, totalDamage: number}) => {
+  socket.on('updatePlayer', (player: {_id: string, attributes: Modifier, totalDamage: number}) => {
 
-    console.log("Update Player not implemented yet.");
+    console.log('Update Player not implemented yet.');
     console.log(player);
 
     const factionsSetters = {
-      "kaotika": setKaotikaPlayers,
-      "dravocar": setDravocarPlayers
-    }
+      'kaotika': setKaotikaPlayers,
+      'dravocar': setDravocarPlayers
+    };
 
     const factionsData = {
-      "kaotika": kaotikaPlayers,
-      "dravocar": dravocarPlayers
-    }
+      'kaotika': kaotikaPlayers,
+      'dravocar': dravocarPlayers
+    };
 
     console.log(factionsData);
     console.log(factionsSetters);
@@ -62,4 +62,4 @@ export const listenToDesconnections = (setdisconnection: (disconnection: boolean
     console.log('desconnection modal off');
     setdisconnection(false);
   });
-}
+};

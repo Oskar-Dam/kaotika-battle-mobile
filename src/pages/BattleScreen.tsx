@@ -40,7 +40,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
     // console.warn("Take into account that the players are Mocked!")
     // setKaotikaPlayers(factions.kaotika);
     // setDravocarPlayers(factions.dravocar);
-  });
+  }, []);
 
   useEffect(() => {
     socket.on('assign-turn', (_id: string) => {
