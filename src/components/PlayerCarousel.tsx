@@ -140,52 +140,47 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({setSelectedPlayer, displ
     <div
       ref={containerRef}
       className="flex items-center overflow-hidden w-[80vw]"
-      style={{ height: cardHeight + 100 }}
-      // We leave extra space for the top/bottom
-    >
+      style={{ height: cardHeight + 100 }}>
       <motion.div
         className="flex gap-4"
         style={{ x }}
         drag="x"
-        onDragEnd={handleDragEnd}
-      >
+        onDragEnd={handleDragEnd}>
         {extendedPlayers.map((player, index) => {
           const isActive = index === selectedIndex;
-     
+          const frameSrc = player?.isBetrayer ? '/images/carousel-red-frame.webp' : '/images/carousel-blue-frame.webp';
+          const fallbackAvatar = player?.isBetrayer
+            ? '/images/too_many_request_betrayer.webp'
+            : '/images/too_many_request_loyal.webp';
+
           return (
             <motion.div
               key={index}
               className="relative flex-shrink-0 overflow-hidden"
-              style={{
-                width: cardWidth,
-                height: cardHeight,
-              }}
+              style={{ width: cardWidth, height: cardHeight }}
               animate={{
-                transform: isActive
-                  ? 'translate(0px, -15px) scale(1.15)'
-                  : 'translate(0px, 30px) scale(0.90)',
+                transform: isActive ? 'translate(0px, -15px) scale(1.15)' : 'translate(0px, 30px) scale(0.90)',
                 filter: isActive
                   ? 'saturate(1) blur(0px) drop-shadow(0px 6px 8px rgba(92, 22, 17, .5)) drop-shadow(0px 6px 15px rgba(255, 255, 255, .15))'
                   : 'saturate(0.5) blur(2px)',
-                opacity: isActive ? 1 : 0.75, 
-                
+                opacity: isActive ? 1 : 0.75,
               }}
               transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             >
-              {/* We do not render content for placeholders */}
               {player._id !== 'placeholder' && (
                 <>
                   <img
-                    src={player?.isBetrayer ? '/images/carousel-red-frame.webp' : '/images/carousel-blue-frame.webp'} 
-                    className="absolute z-10 w-full h-full"
-                  />
+                    src={frameSrc}
+                    className="absolute z-10 w-full h-full" />
                   <img
                     src={player.avatar}
                     alt={player.name}
                     className="w-full absolute top-1/2 -translate-y-[42%] z-0"
                     style={{
-                      clipPath: 'polygon(30% 0%, 70% 0%, 89% 30%, 89% 100%, 70% 100%, 30% 100%, 9% 100%, 10% 31%)',
+                      clipPath:
+                        'polygon(30% 0%, 70% 0%, 89% 30%, 89% 100%, 70% 100%, 30% 100%, 9% 100%, 10% 31%)',
                     }}
+                    onError={(e) => (e.currentTarget.src = fallbackAvatar)}
                   />
                 </>
               )}
