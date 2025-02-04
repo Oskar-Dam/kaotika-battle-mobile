@@ -48,6 +48,25 @@ export const listenToUpdatePlayer = (setKaotikaPlayers: (players: Player[]) => v
   });
 };
 
+export const listenToRemovePlayer = (setKaotikaPlayers: (players: Player[]) => void, setDravocarPlayers: (players: Player[]) => void, kaotikaPlayers: Player[], dravocarPlayers: Player[]) => {
+  
+  socket.on('removePlayer', (playerId: string) => {
+    // Search and remove player from kaotikaPlayers
+    const kaotikaPlayerIndex = kaotikaPlayers.findIndex(player => player._id === playerId);
+    if (kaotikaPlayerIndex !== -1) {
+      kaotikaPlayers.splice(kaotikaPlayerIndex, 1);
+      setKaotikaPlayers([...kaotikaPlayers]);
+    }
+
+    // Search and remove player from dravocarPlayers
+    const dravocarPlayerIndex = dravocarPlayers.findIndex(player => player._id === playerId);
+    if (dravocarPlayerIndex !== -1) {
+      dravocarPlayers.splice(dravocarPlayerIndex, 1);
+      setDravocarPlayers([...dravocarPlayers]);
+    }
+  });
+};
+
 export const clearListenToServerEventsBattleScreen = (): void => {
   socket.off(SOCKET_EVENTS.RECIVE_USERS);
   socket.off(SOCKET_EVENTS.GAME_STARTED);
