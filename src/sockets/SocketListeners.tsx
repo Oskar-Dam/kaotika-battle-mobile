@@ -5,7 +5,8 @@ import PlayerInterface from '../interfaces/PlayerInterface';
 import { updatePlayerAttributes } from '../utils/players';
 
 export const listenToServerEventsBattleScreen = (setKaotikaPlayers: (players: PlayerInterface[]) => void, setDravocarPlayers: (players: PlayerInterface[]) => void) => {
-  socket.on(SOCKET_EVENTS.RECIVE_USERS, (players: PlayerInterface[]) => {
+ 
+  socket.on(SOCKET_EVENTS.RECIVE_USERS, (players: {kaotika: PlayerInterface[], dravocar: PlayerInterface[]}) => {
     
     setKaotikaPlayers(players.kaotika);
     setDravocarPlayers(players.dravocar);
@@ -17,9 +18,8 @@ export const listenToServerEventsBattleScreen = (setKaotikaPlayers: (players: Pl
 };
 
 export const listenToGameStart = (setShowWaitingScreen: React.Dispatch<React.SetStateAction<boolean>>) => {
-  socket.on(SOCKET_EVENTS.GAME_STARTED, (showWaitingScreen: boolean) => {
-    showWaitingScreen = false;
-    setShowWaitingScreen(showWaitingScreen);
+  socket.on(SOCKET_EVENTS.GAME_STARTED, () => {
+    setShowWaitingScreen(false);
   });
 
 };
@@ -36,12 +36,12 @@ export const listenToUpdatePlayer = (setKaotikaPlayers: (players: PlayerInterfac
     //   "dravocar": setDravocarPlayers
     // }
 
-    const factionsData = {
-      "kaotika": kaotikaPlayers,
-      "dravocar": dravocarPlayers
-    }
+    // const factionsData = {
+    //   "kaotika": kaotikaPlayers,
+    //   "dravocar": dravocarPlayers
+    // }
 
-    updatePlayerAttributes(_id, factionsData, factionsSetters);
+    // updatePlayerAttributes(_id, factionsData, factionsSetters);
 
   });
 }
