@@ -51,9 +51,12 @@ export const listenToUpdatePlayer = (setKaotikaPlayers: (players: Player[]) => v
 export const listenToRemovePlayer = (setKaotikaPlayers: (players: Player[]) => void, setDravocarPlayers: (players: Player[]) => void, kaotikaPlayers: Player[], dravocarPlayers: Player[]) => {
   
   socket.on('removePlayer', (playerId: string) => {
-    // Search and remove player from kaotikaPlayers
+
+    console.log('Player ID to remove:', playerId);
+    
     const kaotikaPlayerIndex = kaotikaPlayers.findIndex(player => player._id === playerId);
     if (kaotikaPlayerIndex !== -1) {
+      console.log('Player is from kaotika faction');
       kaotikaPlayers.splice(kaotikaPlayerIndex, 1);
       setKaotikaPlayers([...kaotikaPlayers]);
     }
@@ -61,6 +64,7 @@ export const listenToRemovePlayer = (setKaotikaPlayers: (players: Player[]) => v
     // Search and remove player from dravocarPlayers
     const dravocarPlayerIndex = dravocarPlayers.findIndex(player => player._id === playerId);
     if (dravocarPlayerIndex !== -1) {
+      console.log('Player is from dravocar faction');
       dravocarPlayers.splice(dravocarPlayerIndex, 1);
       setDravocarPlayers([...dravocarPlayers]);
     }

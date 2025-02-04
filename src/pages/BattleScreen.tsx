@@ -11,7 +11,7 @@ import NickName from '../components/NickName';
 import StaminaBar from '../components/StaminaBar';
 import HitPointsBar from '../components/HitPointsBar';
 import { Factions } from '../interfaces/Factions';
-import { listenToUpdatePlayer } from '../sockets/socketListeners';
+import { listenToRemovePlayer, listenToUpdatePlayer } from '../sockets/socketListeners';
 import { Player } from '../interfaces/Player';
 interface BattleScreenProps {
   potions: Potion[];
@@ -35,6 +35,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
   useEffect(() => {
 
     listenToUpdatePlayer(setKaotikaPlayers, setDravocarPlayers, kaotikaPlayers, dravocarPlayers);
+    listenToRemovePlayer(setKaotikaPlayers, setDravocarPlayers, kaotikaPlayers, dravocarPlayers);
 
     // ⬇️ MOCK PLAYERS ⬇️ // 
     // console.warn("Take into account that the players are Mocked!")
