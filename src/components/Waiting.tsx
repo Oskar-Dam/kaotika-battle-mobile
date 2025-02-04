@@ -8,7 +8,7 @@ import { Player } from '../interfaces/Player';
 
 // the Waiting component is a modal that displays a spinner and a message while waiting for the game to start(mortimer) or if you are mortimer, you can start the game
 interface WaitingProps {
-  role: string | undefined;
+  role: string;
   setShowWaitingScreen: React.Dispatch<React.SetStateAction<boolean>>;
   setDravocarPlayers: (players: Player[]) => void;
   setKaotikaPlayers: (players: Player[]) => void;

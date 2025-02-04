@@ -22,17 +22,22 @@ function App() {
 
   return (
     <>
-      {isLoggedIn ? <BattleScreen
-        potions={potions}
-        player={player}
-        isMyTurn={isMyTurn}
-        setIsMyTurn={setIsMyTurn} />
-        : <LoginScreen
+      {isLoggedIn && player ? (
+        <BattleScreen
+          potions={potions}
+          player={player}
+          isMyTurn={isMyTurn}
+          setIsMyTurn={setIsMyTurn} 
+        />)
+        :
+        <LoginScreen
           email={email}
           setEmail={setEmail}
           setIsLoggedIn={setIsLoggedIn}
-          setPlayer={setPlayer} />}
-      {desconnection && <DesconnectionModal/>  }
+          setPlayer={setPlayer} 
+        />}
+          
+      {desconnection && <DesconnectionModal /> }
       <PWABadge />
     </>
   );

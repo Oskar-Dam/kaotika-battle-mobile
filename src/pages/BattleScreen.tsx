@@ -15,7 +15,7 @@ import { listenToRemovePlayer, listenToUpdatePlayer } from '../sockets/socketLis
 import { Player } from '../interfaces/Player';
 interface BattleScreenProps {
   potions: Potion[];
-  player: Player | null;
+  player: Player;
   isMyTurn: boolean;
   setIsMyTurn: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -74,7 +74,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
 
       {showWaitingScreen && (
         <Waiting 
-          role={player?.role}
+          role={player.role}
           setDravocarPlayers={setDravocarPlayers}
           setKaotikaPlayers={setKaotikaPlayers}
           setShowWaitingScreen={setShowWaitingScreen}
@@ -106,20 +106,20 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
           kaotikaPlayers={kaotikaPlayers}
           dravocarPlayers={dravocarPlayers}
           selectedPlayer={selectedPlayer!}
+          player={player}
         />
         
         {/* SELECTED PLAYER NICK */}
         <NickName nickname={selectedPlayer?.nickname} />
 
         {/* ACTION BUTTONS */}
-        {player && (
-          <Actions
-            playerId={player._id}
-            potions={potions}
-            openModal={openModal}
-            isMyTurn={isMyTurn}
-            setIsMyTurn={setIsMyTurn}/>
-        )}
+        <Actions
+          playerId={player._id}
+          potions={potions}
+          openModal={openModal}
+          isMyTurn={isMyTurn}
+          setIsMyTurn={setIsMyTurn}
+        />
 
       </div>
 
