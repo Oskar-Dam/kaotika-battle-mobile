@@ -96,7 +96,8 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({setSelectedPlayer, displ
 
   useEffect(() => {
     if (selectedPlayer) {
-      socket.emit("mobile-setSelectPlayer", selectedPlayer._id);
+      console.log("mobile-setSelectedPlayer SENT: ", selectedPlayer._id);
+      socket.emit("mobile-setSelectedPlayer", selectedPlayer._id);
     }
   }, [selectedPlayer]);
 

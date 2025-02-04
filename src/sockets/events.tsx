@@ -5,5 +5,5 @@ export const SOCKET_EVENTS = {
   SEND_SOCKETID:'mobile-sendSocketId',
   RECIVE_USERS:'connectedUsers',
   GAME_START:'mobile-gameStart',
-  GAME_STARTED:'gameStarted',
+  GAME_STARTED:'gameStart',
 };
