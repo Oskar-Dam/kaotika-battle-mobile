@@ -5,7 +5,8 @@ import LoginScreen from './pages/LoginScreen.tsx';
 import { potions } from './data/data.ts';
 import { listenToDisconnections } from './sockets/socketListeners.ts';
 import { Player } from './interfaces/Player.ts';
-import UnloggedDisconnectionModal from './components/DisconnectionModal.tsx';
+import UnloggedDisconnectionModal from './components/UnloggedDisconnectionModal.tsx';
+import LoggedDisconnectionModal from './components/LoggedDisconnectionModal.tsx';
 
 function App() {
   
@@ -36,7 +37,7 @@ function App() {
           setPlayer={setPlayer} 
         />}
           
-      {disconnection && <UnloggedDisconnectionModal /> }
+      {disconnection && (isLoggedIn ? <LoggedDisconnectionModal /> : <UnloggedDisconnectionModal />)}
       <PWABadge />
     </>
   );
