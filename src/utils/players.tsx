@@ -1,14 +1,14 @@
 import { Modifier } from '../interfaces/Modifier';
-import PlayerInterface from '../interfaces/PlayerInterface';
+import { Player } from '../interfaces/Player';
 
 interface FactionsPlayers {
-  'kaotika': PlayerInterface[],
-  'dravocar': PlayerInterface[]
+  'kaotika': Player[],
+  'dravocar': Player[]
 }
 
 interface FactionsSetters {
-  'kaotika': (players: PlayerInterface[]) => void;
-  'dravocar': (players: PlayerInterface[]) => void;
+  'kaotika': (players: Player[]) => void;
+  'dravocar': (players: Player[]) => void;
 }
 
 
