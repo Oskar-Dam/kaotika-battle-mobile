@@ -38,7 +38,6 @@ function App() {
         />}
           
       {disconnection && (isLoggedIn ? <LoggedDisconnectionModal
-        player={player}
         setPlayer={setPlayer}
         setIsLoggedIn={setIsLoggedIn}
         setEmail={setEmail}
