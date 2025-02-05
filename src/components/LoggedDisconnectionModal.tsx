@@ -1,9 +1,13 @@
 import React from 'react';
 import Spinner from './Spinner';
+import { Player } from '../interfaces/Player';
 
 
 interface LoggedDisconnectionModalProps {
-  
+  player: Player | null;
+  setPlayer: (player: Player) => void;
+  setIsLoggedIn: (isLoggedIn: boolean) => void;
+  setEmail: (email: string) => void;
 }
 const LoggedDisconnectionModal: React.FC<LoggedDisconnectionModalProps> = () => {
 

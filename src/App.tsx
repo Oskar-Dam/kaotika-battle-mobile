@@ -37,7 +37,12 @@ function App() {
           setPlayer={setPlayer} 
         />}
           
-      {disconnection && (isLoggedIn ? <LoggedDisconnectionModal /> : <UnloggedDisconnectionModal />)}
+      {disconnection && (isLoggedIn ? <LoggedDisconnectionModal
+        player={player}
+        setPlayer={setPlayer}
+        setIsLoggedIn={setIsLoggedIn}
+        setEmail={setEmail}
+      /> : <UnloggedDisconnectionModal />)}
       <PWABadge />
     </>
   );
