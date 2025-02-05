@@ -9,13 +9,13 @@ interface PlayerCarouselProps {
   displayedPlayers: Player[];
 }
 
-const PlayerCarousel: React.FC<PlayerCarouselProps> = ({setSelectedPlayer, displayedPlayers, selectedPlayer}) => {
+const PlayerCarousel: React.FC<PlayerCarouselProps> = ({ setSelectedPlayer, displayedPlayers, selectedPlayer }) => {
 
   // We extend with placeholders at the beginning and end to keep the first and last elements centered
   const extendedPlayers = [
-    { _id: 'placeholder', name: '', avatar: '', isBetrayer: undefined },
+    { _id: 'placeholder', name: '', avatar: '', isBetrayer: undefined, attributes: undefined, base_attributes: undefined },
     ...displayedPlayers,
-    { _id: 'placeholder', name: '', avatar: '', isBetrayer: undefined },
+    { _id: 'placeholder', name: '', avatar: '', isBetrayer: undefined, attributes: undefined, base_attributes: undefined },
   ];
 
   // valid indices
@@ -47,7 +47,7 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({setSelectedPlayer, displ
   const totalCards = extendedPlayers.length;
 
   useEffect(() => {
-    
+
     const handleResize = () => {
       if (!containerRef.current) return;
       const newContainerWidth = containerRef.current.offsetWidth;
@@ -87,7 +87,7 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({setSelectedPlayer, displ
   // When selectedIndex changes => center
   useEffect(() => {
     centerOnIndex(selectedIndex);
-    setSelectedPlayer(displayedPlayers[selectedIndex-1]);
+    setSelectedPlayer(displayedPlayers[selectedIndex - 1]);
   }, [selectedIndex, centerOnIndex, displayedPlayers, setSelectedPlayer]);
 
   useEffect(() => {
@@ -99,7 +99,7 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({setSelectedPlayer, displ
 
   // When the displayed players data changes recalculate the selected index.
   useEffect(() => {
-    if (displayedPlayers.length===0) {return;}
+    if (displayedPlayers.length === 0) { return; }
     const maxPossibleIndex = displayedPlayers.length;
     const newIndex = Math.min(maxPossibleIndex, selectedIndex);
     setSelectedIndex(newIndex);
@@ -152,7 +152,7 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({setSelectedPlayer, displ
           const fallbackAvatar = player?.isBetrayer
             ? '/images/too_many_request_betrayer.webp'
             : '/images/too_many_request_loyal.webp';
-
+          const actualPercent = (player?.attributes?.hit_points ?? 0) / (player?.base_attributes?.hit_points ?? 1) * 100;
           return (
             <motion.div
               key={index}
@@ -181,6 +181,17 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({setSelectedPlayer, displ
                         'polygon(30% 0%, 70% 0%, 89% 30%, 89% 100%, 70% 100%, 30% 100%, 9% 100%, 10% 31%)',
                     }}
                     onError={(e) => (e.currentTarget.src = fallbackAvatar)}
+                  />
+                  <img
+                    style={{ maskImage: `linear-gradient(to right, white ${actualPercent}%, transparent ${actualPercent + 10}%)` }}
+                    src="/images/carousel-hp-bar.webp"
+                    alt="?"
+                    className="absolute top-1/2 -translate-y-[42%] z-0"
+                  />  
+                  <img
+                    src="/images/carousel-bg-hp-bar.webp"
+                    alt="?"
+                    className="absolute top-1/2 -translate-y-[42%] z-0"
                   />
                 </>
               )}
