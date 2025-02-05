@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import Spinner from './Spinner';
+import React from 'react';
 import { Player } from '../interfaces/Player';
 
 
@@ -10,15 +9,22 @@ interface LoggedDisconnectionModalProps {
 }
 const LoggedDisconnectionModal: React.FC<LoggedDisconnectionModalProps> = ({setPlayer, setIsLoggedIn, setEmail}) => {
 
-  useEffect(() => {
+  const handleReconnect = () => {
     setPlayer(null);
     setIsLoggedIn(false);
     setEmail('');
-  }, []);
+  };
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-900/80 z-50">
-      <Spinner text={'Trying to find the way back into the battle...'} />
+      <div className="text-center">
+        <p className="text-white mb-4">You have been disconnected from the battle</p>
+        <button
+          onClick={handleReconnect}
+          className="bg-blue-500 text-white px-4 py-2 rounded">
+          Return to login screen
+        </button>
+      </div>
     </div>
   );
 };
