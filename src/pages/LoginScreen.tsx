@@ -1,9 +1,16 @@
 import React, { ChangeEvent, useState } from 'react';
-import { LoginScreenInterface } from '../interfaces/LoginScreenInterface';
 import Spinner from '../components/Spinner';
 import socket from '../sockets/socket';
 import { SOCKET_EVENTS } from '../sockets/events';
 import { getPlayerByEmail } from '../api/player';
+import { Player } from '../interfaces/Player';
+
+interface LoginScreenInterface {
+  email: string;
+  setEmail: (email: string) => void;
+  setIsLoggedIn: (isLoggedIn: boolean) => void;
+  setPlayer: (player: Player | null) => void;
+}
 
 const LoginScreen: React.FC<LoginScreenInterface> = ({ email, setEmail, setIsLoggedIn, setPlayer }) => {
 
