@@ -23,6 +23,11 @@ export const listenToChangeTurn = (setIsMyTurn: (turn: boolean) => void,player: 
     }
   });
 };
+export const listenToInsufficientPlayers = (setInsufficientPlayers: (turn: boolean) => void) =>{
+  socket.on(SOCKET_EVENTS.INSUFFICIENT_PLAYERS, () => {
+    setInsufficientPlayers(true);
+  });
+};  
 
 export const listenToGameStart = (setShowWaitingScreen: React.Dispatch<React.SetStateAction<boolean>>) => {
   socket.on(SOCKET_EVENTS.GAME_STARTED, () => {
@@ -82,6 +87,9 @@ export const clearListenToServerEventsBattleScreen = (): void => {
   socket.off(SOCKET_EVENTS.RECIVE_USERS);
   socket.off(SOCKET_EVENTS.GAME_STARTED);
   socket.off(SOCKET_EVENTS.TURN_CHANGE);
+};
+export const clearWaitingScreenEvents = ():void => {
+  socket.off(SOCKET_EVENTS.INSUFFICIENT_PLAYERS);
 };
 
 export const listenToDisconnections = (setdisconnection: (disconnection: boolean) => void) => {
