@@ -273,7 +273,7 @@ export const ONLINE_USERS_MOCK: Player[] =
   },
 ];
 
-export const sortedLoyalsAndBetrayersMock: DividedPlayers = 
+export const mockDividedPlayers: DividedPlayers = 
 {
   kaotika: [
     {
