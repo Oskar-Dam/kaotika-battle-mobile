@@ -1,4 +1,5 @@
-export default {
+// eslint-disable-next-line no-undef
+module.exports = {
   presets: [
     '@babel/preset-env',  // Handles modern JavaScript syntax
     '@babel/preset-typescript',  // Handles TypeScript if you're using TS
@@ -7,3 +8,4 @@ export default {
     '@babel/plugin-transform-runtime',  // Optional: Handles helpers for Babel
   ],
 };
+
