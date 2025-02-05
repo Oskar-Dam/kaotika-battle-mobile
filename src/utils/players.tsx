@@ -1,32 +1,18 @@
 import { Modifier } from '../interfaces/Modifier';
-import PlayerInterface from '../interfaces/PlayerInterface';
+import { Player } from '../interfaces/Player';
+import { FactionsSetters } from '../interfaces/FactionsSetters';
 
-interface FactionsPlayers {
-  'kaotika': PlayerInterface[],
-  'dravocar': PlayerInterface[]
-}
+export const updatePlayerAttributes = (updatedPlayer: {_id: string, attributes: Modifier, totalDamage: number, isBetrayer: boolean}, factionsSetters: FactionsSetters): void => {
 
-interface FactionsSetters {
-  'kaotika': (players: PlayerInterface[]) => void;
-  'dravocar': (players: PlayerInterface[]) => void;
-}
+  console.log('Executing updatePlayerAttributes()');
+  console.log('Updating player with id: ', updatedPlayer._id);
 
+  const factionSetter = updatedPlayer.isBetrayer ? factionsSetters['dravocar'] : factionsSetters['kaotika'];
 
-export const updatePlayerAttributes = (player: { _id: string, attributes: Modifier }, factionsData: FactionsPlayers, setFactionsPlayers: FactionsSetters): void => {
-
-  const factions = Object.keys(factionsData) as (keyof FactionsPlayers)[];  
-
-  factions.forEach(faction => {
-    const factionPlayers = factionsData[faction];
-    const playerToUpdate = factionPlayers.find(p => p._id === player._id);
-
-    if (playerToUpdate) {
-      playerToUpdate.attributes = player.attributes;
-      const newFactionPlayers = factionPlayers.map(player => player._id === playerToUpdate._id ? playerToUpdate : player);
-      const factionSetter = setFactionsPlayers[faction];
-      factionSetter(newFactionPlayers);
-    }
-
-  });
+  factionSetter((prevPlayers: Player[]) => 
+    prevPlayers.map(player => 
+      player._id === updatedPlayer._id 
+        ? { ...player, attributes: updatedPlayer.attributes } 
+        : player));
 
 };

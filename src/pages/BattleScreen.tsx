@@ -31,9 +31,14 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
   const [kaotikaPlayers, setKaotikaPlayers] = useState<Player[]>([]);
   const [dravocarPlayers, setDravocarPlayers] = useState<Player[]>([]);
 
+  const factionsSetters = {
+    'kaotika': setKaotikaPlayers,
+    'dravocar': setDravocarPlayers
+  };
+
   useEffect(() => {
 
-    listenToUpdatePlayer(setKaotikaPlayers, setDravocarPlayers, kaotikaPlayers, dravocarPlayers);
+    listenToUpdatePlayer(factionsSetters);
     listenToRemovePlayer(setKaotikaPlayers, setDravocarPlayers, kaotikaPlayers, dravocarPlayers);
     listenToChangeTurn(setIsMyTurn, player);
 
