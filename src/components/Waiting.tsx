@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Spinner from './Spinner';
 import Button from './Button';
-import { clearListenToServerEventsBattleScreen, listenToGameStart, listenToServerEventsBattleScreen } from '../sockets/socketListeners';
+import { clearListenToServerEventsBattleScreen, listenToGameStart, listenToInsufficientPlayers, listenToServerEventsBattleScreen } from '../sockets/socketListeners';
 import socket from '../sockets/socket';
 import { SOCKET_EVENTS } from '../sockets/events';
 import { Player } from '../interfaces/Player';
@@ -15,9 +15,12 @@ interface WaitingProps {
 }
 const Waiting: React.FC<WaitingProps> = ({ role, setDravocarPlayers, setKaotikaPlayers, setShowWaitingScreen }) => {
 
+  const [insufficientPlayers, setInsufficientPlayers] = useState<boolean>(false);
+  
   useEffect(() => {
     listenToServerEventsBattleScreen(setKaotikaPlayers, setDravocarPlayers);
     listenToGameStart(setShowWaitingScreen);
+    listenToInsufficientPlayers(setInsufficientPlayers);
     return () => {
       clearListenToServerEventsBattleScreen();
     };
@@ -30,9 +33,10 @@ const Waiting: React.FC<WaitingProps> = ({ role, setDravocarPlayers, setKaotikaP
   
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-900/80 z-50">
-      {role === 'acolyte' ? <Button
+      {role === 'mortimer' ? <Button
         text={'Start the game'}
         onClick={() => handleStartGame()} /> : <Spinner text={'Waiting for Mortimer to start the game'} />}
+      {role === 'mortimer' && insufficientPlayers && <p className='text-4xl text-red-500 justify-center  absolute top-[60%]'>Insufficient Acolytes</p>}
     </div>
   );
 };

@@ -9,17 +9,17 @@ interface ActionsProps {
   openModal: (potion: Potion) => void
   isMyTurn: boolean
   setIsMyTurn: React.Dispatch<React.SetStateAction<boolean>>;
-  playerId: string;
+  selectedPlayerId: string | undefined;
 }
 
-const Actions: React.FC<ActionsProps> = ({ potions, openModal, isMyTurn, setIsMyTurn, playerId  }) => {
+const Actions: React.FC<ActionsProps> = ({ potions, openModal, isMyTurn, setIsMyTurn, selectedPlayerId  }) => {
   return (
     <div className="flex flex-col items-center justify-center w-full h-[49%] border-0 border-yellow-400">
       <AttackButton
         text={'Attack'}
         onClick={() => {
-          console.log('Attacking ', playerId);
-          socket.emit('mobile-attack', playerId);
+          console.log('Attacking ', selectedPlayerId);
+          socket.emit('mobile-attack', selectedPlayerId);
           setIsMyTurn(false);
         }}
         isMyTurn={isMyTurn}
