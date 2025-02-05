@@ -24,7 +24,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
 }) => {
 
   const [selectedPotion, setSelectedPotion] = useState<Potion | null>(null);
-  const [showWaitingScreen, setShowWaitingScreen] = useState<boolean>(true);
+  const [showWaitingScreen, setShowWaitingScreen] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState<Player>();
   const [filteredFaction, setFilteredFaction] = useState<Factions|undefined>(undefined);
