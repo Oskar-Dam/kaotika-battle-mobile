@@ -74,18 +74,18 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
         style={{ backgroundImage: frameBackground, backgroundSize: '100% 100%' }}
       >
         <StaminaBar
-          resistance={player?.attributes.resistance ?? 0}
-          base_resistance={player?.base_attributes.resistance ?? 0}
+          resistance={player.attributes.resistance ?? 0}
+          base_resistance={player.base_attributes.resistance ?? 0}
         />
         <HitPointsBar
-          hp={player?.attributes.hit_points ?? 0}
-          base_hp={player?.base_attributes.hit_points ?? 0}
+          hp={player.attributes.hit_points ?? 0}
+          base_hp={player.base_attributes.hit_points ?? 0}
         />
 
         {/* AVATAR */}
         <Avatar
-          avatar={player?.avatar}
-          faction={player?.isBetrayer}/>
+          avatar={player.avatar}
+          faction={player.isBetrayer}/>
 
         {/* CAROUSEL CONTAINER */}
         <CarouselContainer
