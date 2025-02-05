@@ -1,6 +1,4 @@
-/* eslint-disable */
-
-module.exports = {
+export default {
   presets: [
     '@babel/preset-env',  // Handles modern JavaScript syntax
     '@babel/preset-typescript',  // Handles TypeScript if you're using TS
