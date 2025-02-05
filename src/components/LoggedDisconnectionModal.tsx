@@ -16,12 +16,12 @@ const LoggedDisconnectionModal: React.FC<LoggedDisconnectionModalProps> = ({setP
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-gray-900/80 z-50">
+    <div className="fixed inset-0 flex items-center justify-center bg-gray-900/100 z-50">
       <div className="text-center">
-        <p className="text-white mb-4">You have been disconnected from the battle</p>
+        <p className="text-white mb-4 text-3xl">You have been disconnected from the battle</p>
         <button
           onClick={handleReconnect}
-          className="bg-blue-500 text-white px-4 py-2 rounded">
+          className="bg-blue-500 text-white px-4 py-2 rounded text-2xl">
           Return to login screen
         </button>
       </div>
