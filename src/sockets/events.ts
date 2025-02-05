@@ -8,4 +8,6 @@ export const SOCKET_EVENTS = {
   GAME_STARTED:'gameStart',
   TURN_CHANGE:'assign-turn',
   INSUFFICIENT_PLAYERS:'mobile-insufficientPlayers',
+  UPDATE_PLAYER: 'updatePlayer',
+  REMOVE_PLAYER: 'removePlayer',
 };
