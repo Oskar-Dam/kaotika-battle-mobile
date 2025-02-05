@@ -2,17 +2,16 @@ import socket from './socket';
 import { SOCKET_EVENTS } from './events';
 import { Player } from '../interfaces/Player';
 import { Modifier } from '../interfaces/Modifier';
-// import { updatePlayerAttributes } from '../utils/players';
+import { updatePlayerAttributes } from '../utils/players';
+import { FactionsSetters } from '../interfaces/FactionsSetters';
 
 export const listenToServerEventsBattleScreen = (setKaotikaPlayers: (players: Player[]) => void, setDravocarPlayers: (players: Player[]) => void) => {
   socket.on(SOCKET_EVENTS.RECIVE_USERS, (players: {kaotika: Player[], dravocar: Player[]}) => {
     setKaotikaPlayers(players.kaotika);
     setDravocarPlayers(players.dravocar);
-    // console.warn("Take into account that the players are Mocked!")
-    // setKaotikaPlayers(factions.kaotika);
-    // setDravocarPlayers(factions.dravocar);
   });
 };
+
 export const listenToChangeTurn = (setIsMyTurn: (turn: boolean) => void,player: Player | null) => {
   socket.on(SOCKET_EVENTS.TURN_CHANGE, (_id: string) => {
     console.log('TURN CHANGED');
@@ -23,6 +22,11 @@ export const listenToChangeTurn = (setIsMyTurn: (turn: boolean) => void,player: 
     }
   });
 };
+export const listenToInsufficientPlayers = (setInsufficientPlayers: (turn: boolean) => void) =>{
+  socket.on(SOCKET_EVENTS.INSUFFICIENT_PLAYERS, () => {
+    setInsufficientPlayers(true);
+  });
+};  
 
 export const listenToGameStart = (setShowWaitingScreen: React.Dispatch<React.SetStateAction<boolean>>) => {
   socket.on(SOCKET_EVENTS.GAME_STARTED, () => {
@@ -30,28 +34,10 @@ export const listenToGameStart = (setShowWaitingScreen: React.Dispatch<React.Set
   });
 };
 
-export const listenToUpdatePlayer = (setKaotikaPlayers: (players: Player[]) => void, setDravocarPlayers: (players: Player[]) => void, kaotikaPlayers: Player[], dravocarPlayers: Player[]) => {
-  
-  socket.on('updatePlayer', (player: {_id: string, attributes: Modifier, totalDamage: number}) => {
-
-    console.log('Update Player not implemented yet.');
-    console.log(player);
-
-    const factionsSetters = {
-      'kaotika': setKaotikaPlayers,
-      'dravocar': setDravocarPlayers
-    };
-
-    const factionsData = {
-      'kaotika': kaotikaPlayers,
-      'dravocar': dravocarPlayers
-    };
-
-    console.log(factionsData);
-    console.log(factionsSetters);
-
-    // updatePlayerAttributes(player._id, factionsData, factionsSetters);
-
+export const listenToUpdatePlayer = (factionsSetters: FactionsSetters) => {
+  socket.on('updatePlayer', (updatedPlayer: {_id: string, attributes: Modifier, totalDamage: number, isBetrayer: boolean}) => {
+    console.log('updatePlayer socket received.');
+    updatePlayerAttributes(updatedPlayer, factionsSetters);
   });
 };
 
@@ -82,6 +68,9 @@ export const clearListenToServerEventsBattleScreen = (): void => {
   socket.off(SOCKET_EVENTS.RECIVE_USERS);
   socket.off(SOCKET_EVENTS.GAME_STARTED);
   socket.off(SOCKET_EVENTS.TURN_CHANGE);
+};
+export const clearWaitingScreenEvents = ():void => {
+  socket.off(SOCKET_EVENTS.INSUFFICIENT_PLAYERS);
 };
 
 export const listenToDisconnections = (setdisconnection: (disconnection: boolean) => void) => {
