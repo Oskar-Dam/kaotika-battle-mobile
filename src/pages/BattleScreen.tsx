@@ -13,7 +13,7 @@ import { Player } from '../interfaces/Player';
 import GameEndingModal from '../components/GameEndingModal';
 
 import { Potion } from '../interfaces/Potion';
-import { clearListenToServerEventsBattleScreen, listenToChangeTurn, listenToRemovePlayer, listenToUpdatePlayer } from '../sockets/socketListeners';
+import { clearListenToServerEventsBattleScreen, listenToChangeTurn, listenToGameEnded, listenToRemovePlayer, listenToUpdatePlayer } from '../sockets/socketListeners';
 interface BattleScreenProps {
   potions: Potion[];
   player: Player;
@@ -52,6 +52,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
     listenToUpdatePlayer(factionsSetters);
     listenToRemovePlayer(setKaotikaPlayers, setDravocarPlayers, kaotikaPlayers, dravocarPlayers);
     listenToChangeTurn(setIsMyTurn, player);
+    listenToGameEnded(setGameEnded, setWinner);
 
     // ⬇️ MOCK PLAYERS ⬇️ // 
     // console.warn("Take into account that the players are Mocked!")

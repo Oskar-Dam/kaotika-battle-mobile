@@ -79,6 +79,14 @@ export const listenToDisconnections = (setdisconnection: (disconnection: boolean
   });
 };
 
+export const listenToGameEnded = (setGameEnded: (gameEnded: boolean) => void, setWinner: (winner: string) => void) => {
+  socket.on(SOCKET_EVENTS.GAME_END, (winner: string) => {
+    console.log(`'${SOCKET_EVENTS.GAME_END}' socket received.`);
+    setGameEnded(true);
+    setWinner(winner);
+  });
+};
+
 // ---- SOCKET OFFS ---- //
 
 export const clearListenToServerEventsBattleScreen = (): void => {
@@ -90,6 +98,10 @@ export const clearListenToServerEventsBattleScreen = (): void => {
 
   socket.off(SOCKET_EVENTS.TURN_CHANGE);
   console.log(`'${SOCKET_EVENTS.TURN_CHANGE}' socket cleared.`);
+
+  socket.off(SOCKET_EVENTS.GAME_END);
+  console.log(`'${SOCKET_EVENTS.GAME_END}' socket cleared.`);
+  
 };
 
 export const clearWaitingScreenEvents = ():void => {
