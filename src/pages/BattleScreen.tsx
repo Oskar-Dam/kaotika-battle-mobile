@@ -35,7 +35,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
   const [filteredFaction, setFilteredFaction] = useState<Factions|undefined>(undefined);
   const [kaotikaPlayers, setKaotikaPlayers] = useState<Player[]>([]);
   const [dravocarPlayers, setDravocarPlayers] = useState<Player[]>([]);
-  const [gameEnded, setGameEnded] = useState<boolean>(true);
+  const [gameEnded, setGameEnded] = useState<boolean>(false);
   const [winner, setWinner] = useState<string>('Kaotika');
 
   // ⬇️ SETTERS CALLED HERE FOR ESLINT TO IGNORE NOT CALLING THEM, DELETE AFTER SOCKET IMPLEMENTATION⬇️ //
