@@ -9,16 +9,22 @@ import UnloggedDisconnectionModal from './components/UnloggedDisconnectionModal.
 import LoggedDisconnectionModal from './components/LoggedDisconnectionModal.tsx';
 
 function App() {
-  
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [email, setEmail] = useState<string>('');
   const [player, setPlayer] = useState<Player | null>(null);
   const [isMyTurn, setIsMyTurn] = useState<boolean>(false);
-  const [disconnection, setDisconnection] = useState<boolean>(true);
+  const [isDisconnected, setIsDisconnected] = useState<boolean>(false);
+  const [PermanentlyDisconnected, setPermanentlyDisconnected] = useState<boolean>(false);
 
   useEffect(() => {
-    listenToDisconnections(setDisconnection);
-  }, []);
+    const handleDisconnection = (disconnected: boolean) => {
+      setIsDisconnected(disconnected);
+      if (disconnected && isLoggedIn) {
+        setPermanentlyDisconnected(true);
+      }
+    };
+    listenToDisconnections(handleDisconnection);
+  }, [isLoggedIn]);
 
   return (
     <>
@@ -27,21 +33,27 @@ function App() {
           potions={potions}
           player={player}
           isMyTurn={isMyTurn}
-          setIsMyTurn={setIsMyTurn} 
-        />)
-        :
+          setIsMyTurn={setIsMyTurn}
+        />
+      ) : (
         <LoginScreen
           email={email}
           setEmail={setEmail}
           setIsLoggedIn={setIsLoggedIn}
-          setPlayer={setPlayer} 
-        />}
-          
-      {disconnection && (isLoggedIn ? <LoggedDisconnectionModal
-        setPlayer={setPlayer}
-        setIsLoggedIn={setIsLoggedIn}
-        setEmail={setEmail}
-      /> : <UnloggedDisconnectionModal />)}
+          setPlayer={setPlayer}
+        />
+      )}
+
+      {PermanentlyDisconnected && isLoggedIn && (
+        <LoggedDisconnectionModal
+          setPlayer={setPlayer}
+          setIsLoggedIn={setIsLoggedIn}
+          setEmail={setEmail}
+        />
+      )}
+
+      {!isLoggedIn && isDisconnected && <UnloggedDisconnectionModal />}
+
       <PWABadge />
     </>
   );
