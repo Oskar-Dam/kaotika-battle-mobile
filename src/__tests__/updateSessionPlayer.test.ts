@@ -1,5 +1,3 @@
-import React, { useState } from 'react';
-import { Modifier } from '../interfaces/Modifier';
 import { Player } from '../interfaces/Player';
 import { ONLINE_USERS_MOCK } from '../__mocks__/mockPlayers';
 import { updateSessionPlayerAttributesIfIdMatches } from '../utils/players';
@@ -30,7 +28,7 @@ describe('updateSessionPlayerAttributesIfIdMatches', () => {
         attributes: attributesModified.attributes
       });
   });
-  
+
   it('should not update the player since ID does not match', () => {
     const attributesModified = {_id: '66decc4ff42d4a193db77e72', attributes: {
         charisma: 0,
