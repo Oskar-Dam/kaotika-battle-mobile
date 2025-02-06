@@ -35,7 +35,6 @@ function App() {
           setPlayer={setPlayer}
           isMyTurn={isMyTurn}
           setIsMyTurn={setIsMyTurn}
-          setPlayer={setPlayer}
           setIsLoggedIn={setIsLoggedIn}
           setEmail={setEmail}
         />
