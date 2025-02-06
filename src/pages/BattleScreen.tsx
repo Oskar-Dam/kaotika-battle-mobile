@@ -10,7 +10,6 @@ import NickName from '../components/NickName';
 import StaminaBar from '../components/StaminaBar';
 import HitPointsBar from '../components/HitPointsBar';
 import { Factions } from '../interfaces/Factions';
-import { mockDividedPlayers } from '../__mocks__/mockPlayers';
 import { listenToChangeTurn, listenToRemovePlayer, listenToUpdatePlayer } from '../sockets/socketListeners';
 import { Player } from '../interfaces/Player';
 interface BattleScreenProps {
@@ -25,7 +24,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
 }) => {
 
   const [selectedPotion, setSelectedPotion] = useState<Potion | null>(null);
-  const [showWaitingScreen, setShowWaitingScreen] = useState<boolean>(false);
+  const [showWaitingScreen, setShowWaitingScreen] = useState<boolean>(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState<Player>();
   const [filteredFaction, setFilteredFaction] = useState<Factions|undefined>(undefined);
@@ -44,9 +43,9 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
     listenToChangeTurn(setIsMyTurn, player);
 
     // ⬇️ MOCK PLAYERS ⬇️ // 
-    console.warn('Take into account that the players are Mocked!');
-    setKaotikaPlayers(mockDividedPlayers.kaotika);
-    setDravocarPlayers(mockDividedPlayers.dravocar);
+    // console.warn('Take into account that the players are Mocked!');
+    // setKaotikaPlayers(mockDividedPlayers.kaotika);
+    // setDravocarPlayers(mockDividedPlayers.dravocar);
   }, []);
 
 
