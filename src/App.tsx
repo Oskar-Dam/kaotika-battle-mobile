@@ -28,6 +28,9 @@ function App() {
           player={player}
           isMyTurn={isMyTurn}
           setIsMyTurn={setIsMyTurn} 
+          setPlayer={setPlayer}
+          setIsLoggedIn={setIsLoggedIn}
+          setEmail={setEmail}
         />)
         :
         <LoginScreen

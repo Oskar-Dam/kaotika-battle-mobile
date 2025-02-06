@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Player } from '../interfaces/Player';
 
 interface GameEndingModalProps {
@@ -9,23 +9,24 @@ interface GameEndingModalProps {
 }
 
 const GameEndingModal: React.FC<GameEndingModalProps> = ({ setPlayer, setIsLoggedIn, setEmail, winner }) => {
-  useEffect(() => {
+
+  const handleReconnect = () => {
     setPlayer(null);
     setIsLoggedIn(false);
     setEmail('');
-  }, [setPlayer, setIsLoggedIn, setEmail]);
+  };
+
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className="bg-white p-8 rounded shadow-lg text-center">
-        <h2 className="text-2xl font-bold mb-4">Game Over</h2>
-        <p className="mb-4">Thank you for playing!</p>
-        <p className="mb-4">Winner: {winner}</p>  {/* Show who won */}
+    <div className="fixed inset-0 flex items-center justify-center bg-black z-51">
+      <div className="flex flex-col bg-black p-8 rounded shadow-lg justify-center text-center w-full h-full items-center">
+        <h2 className="text-6xl font-bold mb-4 text-white">Game Over</h2>
+        <p className="mb-4 text-4xl text-white">Winner: {winner}</p>  {/* Show who won */}
         <button
-          className="bg-blue-500 text-white px-4 py-2 rounded"
-          onClick={() => window.location.reload()}
+          className="bg-gray-500 text-white px-4 py-2 rounded text-3xl"
+          onClick={handleReconnect}
         >
-          Play Again
+          Go back to the Login Screen
         </button>
       </div>
     </div>
