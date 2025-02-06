@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import Spinner from './Spinner';
-import Button from './Button';
-import { clearListenToServerEventsBattleScreen, listenToGameStart, listenToInsufficientPlayers, listenToServerEventsBattleScreen } from '../sockets/socketListeners';
-import socket from '../sockets/socket';
-import { SOCKET_EVENTS } from '../sockets/events';
 import { Player } from '../interfaces/Player';
+import { SOCKET_EVENTS } from '../sockets/events';
+import socket from '../sockets/socket';
+import { listenToGameStart, listenToInsufficientPlayers, listenToServerEventsBattleScreen } from '../sockets/socketListeners';
+import Button from './Button';
+import Spinner from './Spinner';
 
 // the Waiting component is a modal that displays a spinner and a message while waiting for the game to start(mortimer) or if you are mortimer, you can start the game
 interface WaitingProps {
@@ -21,9 +21,6 @@ const Waiting: React.FC<WaitingProps> = ({ role, setDravocarPlayers, setKaotikaP
     listenToServerEventsBattleScreen(setKaotikaPlayers, setDravocarPlayers);
     listenToGameStart(setShowWaitingScreen);
     listenToInsufficientPlayers(setInsufficientPlayers);
-    return () => {
-      clearListenToServerEventsBattleScreen();
-    };
   }, []);
 
   const handleStartGame = (): void => {
