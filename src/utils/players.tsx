@@ -20,4 +20,4 @@ export const updateSessionPlayerAttributesIfIdMatches = (updatedPlayer: {_id: st
   if(updatedPlayer._id === sessionPlayer._id){      
     setPlayer({ ...sessionPlayer, attributes: updatedPlayer.attributes });
   }
-}
+};
