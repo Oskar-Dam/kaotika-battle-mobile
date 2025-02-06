@@ -32,9 +32,9 @@ function App() {
         <BattleScreen
           potions={potions}
           player={player}
+          setPlayer={setPlayer}
           isMyTurn={isMyTurn}
           setIsMyTurn={setIsMyTurn}
-          setPlayer={setPlayer}
           setIsLoggedIn={setIsLoggedIn}
           setEmail={setEmail}
         />

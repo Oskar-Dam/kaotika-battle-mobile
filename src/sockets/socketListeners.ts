@@ -1,7 +1,7 @@
 import { FactionsSetters } from '../interfaces/FactionsSetters';
 import { Modifier } from '../interfaces/Modifier';
 import { Player } from '../interfaces/Player';
-import { updatePlayerAttributes } from '../utils/players';
+import { updatePlayerAttributes, updateSessionPlayerAttributesIfIdMatches } from '../utils/players';
 import { SOCKET_EVENTS } from './events';
 import socket from './socket';
 
@@ -37,10 +37,11 @@ export const listenToGameStart = (setShowWaitingScreen: React.Dispatch<React.Set
   });
 };
 
-export const listenToUpdatePlayer = (factionsSetters: FactionsSetters) => {
+export const listenToUpdatePlayer = (factionsSetters: FactionsSetters, setPlayer: React.Dispatch<React.SetStateAction<Player | null>>, player: Player) => {
   socket.on(SOCKET_EVENTS.UPDATE_PLAYER, (updatedPlayer: {_id: string, attributes: Modifier, totalDamage: number, isBetrayer: boolean}) => {
     console.log(`'${SOCKET_EVENTS.UPDATE_PLAYER}' socket received.`);
     updatePlayerAttributes(updatedPlayer, factionsSetters);
+    updateSessionPlayerAttributesIfIdMatches(updatedPlayer, setPlayer, player)
   });
 };
 
@@ -79,17 +80,26 @@ export const listenToDisconnections = (setdisconnection: (disconnection: boolean
   });
 };
 
+export const listenToGameEnded = (setGameEnded: (gameEnded: boolean) => void, setWinner: (winner: string) => void) => {
+  socket.on(SOCKET_EVENTS.GAME_END, (winner: string) => {
+    console.log(`'${SOCKET_EVENTS.GAME_END}' socket received.`);
+    setGameEnded(true);
+    setWinner(winner);
+  });
+};
+
 // ---- SOCKET OFFS ---- //
 
 export const clearListenToServerEventsBattleScreen = (): void => {
   socket.off(SOCKET_EVENTS.RECIVE_USERS);
   console.log(`'${SOCKET_EVENTS.RECIVE_USERS}' socket cleared.`);
 
-  socket.off(SOCKET_EVENTS.GAME_STARTED);
-  console.log(`'${SOCKET_EVENTS.GAME_STARTED}' socket cleared.`);
-
   socket.off(SOCKET_EVENTS.TURN_CHANGE);
   console.log(`'${SOCKET_EVENTS.TURN_CHANGE}' socket cleared.`);
+
+  socket.off(SOCKET_EVENTS.GAME_END);
+  console.log(`'${SOCKET_EVENTS.GAME_END}' socket cleared.`);
+  
 };
 
 export const clearWaitingScreenEvents = ():void => {

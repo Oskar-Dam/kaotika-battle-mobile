@@ -13,13 +13,13 @@ import { Player } from '../interfaces/Player';
 import GameEndingModal from '../components/GameEndingModal';
 
 import { Potion } from '../interfaces/Potion';
-import { clearListenToServerEventsBattleScreen, listenToChangeTurn, listenToRemovePlayer, listenToUpdatePlayer } from '../sockets/socketListeners';
+import { clearListenToServerEventsBattleScreen, listenToChangeTurn, listenToGameEnded, listenToRemovePlayer, listenToUpdatePlayer } from '../sockets/socketListeners';
 interface BattleScreenProps {
   potions: Potion[];
   player: Player;
+  setPlayer:React.Dispatch<React.SetStateAction<Player | null>>;
   isMyTurn: boolean;
   setIsMyTurn: React.Dispatch<React.SetStateAction<boolean>>;
-  setPlayer: (player: Player | null) => void;
   setIsLoggedIn: (isLoggedIn: boolean) => void;
   setEmail: (email: string) => void;
 }
@@ -49,9 +49,10 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
 
   useEffect(() => {
 
-    listenToUpdatePlayer(factionsSetters);
+    listenToUpdatePlayer(factionsSetters, setPlayer, player);
     listenToRemovePlayer(setKaotikaPlayers, setDravocarPlayers, kaotikaPlayers, dravocarPlayers);
     listenToChangeTurn(setIsMyTurn, player);
+    listenToGameEnded(setGameEnded, setWinner);
 
     // ⬇️ MOCK PLAYERS ⬇️ // 
     // console.warn("Take into account that the players are Mocked!")
@@ -60,7 +61,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
     return () => {
       clearListenToServerEventsBattleScreen();
     };
-  }, [kaotikaPlayers, dravocarPlayers]);
+  }, [kaotikaPlayers, dravocarPlayers, player]);
 
 
   const openModal = (potion: Potion) => {
