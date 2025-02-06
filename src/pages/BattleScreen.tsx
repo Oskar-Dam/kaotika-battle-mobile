@@ -43,9 +43,9 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
     listenToChangeTurn(setIsMyTurn, player);
 
     // ⬇️ MOCK PLAYERS ⬇️ // 
-    // console.warn("Take into account that the players are Mocked!")
-    // setKaotikaPlayers(factions.kaotika);
-    // setDravocarPlayers(factions.dravocar);
+    // console.warn('Take into account that the players are Mocked!');
+    // setKaotikaPlayers(mockDividedPlayers.kaotika);
+    // setDravocarPlayers(mockDividedPlayers.dravocar);
   }, []);
 
 
@@ -108,7 +108,8 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
 
         {/* ACTION BUTTONS */}
         <Actions
-          selectedPlayerId={selectedPlayer?._id}
+          selectedPlayer={selectedPlayer}
+          player={player}
           potions={potions}
           openModal={openModal}
           isMyTurn={isMyTurn}
