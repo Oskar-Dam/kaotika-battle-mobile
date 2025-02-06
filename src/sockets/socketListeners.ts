@@ -1,13 +1,13 @@
-import socket from './socket';
-import { SOCKET_EVENTS } from './events';
-import { Player } from '../interfaces/Player';
-import { Modifier } from '../interfaces/Modifier';
-import { updatePlayerAttributes } from '../utils/players';
 import { FactionsSetters } from '../interfaces/FactionsSetters';
+import { Modifier } from '../interfaces/Modifier';
+import { Player } from '../interfaces/Player';
+import { updatePlayerAttributes } from '../utils/players';
+import { SOCKET_EVENTS } from './events';
+import socket from './socket';
 
 export const listenToServerEventsBattleScreen = (setKaotikaPlayers: (players: Player[]) => void, setDravocarPlayers: (players: Player[]) => void) => {
   socket.on(SOCKET_EVENTS.RECIVE_USERS, (players: {kaotika: Player[], dravocar: Player[]}) => {
-    console.log(`'${SOCKET_EVENTS.RECIVE_USERS}' socket received.`);
+    console.log(`'${SOCKET_EVENTS.RECIVE_USERS}' socket received.`);    
     setKaotikaPlayers(players.kaotika);
     setDravocarPlayers(players.dravocar);
   });

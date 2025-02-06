@@ -60,7 +60,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
     return () => {
       clearListenToServerEventsBattleScreen();
     };
-  }, []);
+  }, [kaotikaPlayers, dravocarPlayers]);
 
 
   const openModal = (potion: Potion) => {
