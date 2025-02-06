@@ -11,12 +11,14 @@ interface ActionsProps {
   isMyTurn: boolean
   setIsMyTurn: React.Dispatch<React.SetStateAction<boolean>>;
   selectedPlayer: Player | undefined;
+  player: Player | undefined;
 }
 
-const Actions: React.FC<ActionsProps> = ({ potions, openModal, isMyTurn, setIsMyTurn, selectedPlayer  }) => {
+const Actions: React.FC<ActionsProps> = ({ potions, openModal, isMyTurn, setIsMyTurn, selectedPlayer, player}) => {
   return (
     <div className="flex flex-col items-center justify-center w-full h-[49%] border-0 border-yellow-400">
       <AttackButton
+        player={player}
         text={'Attack'}
         onClick={() => {
           console.log('Attacking ', selectedPlayer?._id);

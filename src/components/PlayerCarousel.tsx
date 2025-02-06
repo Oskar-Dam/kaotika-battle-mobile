@@ -85,12 +85,18 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({ setSelectedPlayer, disp
 
   // When selectedIndex changes => center
   useEffect(() => {
+    console.log('selectedIndex: ', selectedIndex);
+    
     centerOnIndex(selectedIndex);
     setSelectedPlayer(displayedPlayers[selectedIndex - 1]);
   }, [selectedIndex, centerOnIndex, displayedPlayers, setSelectedPlayer]);
 
   useEffect(() => {
     if (selectedPlayer) {
+      console.log('Selected player: ', selectedPlayer.nickname);
+      console.log('Selected player is betrayer? ', selectedPlayer.isBetrayer);
+      
+      
       console.log('mobile-setSelectedPlayer SENT: ', selectedPlayer._id);
       socket.emit('mobile-setSelectedPlayer', selectedPlayer._id);
     }
