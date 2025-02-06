@@ -1,9 +1,11 @@
 import React from 'react';
+import { Player } from '../interfaces/Player';
 
 interface AttackButtonProps {
   text: string;
   onClick: () => void;
   isMyTurn: boolean;
+  selectedPlayer?: Player | undefined;
 }
 
 const AttackButton: React.FC<AttackButtonProps> = ({ text = 'Void', onClick, isMyTurn }) => {
