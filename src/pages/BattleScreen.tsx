@@ -12,15 +12,20 @@ import HitPointsBar from '../components/HitPointsBar';
 import { Factions } from '../interfaces/Factions';
 import { listenToChangeTurn, listenToRemovePlayer, listenToUpdatePlayer } from '../sockets/socketListeners';
 import { Player } from '../interfaces/Player';
+import GameEndingModal from '../components/GameEndingModal';
+
 interface BattleScreenProps {
   potions: Potion[];
   player: Player;
   isMyTurn: boolean;
   setIsMyTurn: React.Dispatch<React.SetStateAction<boolean>>;
+  setPlayer: (player: Player | null) => void;
+  setIsLoggedIn: (isLoggedIn: boolean) => void;
+  setEmail: (email: string) => void;
 }
 
 const BattleScreen: React.FC<BattleScreenProps> = ({
-  potions, player, isMyTurn, setIsMyTurn
+  potions, player, isMyTurn, setIsMyTurn, setPlayer, setIsLoggedIn, setEmail
 }) => {
 
   const [selectedPotion, setSelectedPotion] = useState<Potion | null>(null);
@@ -30,6 +35,12 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
   const [filteredFaction, setFilteredFaction] = useState<Factions|undefined>(undefined);
   const [kaotikaPlayers, setKaotikaPlayers] = useState<Player[]>([]);
   const [dravocarPlayers, setDravocarPlayers] = useState<Player[]>([]);
+  const [gameEnded, setGameEnded] = useState<boolean>(false);
+  const [winner, setWinner] = useState<string>('');
+
+  // ⬇️ SETTERS CALLED HERE FOR ESLINT TO IGNORE NOT CALLING THEM, DELETE AFTER SOCKET IMPLEMENTATION⬇️ //
+  setGameEnded;
+  setWinner;
 
   const factionsSetters = {
     'kaotika': setKaotikaPlayers,
@@ -122,6 +133,15 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
         <PotionModal
           potion={selectedPotion}
           closeModal={closeModal}
+        />
+      )}
+
+      {gameEnded && (
+        <GameEndingModal
+          setPlayer={setPlayer}
+          setIsLoggedIn={setIsLoggedIn}
+          setEmail={setEmail}
+          winner={winner}  // Pass winner to GameEndingModal
         />
       )}
     </>
