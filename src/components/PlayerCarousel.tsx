@@ -81,17 +81,22 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({ setSelectedPlayer, disp
       stiffness: 300,
       damping: 25,
     });
-  },
-  [containerWidth, cardWidth, GAP, maxDrag, x]);
+  }, [containerWidth, cardWidth, GAP, maxDrag, x]);
 
   // When selectedIndex changes => center
   useEffect(() => {
+    console.log('selectedIndex: ', selectedIndex);
+    
     centerOnIndex(selectedIndex);
     setSelectedPlayer(displayedPlayers[selectedIndex - 1]);
   }, [selectedIndex, centerOnIndex, displayedPlayers, setSelectedPlayer]);
 
   useEffect(() => {
     if (selectedPlayer) {
+      console.log('Selected player: ', selectedPlayer.nickname);
+      console.log('Selected player is betrayer? ', selectedPlayer.isBetrayer);
+      
+      
       console.log('mobile-setSelectedPlayer SENT: ', selectedPlayer._id);
       socket.emit('mobile-setSelectedPlayer', selectedPlayer._id);
     }
@@ -171,7 +176,8 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({ setSelectedPlayer, disp
                 <>
                   <img
                     src={frameSrc}
-                    className="absolute z-10 w-full h-full" />
+                    className="absolute z-10 w-full h-full"
+                  />
                   <img
                     src={player.avatar}
                     alt={player.name}
@@ -186,12 +192,12 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({ setSelectedPlayer, disp
                     style={{ maskImage: `linear-gradient(to right, white ${actualPercent}%, transparent ${actualPercent + 10}%)` }}
                     src="/images/carousel-hp-bar.webp"
                     alt="?"
-                    className="absolute top-1/2 -translate-y-[42%] z-0"
-                  />  
+                    className="w-[75%] left-5 absolute bottom-5 z-1"
+                  />
                   <img
                     src="/images/carousel-bg-hp-bar.webp"
                     alt="?"
-                    className="absolute top-1/2 -translate-y-[42%] z-0"
+                    className="w-[75%] left-5 absolute bottom-5 z-0"
                   />
                 </>
               )}

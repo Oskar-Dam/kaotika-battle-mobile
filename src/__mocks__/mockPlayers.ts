@@ -275,7 +275,7 @@ export const ONLINE_USERS_MOCK: Player[] =
 
 export const mockDividedPlayers: DividedPlayers = 
 {
-  kaotika: [
+  dravocar: [
     {
       _id: '66decc4ff42d4a193db77e71',
       name: 'AITOR MENDIBURU BOTAS',
@@ -409,7 +409,7 @@ export const mockDividedPlayers: DividedPlayers =
       status: { ethaziumCurse: false, common_diseases: [], tired: false },
     },
   ],
-  dravocar: [{
+  kaotika: [{
     _id: '66dec6ab4c27dff822d80066',
     name: 'ENEKO LARREA PEREZ',
     nickname: '六四事件1989',
