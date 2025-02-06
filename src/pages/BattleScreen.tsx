@@ -1,17 +1,17 @@
-import { useState, useEffect } from 'react';
-import { Potion } from '../interfaces/Potion';
+import { useEffect, useState } from 'react';
 import Actions from '../components/Actions';
-import CarouselContainer from '../components/CarouselContainer';
-import Waiting from '../components/Waiting';
-import PotionModal from '../components/PotionModal';
-import BlockedScreen from '../components/BlockedScreen';
 import Avatar from '../components/Avatar';
-import NickName from '../components/NickName';
-import StaminaBar from '../components/StaminaBar';
+import BlockedScreen from '../components/BlockedScreen';
+import CarouselContainer from '../components/CarouselContainer';
 import HitPointsBar from '../components/HitPointsBar';
+import NickName from '../components/NickName';
+import PotionModal from '../components/PotionModal';
+import StaminaBar from '../components/StaminaBar';
+import Waiting from '../components/Waiting';
 import { Factions } from '../interfaces/Factions';
-import { listenToChangeTurn, listenToRemovePlayer, listenToUpdatePlayer } from '../sockets/socketListeners';
 import { Player } from '../interfaces/Player';
+import { Potion } from '../interfaces/Potion';
+import { clearListenToServerEventsBattleScreen, listenToChangeTurn, listenToRemovePlayer, listenToUpdatePlayer } from '../sockets/socketListeners';
 interface BattleScreenProps {
   potions: Potion[];
   player: Player;
@@ -46,6 +46,9 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
     // console.warn("Take into account that the players are Mocked!")
     // setKaotikaPlayers(factions.kaotika);
     // setDravocarPlayers(factions.dravocar);
+    return () => {
+      clearListenToServerEventsBattleScreen();
+    };
   }, []);
 
 
