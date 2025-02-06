@@ -108,7 +108,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
 
         {/* ACTION BUTTONS */}
         <Actions
-          selectedPlayerId={selectedPlayer?._id}
+          selectedPlayer={selectedPlayer?._id}
           potions={potions}
           openModal={openModal}
           isMyTurn={isMyTurn}
