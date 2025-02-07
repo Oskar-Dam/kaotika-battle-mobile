@@ -21,3 +21,24 @@ export const updateSessionPlayerAttributesIfIdMatches = (updatedPlayer: {_id: st
     setPlayer({ ...sessionPlayer, attributes: updatedPlayer.attributes });
   }
 }
+
+export const removePlayerFromArrayIfIdMatches = (playersArray: Player[], playerId: string): Player[] | null => {
+  const playerIndex: number = playersArray.findIndex(player => player._id === playerId);
+  if (playerIndex !== -1) {
+    console.log('Player removed: ', playersArray[playerIndex].nickname);
+    playersArray.splice(playerIndex, 1);
+    return playersArray
+  }
+  return null
+}
+
+export const removeSelectedPlayerFromTeams = (kaotikaPlayers: Player [], dravocarPlayers: Player[], setKaotikaPlayers: React.Dispatch<React.SetStateAction<Player[]>>, setDravocarPlayers: React.Dispatch<React.SetStateAction<Player[]>>, playerId: string) => {
+      //Removes player given either from Kaotika array or Dravocar
+      const newKaotikaPlayers: Player[] | null = removePlayerFromArrayIfIdMatches(kaotikaPlayers, playerId)
+      if (newKaotikaPlayers) {
+        setKaotikaPlayers(newKaotikaPlayers)
+      }else{
+        const newDravocarPlayers: Player[] | null = removePlayerFromArrayIfIdMatches(dravocarPlayers, playerId)
+        newDravocarPlayers ? setDravocarPlayers(newDravocarPlayers) : null
+      }
+}

@@ -1,7 +1,7 @@
 import { FactionsSetters } from '../interfaces/FactionsSetters';
 import { Modifier } from '../interfaces/Modifier';
 import { Player } from '../interfaces/Player';
-import { updatePlayerAttributes, updateSessionPlayerAttributesIfIdMatches } from '../utils/players';
+import { removeSelectedPlayerFromTeams, updatePlayerAttributes, updateSessionPlayerAttributesIfIdMatches } from '../utils/players';
 import { SOCKET_EVENTS } from './events';
 import socket from './socket';
 
@@ -45,27 +45,15 @@ export const listenToUpdatePlayer = (factionsSetters: FactionsSetters, setPlayer
   });
 };
 
-export const listenToRemovePlayer = (setKaotikaPlayers: (players: Player[]) => void, setDravocarPlayers: (players: Player[]) => void, kaotikaPlayers: Player[], dravocarPlayers: Player[]) => {
+export const listenToRemovePlayer = (setKaotikaPlayers:React.Dispatch<React.SetStateAction<Player[]>>, setDravocarPlayers:React.Dispatch<React.SetStateAction<Player[]>>, kaotikaPlayers: Player[], dravocarPlayers: Player[]) => {
   
   socket.on(SOCKET_EVENTS.REMOVE_PLAYER, (playerId: string) => {
 
     console.log(`'${SOCKET_EVENTS.REMOVE_PLAYER}' socket received.`);
     console.log('Player ID to remove:', playerId);
-    
-    const kaotikaPlayerIndex = kaotikaPlayers.findIndex(player => player._id === playerId);
-    if (kaotikaPlayerIndex !== -1) {
-      console.log('Player is from kaotika faction');
-      kaotikaPlayers.splice(kaotikaPlayerIndex, 1);
-      setKaotikaPlayers([...kaotikaPlayers]);
-    }
 
-    // Search and remove player from dravocarPlayers
-    const dravocarPlayerIndex = dravocarPlayers.findIndex(player => player._id === playerId);
-    if (dravocarPlayerIndex !== -1) {
-      console.log('Player is from dravocar faction');
-      dravocarPlayers.splice(dravocarPlayerIndex, 1);
-      setDravocarPlayers([...dravocarPlayers]);
-    }
+    removeSelectedPlayerFromTeams(kaotikaPlayers, dravocarPlayers, setKaotikaPlayers, setDravocarPlayers, playerId)
+
   });
 };
 
