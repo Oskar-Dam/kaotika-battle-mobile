@@ -1,4 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import * as React from 'react';
+React;
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import AttackButton from '../components/AttackButton';
