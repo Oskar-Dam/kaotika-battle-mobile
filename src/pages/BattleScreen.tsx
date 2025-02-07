@@ -17,9 +17,9 @@ import { clearListenToServerEventsBattleScreen, listenToChangeTurn, listenToGame
 interface BattleScreenProps {
   potions: Potion[];
   player: Player;
+  setPlayer:React.Dispatch<React.SetStateAction<Player | null>>;
   isMyTurn: boolean;
   setIsMyTurn: React.Dispatch<React.SetStateAction<boolean>>;
-  setPlayer: (player: Player | null) => void;
   setIsLoggedIn: (isLoggedIn: boolean) => void;
   setEmail: (email: string) => void;
 }
@@ -49,7 +49,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
 
   useEffect(() => {
 
-    listenToUpdatePlayer(factionsSetters);
+    listenToUpdatePlayer(factionsSetters, setPlayer, player);
     listenToRemovePlayer(setKaotikaPlayers, setDravocarPlayers, kaotikaPlayers, dravocarPlayers);
     listenToChangeTurn(setIsMyTurn, player);
     listenToGameEnded(setGameEnded, setWinner);
@@ -61,7 +61,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
     return () => {
       clearListenToServerEventsBattleScreen();
     };
-  }, [kaotikaPlayers, dravocarPlayers]);
+  }, [kaotikaPlayers, dravocarPlayers, player]);
 
 
   const openModal = (potion: Potion) => {
