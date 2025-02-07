@@ -1,11 +1,11 @@
 // eslint-disable-next-line no-undef
 module.exports = {
   presets: [
-    '@babel/preset-env',  // Handles modern JavaScript syntax
-    '@babel/preset-typescript',  // Handles TypeScript if you're using TS
+    '@babel/preset-env',         // Handles modern JavaScript
+    '@babel/preset-react',       // ⬅️ Missing! Now JSX will be transpiled properly
+    '@babel/preset-typescript',  // Handles TypeScript
   ],
   plugins: [
-    '@babel/plugin-transform-runtime',  // Optional: Handles helpers for Babel
+    '@babel/plugin-transform-runtime',  // Optimizes Babel output
   ],
 };
-

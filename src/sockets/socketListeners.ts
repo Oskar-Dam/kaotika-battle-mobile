@@ -41,7 +41,7 @@ export const listenToUpdatePlayer = (factionsSetters: FactionsSetters, setPlayer
   socket.on(SOCKET_EVENTS.UPDATE_PLAYER, (updatedPlayer: {_id: string, attributes: Modifier, totalDamage: number, isBetrayer: boolean}) => {
     console.log(`'${SOCKET_EVENTS.UPDATE_PLAYER}' socket received.`);
     updatePlayerAttributes(updatedPlayer, factionsSetters);
-    updateSessionPlayerAttributesIfIdMatches(updatedPlayer, setPlayer, player)
+    updateSessionPlayerAttributesIfIdMatches(updatedPlayer, setPlayer, player);
   });
 };
 
