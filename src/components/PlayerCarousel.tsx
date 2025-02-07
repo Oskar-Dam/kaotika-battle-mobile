@@ -64,6 +64,13 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({ setSelectedPlayer, disp
     };
   }, []);
 
+  useEffect(() => {
+    if (displayedPlayers.length > 0 && !selectedPlayer) {
+      setSelectedPlayer(displayedPlayers[0]); // Selecciona el primer jugador
+    }
+  }, [displayedPlayers, selectedPlayer, setSelectedPlayer]);
+  
+
   // Recalculates the "maximum" position we can drag based on the calculated cardWidth.
   const maxDrag = Math.max(totalCards * (cardWidth + GAP) - GAP - containerWidth,
     0);
@@ -92,15 +99,16 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({ setSelectedPlayer, disp
   }, [selectedIndex, centerOnIndex, displayedPlayers, setSelectedPlayer]);
 
   useEffect(() => {
-    if (selectedPlayer) {
+    if (!selectedPlayer && displayedPlayers.length > 0) {
+      console.log(displayedPlayers[0]);
+      
+      setSelectedPlayer(displayedPlayers[0]);
+      socket.emit('mobile-setSelectedPlayer', displayedPlayers[0]._id);
+    } else if (selectedPlayer) {
       console.log('Selected player: ', selectedPlayer.nickname);
-      console.log('Selected player is betrayer? ', selectedPlayer.isBetrayer);
-      
-      
-      console.log('mobile-setSelectedPlayer SENT: ', selectedPlayer._id);
       socket.emit('mobile-setSelectedPlayer', selectedPlayer._id);
     }
-  }, [selectedPlayer]);
+  }, [selectedPlayer, displayedPlayers, setSelectedPlayer]);
 
   // When the displayed players data changes recalculate the selected index.
   useEffect(() => {
