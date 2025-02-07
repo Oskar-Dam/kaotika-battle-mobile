@@ -16,7 +16,8 @@ const LoggedDisconnectionModal: React.FC<LoggedDisconnectionModalProps> = ({ set
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-gray-900/100 z-50"
+    <div
+      className="fixed inset-0 flex items-center justify-center bg-gray-900/100 z-50"
       data-testid="logged-disconnection-modal">
       <div className="text-center">
         <p className="text-white mb-4 text-3xl">You have been disconnected from the battle</p>

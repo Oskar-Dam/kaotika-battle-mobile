@@ -1,5 +1,5 @@
 import * as React from 'react';
-React
+React;
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import LoggedDisconnectionModal from '../components/LoggedDisconnectionModal';
@@ -16,13 +16,11 @@ describe('LoggedDisconnectionModal Component', () => {
   it('should render the LoggedDisconnectionModal', () => {
     const player = mockDividedPlayers.kaotika[0];
     
-    render(
-      <LoggedDisconnectionModal
-        setPlayer={() => player}
-        setIsLoggedIn={() => true}
-        setEmail={() => player.email}
-      />
-    );
+    render(<LoggedDisconnectionModal
+      setPlayer={() => player}
+      setIsLoggedIn={() => true}
+      setEmail={() => player.email}
+    />);
 
     const modalComponent = screen.getByTestId('logged-disconnection-modal');
     expect(modalComponent).toBeInTheDocument();
@@ -32,10 +30,8 @@ describe('LoggedDisconnectionModal Component', () => {
 describe('UnloggedDisconnectionModal Component', () => {
   it('should render the UnloggedDisconnectionModal', () => {
 
-    render(
-      <UnloggedDisconnectionModal
-      />
-    );
+    render(<UnloggedDisconnectionModal
+    />);
 
     const modalComponent = screen.getByTestId('unlogged-disconnection-modal');
     expect(modalComponent).toBeInTheDocument();
