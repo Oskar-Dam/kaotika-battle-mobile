@@ -1,6 +1,5 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import * as React from 'react';
-React;
+React; //Add this line to disable the unused variable error for Vercel deployment
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import AttackButton from '../components/AttackButton';
