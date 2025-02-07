@@ -87,6 +87,10 @@ export const clearListenToServerEventsBattleScreen = (): void => {
 
   socket.off(SOCKET_EVENTS.GAME_END);
   console.log(`'${SOCKET_EVENTS.GAME_END}' socket cleared.`);
+
+  socket.off(SOCKET_EVENTS.UPDATE_PLAYER);
+  console.log(`'${SOCKET_EVENTS.UPDATE_PLAYER}' socket cleared.`);
+  
   
 };
 
