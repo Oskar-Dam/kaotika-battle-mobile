@@ -10,7 +10,7 @@ interface AttackButtonProps {
 }
 
 const AttackButton: React.FC<AttackButtonProps> = ({ text = 'Void', onClick, isMyTurn, selectedPlayer, player }) => {
-  console.log('AttackButton rendered', selectedPlayer?.isBetrayer);
+  console.log('AttackButton rendered, selectedPlayer is betrayer? ', selectedPlayer?.isBetrayer);
 
   const sameFaction = player?.isBetrayer === selectedPlayer?.isBetrayer;
   const isDisabled = !isMyTurn || sameFaction;
