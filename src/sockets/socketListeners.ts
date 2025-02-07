@@ -13,11 +13,18 @@ export const listenToServerEventsBattleScreen = (setKaotikaPlayers: (players: Pl
   });
 };
 
-export const listenToChangeTurn = (setIsMyTurn: (turn: boolean) => void,player: Player | null) => {
+export const listenToChangeTurn = (setIsMyTurn: (turn: boolean) => void,player: Player | null, dravocarPlayers: Player[], kaotikaPlayers: Player[], setSelectedPlayer: (player: Player) => void) => {
   socket.on(SOCKET_EVENTS.TURN_CHANGE, (_id: string) => {
     console.log(`'${SOCKET_EVENTS.TURN_CHANGE}' socket received.`);
     if (player?._id === _id) {
       setIsMyTurn(true);
+      console.log('is my turn: ' + player.nickname);
+      if (player.isBetrayer === true) {
+        setSelectedPlayer(dravocarPlayers[0]);
+      }
+      else {
+        setSelectedPlayer(kaotikaPlayers[0]);
+      }
     } else {
       setIsMyTurn(false);
     }
@@ -52,7 +59,7 @@ export const listenToRemovePlayer = (setKaotikaPlayers:React.Dispatch<React.SetS
     console.log(`'${SOCKET_EVENTS.REMOVE_PLAYER}' socket received.`);
     console.log('Player ID to remove:', playerId);
 
-    removeSelectedPlayerFromTeams(kaotikaPlayers, dravocarPlayers, setKaotikaPlayers, setDravocarPlayers, playerId)
+    removeSelectedPlayerFromTeams(kaotikaPlayers, dravocarPlayers, setKaotikaPlayers, setDravocarPlayers, playerId);
 
   });
 };

@@ -51,7 +51,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
 
     listenToUpdatePlayer(factionsSetters, setPlayer, player);
     listenToRemovePlayer(setKaotikaPlayers, setDravocarPlayers, kaotikaPlayers, dravocarPlayers);
-    listenToChangeTurn(setIsMyTurn, player);
+    listenToChangeTurn(setIsMyTurn, player, dravocarPlayers, kaotikaPlayers, setSelectedPlayer);
     listenToGameEnded(setGameEnded, setWinner);
 
     // ⬇️ MOCK PLAYERS ⬇️ // 
