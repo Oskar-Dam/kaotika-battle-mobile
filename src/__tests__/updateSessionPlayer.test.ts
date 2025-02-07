@@ -4,7 +4,8 @@ import { updateSessionPlayerAttributesIfIdMatches } from '../utils/players';
 
 describe('updateSessionPlayerAttributesIfIdMatches', () => {
   it('should update the player attributes correctly', () => {
-    const attributesModified = {_id: '66decc4ff42d4a193db77e71', attributes: {
+    const attributesModified = {
+      _id: '66decc4ff42d4a193db77e71', attributes: {
         charisma: 0,
         constitution: 0,
         dexterity: 0,
@@ -18,19 +19,21 @@ describe('updateSessionPlayerAttributesIfIdMatches', () => {
         magic_resistance: 0,
         CFP: 0,
         BCFA: 0,
-      }, totalDamage: 30, isBetrayer: false};
-    const player: Player = ONLINE_USERS_MOCK[0]
-    const setPlayer = jest.fn()
-    updateSessionPlayerAttributesIfIdMatches(attributesModified, setPlayer, player)
-    
+      }, totalDamage: 30, isBetrayer: false
+    };
+    const player: Player = ONLINE_USERS_MOCK[0];
+    const setPlayer = jest.fn();
+    updateSessionPlayerAttributesIfIdMatches(attributesModified, setPlayer, player);
+
     expect(setPlayer).toHaveBeenCalledWith({
-        ...player,
-        attributes: attributesModified.attributes
-      });
+      ...player,
+      attributes: attributesModified.attributes
+    });
   });
 
   it('should not update the player since ID does not match', () => {
-    const attributesModified = {_id: '66decc4ff42d4a193db77e72', attributes: {
+    const attributesModified = {
+      _id: '66decc4ff42d4a193db77e72', attributes: {
         charisma: 0,
         constitution: 0,
         dexterity: 0,
@@ -44,14 +47,15 @@ describe('updateSessionPlayerAttributesIfIdMatches', () => {
         magic_resistance: 0,
         CFP: 0,
         BCFA: 0,
-      }, totalDamage: 30, isBetrayer: false};
-    const player: Player = ONLINE_USERS_MOCK[0]
-    const setPlayer = jest.fn()
-    
-    updateSessionPlayerAttributesIfIdMatches(attributesModified, setPlayer, player)
+      }, totalDamage: 30, isBetrayer: false
+    };
+    const player: Player = ONLINE_USERS_MOCK[0];
+    const setPlayer = jest.fn();
+
+    updateSessionPlayerAttributesIfIdMatches(attributesModified, setPlayer, player);
     expect(setPlayer).not.toHaveBeenCalledWith({
-        ...player,
-        attributes: attributesModified.attributes
-      });
+      ...player,
+      attributes: attributesModified.attributes
+    });
   });
 });
