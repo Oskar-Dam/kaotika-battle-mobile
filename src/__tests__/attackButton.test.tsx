@@ -16,7 +16,6 @@ describe('AttackButton Component', () => {
     const player = mockDividedPlayers.kaotika[0];
 
     render(<AttackButton
-      text="Attack"
       onClick={() => {}}
       isMyTurn={true}
       selectedPlayer={player}
