@@ -8,25 +8,32 @@ import socket from './socket';
 export const listenToServerEventsBattleScreen = (setKaotikaPlayers: (players: Player[]) => void, setDravocarPlayers: (players: Player[]) => void) => {
   socket.on(SOCKET_EVENTS.RECIVE_USERS, (players: {kaotika: Player[], dravocar: Player[]}) => {
     console.log(`'${SOCKET_EVENTS.RECIVE_USERS}' socket received.`);    
+    console.log('Players received:', players);
     setKaotikaPlayers(players.kaotika);
     setDravocarPlayers(players.dravocar);
   });
 };
 
-export const listenToChangeTurn = (setIsMyTurn: (turn: boolean) => void,player: Player | null, dravocarPlayers: Player[], kaotikaPlayers: Player[], setSelectedPlayer: (player: Player) => void, setSelectedPlayerIndex: (index: number) => void ) => {
+export const listenToChangeTurn = (setIsMyTurn: (turn: boolean) => void,player: Player | null, dravocarPlayers: Player[], kaotikaPlayers: Player[], setSelectedPlayerIndex: (index: number) => void ) => {
   socket.on(SOCKET_EVENTS.TURN_CHANGE, (_id: string) => {
     console.log(`'${SOCKET_EVENTS.TURN_CHANGE}' socket received.`);
     if (player?._id === _id) {
       setIsMyTurn(true);
       console.log('is my turn: ' + player.nickname);
       if (player.isBetrayer === true) {
-        setSelectedPlayer(dravocarPlayers[0]);
-        setSelectedPlayerIndex(1);
+        setSelectedPlayerIndex(dravocarPlayers.length);
+        setSelectedPlayerIndex(1);  
+        console.log('DRAVOKAR PLAYERS NOW: ', dravocarPlayers);
+        
       }
       else {
-        setSelectedPlayer(kaotikaPlayers[0]);
+        setSelectedPlayerIndex(kaotikaPlayers.length);
         setSelectedPlayerIndex(1);
+        console.log('KAOTIKA PLAYERS NOW: ', kaotikaPlayers);
+        
       }
+
+      
     } else {
       setIsMyTurn(false);
     }
@@ -90,9 +97,6 @@ export const listenToGameEnded = (setGameEnded: (gameEnded: boolean) => void, se
 export const clearListenToServerEventsBattleScreen = (): void => {
   socket.off(SOCKET_EVENTS.RECIVE_USERS);
   console.log(`'${SOCKET_EVENTS.RECIVE_USERS}' socket cleared.`);
-
-  socket.off(SOCKET_EVENTS.TURN_CHANGE);
-  console.log(`'${SOCKET_EVENTS.TURN_CHANGE}' socket cleared.`);
 
   socket.off(SOCKET_EVENTS.GAME_END);
   console.log(`'${SOCKET_EVENTS.GAME_END}' socket cleared.`);

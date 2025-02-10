@@ -37,7 +37,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
   const [dravocarPlayers, setDravocarPlayers] = useState<Player[]>([]);
   const [gameEnded, setGameEnded] = useState<boolean>(false);
   const [winner, setWinner] = useState<string>('Kaotika');
-  const [selectedPlayerIndex, setSelectedPlayerIndex] = useState<number | undefined>(undefined);
+  const [selectedPlayerIndex, setSelectedPlayerIndex] = useState<number>(1);
 
   // ⬇️ SETTERS CALLED HERE FOR ESLINT TO IGNORE NOT CALLING THEM, DELETE AFTER SOCKET IMPLEMENTATION⬇️ //
   setGameEnded;
@@ -52,8 +52,8 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
 
     listenToUpdatePlayer(factionsSetters, setPlayer, player);
     listenToRemovePlayer(setKaotikaPlayers, setDravocarPlayers, kaotikaPlayers, dravocarPlayers);
-    listenToChangeTurn(setIsMyTurn, player, dravocarPlayers, kaotikaPlayers, setSelectedPlayer, setSelectedPlayerIndex);
-    listenToGameEnded(setGameEnded, setWinner);
+    listenToChangeTurn(setIsMyTurn, player, dravocarPlayers, kaotikaPlayers, setSelectedPlayerIndex);
+    listenToGameEnded(setGameEnded, setWinner); 
 
     // ⬇️ MOCK PLAYERS ⬇️ // 
     // console.warn("Take into account that the players are Mocked!")
@@ -118,6 +118,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
           selectedPlayer={selectedPlayer!}
           player={player}
           selectedPlayerIndex={selectedPlayerIndex}
+          setSelectedPlayerIndex={setSelectedPlayerIndex}
         />
         
         {/* SELECTED PLAYER NICK */}
