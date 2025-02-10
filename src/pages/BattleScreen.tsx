@@ -14,6 +14,7 @@ import GameEndingModal from '../components/GameEndingModal';
 
 import { Potion } from '../interfaces/Potion';
 import { clearListenToServerEventsBattleScreen, listenToChangeTurn, listenToGameEnded, listenToRemovePlayer, listenToUpdatePlayer } from '../sockets/socketListeners';
+import DeadScreen from './DeadScreen';
 interface BattleScreenProps {
   potions: Potion[];
   player: Player;
@@ -32,12 +33,13 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
   const [showWaitingScreen, setShowWaitingScreen] = useState<boolean>(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState<Player>();
-  const [filteredFaction, setFilteredFaction] = useState<Factions|undefined>(undefined);
+  const [filteredFaction, setFilteredFaction] = useState<Factions|undefined>(player.isBetrayer ? 'KAOTIKA' : 'DRAVOCAR');
   const [kaotikaPlayers, setKaotikaPlayers] = useState<Player[]>([]);
   const [dravocarPlayers, setDravocarPlayers] = useState<Player[]>([]);
   const [gameEnded, setGameEnded] = useState<boolean>(false);
   const [winner, setWinner] = useState<string>('Kaotika');
   const [selectedPlayerIndex, setSelectedPlayerIndex] = useState<number>(1);
+  const [userDead, setUserDead] = useState<boolean>(false);
 
   // ⬇️ SETTERS CALLED HERE FOR ESLINT TO IGNORE NOT CALLING THEM, DELETE AFTER SOCKET IMPLEMENTATION⬇️ //
   setGameEnded;
@@ -51,14 +53,10 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
   useEffect(() => {
 
     listenToUpdatePlayer(factionsSetters, setPlayer, player);
-    listenToRemovePlayer(setKaotikaPlayers, setDravocarPlayers, kaotikaPlayers, dravocarPlayers);
+    listenToRemovePlayer(setKaotikaPlayers, setDravocarPlayers, kaotikaPlayers, dravocarPlayers, setUserDead, player);
     listenToChangeTurn(setIsMyTurn, player, dravocarPlayers, kaotikaPlayers, setSelectedPlayerIndex);
     listenToGameEnded(setGameEnded, setWinner); 
 
-    // ⬇️ MOCK PLAYERS ⬇️ // 
-    // console.warn("Take into account that the players are Mocked!")
-    // setKaotikaPlayers(factions.kaotika);
-    // setDravocarPlayers(factions.dravocar);
     return () => {
       clearListenToServerEventsBattleScreen();
     };
@@ -78,7 +76,8 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
 
   return (
     <>
-      {!isMyTurn && <BlockedScreen />}
+      {!isMyTurn && !userDead && <BlockedScreen />}
+      {userDead && <DeadScreen/>}
 
       {showWaitingScreen && (
         <Waiting 
