@@ -1,7 +1,7 @@
 import { FactionsSetters } from '../interfaces/FactionsSetters';
 import { Modifier } from '../interfaces/Modifier';
 import { Player } from '../interfaces/Player';
-import { removeSelectedPlayerFromTeams, updatePlayerAttributes, updateSessionPlayerAttributesIfIdMatches } from '../utils/players';
+import { removeSelectedPlayerFromTeams, setUserStatusToDeadIfIdMatches, updatePlayerAttributes, updateSessionPlayerAttributesIfIdMatches } from '../utils/players';
 import { SOCKET_EVENTS } from './events';
 import socket from './socket';
 
@@ -45,7 +45,7 @@ export const listenToUpdatePlayer = (factionsSetters: FactionsSetters, setPlayer
   });
 };
 
-export const listenToRemovePlayer = (setKaotikaPlayers:React.Dispatch<React.SetStateAction<Player[]>>, setDravocarPlayers:React.Dispatch<React.SetStateAction<Player[]>>, kaotikaPlayers: Player[], dravocarPlayers: Player[]) => {
+export const listenToRemovePlayer = (setKaotikaPlayers:React.Dispatch<React.SetStateAction<Player[]>>, setDravocarPlayers:React.Dispatch<React.SetStateAction<Player[]>>, kaotikaPlayers: Player[], dravocarPlayers: Player[], setUserDead:React.Dispatch<React.SetStateAction<boolean>>, player: Player) => {
   
   socket.on(SOCKET_EVENTS.REMOVE_PLAYER, (playerId: string) => {
 
@@ -53,7 +53,7 @@ export const listenToRemovePlayer = (setKaotikaPlayers:React.Dispatch<React.SetS
     console.log('Player ID to remove:', playerId);
 
     removeSelectedPlayerFromTeams(kaotikaPlayers, dravocarPlayers, setKaotikaPlayers, setDravocarPlayers, playerId);
-
+    setUserStatusToDeadIfIdMatches(setUserDead, player._id, playerId);
   });
 };
 

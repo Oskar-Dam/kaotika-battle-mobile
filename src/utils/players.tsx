@@ -42,3 +42,7 @@ export const removeSelectedPlayerFromTeams = (kaotikaPlayers: Player[], dravocar
     newDravocarPlayers ? setDravocarPlayers(newDravocarPlayers) : null;
   }
 };
+
+export const setUserStatusToDeadIfIdMatches = (setUserDead: React.Dispatch<React.SetStateAction<boolean>>, sessionPlayerId: string, targetId: string) => {
+  sessionPlayerId === targetId ? setUserDead(true) : null;
+};

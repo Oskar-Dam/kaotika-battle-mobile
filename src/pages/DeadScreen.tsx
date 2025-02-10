@@ -6,7 +6,7 @@ interface DeadScreenInterface {
 const DeadScreen: React.FC<DeadScreenInterface> = () => {
   return (
     <div
-      className="flex-row bg-black p-4 items-center justify-center h-screen w-screen overflow-y-hidden"
+      className="flex-row bg-black p-4 items-center justify-center h-screen w-screen overflow-y-hidden absolute z-4"
       style={{ backgroundColor: 'black', backgroundRepeat:'no-repeat',backgroundPositionX:'50%',backgroundPositionY:'35%' ,backgroundImage: 'url(/images/skull.webp)', backgroundSize: '85% 50%' }}>
       <div
         className="w-full text-center"
