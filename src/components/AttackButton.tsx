@@ -2,14 +2,13 @@ import React from 'react';
 import { Player } from '../interfaces/Player';
 
 interface AttackButtonProps {
-  text: string;
   onClick: () => void;
   isMyTurn: boolean;
   selectedPlayer?: Player | undefined;
   player: Player | undefined;
 }
 
-const AttackButton: React.FC<AttackButtonProps> = ({ text = 'Void', onClick, isMyTurn, selectedPlayer, player }) => {
+const AttackButton: React.FC<AttackButtonProps> = ({ onClick, isMyTurn, selectedPlayer, player }) => {
   console.log('AttackButton rendered, selectedPlayer is betrayer? ', selectedPlayer?.isBetrayer);
 
   const sameFaction = player?.isBetrayer === selectedPlayer?.isBetrayer;
@@ -32,7 +31,6 @@ const AttackButton: React.FC<AttackButtonProps> = ({ text = 'Void', onClick, isM
       data-testid="attack-button"
     >
       <span className="absolute inset-0 w-full h-full border-0 border-gray-400 rounded-lg opacity-20"></span>
-      {text}
     </button>
   );
 };
