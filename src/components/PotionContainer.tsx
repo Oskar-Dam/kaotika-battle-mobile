@@ -1,3 +1,4 @@
+import React from 'react';
 import { Potion } from '../interfaces/Potion';
 import PotionCard from './Potion';
 
@@ -17,7 +18,9 @@ const PotionContainer: React.FC<PotionContainerProps> = ({
   const potionsToDisplay = filteredPotions.slice(startIndex, PotionsPerRow);
 
   return (
-    <div className='flex-row w-full rounded-3xl flex items-center justify-center'>
+    <div
+      className='flex-row w-full rounded-3xl flex items-center justify-center' 
+      data-testid="potion-container">
       {potionsToDisplay.length > 0 ? (
         <div className="w-[75%] flex flex-row">
           {potionsToDisplay.map((potion: Potion, potionIndex) => (
