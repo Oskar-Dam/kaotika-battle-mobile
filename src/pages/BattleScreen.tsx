@@ -3,6 +3,7 @@ import Actions from '../components/Actions';
 import Avatar from '../components/Avatar';
 import BlockedScreen from '../components/BlockedScreen';
 import CarouselContainer from '../components/CarouselContainer';
+import GameEndingModal from '../components/GameEndingModal';
 import HitPointsBar from '../components/HitPointsBar';
 import NickName from '../components/NickName';
 import PotionModal from '../components/PotionModal';
@@ -10,10 +11,9 @@ import StaminaBar from '../components/StaminaBar';
 import Waiting from '../components/Waiting';
 import { Factions } from '../interfaces/Factions';
 import { Player } from '../interfaces/Player';
-import GameEndingModal from '../components/GameEndingModal';
 
 import { Potion } from '../interfaces/Potion';
-import { clearListenToServerEventsBattleScreen, listenToChangeTurn, listenToGameEnded, listenToRemovePlayer, listenToUpdatePlayer } from '../sockets/socketListeners';
+import { clearListenToServerEventsBattleScreen, listenToChangeTurn, listenToGameEnded, listenToRemovePlayer, listenToServerEventsBattleScreen, listenToUpdatePlayer } from '../sockets/socketListeners';
 import DeadScreen from './DeadScreen';
 interface BattleScreenProps {
   potions: Potion[];
@@ -51,7 +51,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
   };
 
   useEffect(() => {
-
+    listenToServerEventsBattleScreen(setKaotikaPlayers, setDravocarPlayers);
     listenToUpdatePlayer(factionsSetters, setPlayer, player);
     listenToRemovePlayer(setKaotikaPlayers, setDravocarPlayers, kaotikaPlayers, dravocarPlayers, setUserDead, player);
     listenToChangeTurn(setIsMyTurn, player, kaotikaPlayers, dravocarPlayers, setSelectedPlayerIndex);

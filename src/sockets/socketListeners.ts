@@ -8,10 +8,12 @@ import socket from './socket';
 export const listenToServerEventsBattleScreen = (setKaotikaPlayers: (players: Player[]) => void, setDravocarPlayers: (players: Player[]) => void) => {
   socket.on(SOCKET_EVENTS.RECIVE_USERS, (players: {kaotika: Player[], dravocar: Player[]}) => {
     console.log(`'${SOCKET_EVENTS.RECIVE_USERS}' socket received.`);    
-    console.log('Kaotika players received:', players.kaotika);
-    console.log('Dravocar players received:', players.dravocar);
+    
     setKaotikaPlayers(players.kaotika);
     setDravocarPlayers(players.dravocar);
+    console.log('Kaotika players received:', players.kaotika);
+    console.log('Dravocar players received:', players.dravocar);
+    
   });
 };
 
@@ -107,6 +109,10 @@ export const clearListenToServerEventsBattleScreen = (): void => {
 
   socket.off(SOCKET_EVENTS.UPDATE_PLAYER);
   console.log(`'${SOCKET_EVENTS.UPDATE_PLAYER}' socket cleared.`);
+
+  socket.off(SOCKET_EVENTS.TURN_CHANGE);
+  console.log(`'${SOCKET_EVENTS.TURN_CHANGE}' socket cleared.`);
+  
   
   
 };
