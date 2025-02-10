@@ -7,7 +7,7 @@ interface LoggedDisconnectionModalProps {
   setIsLoggedIn: (isLoggedIn: boolean) => void;
   setEmail: (email: string) => void;
 }
-const LoggedDisconnectionModal: React.FC<LoggedDisconnectionModalProps> = ({setPlayer, setIsLoggedIn, setEmail}) => {
+const LoggedDisconnectionModal: React.FC<LoggedDisconnectionModalProps> = ({ setPlayer, setIsLoggedIn, setEmail }) => {
 
   const handleReconnect = () => {
     setPlayer(null);
@@ -16,7 +16,9 @@ const LoggedDisconnectionModal: React.FC<LoggedDisconnectionModalProps> = ({setP
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-gray-900/100 z-50">
+    <div
+      className="fixed inset-0 flex items-center justify-center bg-gray-900/100 z-50"
+      data-testid="logged-disconnection-modal">
       <div className="text-center">
         <p className="text-white mb-4 text-3xl">You have been disconnected from the battle</p>
         <button

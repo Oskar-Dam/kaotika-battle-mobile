@@ -1,7 +1,7 @@
 import { FactionsSetters } from '../interfaces/FactionsSetters';
 import { Modifier } from '../interfaces/Modifier';
 import { Player } from '../interfaces/Player';
-import { updatePlayerAttributes, updateSessionPlayerAttributesIfIdMatches } from '../utils/players';
+import { removeSelectedPlayerFromTeams, setUserStatusToDeadIfIdMatches, updatePlayerAttributes, updateSessionPlayerAttributesIfIdMatches } from '../utils/players';
 import { SOCKET_EVENTS } from './events';
 import socket from './socket';
 
@@ -13,11 +13,18 @@ export const listenToServerEventsBattleScreen = (setKaotikaPlayers: (players: Pl
   });
 };
 
-export const listenToChangeTurn = (setIsMyTurn: (turn: boolean) => void,player: Player | null) => {
+export const listenToChangeTurn = (setIsMyTurn: (turn: boolean) => void,player: Player | null, dravocarPlayers: Player[], kaotikaPlayers: Player[], setSelectedPlayer: (player: Player) => void) => {
   socket.on(SOCKET_EVENTS.TURN_CHANGE, (_id: string) => {
     console.log(`'${SOCKET_EVENTS.TURN_CHANGE}' socket received.`);
     if (player?._id === _id) {
       setIsMyTurn(true);
+      console.log('is my turn: ' + player.nickname);
+      if (player.isBetrayer === true) {
+        setSelectedPlayer(dravocarPlayers[0]);
+      }
+      else {
+        setSelectedPlayer(kaotikaPlayers[0]);
+      }
     } else {
       setIsMyTurn(false);
     }
@@ -41,31 +48,19 @@ export const listenToUpdatePlayer = (factionsSetters: FactionsSetters, setPlayer
   socket.on(SOCKET_EVENTS.UPDATE_PLAYER, (updatedPlayer: {_id: string, attributes: Modifier, totalDamage: number, isBetrayer: boolean}) => {
     console.log(`'${SOCKET_EVENTS.UPDATE_PLAYER}' socket received.`);
     updatePlayerAttributes(updatedPlayer, factionsSetters);
-    updateSessionPlayerAttributesIfIdMatches(updatedPlayer, setPlayer, player)
+    updateSessionPlayerAttributesIfIdMatches(updatedPlayer, setPlayer, player);
   });
 };
 
-export const listenToRemovePlayer = (setKaotikaPlayers: (players: Player[]) => void, setDravocarPlayers: (players: Player[]) => void, kaotikaPlayers: Player[], dravocarPlayers: Player[]) => {
+export const listenToRemovePlayer = (setKaotikaPlayers:React.Dispatch<React.SetStateAction<Player[]>>, setDravocarPlayers:React.Dispatch<React.SetStateAction<Player[]>>, kaotikaPlayers: Player[], dravocarPlayers: Player[], setUserDead:React.Dispatch<React.SetStateAction<boolean>>, player: Player) => {
   
   socket.on(SOCKET_EVENTS.REMOVE_PLAYER, (playerId: string) => {
 
     console.log(`'${SOCKET_EVENTS.REMOVE_PLAYER}' socket received.`);
     console.log('Player ID to remove:', playerId);
-    
-    const kaotikaPlayerIndex = kaotikaPlayers.findIndex(player => player._id === playerId);
-    if (kaotikaPlayerIndex !== -1) {
-      console.log('Player is from kaotika faction');
-      kaotikaPlayers.splice(kaotikaPlayerIndex, 1);
-      setKaotikaPlayers([...kaotikaPlayers]);
-    }
 
-    // Search and remove player from dravocarPlayers
-    const dravocarPlayerIndex = dravocarPlayers.findIndex(player => player._id === playerId);
-    if (dravocarPlayerIndex !== -1) {
-      console.log('Player is from dravocar faction');
-      dravocarPlayers.splice(dravocarPlayerIndex, 1);
-      setDravocarPlayers([...dravocarPlayers]);
-    }
+    removeSelectedPlayerFromTeams(kaotikaPlayers, dravocarPlayers, setKaotikaPlayers, setDravocarPlayers, playerId);
+    setUserStatusToDeadIfIdMatches(setUserDead, player._id, playerId);
   });
 };
 
@@ -99,6 +94,10 @@ export const clearListenToServerEventsBattleScreen = (): void => {
 
   socket.off(SOCKET_EVENTS.GAME_END);
   console.log(`'${SOCKET_EVENTS.GAME_END}' socket cleared.`);
+
+  socket.off(SOCKET_EVENTS.UPDATE_PLAYER);
+  console.log(`'${SOCKET_EVENTS.UPDATE_PLAYER}' socket cleared.`);
+  
   
 };
 
