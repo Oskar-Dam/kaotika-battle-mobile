@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEffect, useState } from 'react';
 import Actions from '../components/Actions';
 import Avatar from '../components/Avatar';

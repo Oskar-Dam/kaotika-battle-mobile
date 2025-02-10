@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, useMotionValue, animate, PanInfo } from 'framer-motion';
 import socket from '../sockets/socket';
@@ -156,7 +157,8 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({ setSelectedPlayer, disp
     <div
       ref={containerRef}
       className="flex items-center overflow-hidden w-[80vw]"
-      style={{ height: cardHeight + 100 }}>
+      style={{ height: cardHeight + 100 }}
+      data-testid="player-carousel">
       <motion.div
         className="flex gap-4"
         style={{ x }}
