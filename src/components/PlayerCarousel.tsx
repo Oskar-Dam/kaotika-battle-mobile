@@ -7,9 +7,10 @@ interface PlayerCarouselProps {
   setSelectedPlayer: (player: Player) => void;
   selectedPlayer: Player;
   displayedPlayers: Player[];
+  externalSelectedIndex?: number;
 }
 
-const PlayerCarousel: React.FC<PlayerCarouselProps> = ({ setSelectedPlayer, displayedPlayers, selectedPlayer }) => {
+const PlayerCarousel: React.FC<PlayerCarouselProps> = ({ setSelectedPlayer, displayedPlayers, selectedPlayer, externalSelectedIndex}) => {
 
   // We extend with placeholders at the beginning and end to keep the first and last elements centered
   const extendedPlayers = [
@@ -24,6 +25,13 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({ setSelectedPlayer, disp
 
   // State to know which card is selected
   const [selectedIndex, setSelectedIndex] = useState(MIN_SELECTABLE);
+
+  useEffect(() => {
+    if (externalSelectedIndex !== undefined) {
+      const clampedIndex = Math.min(Math.max(externalSelectedIndex, MIN_SELECTABLE), MAX_SELECTABLE);
+      setSelectedIndex(clampedIndex);
+    }
+  }, [externalSelectedIndex]);
 
   // We use a MotionValue for x
   const x = useMotionValue(0);
