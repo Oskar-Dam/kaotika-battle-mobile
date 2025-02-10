@@ -15,6 +15,7 @@ import { Player } from '../interfaces/Player';
 import { Potion } from '../interfaces/Potion';
 import { clearListenToServerEventsBattleScreen, listenToChangeTurn, listenToGameEnded, listenToRemovePlayer, listenToServerEventsBattleScreen, listenToUpdatePlayer } from '../sockets/socketListeners';
 import DeadScreen from './DeadScreen';
+import socket from '../sockets/socket';
 interface BattleScreenProps {
   potions: Potion[];
   player: Player;
@@ -65,6 +66,17 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
     };
   }, [kaotikaPlayers, dravocarPlayers, player]);
 
+  useEffect(() => {
+    if(isMyTurn) {
+      if (!player.isBetrayer) {
+        console.log('Emitting first dravokar player');
+        socket.emit('mobile-setSelectedPlayer', dravocarPlayers[0]._id);
+      } else {
+        console.log('Emitting first kaotika player');
+        socket.emit('mobile-setSelectedPlayer', kaotikaPlayers[0]._id);
+      }
+    }
+  }, [isMyTurn]);
 
   const openModal = (potion: Potion) => {
     setSelectedPotion(potion);
