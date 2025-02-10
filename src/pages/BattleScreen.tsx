@@ -54,9 +54,12 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
 
     listenToUpdatePlayer(factionsSetters, setPlayer, player);
     listenToRemovePlayer(setKaotikaPlayers, setDravocarPlayers, kaotikaPlayers, dravocarPlayers, setUserDead, player);
-    listenToChangeTurn(setIsMyTurn, player, dravocarPlayers, kaotikaPlayers, setSelectedPlayerIndex);
+    listenToChangeTurn(setIsMyTurn, player, kaotikaPlayers, dravocarPlayers, setSelectedPlayerIndex);
     listenToGameEnded(setGameEnded, setWinner); 
 
+    console.log('KAOTIKA PLAYERS: ', kaotikaPlayers);
+    console.log('DRAVOCAR PLAYERS: ', dravocarPlayers);
+    
     return () => {
       clearListenToServerEventsBattleScreen();
     };

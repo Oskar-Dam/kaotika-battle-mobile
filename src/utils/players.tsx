@@ -34,6 +34,7 @@ export const removePlayerFromArrayIfIdMatches = (playersArray: Player[], playerI
 
 export const removeSelectedPlayerFromTeams = (kaotikaPlayers: Player[], dravocarPlayers: Player[], setKaotikaPlayers: React.Dispatch<React.SetStateAction<Player[]>>, setDravocarPlayers: React.Dispatch<React.SetStateAction<Player[]>>, playerId: string) => {
   //Removes player given either from Kaotika array or Dravocar
+  console.log('Removing player with id: ', playerId);
   const newKaotikaPlayers: Player[] | null = removePlayerFromArrayIfIdMatches(kaotikaPlayers, playerId);
   if (newKaotikaPlayers) {
     setKaotikaPlayers(newKaotikaPlayers);
