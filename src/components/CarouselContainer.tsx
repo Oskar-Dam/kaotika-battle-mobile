@@ -12,6 +12,8 @@ interface CarouselContainerProps {
   dravocarPlayers: Player[];
   selectedPlayer: Player;
   player: Player;
+  selectedPlayerIndex: number;
+  setSelectedPlayerIndex: (index: number) => void;
 }
 
 const CarouselContainer: React.FC<CarouselContainerProps> = ({
@@ -21,7 +23,9 @@ const CarouselContainer: React.FC<CarouselContainerProps> = ({
   kaotikaPlayers,
   dravocarPlayers,
   selectedPlayer,
-  player
+  player,
+  selectedPlayerIndex,
+  setSelectedPlayerIndex
 }) => {
 
   const [displayedPlayers, setDisplayedPlayers] = useState<Player[]>([]);
@@ -76,6 +80,8 @@ const CarouselContainer: React.FC<CarouselContainerProps> = ({
         setSelectedPlayer={setSelectedPlayer}
         displayedPlayers={displayedPlayers}
         selectedPlayer={selectedPlayer}
+        externalSelectedIndex={selectedPlayerIndex}
+        setSelectedPlayerIndex={setSelectedPlayerIndex}
       />
 
     </div>

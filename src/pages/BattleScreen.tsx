@@ -3,6 +3,7 @@ import Actions from '../components/Actions';
 import Avatar from '../components/Avatar';
 import BlockedScreen from '../components/BlockedScreen';
 import CarouselContainer from '../components/CarouselContainer';
+import GameEndingModal from '../components/GameEndingModal';
 import HitPointsBar from '../components/HitPointsBar';
 import NickName from '../components/NickName';
 import PotionModal from '../components/PotionModal';
@@ -10,11 +11,11 @@ import StaminaBar from '../components/StaminaBar';
 import Waiting from '../components/Waiting';
 import { Factions } from '../interfaces/Factions';
 import { Player } from '../interfaces/Player';
-import GameEndingModal from '../components/GameEndingModal';
 
 import { Potion } from '../interfaces/Potion';
-import { clearListenToServerEventsBattleScreen, listenToChangeTurn, listenToGameEnded, listenToRemovePlayer, listenToUpdatePlayer } from '../sockets/socketListeners';
+import { clearListenToServerEventsBattleScreen, listenToChangeTurn, listenToGameEnded, listenToRemovePlayer, listenToServerEventsBattleScreen, listenToUpdatePlayer } from '../sockets/socketListeners';
 import DeadScreen from './DeadScreen';
+import socket from '../sockets/socket';
 interface BattleScreenProps {
   potions: Potion[];
   player: Player;
@@ -38,6 +39,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
   const [dravocarPlayers, setDravocarPlayers] = useState<Player[]>([]);
   const [gameEnded, setGameEnded] = useState<boolean>(false);
   const [winner, setWinner] = useState<string>('Kaotika');
+  const [selectedPlayerIndex, setSelectedPlayerIndex] = useState<number>(1);
   const [userDead, setUserDead] = useState<boolean>(false);
 
   // ⬇️ SETTERS CALLED HERE FOR ESLINT TO IGNORE NOT CALLING THEM, DELETE AFTER SOCKET IMPLEMENTATION⬇️ //
@@ -50,17 +52,31 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
   };
 
   useEffect(() => {
-
+    listenToServerEventsBattleScreen(setKaotikaPlayers, setDravocarPlayers);
     listenToUpdatePlayer(factionsSetters, setPlayer, player);
     listenToRemovePlayer(setKaotikaPlayers, setDravocarPlayers, kaotikaPlayers, dravocarPlayers, setUserDead, player);
-    listenToChangeTurn(setIsMyTurn, player, dravocarPlayers, kaotikaPlayers, setSelectedPlayer);
-    listenToGameEnded(setGameEnded, setWinner);
+    listenToChangeTurn(setIsMyTurn, player, kaotikaPlayers, dravocarPlayers, setSelectedPlayerIndex);
+    listenToGameEnded(setGameEnded, setWinner); 
 
+    console.log('KAOTIKA PLAYERS: ', kaotikaPlayers);
+    console.log('DRAVOCAR PLAYERS: ', dravocarPlayers);
+    
     return () => {
       clearListenToServerEventsBattleScreen();
     };
   }, [kaotikaPlayers, dravocarPlayers, player]);
 
+  useEffect(() => {
+    if(isMyTurn) {
+      if (!player.isBetrayer) {
+        console.log('Emitting first dravokar player');
+        socket.emit('mobile-setSelectedPlayer', dravocarPlayers[0]._id);
+      } else {
+        console.log('Emitting first kaotika player');
+        socket.emit('mobile-setSelectedPlayer', kaotikaPlayers[0]._id);
+      }
+    }
+  }, [isMyTurn]);
 
   const openModal = (potion: Potion) => {
     setSelectedPotion(potion);
@@ -115,6 +131,8 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
           dravocarPlayers={dravocarPlayers}
           selectedPlayer={selectedPlayer!}
           player={player}
+          selectedPlayerIndex={selectedPlayerIndex}
+          setSelectedPlayerIndex={setSelectedPlayerIndex}
         />
         
         {/* SELECTED PLAYER NICK */}

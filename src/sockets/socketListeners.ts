@@ -8,23 +8,38 @@ import socket from './socket';
 export const listenToServerEventsBattleScreen = (setKaotikaPlayers: (players: Player[]) => void, setDravocarPlayers: (players: Player[]) => void) => {
   socket.on(SOCKET_EVENTS.RECIVE_USERS, (players: {kaotika: Player[], dravocar: Player[]}) => {
     console.log(`'${SOCKET_EVENTS.RECIVE_USERS}' socket received.`);    
+    
     setKaotikaPlayers(players.kaotika);
     setDravocarPlayers(players.dravocar);
+    console.log('Kaotika players received:', players.kaotika);
+    console.log('Dravocar players received:', players.dravocar);
+    
   });
 };
 
-export const listenToChangeTurn = (setIsMyTurn: (turn: boolean) => void,player: Player | null, dravocarPlayers: Player[], kaotikaPlayers: Player[], setSelectedPlayer: (player: Player) => void) => {
+export const listenToChangeTurn = (setIsMyTurn: (turn: boolean) => void,player: Player | null, kaotikaPlayers: Player[], dravocarPlayers: Player[], setSelectedPlayerIndex: (index: number) => void ) => {
   socket.on(SOCKET_EVENTS.TURN_CHANGE, (_id: string) => {
     console.log(`'${SOCKET_EVENTS.TURN_CHANGE}' socket received.`);
+    console.log('FIRST DRAVOKAR PLAYER NOW: ', dravocarPlayers);
+    console.log('FIRST KAOTIKA PLAYER NOW: ', kaotikaPlayers);
     if (player?._id === _id) {
       setIsMyTurn(true);
       console.log('is my turn: ' + player.nickname);
-      if (player.isBetrayer === true) {
-        setSelectedPlayer(dravocarPlayers[0]);
+      if (!player.isBetrayer) {
+        setSelectedPlayerIndex(dravocarPlayers.length);
+        setSelectedPlayerIndex(1);  
+
+        socket.emit('mobile-setSelectedPlayer', dravocarPlayers[0]._id);
       }
       else {
-        setSelectedPlayer(kaotikaPlayers[0]);
+        setSelectedPlayerIndex(kaotikaPlayers.length);
+        setSelectedPlayerIndex(1);
+
+        socket.emit('mobile-setSelectedPlayer', dravocarPlayers[0]._id);
+
       }
+
+      
     } else {
       setIsMyTurn(false);
     }
@@ -89,14 +104,15 @@ export const clearListenToServerEventsBattleScreen = (): void => {
   socket.off(SOCKET_EVENTS.RECIVE_USERS);
   console.log(`'${SOCKET_EVENTS.RECIVE_USERS}' socket cleared.`);
 
-  socket.off(SOCKET_EVENTS.TURN_CHANGE);
-  console.log(`'${SOCKET_EVENTS.TURN_CHANGE}' socket cleared.`);
-
   socket.off(SOCKET_EVENTS.GAME_END);
   console.log(`'${SOCKET_EVENTS.GAME_END}' socket cleared.`);
 
   socket.off(SOCKET_EVENTS.UPDATE_PLAYER);
   console.log(`'${SOCKET_EVENTS.UPDATE_PLAYER}' socket cleared.`);
+
+  socket.off(SOCKET_EVENTS.TURN_CHANGE);
+  console.log(`'${SOCKET_EVENTS.TURN_CHANGE}' socket cleared.`);
+  
   
   
 };
