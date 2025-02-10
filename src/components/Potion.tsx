@@ -1,3 +1,4 @@
+import React from 'react';
 import { Potion } from '../interfaces/Potion';
 
 interface PotionCardProps {
