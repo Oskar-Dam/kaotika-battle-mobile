@@ -24,11 +24,10 @@ export const listenToChangeTurn = (setIsMyTurn: (turn: boolean) => void,player: 
     console.log('FIRST KAOTIKA PLAYER NOW: ', kaotikaPlayers);
     if (player?._id === _id) {
       setIsMyTurn(true);
-      console.log('is my turn: ' + player.nickname);
-      if (!player.isBetrayer) {
+      if (player && !player.isBetrayer) {
         setSelectedPlayerIndex(dravocarPlayers.length);
-        setSelectedPlayerIndex(1);  
-
+        setSelectedPlayerIndex(1);
+      
         socket.emit('mobile-setSelectedPlayer', dravocarPlayers[0]._id);
       }
       else {
@@ -36,15 +35,13 @@ export const listenToChangeTurn = (setIsMyTurn: (turn: boolean) => void,player: 
         setSelectedPlayerIndex(1);
 
         socket.emit('mobile-setSelectedPlayer', dravocarPlayers[0]._id);
-
       }
-
-      
     } else {
       setIsMyTurn(false);
     }
   });
 };
+
 export const listenToInsufficientPlayers = (setInsufficientPlayers: (turn: boolean) => void) =>{
   socket.on(SOCKET_EVENTS.INSUFFICIENT_PLAYERS, () => {
     console.log(`'${SOCKET_EVENTS.INSUFFICIENT_PLAYERS}' socket received.`);
