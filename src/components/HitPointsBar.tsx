@@ -1,3 +1,5 @@
+import React from 'react';
+
 interface HitPointsBarProps {
   base_hp: number
   hp: number
