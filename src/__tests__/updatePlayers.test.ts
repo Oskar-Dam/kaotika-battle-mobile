@@ -1,7 +1,9 @@
-import { Modifier } from '../interfaces/Modifier';
+import { updatePlayerAttributes } from '../utils/players';
+import { mockDividedPlayers } from '../__mocks__/mockPlayers';
 
 describe('updatePlayerAttributes', () => {
-  it('should update the player attributes correctly', () => {
+  it('should update the player attributes correctly in the correct faction', () => {
+    // Arrange
     const playerToUpdate = {
       _id: '66decc4ff42d4a193db77e71',
       attributes: {
@@ -18,27 +20,40 @@ describe('updatePlayerAttributes', () => {
         magic_resistance: 170,
         CFP: 100,
         BCFA: 120,
-      } as Modifier,
+      },
+      isBetrayer: true,
+      totalDamage: 10,
     };
 
+    //Create a copy of the players array
+    const initialPlayers = [...mockDividedPlayers.dravocar];
+
+    //Mock the setter functions
     const setFactionsPlayers = {
       kaotika: jest.fn(),
       dravocar: jest.fn(),
     };
 
-    playerToUpdate;
-    setFactionsPlayers;
-    
-    //updatePlayerAttributes(playerToUpdate, mockDividedPlayers, setFactionsPlayers);
+    // Act
+    updatePlayerAttributes(playerToUpdate, setFactionsPlayers);
 
-    // expect(setFactionsPlayers.kaotika).toHaveBeenCalledWith(expect.arrayContaining([
-    //   expect.objectContaining({
-    //     _id: '66decc4ff42d4a193db77e71',
-    //     attributes: playerToUpdate.attributes,
-    //   }),
-    // ]));
 
-    // Ensure the test always passes
-    expect(true).toBe(true);
+    //Assert
+    expect(setFactionsPlayers.dravocar).toHaveBeenCalledWith(expect.any(Function));
+
+    // Simulate the setter call and check the changes
+    const updateFunction = setFactionsPlayers.dravocar.mock.calls[0][0];
+    const updatedPlayers = updateFunction(initialPlayers);
+
+    //Assert
+    expect(updatedPlayers).toEqual(expect.arrayContaining([
+      expect.objectContaining({
+        _id: playerToUpdate._id,
+        attributes: expect.objectContaining({
+          charisma: 150,
+          constitution: 70,
+        }),
+      }),
+    ]));
   });
 });
