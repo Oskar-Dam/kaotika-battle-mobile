@@ -1,3 +1,4 @@
+import React from 'react';
 import PlayerCarousel from './PlayerCarousel';
 import CarouselFilterButton from './CarouselFilterButton';
 import { Factions } from '../interfaces/Factions';
@@ -56,7 +57,9 @@ const CarouselContainer: React.FC<CarouselContainerProps> = ({
 
   return (
     
-    <div className="mt-[8%]">
+    <div
+      className="mt-[8%]"
+      data-testid="carousel-container">
 
       {/* FILTER */}
       <div className="justify-items-center grid grid-cols-2 relative">

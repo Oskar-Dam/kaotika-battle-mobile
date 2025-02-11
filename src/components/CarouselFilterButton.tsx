@@ -1,3 +1,4 @@
+import React from 'react';
 import { Factions } from '../interfaces/Factions';
 
 interface CarouselFilterButtonProps {

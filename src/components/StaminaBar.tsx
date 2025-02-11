@@ -1,3 +1,5 @@
+import React from 'react';
+
 interface StaminaBarProps {
   base_resistance: number
   resistance: number

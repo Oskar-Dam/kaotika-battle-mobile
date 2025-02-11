@@ -5,7 +5,8 @@ import { updateSessionPlayerAttributesIfIdMatches } from '../utils/players';
 describe('updateSessionPlayerAttributesIfIdMatches', () => {
   it('should update the player attributes correctly', () => {
     const attributesModified = {
-      _id: '66decc4ff42d4a193db77e71', attributes: {
+      _id: '66decc4ff42d4a193db77e71', // Matching ID
+      attributes: {
         charisma: 0,
         constitution: 0,
         dexterity: 0,
@@ -19,17 +20,33 @@ describe('updateSessionPlayerAttributesIfIdMatches', () => {
         magic_resistance: 0,
         CFP: 0,
         BCFA: 0,
-      }, totalDamage: 30, isBetrayer: false
+      },
+      totalDamage: 30,
+      isBetrayer: false
     };
-    const player: Player = ONLINE_USERS_MOCK[0];
+
+    const player: Player = { ...ONLINE_USERS_MOCK[0], _id: '66decc4ff42d4a193db77e71' }; 
     const setPlayer = jest.fn();
+
     updateSessionPlayerAttributesIfIdMatches(attributesModified, setPlayer, player);
 
+    //setPlayer.moc.calls stores all calls made to that mock in an array of arguments which return another array of arguments of that call
+    // In order to obtain the desired value you should call it: 
+    // first call:  setPlayer.mock.calls[0][0]
+    // second call: setPlayer.mock.calls[1][0]
+    // etc...
+    const newPlayerState = setPlayer.mock.calls[0][0]; 
+    
     expect(setPlayer).toHaveBeenCalledWith({
       ...player,
       attributes: attributesModified.attributes
     });
+
+    expect(newPlayerState.attributes).toEqual(attributesModified.attributes); 
+
+    expect(setPlayer).toHaveBeenCalledTimes(1); 
   });
+
 
   it('should not update the player since ID does not match', () => {
     const attributesModified = {
