@@ -1,7 +1,7 @@
 
-import { listenToGameStart } from '../../../sockets/socketListeners';
-import { SOCKET_EVENTS } from '../../../sockets/events';
-import socket from '../../../sockets/socket';
+import { listenToGameStart } from '../../../../sockets/socketListeners';
+import { SOCKET_EVENTS } from '../../../../sockets/events';
+import socket from '../../../../sockets/socket';
 
 // Arrange
 beforeAll(() => {
@@ -11,7 +11,7 @@ beforeAll(() => {
 });
 
 // Arrange
-jest.mock('../../../sockets/socket', () => ({
+jest.mock('../../../../sockets/socket', () => ({
   on: jest.fn(),
   emit: jest.fn(),
 }));

@@ -2,8 +2,7 @@ import * as React from 'react';
 React;
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Waiting from '../components/Waiting';
-import { mockDividedPlayers } from '../__mocks__/mockPlayers';
+import BlockedScreen from '../../components/BlockedScreen';
 
 beforeAll(() => {
   jest.spyOn(console, 'log').mockImplementation(() => {}); // Silenciar logs
@@ -13,16 +12,10 @@ beforeAll(() => {
 
 describe('LoggedDisconnectionModal Component', () => {
   it('should render the LoggedDisconnectionModal', () => {
-    const player = mockDividedPlayers.kaotika[0];
     
-    render(<Waiting 
-      role={player.role}
-      setDravocarPlayers={() => {}}
-      setKaotikaPlayers={() => {}}
-      setShowWaitingScreen={() => {}}
-    />);
+    render(<BlockedScreen/>);
 
-    const modalComponent = screen.getByTestId('waiting-modal');
+    const modalComponent = screen.getByTestId('blocked-modal');
     expect(modalComponent).toBeInTheDocument();
   });
 });

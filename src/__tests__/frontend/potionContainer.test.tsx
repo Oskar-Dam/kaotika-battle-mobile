@@ -2,8 +2,8 @@ import * as React from 'react';
 React;
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { mockPotions } from '../__mocks__/mockPotions';
-import PotionContainer from '../components/PotionContainer';
+import { mockPotions } from '../../__mocks__/mockPotions';
+import PotionContainer from '../../components/PotionContainer';
 
 beforeAll(() => {
   jest.spyOn(console, 'log').mockImplementation(() => {}); // Silenciar logs

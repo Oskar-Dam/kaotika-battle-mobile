@@ -1,10 +1,10 @@
-import { listenToServerEventsBattleScreen } from '../../sockets/socketListeners';
-import { mockDividedPlayers } from '../../__mocks__/mockPlayers';
-import { Player } from '../../interfaces/Player';
-import { SOCKET_EVENTS } from '../../sockets/events';
-import socket from '../../sockets/socket';
+import { listenToServerEventsBattleScreen } from '../../../../sockets/socketListeners';
+import { mockDividedPlayers } from '../../../../__mocks__/mockPlayers';
+import { Player } from '../../../../interfaces/Player';
+import { SOCKET_EVENTS } from '../../../../sockets/events';
+import socket from '../../../../sockets/socket';
 
-jest.mock('../../sockets/socket', () => ({
+jest.mock('../../../../sockets/socket', () => ({
   connect: jest.fn(),
   disconnect: jest.fn(),
   emit: jest.fn(),

@@ -1,6 +1,6 @@
-import { SOCKET_EVENTS } from '../../sockets/events';
-import socket from '../../sockets/socket';
-import { listenToInsufficientPlayers } from '../../sockets/socketListeners';
+import { SOCKET_EVENTS } from '../../../../sockets/events';
+import socket from '../../../../sockets/socket';
+import { listenToInsufficientPlayers } from '../../../../sockets/socketListeners';
 
 beforeAll(() => {
   jest.spyOn(console, 'log').mockImplementation(() => {}); // Silence console logs
@@ -8,7 +8,7 @@ beforeAll(() => {
   jest.spyOn(console, 'warn').mockImplementation(() => {}); // Silence console warnings
 });
 
-jest.mock('../../sockets/socket', () => ({
+jest.mock('../../../../sockets/socket', () => ({
   on: jest.fn(),
   emit: jest.fn(),
 }));

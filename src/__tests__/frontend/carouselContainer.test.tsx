@@ -2,8 +2,8 @@ import * as React from 'react';
 React;
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { mockDividedPlayers } from '../__mocks__/mockPlayers';
-import CarouselContainer from '../components/CarouselContainer';
+import { mockDividedPlayers } from '../../__mocks__/mockPlayers';
+import CarouselContainer from '../../components/CarouselContainer';
 
 beforeAll(() => {
   jest.spyOn(console, 'log').mockImplementation(() => {}); // Silence console logs
