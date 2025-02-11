@@ -37,7 +37,6 @@ describe('updatePlayerAttributes', () => {
     // Act
     updatePlayerAttributes(playerToUpdate, setFactionsPlayers);
 
-
     // Assert
     expect(setFactionsPlayers.dravocar).toHaveBeenCalledWith(expect.any(Function));
 
