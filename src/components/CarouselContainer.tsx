@@ -83,7 +83,7 @@ const CarouselContainer: React.FC<CarouselContainerProps> = ({
         setSelectedPlayer={setSelectedPlayer}
         displayedPlayers={displayedPlayers}
         selectedPlayer={selectedPlayer}
-        externalSelectedIndex={selectedPlayerIndex}
+        selectedPlayerIndex={selectedPlayerIndex}
         setSelectedPlayerIndex={setSelectedPlayerIndex}
       />
 

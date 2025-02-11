@@ -20,7 +20,7 @@ describe('PlayerCarousel Component', () => {
       setSelectedPlayer={() => {}}
       displayedPlayers={players}
       selectedPlayer={player}
-      externalSelectedIndex={1}
+      selectedPlayerIndex={1}
       setSelectedPlayerIndex={() => {}}
     />);
 
