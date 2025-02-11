@@ -1,6 +1,6 @@
-import { updatePlayerAttributes } from '../../utils/players';
-import { mockDividedPlayers } from '../../__mocks__/mockPlayers';
-import { dravokarPlayerToUpdate, kaotikaPlayerToUpdate } from '../../__mocks__/mockPlayersToUpdate';
+import { updatePlayerAttributes } from '../../../utils/players';
+import { mockDividedPlayers } from '../../../__mocks__/mockPlayers';
+import { dravokarPlayerToUpdate, kaotikaPlayerToUpdate } from '../../../__mocks__/mockPlayersToUpdate';
 
 beforeAll(() => {
   jest.spyOn(console, 'log').mockImplementation(() => {}); // Silence console logs
