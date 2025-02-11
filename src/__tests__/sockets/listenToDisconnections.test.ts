@@ -18,18 +18,33 @@ describe('Socket Listeners', () => {
     jest.clearAllMocks();
   });
 
-  it('Cambia de turno correctamente y emite evento de selección de jugador', () => {
-    const setdisconnection = jest.fn();
+  it('should call setdisconnection with true when a disconnect event occurs', () => {
+
+    const setDisconnection = jest.fn();
   
-    listenToDisconnections(setdisconnection);
+    listenToDisconnections(setDisconnection);
   
     const callback = (socket.on as jest.Mock).mock.calls.find(([event]) => event === SOCKET_EVENTS.DISCONNECT)?.[1];
     
     callback();
 
-    console.log('Llamadas a setIsMyTurn:', setdisconnection.mock.calls);
+    console.log('Llamadas a setIsMyTurn:', setDisconnection.mock.calls);
   
-    expect(setdisconnection).toHaveBeenCalledWith(true);
+    expect(setDisconnection).toHaveBeenCalledWith(true);
+  });
+  it('should call setdisconnection with false when a connect event occurs', () => {
+
+    const setDisconnection = jest.fn();
+  
+    listenToDisconnections(setDisconnection);
+  
+    const callback = (socket.on as jest.Mock).mock.calls.find(([event]) => event === SOCKET_EVENTS.CONNECT)?.[1];
+    
+    callback();
+
+    console.log('Llamadas a setIsMyTurn:', setDisconnection.mock.calls);
+  
+    expect(setDisconnection).toHaveBeenCalledWith(false);
   });
 });
 
