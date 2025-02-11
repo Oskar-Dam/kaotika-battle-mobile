@@ -1,30 +1,11 @@
 import { updatePlayerAttributes } from '../utils/players';
 import { mockDividedPlayers } from '../__mocks__/mockPlayers';
+import { dravokarPlayerToUpdate, kaotikaPlayerToUpdate } from '../__mocks__/mockPlayersToUpdate';
 
 describe('updatePlayerAttributes', () => {
-
   it('should call dravocar function if player is a betrayer', () => {
     // Arrange
-    const playerToUpdate = {
-      _id: '66decc4ff42d4a193db77e71',
-      attributes: {
-        charisma: 150,
-        constitution: 70,
-        dexterity: 25,
-        insanity: 100,
-        intelligence: 35,
-        strength: 20,
-        resistance: 110,
-        attack: -25,
-        hit_points: 40,
-        defense: 100,
-        magic_resistance: 170,
-        CFP: 100,
-        BCFA: 120,
-      },
-      isBetrayer: true,
-      totalDamage: 10,
-    };
+    const playerToUpdate = dravokarPlayerToUpdate;
 
     const setFactionsPlayers = {
       kaotika: jest.fn(),
@@ -41,26 +22,7 @@ describe('updatePlayerAttributes', () => {
 
   it('should call kaotika function if player is not a betrayer', () => {
     // Arrange
-    const playerToUpdate = {
-      _id: '66decc4ff42d4a193db77e71',
-      attributes: {
-        charisma: 150,
-        constitution: 70,
-        dexterity: 25,
-        insanity: 100,
-        intelligence: 35,
-        strength: 20,
-        resistance: 110,
-        attack: -25,
-        hit_points: 40,
-        defense: 100,
-        magic_resistance: 170,
-        CFP: 100,
-        BCFA: 120,
-      },
-      isBetrayer: false,
-      totalDamage: 10,
-    };
+    const playerToUpdate = kaotikaPlayerToUpdate;
 
     const setFactionsPlayers = {
       kaotika: jest.fn(),
@@ -77,26 +39,7 @@ describe('updatePlayerAttributes', () => {
 
   it('should update the player attributes correctly in the KAOTIKA faction', () => {
     // Arrange
-    const playerToUpdate = {
-      _id: '66dec6ab4c27dff822d80066',
-      attributes: {
-        charisma: 150,
-        constitution: 70,
-        dexterity: 25,
-        insanity: 100,
-        intelligence: 35,
-        strength: 20,
-        resistance: 110,
-        attack: -25,
-        hit_points: 40,
-        defense: 100,
-        magic_resistance: 170,
-        CFP: 100,
-        BCFA: 120,
-      },
-      isBetrayer: false,
-      totalDamage: 10,
-    };
+    const playerToUpdate = kaotikaPlayerToUpdate;
 
     // Create a copy of the players array
     const initialPlayers = [...mockDividedPlayers.kaotika];
@@ -131,26 +74,7 @@ describe('updatePlayerAttributes', () => {
 
   it('should update the player attributes correctly in the DRAVOKAR faction', () => {
     // Arrange
-    const playerToUpdate = {
-      _id: '66decc4ff42d4a193db77e71',
-      attributes: {
-        charisma: 150,
-        constitution: 70,
-        dexterity: 25,
-        insanity: 100,
-        intelligence: 35,
-        strength: 20,
-        resistance: 110,
-        attack: -25,
-        hit_points: 40,
-        defense: 100,
-        magic_resistance: 170,
-        CFP: 100,
-        BCFA: 120,
-      },
-      isBetrayer: true,
-      totalDamage: 10,
-    };
+    const playerToUpdate = dravokarPlayerToUpdate;
 
     // Create a copy of the players array
     const initialPlayers = [...mockDividedPlayers.dravocar];
