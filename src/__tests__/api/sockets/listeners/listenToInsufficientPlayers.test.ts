@@ -1,7 +1,6 @@
-import { listenToChangeTurn } from '../../../../sockets/socketListeners';
 import { SOCKET_EVENTS } from '../../../../sockets/events';
 import socket from '../../../../sockets/socket';
-import { mockDividedPlayers } from '../../../../__mocks__/mockPlayers';
+import { listenToInsufficientPlayers } from '../../../../sockets/socketListeners';
 
 beforeAll(() => {
   jest.spyOn(console, 'log').mockImplementation(() => {}); // Silence console logs
@@ -19,25 +18,18 @@ describe('Socket Listeners', () => {
     jest.clearAllMocks();
   });
 
-  it('Cambia de turno correctamente y emite evento de selección de jugador', () => {
-    const setIsMyTurn = jest.fn();
-    const setSelectedPlayerIndex = jest.fn();
+  it('should call setInsufficientPlayers with true when an insufficient players event occurs', () => {
+
+    const setInsufficientPlayers = jest.fn();
   
-    const dravocarPlayers = mockDividedPlayers.dravocar;
-    const kaotikaPlayers = mockDividedPlayers.kaotika;
-    const mockPlayer = mockDividedPlayers.kaotika[1];
+    listenToInsufficientPlayers(setInsufficientPlayers);
   
-    listenToChangeTurn(setIsMyTurn, mockPlayer, kaotikaPlayers, dravocarPlayers, setSelectedPlayerIndex);
-  
-    const callback = (socket.on as jest.Mock).mock.calls.find(([event]) => event === SOCKET_EVENTS.TURN_CHANGE)?.[1];
+    const callback = (socket.on as jest.Mock).mock.calls.find(([event]) => event === SOCKET_EVENTS.INSUFFICIENT_PLAYERS)?.[1];
         
     callback();
 
-    console.log('Llamadas a setIsMyTurn:', setIsMyTurn.mock.calls);
+    console.log('Llamadas a setIsMyTurn:', setInsufficientPlayers.mock.calls);
   
-    expect(setIsMyTurn).toHaveBeenCalledWith(true);
-    expect(setSelectedPlayerIndex).toHaveBeenCalledWith(dravocarPlayers.length);
-    expect(setSelectedPlayerIndex).toHaveBeenCalledWith(1);
-    expect(socket.emit).toHaveBeenCalledWith('mobile-setSelectedPlayer', dravocarPlayers[0]._id);
+    expect(setInsufficientPlayers).toHaveBeenCalledWith(true);
   });
 });
