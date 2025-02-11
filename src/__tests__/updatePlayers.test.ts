@@ -25,10 +25,10 @@ describe('updatePlayerAttributes', () => {
       totalDamage: 10,
     };
 
-    //Create a copy of the players array
+    // Create a copy of the players array
     const initialPlayers = [...mockDividedPlayers.dravocar];
 
-    //Mock the setter functions
+    // Mock the setter functions
     const setFactionsPlayers = {
       kaotika: jest.fn(),
       dravocar: jest.fn(),
@@ -38,14 +38,14 @@ describe('updatePlayerAttributes', () => {
     updatePlayerAttributes(playerToUpdate, setFactionsPlayers);
 
 
-    //Assert
+    // Assert
     expect(setFactionsPlayers.dravocar).toHaveBeenCalledWith(expect.any(Function));
 
     // Simulate the setter call and check the changes
     const updateFunction = setFactionsPlayers.dravocar.mock.calls[0][0];
     const updatedPlayers = updateFunction(initialPlayers);
 
-    //Assert
+    // Assert
     expect(updatedPlayers).toEqual(expect.arrayContaining([
       expect.objectContaining({
         _id: playerToUpdate._id,
