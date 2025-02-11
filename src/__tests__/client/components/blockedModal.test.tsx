@@ -2,8 +2,7 @@ import * as React from 'react';
 React;
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { mockPotions } from '../__mocks__/mockPotions';
-import PotionContainer from '../components/PotionContainer';
+import BlockedScreen from '../../../components/BlockedScreen';
 
 beforeAll(() => {
   jest.spyOn(console, 'log').mockImplementation(() => {}); // Silenciar logs
@@ -11,16 +10,12 @@ beforeAll(() => {
   jest.spyOn(console, 'warn').mockImplementation(() => {}); // Silenciar advertencias
 });
 
-describe('PotionContainer Component', () => {
-  it('should render the PotionContainer', () => {
-    const potions = mockPotions;
+describe('LoggedDisconnectionModal Component', () => {
+  it('should render the LoggedDisconnectionModal', () => {
     
-    render(<PotionContainer
-      potions={potions}
-      onClick={() => {}}
-    />);
+    render(<BlockedScreen/>);
 
-    const modalComponent = screen.getByTestId('potion-container');
+    const modalComponent = screen.getByTestId('blocked-modal');
     expect(modalComponent).toBeInTheDocument();
   });
 });

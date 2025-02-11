@@ -1,7 +1,7 @@
-import { listenToChangeTurn } from '../../sockets/socketListeners';
-import { SOCKET_EVENTS } from '../../sockets/events';
-import socket from '../../sockets/socket';
-import { mockDividedPlayers } from '../../__mocks__/mockPlayers';
+import { mockDividedPlayers } from '../../../../__mocks__/mockPlayers';
+import { SOCKET_EVENTS } from '../../../../sockets/events';
+import socket from '../../../../sockets/socket';
+import { listenToChangeTurn } from '../../../../sockets/socketListeners';
 
 beforeAll(() => {
   jest.spyOn(console, 'log').mockImplementation(() => {}); // Silence console logs
@@ -9,7 +9,7 @@ beforeAll(() => {
   jest.spyOn(console, 'warn').mockImplementation(() => {}); // Silence console warnings
 });
 
-jest.mock('../../sockets/socket', () => ({
+jest.mock('../../../../sockets/socket', () => ({
   on: jest.fn(),
   emit: jest.fn(),
 }));
@@ -19,7 +19,7 @@ describe('Socket Listeners', () => {
     jest.clearAllMocks();
   });
 
-  it('Cambia de turno correctamente y emite evento de selección de jugador', () => {
+  it('should change the turn correctly and emits the selected player', () => {
     const setIsMyTurn = jest.fn();
     const setSelectedPlayerIndex = jest.fn();
   
@@ -41,3 +41,4 @@ describe('Socket Listeners', () => {
     expect(socket.emit).toHaveBeenCalledWith('mobile-setSelectedPlayer', dravocarPlayers[0]._id);
   });
 });
+ 

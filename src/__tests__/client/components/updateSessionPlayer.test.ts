@@ -1,6 +1,6 @@
-import { Player } from '../interfaces/Player';
-import { ONLINE_USERS_MOCK } from '../__mocks__/mockPlayers';
-import { updateSessionPlayerAttributesIfIdMatches } from '../utils/players';
+import { Player } from '../../../interfaces/Player';
+import { ONLINE_USERS_MOCK } from '../../../__mocks__/mockPlayers';
+import { updateSessionPlayerAttributesIfIdMatches } from '../../../utils/players';
 
 describe('updateSessionPlayerAttributesIfIdMatches', () => {
   it('should update the player attributes correctly', () => {

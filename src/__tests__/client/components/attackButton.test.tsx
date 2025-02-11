@@ -2,8 +2,8 @@ import * as React from 'react';
 React; //Add this line to disable the unused variable error for Vercel deployment
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import AttackButton from '../components/AttackButton';
-import { mockDividedPlayers } from '../__mocks__/mockPlayers';
+import AttackButton from '../../../components/AttackButton';
+import { mockDividedPlayers } from '../../../__mocks__/mockPlayers';
 
 beforeAll(() => {
   jest.spyOn(console, 'log').mockImplementation(() => {}); // Silence console logs
