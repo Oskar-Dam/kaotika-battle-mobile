@@ -68,16 +68,24 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
   }, [kaotikaPlayers, dravocarPlayers, player]);
 
   useEffect(() => {
-    if(isMyTurn) {
+    if (isMyTurn) {
       if (!player.isBetrayer) {
-        console.log('Emitting first dravokar player');
-        socket.emit('mobile-setSelectedPlayer', dravocarPlayers[0]._id);
+        if (dravocarPlayers.length > 0) {
+          console.log('Emitting first dravokar player');
+          socket.emit('mobile-setSelectedPlayer', dravocarPlayers[0]._id);
+        } else {
+          console.log('No dravokar players available');
+        }
       } else {
-        console.log('Emitting first kaotika player');
-        socket.emit('mobile-setSelectedPlayer', kaotikaPlayers[0]._id);
+        if (kaotikaPlayers.length > 0) {
+          console.log('Emitting first kaotika player');
+          socket.emit('mobile-setSelectedPlayer', kaotikaPlayers[0]._id);
+        } else {
+          console.log('No kaotika players available');
+        }
       }
     }
-  }, [isMyTurn]);
+  }, [isMyTurn, player.isBetrayer, dravocarPlayers, kaotikaPlayers]);
 
   const openModal = (potion: Potion) => {
     setSelectedPotion(potion);
@@ -108,6 +116,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
       <div
         className='w-screen h-screen flex flex-col items-center justify-center top-0 z-20'
         style={{ backgroundImage: frameBackground, backgroundSize: '100% 100%' }}
+        data-testid="battle-screen"
       >
         <StaminaBar
           resistance={player.attributes.resistance ?? 0}
