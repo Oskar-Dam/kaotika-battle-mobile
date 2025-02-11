@@ -1,5 +1,5 @@
 import { ONLINE_USERS_MOCK } from '../../__mocks__/mockPlayers';
-import { getPlayerByEmail } from './../../api/player'; // Adjust the import as per your file structure
+import { getPlayerByEmail } from './../../api/player';
 
 
 beforeAll(() => {
