@@ -43,38 +43,38 @@ export const kaotikaPlayerToUpdate: PlayerToUpdate = {
 };
 
 /*
- COMO FUNCIONA EL TESTEO DE UN 'SETTER'
+  COMO FUNCIONA EL TESTEO DE UN 'SETTER'
 
- mock.calls de Jest almacena un historial de llamadas en forma de ARRAY DE ARRAYS
+  mock.calls de Jest almacena un historial de llamadas en forma de ARRAY DE ARRAYS
 
- setFactionsPlayers.kaotika.mock.calls[0] accede a la PRIMERA LLAMADA
+  setFactionsPlayers.kaotika.mock.calls[0] accede a la PRIMERA LLAMADA
 
- setFactionsPlayers.kaotika.mock.calls[0][0] accede al PRIMER ARGUMENTO DE LA PRIMERA LLAMADA
+  setFactionsPlayers.kaotika.mock.calls[0][0] accede al PRIMER ARGUMENTO DE LA PRIMERA LLAMADA
 
- En el caso de updatePlayers.test.ts, la declaración de updateFunction es la que modifica el array
+  En el caso de updatePlayers.test.ts, la declaración de updateFunction es la que modifica el array
 
- EJEMPLO:
+  EJEMPLO:
 
- Si en la llamada hacemos algo como:
+  Si en la llamada hacemos algo como:
 
-setFactionsPlayers.kaotika((prevPlayers) => prevPlayers.map(player => ({
-  ...player,
-  attributes: { ...player.attributes, charisma: 150, constitution: 70 },
-})));
+  setFactionsPlayers.kaotika((prevPlayers) => prevPlayers.map(player => ({
+    ...player,
+    attributes: { ...player.attributes, charisma: 150, constitution: 70 },
+  })));
 
- updateFunction tendría el siguiente valor:
+  updateFunction tendría el siguiente valor:
 
-(prevPlayers) => prevPlayers.map(player => ({
-  ...player,
-  attributes: { ...player.attributes, charisma: 150, constitution: 70 },
-}));
+  (prevPlayers) => prevPlayers.map(player => ({
+    ...player,
+    attributes: { ...player.attributes, charisma: 150, constitution: 70 },
+  }));
 
-Esto se obtiene de la siguiente manera en nuestro test:
+  Esto se obtiene de la siguiente manera en nuestro test:
 
-const updateFunction = setFactionsPlayers.dravocar.mock.calls[0][0];
+  const updateFunction = setFactionsPlayers.dravocar.mock.calls[0][0];
 
-Luego guardamos el nuevo estado ACTUALIZADO en el updatedPlayers
+  Luego guardamos el nuevo estado ACTUALIZADO en el updatedPlayers
 
-const updatedPlayers = updateFunction(initialPlayers); 
+  const updatedPlayers = updateFunction(initialPlayers); 
 
 */
