@@ -2,6 +2,12 @@ import { updatePlayerAttributes } from '../utils/players';
 import { mockDividedPlayers } from '../__mocks__/mockPlayers';
 import { dravokarPlayerToUpdate, kaotikaPlayerToUpdate } from '../__mocks__/mockPlayersToUpdate';
 
+beforeAll(() => {
+  jest.spyOn(console, 'log').mockImplementation(() => {}); // Silence console logs
+  jest.spyOn(console, 'error').mockImplementation(() => {}); // Silence console errors
+  jest.spyOn(console, 'warn').mockImplementation(() => {}); // Silence console warnings
+});
+
 describe('updatePlayerAttributes', () => {
   it('should call dravocar function if player is a betrayer', () => {
     // Arrange
