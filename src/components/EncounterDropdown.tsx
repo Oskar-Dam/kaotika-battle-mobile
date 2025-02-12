@@ -29,7 +29,7 @@ const EncounterDropdown: React.FC = () => {
               {levels.map((level, index) => (
                 <li
                   key={index}
-                  onClick={() => {
+                  onMouseDown={() => {
                     setSelection(level);
                     setIsOpen(false);
                   }}

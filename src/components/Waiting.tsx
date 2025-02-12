@@ -23,7 +23,7 @@ const Waiting: React.FC<WaitingProps> = ({ role, setDravocarPlayers, setKaotikaP
   
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center bg-black opacity-90 z-50"
+      className="fixed inset-0 flex items-center justify-center bg-black/90 z-50"
       data-testid="waiting-modal">
       {role === 'mortimer' ? <MortimerScreen/> 
         : <Spinner text={'Waiting for Mortimer to start the game'} />}
