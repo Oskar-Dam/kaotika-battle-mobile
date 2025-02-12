@@ -11,6 +11,10 @@ jest.mock('../../../sockets/socket', () => ({
   off: jest.fn(),
 }));
 
+jest.mock('../../../api/player', () => ({
+  getPlayerByEmail: jest.fn(),
+}));
+
 beforeAll(() => {
   jest.spyOn(console, 'log').mockImplementation(() => {}); // Silenciar logs
   jest.spyOn(console, 'error').mockImplementation(() => {}); // Silenciar errores
