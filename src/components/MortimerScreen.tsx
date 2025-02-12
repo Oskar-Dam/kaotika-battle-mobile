@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import GameStartButton from './GameStartButton';
+import BattleTypeDropdown from './BattleTypeDropdown';
 import { SOCKET_EVENTS } from '../sockets/events';
 import socket from '../sockets/socket';
 
 const MortimerScreen: React.FC = () => {
-  const [selection, setSelection] = useState<string>('THE FINAL BATTLE');
+  const [selection, setSelection] = useState<string>('CHOOSE BATTLE TYPE');
 
   const handleStartGame = (): void => {
     console.log('Game start button pressed');
@@ -23,15 +24,9 @@ const MortimerScreen: React.FC = () => {
       </div>
       <div className='flex flex-col justify-center mt-20'>
         <div className='flex justify-center'>
-          <select
-            value={selection}
-            onChange={(e) => setSelection(e.target.value)}
-            className="text-white bg-gray-800 border-2 border-gray-600 rounded-lg p-2 mb-20 w-64"
-          >
-            <option value="THE FINAL BATTLE">THE FINAL BATTLE</option>
-            <option value="DUEL">DUEL</option>
-            <option value="ENCOUNTER">ENCOUNTER</option>
-          </select>
+          <BattleTypeDropdown
+            selection={selection}
+            setSelection={setSelection} />
         </div>
         <GameStartButton
           selection={selection}
