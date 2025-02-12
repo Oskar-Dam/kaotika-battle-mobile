@@ -48,7 +48,9 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({ email, setEmail, setIsLog
   return (
     <div
       className="flex bg-black p-4 items-center justify-center h-screen w-screen"
-      style={{ backgroundImage: 'url(/images/login-background.webp)', backgroundSize: '100% 100%' }}>
+      style={{ backgroundImage: 'url(/images/login-background.webp)', backgroundSize: '100% 100%' }}
+      data-testid="login-screen"
+    >
       {isLoading && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/80 z-50">
           <Spinner text={'Retrieving player from database, please wait...'} />
