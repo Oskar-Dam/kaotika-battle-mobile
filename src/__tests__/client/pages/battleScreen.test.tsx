@@ -6,6 +6,12 @@ import { mockDividedPlayers } from '../../../__mocks__/mockPlayers';
 import BattleScreen from '../../../pages/BattleScreen';
 import { mockPotions } from '../../../__mocks__/mockPotions';
 
+jest.mock('../../../sockets/socket', () => ({
+  on: jest.fn(),
+  emit: jest.fn(),
+  off: jest.fn(),
+}));
+
 beforeAll(() => {
   jest.spyOn(console, 'log').mockImplementation(() => {}); // Silenciar logs
   jest.spyOn(console, 'error').mockImplementation(() => {}); // Silenciar errores
