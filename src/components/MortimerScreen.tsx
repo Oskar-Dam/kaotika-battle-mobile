@@ -4,6 +4,7 @@ import BattleTypeDropdown from './BattleTypeDropdown';
 import { SOCKET_EVENTS } from '../sockets/events';
 import socket from '../sockets/socket';
 import WelcomeTexts from './WelcomeTexts';
+import EncounterDropdown from './EncounterDropdown';
 
 const MortimerScreen: React.FC = () => {
   const [selection, setSelection] = useState<string>('CHOOSE BATTLE TYPE');
@@ -15,13 +16,22 @@ const MortimerScreen: React.FC = () => {
 
   return (
     <div className='flex flex-col h-screen'>
-      <WelcomeTexts />
-      <div className='flex flex-col justify-center mt-20'>
-        <div className='flex justify-center'>
+      <div className='flex flex-col justify-center h-1/4 '>
+        <WelcomeTexts />
+      </div>
+      <div className='flex flex-col justify-center h-1/2 '>
+        <div className='flex justify-center h-1/2 items-center'>
           <BattleTypeDropdown
             selection={selection}
             setSelection={setSelection} />
         </div>
+        <div className='flex justify-center h-1/2 items-center'>
+          {selection === 'ENCOUNTER' && (
+            <EncounterDropdown />
+          )}
+        </div>
+      </div>
+      <div className='flex justify-center h-1/4 items-center'>
         <GameStartButton
           selection={selection}
           onClick={handleStartGame}/> 

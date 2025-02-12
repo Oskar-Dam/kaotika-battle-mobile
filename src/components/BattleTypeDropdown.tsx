@@ -10,7 +10,7 @@ const BattleTypeDropdown: React.FC<BattleTypeDropdownProps> = ({ selection, setS
     <select
       value={selection}
       onChange={(e) => setSelection(e.target.value)}
-      className="text-orange-400 bg-gray-800 border-2 border-gray-600 rounded-lg p-2 mb-20 w-64"
+      className="text-orange-400 bg-gray-800 border-2 border-gray-600 rounded-lg p-2 w-[95%] text-2xl h-[30%]"
       data-testid="battle-type-dropdown"
     >
       <option value="CHOOSE BATTLE TYPE">CHOOSE BATTLE TYPE</option>
