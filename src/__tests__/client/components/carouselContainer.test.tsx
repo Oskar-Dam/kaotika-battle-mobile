@@ -5,6 +5,12 @@ import '@testing-library/jest-dom';
 import { mockDividedPlayers } from '../../../__mocks__/mockPlayers';
 import CarouselContainer from '../../../components/CarouselContainer';
 
+jest.mock('../../../sockets/socket', () => ({
+  on: jest.fn(),
+  emit: jest.fn(),
+  off: jest.fn(),
+}));
+
 beforeAll(() => {
   jest.spyOn(console, 'log').mockImplementation(() => {}); // Silence console logs
   jest.spyOn(console, 'error').mockImplementation(() => {}); // Silence console errors

@@ -5,6 +5,12 @@ import '@testing-library/jest-dom';
 import Waiting from '../../../components/Waiting';
 import { mockDividedPlayers } from '../../../__mocks__/mockPlayers';
 
+jest.mock('../../../sockets/socket', () => ({
+  on: jest.fn(),
+  emit: jest.fn(),
+  off: jest.fn(),
+}));
+
 beforeAll(() => {
   jest.spyOn(console, 'log').mockImplementation(() => {}); // Silenciar logs
   jest.spyOn(console, 'error').mockImplementation(() => {}); // Silenciar errores
