@@ -1,9 +1,12 @@
+// src/screens/LoginScreen.tsx
 import React, { ChangeEvent, useState } from 'react';
 import Spinner from '../components/Spinner';
 import socket from '../sockets/socket';
 import { SOCKET_EVENTS } from '../sockets/events';
 import { getPlayerByEmail } from '../api/player';
 import { Player } from '../interfaces/Player';
+import { signInWithPopup } from 'firebase/auth';
+import { auth, provider } from '../api/firebase/firebaseConfig';
 
 interface LoginScreenInterface {
   email: string;
@@ -12,8 +15,12 @@ interface LoginScreenInterface {
   setPlayer: (player: Player | null) => void;
 }
 
-const LoginScreen: React.FC<LoginScreenInterface> = ({ email, setEmail, setIsLoggedIn, setPlayer }) => {
-
+const LoginScreen: React.FC<LoginScreenInterface> = ({
+  email,
+  setEmail,
+  setIsLoggedIn,
+  setPlayer,
+}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -41,6 +48,32 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({ email, setEmail, setIsLog
       } else {
         setErrorMessage('An unknown error occurred');
       }
+      setIsLoading(false);
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    setIsLoading(true);
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      if (user.email) {
+        const playerData = await getPlayerByEmail(user.email);
+        socket.emit(SOCKET_EVENTS.SEND_SOCKETID, user.email);
+        setIsLoggedIn(true);
+        setIsLoading(false);
+        setPlayer(playerData);
+      } else {
+        setErrorMessage('No se pudo obtener el correo electrónico del usuario.');
+      }
+    } catch (error: unknown) {
+      console.error('Error during Google sign-in:', error);
+      if (error instanceof Error) {
+        setErrorMessage(error.message);
+      } else {
+        setErrorMessage('An unknown error occurred during Google sign-in.');
+      }
+    } finally {
       setIsLoading(false);
     }
   };
@@ -75,7 +108,6 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({ email, setEmail, setIsLog
             style={{ fontFamily: 'Kaotika' }}
             onChange={handleEmailChange}></input>
         </div>
-
         <button
           className="mt-[5%] flex flex-col items-center justify-center bg-gray-500 h-[15%]"
           onClick={handleEnterBattle}
@@ -88,17 +120,31 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({ email, setEmail, setIsLog
           <span
             className="text-white mt-2 text-3xl mb-2"
             style={{ fontFamily: 'Kaotika', position: 'absolute' }}>ENTER</span>
-        </button>
+        </button> 
 
-        <div
-          className="text-red-500 mt-2 text-2xl"
-          style={{ fontFamily: 'Kaotika', minHeight: '2em' }}>
-          {errorMessage || <span>&nbsp;</span>}
-        </div>
+        <button
+          className="mt-[5%] flex flex-col items-center justify-center bg-gray-500 h-[15%]"
+          onClick={handleGoogleSignIn}
+          style={{ width: '45%', height: 'auto' }}>
+          <img
+            src="/images/enter-button.webp"
+            alt="Enter the battle"
+            style={{ width: '100%' }} />
+          <span
+            className="text-white mt-2 text-3xl mb-2"
+            style={{ fontFamily: 'Kaotika', position: 'absolute' }}>ENTER</span>
+        </button> 
+        {errorMessage && (
+          <div
+            className="mt-4 text-red-500"
+            style={{ fontFamily: 'Kaotika' }}>
+            {errorMessage}
+          </div>
+        )}
       </div>
     </div>
   );
-
 };
-
+  
 export default LoginScreen;
+  
