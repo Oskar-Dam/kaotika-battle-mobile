@@ -10,7 +10,7 @@ const GameStartButton: React.FC<GameStartButtonProps> = ({ selection, onClick })
   const isDisabled = selection !== 'THE FINAL BATTLE';
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center w-[95%]">
       <button
         onClick={onClick}
         disabled={isDisabled}
