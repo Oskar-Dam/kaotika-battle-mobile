@@ -2,8 +2,8 @@ import * as React from 'react';
 React;
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Waiting from '../components/Waiting';
-import { mockDividedPlayers } from '../__mocks__/mockPlayers';
+import Waiting from '../../../components/Waiting';
+import { mockDividedPlayers } from '../../../__mocks__/mockPlayers';
 
 beforeAll(() => {
   jest.spyOn(console, 'log').mockImplementation(() => {}); // Silenciar logs

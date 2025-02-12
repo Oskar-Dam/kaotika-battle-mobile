@@ -2,9 +2,9 @@ import * as React from 'react';
 React;
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import LoggedDisconnectionModal from '../components/LoggedDisconnectionModal';
-import { mockDividedPlayers } from '../__mocks__/mockPlayers';
-import UnloggedDisconnectionModal from '../components/UnloggedDisconnectionModal';
+import LoggedDisconnectionModal from '../../../components/LoggedDisconnectionModal';
+import { mockDividedPlayers } from '../../../__mocks__/mockPlayers';
+import UnloggedDisconnectionModal from '../../../components/UnloggedDisconnectionModal';
 
 beforeAll(() => {
   jest.spyOn(console, 'log').mockImplementation(() => {}); // Silenciar logs
