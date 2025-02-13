@@ -1,23 +1,18 @@
 import React, { useState } from 'react';
-import { Player } from '../interfaces/Player';
+import { SOCKET_EVENTS } from '../sockets/events';
+import socket from '../sockets/socket';
 
 interface GameEndingModalProps {
-  setPlayer: (player: Player | null) => void;
-  setIsLoggedIn: (isLoggedIn: boolean) => void;
-  setEmail: (email: string) => void;
   role: string;
   winner: string;
 }
 
-const GameEndingModal: React.FC<GameEndingModalProps> = ({ setPlayer, setIsLoggedIn, setEmail, winner, role }) => {
+const GameEndingModal: React.FC<GameEndingModalProps> = ({ winner, role }) => {
 
   const [winnerSide] = useState<string>(winner);
-  const [playerRole] = useState<string>(role);
 
-  const handleReconnect = () => {
-    setPlayer(null);
-    setIsLoggedIn(false);
-    setEmail('');
+  const handleResetGame = () => {
+    socket.emit(SOCKET_EVENTS.GAME_RESET);
   };
 
   const imgUrl: string = (winnerSide === 'kaotika') ? 'url(/images/kaotikaWinner.webp)' :
@@ -39,7 +34,7 @@ const GameEndingModal: React.FC<GameEndingModalProps> = ({ setPlayer, setIsLogge
 
           <button
             className="text-medievalSepia p-20 place-self-item rounded text-3xl"
-            onClick={handleReconnect}
+            onClick={handleResetGame}
             style={{
               backgroundImage: 'url(/images/end-button.webp)',
               backgroundSize: 'cover',
