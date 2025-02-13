@@ -53,6 +53,7 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({
   };
 
   const handleGoogleSignIn = async () => {
+    provider.setCustomParameters({ prompt: 'select_account' });
     setIsLoading(true);
     try {
       const result = await signInWithPopup(auth, provider);
