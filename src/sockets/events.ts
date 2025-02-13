@@ -11,4 +11,5 @@ export const SOCKET_EVENTS = {
   INSUFFICIENT_PLAYERS:'mobile-insufficientPlayers',
   UPDATE_PLAYER: 'updatePlayer',
   REMOVE_PLAYER: 'removePlayer',
+  KILLED_PLAYER: 'send-killedPlayer',
 };
