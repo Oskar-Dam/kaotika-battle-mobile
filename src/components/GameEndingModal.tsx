@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Player } from '../interfaces/Player';
 
 interface GameEndingModalProps {
@@ -10,30 +10,41 @@ interface GameEndingModalProps {
 
 const GameEndingModal: React.FC<GameEndingModalProps> = ({ setPlayer, setIsLoggedIn, setEmail, winner }) => {
 
+  const [winnerSide] = useState<string>(winner);
+
   const handleReconnect = () => {
     setPlayer(null);
     setIsLoggedIn(false);
     setEmail('');
   };
 
-  const imgUrl: string = (winner === 'kaotika') ? 'url(/images/kaotikaWinner.webp)' :
-    (winner === 'dravocar') ? 'url(/images/dravokarWinner.webp)' :
+  const imgUrl: string = (winnerSide === 'kaotika') ? 'url(/images/kaotikaWinner.webp)' :
+    (winnerSide === 'dravocar') ? 'url(/images/dravokarWinner.webp)' :
       'url(/images/login-background.webp)';
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black z-51">
 
       <div
-        className="flex flex-col bg-black p-8 rounded shadow-lg justify-center text-center w-full h-full items-center"
+        className="grid grid-cols-1 grid-rows-2 flex-grow bg-black p-8 rounded shadow-lg text-center w-full h-full items-center"
         style={{ backgroundImage: imgUrl, backgroundSize: 'w-screen h-screen' }}>
-        <h2 className="text-6xl font-bold mb-4 text-white">Game Over</h2>
-        <p className="mb-4 text-4xl text-white">Winner: {winner}</p>  {/* Show who won */}
-        <button
-          className="bg-gray-500 text-white px-4 py-2 rounded text-3xl"
-          onClick={handleReconnect}
-        >
-          Go back to the Login Screen
-        </button>
+        <div className='border-2  bg-darkBlue/50 rounded-lg'>
+          <h2 className="text-6xl font-bold mb-4 text-medievalSepia">Game Over</h2>
+          <p className="mb-4 text-4xl text-medievalSepia">Winner: {winner}</p>  {/* Show who won */}
+        </div>
+        <div>
+          <button
+            className="text-medievalSepia p-20 place-self-item rounded text-3xl"
+            onClick={handleReconnect}
+            style={{
+              backgroundImage: 'url(/images/end-button.webp)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
+            
+          >
+          </button>
+        </div>
       </div>
     </div>
   );
