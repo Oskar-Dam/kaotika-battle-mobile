@@ -204,6 +204,7 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({ setSelectedPlayer, disp
                     className="absolute z-10 w-full h-full"
                   />
                   <img
+                    loading='lazy'
                     src={player.avatar}
                     alt={player.name}
                     className="w-full absolute top-1/2 -translate-y-[42%] z-0"

@@ -12,7 +12,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [email, setEmail] = useState<string>('');
   const [player, setPlayer] = useState<Player | null>(null);
-  const [isMyTurn, setIsMyTurn] = useState<boolean>(false);
+  const [isMyTurn, setIsMyTurn] = useState<boolean>(true);
   const [isDisconnected, setIsDisconnected] = useState<boolean>(false);
   const [PermanentlyDisconnected, setPermanentlyDisconnected] = useState<boolean>(false);
 
