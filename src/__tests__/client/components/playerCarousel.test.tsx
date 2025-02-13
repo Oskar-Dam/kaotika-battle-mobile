@@ -19,7 +19,7 @@ beforeAll(() => {
 
 describe('PlayerCarousel Component', () => {
   it('should render the PlayerCarousel', () => {
-    const players = mockDividedPlayers.dravocar;
+    const players = mockDividedPlayers.dravokar;
     const player = mockDividedPlayers.kaotika[0];
 
     render(<PlayerCarousel
