@@ -11,6 +11,8 @@ jest.mock('../../../sockets/socket', () => ({
   off: jest.fn(),
 }));
 
+jest.mock('../../../api/firebase/firebaseConfig', () => require('../../../__mocks__/mockFirebaseConfig'));
+
 jest.mock('../../../api/player', () => ({
   getPlayerByEmail: jest.fn(),
 }));
