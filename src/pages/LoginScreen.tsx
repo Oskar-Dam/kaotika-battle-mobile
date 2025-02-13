@@ -113,7 +113,8 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({
           className="mt-[5%] flex flex-col items-center justify-center bg-gray-500 h-[15%]"
           onClick={handleEnterBattle}
           style={{ filter: email === '' ? 'grayscale(100%)' : 'none', transition: 'filter 0.3s ease', pointerEvents: email === '' ? 'none' : 'auto', width: '45%', height: 'auto' }}
-          disabled={email === ''}>
+          disabled={email === ''}
+          hidden= {false}>
           <img
             src="/images/enter-button.webp"
             alt="Enter the battle"
@@ -126,7 +127,8 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({
         <button
           className="mt-[5%] flex flex-col items-center justify-center bg-gray-500 h-[15%]"
           onClick={handleGoogleSignIn}
-          style={{ width: '45%', height: 'auto' }}>
+          style={{ width: '45%', height: 'auto' }}
+          hidden= {true}>
           <img
             src="/images/enter-button.webp"
             alt="Enter the battle"
