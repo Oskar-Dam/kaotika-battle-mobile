@@ -52,6 +52,7 @@ function App() {
           setPlayer={setPlayer}
           setIsLoggedIn={setIsLoggedIn}
           setEmail={setEmail}
+          setPermanentlyDisconnected={setPermanentlyDisconnected}
         />
       )}
 
