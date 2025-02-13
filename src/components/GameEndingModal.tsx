@@ -12,7 +12,6 @@ interface GameEndingModalProps {
 const GameEndingModal: React.FC<GameEndingModalProps> = ({ setPlayer, setIsLoggedIn, setEmail, winner, role }) => {
 
   const [winnerSide] = useState<string>(winner);
-  const [playerRole] = useState<string>(role);
 
   const handleReconnect = () => {
     setPlayer(null);
