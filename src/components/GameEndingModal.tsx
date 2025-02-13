@@ -5,12 +5,14 @@ interface GameEndingModalProps {
   setPlayer: (player: Player | null) => void;
   setIsLoggedIn: (isLoggedIn: boolean) => void;
   setEmail: (email: string) => void;
+  role: string;
   winner: string;
 }
 
-const GameEndingModal: React.FC<GameEndingModalProps> = ({ setPlayer, setIsLoggedIn, setEmail, winner }) => {
+const GameEndingModal: React.FC<GameEndingModalProps> = ({ setPlayer, setIsLoggedIn, setEmail, winner, role }) => {
 
   const [winnerSide] = useState<string>(winner);
+  const [playerRole] = useState<string>(role);
 
   const handleReconnect = () => {
     setPlayer(null);
@@ -32,7 +34,9 @@ const GameEndingModal: React.FC<GameEndingModalProps> = ({ setPlayer, setIsLogge
           <h2 className="text-6xl font-bold mb-4 text-medievalSepia">Game Over</h2>
           <p className="mb-4 text-4xl text-medievalSepia">Winner: {winner}</p>  {/* Show who won */}
         </div>
-        <div>
+
+        <div>{role === 'mortimer' && (
+
           <button
             className="text-medievalSepia p-20 place-self-item rounded text-3xl"
             onClick={handleReconnect}
@@ -41,9 +45,10 @@ const GameEndingModal: React.FC<GameEndingModalProps> = ({ setPlayer, setIsLogge
               backgroundSize: 'cover',
               backgroundPosition: 'center',
             }}
-            
-          >
-          </button>
+          />
+        )}
+
+
         </div>
       </div>
     </div>
