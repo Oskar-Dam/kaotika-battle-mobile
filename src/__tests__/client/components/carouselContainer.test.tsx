@@ -19,16 +19,16 @@ beforeAll(() => {
 
 describe('PlayerCarousel Component', () => {
   it('should render the PlayerCarousel', () => {
-    const playersDravocar = mockDividedPlayers.dravocar;
+    const playersDravokar = mockDividedPlayers.dravokar;
     const playersKaotika = mockDividedPlayers.kaotika;
     const player = mockDividedPlayers.kaotika[0];
 
     render(<CarouselContainer
       setSelectedPlayer={() => {}}
-      filteredFaction={'DRAVOCAR'}
+      filteredFaction={'DRAVOKAR'}
       setFilteredFaction={() => {}}
       kaotikaPlayers={playersKaotika}
-      dravocarPlayers={playersDravocar}
+      dravokarPlayers={playersDravokar}
       selectedPlayer={player}
       player={player}
       selectedPlayerIndex={0}

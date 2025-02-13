@@ -71,7 +71,7 @@ export const kaotikaPlayerToUpdate: PlayerToUpdate = {
 
   Esto se obtiene de la siguiente manera en nuestro test:
 
-  const updateFunction = setFactionsPlayers.dravocar.mock.calls[0][0];
+  const updateFunction = setFactionsPlayers.dravokar.mock.calls[0][0];
 
   Luego guardamos el nuevo estado ACTUALIZADO en el updatedPlayers
 

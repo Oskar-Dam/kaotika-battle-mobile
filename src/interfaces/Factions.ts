@@ -1,1 +1,1 @@
-export type Factions = 'KAOTIKA' | 'DRAVOCAR';
+export type Factions = 'KAOTIKA' | 'DRAVOKAR';

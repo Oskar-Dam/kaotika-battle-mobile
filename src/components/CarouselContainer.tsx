@@ -10,7 +10,7 @@ interface CarouselContainerProps {
   setFilteredFaction: (filteredFaction: Factions | undefined) => void;
   setSelectedPlayer: (player: Player) => void;
   kaotikaPlayers: Player[];
-  dravocarPlayers: Player[];
+  dravokarPlayers: Player[];
   selectedPlayer: Player;
   player: Player;
   selectedPlayerIndex: number;
@@ -22,7 +22,7 @@ const CarouselContainer: React.FC<CarouselContainerProps> = ({
   setFilteredFaction,
   setSelectedPlayer,
   kaotikaPlayers,
-  dravocarPlayers,
+  dravokarPlayers,
   selectedPlayer,
   player,
   selectedPlayerIndex,
@@ -37,17 +37,17 @@ const CarouselContainer: React.FC<CarouselContainerProps> = ({
 
     if (filteredFaction === 'KAOTIKA') {
       newDisplayedPlayers = [...kaotikaPlayers];
-    } else if (filteredFaction === 'DRAVOCAR') {
-      newDisplayedPlayers = [...dravocarPlayers];
+    } else if (filteredFaction === 'DRAVOKAR') {
+      newDisplayedPlayers = [...dravokarPlayers];
     } else {
-      newDisplayedPlayers = !player.isBetrayer ? [...dravocarPlayers, ...kaotikaPlayers] : [...kaotikaPlayers, ...dravocarPlayers];
+      newDisplayedPlayers = !player.isBetrayer ? [...dravokarPlayers, ...kaotikaPlayers] : [...kaotikaPlayers, ...dravokarPlayers];
     }
 
     newDisplayedPlayers = newDisplayedPlayers.filter(p => p._id !== player._id);
 
     setDisplayedPlayers(newDisplayedPlayers);
 
-  }, [filteredFaction, kaotikaPlayers, dravocarPlayers]);
+  }, [filteredFaction, kaotikaPlayers, dravokarPlayers]);
 
 
   const handleFactionSelection = (pressedFaction: Factions) => {
@@ -71,9 +71,9 @@ const CarouselContainer: React.FC<CarouselContainerProps> = ({
         />
 
         <CarouselFilterButton
-          faction="DRAVOCAR"
-          selected={filteredFaction==='DRAVOCAR'}
-          onClick={() => handleFactionSelection('DRAVOCAR')}
+          faction="DRAVOKAR"
+          selected={filteredFaction==='DRAVOKAR'}
+          onClick={() => handleFactionSelection('DRAVOKAR')}
         />
 
       </div>

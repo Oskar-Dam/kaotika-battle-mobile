@@ -23,7 +23,7 @@ describe('LoggedDisconnectionModal Component', () => {
     
     render(<Waiting 
       role={player.role}
-      setDravocarPlayers={() => {}}
+      setDravokarPlayers={() => {}}
       setKaotikaPlayers={() => {}}
       setShowWaitingScreen={() => {}}
     />);

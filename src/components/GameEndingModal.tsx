@@ -21,7 +21,7 @@ const GameEndingModal: React.FC<GameEndingModalProps> = ({ setPlayer, setIsLogge
   };
 
   const imgUrl: string = (winnerSide === 'kaotika') ? 'url(/images/kaotikaWinner.webp)' :
-    (winnerSide === 'dravocar') ? 'url(/images/dravokarWinner.webp)' :
+    (winnerSide === 'dravokar') ? 'url(/images/dravokarWinner.webp)' :
       'url(/images/login-background.webp)';
 
   return (

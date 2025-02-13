@@ -34,9 +34,9 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
   const [showWaitingScreen, setShowWaitingScreen] = useState<boolean>(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState<Player>();
-  const [filteredFaction, setFilteredFaction] = useState<Factions|undefined>(player.isBetrayer ? 'KAOTIKA' : 'DRAVOCAR');
+  const [filteredFaction, setFilteredFaction] = useState<Factions|undefined>(player.isBetrayer ? 'KAOTIKA' : 'DRAVOKAR');
   const [kaotikaPlayers, setKaotikaPlayers] = useState<Player[]>([]);
-  const [dravocarPlayers, setDravocarPlayers] = useState<Player[]>([]);
+  const [dravokarPlayers, setDravokarPlayers] = useState<Player[]>([]);
   const [gameEnded, setGameEnded] = useState<boolean>(false);
   const [winner, setWinner] = useState<string>('Kaotika');
   const [selectedPlayerIndex, setSelectedPlayerIndex] = useState<number>(1);
@@ -48,30 +48,30 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
 
   const factionsSetters = {
     'kaotika': setKaotikaPlayers,
-    'dravocar': setDravocarPlayers
+    'dravokar': setDravokarPlayers
   };
 
   useEffect(() => {
-    listenToServerEventsBattleScreen(setKaotikaPlayers, setDravocarPlayers);
+    listenToServerEventsBattleScreen(setKaotikaPlayers, setDravokarPlayers);
     listenToUpdatePlayer(factionsSetters, setPlayer, player);
-    listenToRemovePlayer(setKaotikaPlayers, setDravocarPlayers, kaotikaPlayers, dravocarPlayers, setUserDead, player);
-    listenToChangeTurn(setIsMyTurn, player, kaotikaPlayers, dravocarPlayers, setSelectedPlayerIndex);
+    listenToRemovePlayer(setKaotikaPlayers, setDravokarPlayers, kaotikaPlayers, dravokarPlayers, setUserDead, player);
+    listenToChangeTurn(setIsMyTurn, player, kaotikaPlayers, dravokarPlayers, setSelectedPlayerIndex);
     listenToGameEnded(setGameEnded, setWinner); 
 
     console.log('KAOTIKA PLAYERS: ', kaotikaPlayers);
-    console.log('DRAVOCAR PLAYERS: ', dravocarPlayers);
+    console.log('DRAVOKAR PLAYERS: ', dravokarPlayers);
     
     return () => {
       clearListenToServerEventsBattleScreen();
     };
-  }, [kaotikaPlayers, dravocarPlayers, player]);
+  }, [kaotikaPlayers, dravokarPlayers, player]);
 
   useEffect(() => {
     if (isMyTurn) {
       if (!player.isBetrayer) {
-        if (dravocarPlayers.length > 0) {
+        if (dravokarPlayers.length > 0) {
           console.log('Emitting first dravokar player');
-          socket.emit('mobile-setSelectedPlayer', dravocarPlayers[0]._id);
+          socket.emit('mobile-setSelectedPlayer', dravokarPlayers[0]._id);
         } else {
           console.log('No dravokar players available');
         }
@@ -84,7 +84,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
         }
       }
     }
-  }, [isMyTurn, player.isBetrayer, dravocarPlayers, kaotikaPlayers]);
+  }, [isMyTurn, player.isBetrayer, dravokarPlayers, kaotikaPlayers]);
 
   const openModal = (potion: Potion) => {
     setSelectedPotion(potion);
@@ -105,7 +105,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
       {showWaitingScreen && (
         <Waiting 
           role={player.role}
-          setDravocarPlayers={setDravocarPlayers}
+          setDravokarPlayers={setDravokarPlayers}
           setKaotikaPlayers={setKaotikaPlayers}
           setShowWaitingScreen={setShowWaitingScreen}
         />)
@@ -137,7 +137,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
           filteredFaction={filteredFaction}
           setFilteredFaction={setFilteredFaction}
           kaotikaPlayers={kaotikaPlayers}
-          dravocarPlayers={dravocarPlayers}
+          dravokarPlayers={dravokarPlayers}
           selectedPlayer={selectedPlayer!}
           player={player}
           selectedPlayerIndex={selectedPlayerIndex}
