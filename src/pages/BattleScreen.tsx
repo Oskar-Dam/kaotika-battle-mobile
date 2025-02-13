@@ -1,5 +1,4 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Actions from '../components/Actions';
 import Avatar from '../components/Avatar';
 import BlockedScreen from '../components/BlockedScreen';
@@ -14,9 +13,9 @@ import { Factions } from '../interfaces/Factions';
 import { Player } from '../interfaces/Player';
 
 import { Potion } from '../interfaces/Potion';
+import socket from '../sockets/socket';
 import { clearListenToServerEventsBattleScreen, listenToChangeTurn, listenToGameEnded, listenToRemovePlayer, listenToServerEventsBattleScreen, listenToUpdatePlayer } from '../sockets/socketListeners';
 import DeadScreen from './DeadScreen';
-import socket from '../sockets/socket';
 interface BattleScreenProps {
   potions: Potion[];
   player: Player;
@@ -172,6 +171,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
           setPlayer={setPlayer}
           setIsLoggedIn={setIsLoggedIn}
           setEmail={setEmail}
+          role={player.role}
           winner={winner}  // Pass winner to GameEndingModal
         />
       )}
