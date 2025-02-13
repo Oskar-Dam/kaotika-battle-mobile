@@ -24,4 +24,3 @@ dev-dist
 *.sln
 *.sw?
 .env
-src/api/firebase
