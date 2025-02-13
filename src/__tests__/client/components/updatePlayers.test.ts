@@ -9,20 +9,20 @@ beforeAll(() => {
 });
 
 describe('updatePlayerAttributes', () => {
-  it('should call dravocar function if player is a betrayer', () => {
+  it('should call dravokar function if player is a betrayer', () => {
     // Arrange
     const playerToUpdate = dravokarPlayerToUpdate;
 
     const setFactionsPlayers = {
       kaotika: jest.fn(),
-      dravocar: jest.fn(),
+      dravokar: jest.fn(),
     };
 
     // Act
     updatePlayerAttributes(playerToUpdate, setFactionsPlayers);
 
     // Assert
-    expect(setFactionsPlayers.dravocar).toHaveBeenCalled();
+    expect(setFactionsPlayers.dravokar).toHaveBeenCalled();
     expect(setFactionsPlayers.kaotika).not.toHaveBeenCalled();
   });
 
@@ -32,7 +32,7 @@ describe('updatePlayerAttributes', () => {
 
     const setFactionsPlayers = {
       kaotika: jest.fn(),
-      dravocar: jest.fn(),
+      dravokar: jest.fn(),
     };
 
     // Act
@@ -40,7 +40,7 @@ describe('updatePlayerAttributes', () => {
 
     // Assert
     expect(setFactionsPlayers.kaotika).toHaveBeenCalled();
-    expect(setFactionsPlayers.dravocar).not.toHaveBeenCalled();
+    expect(setFactionsPlayers.dravokar).not.toHaveBeenCalled();
   });
 
   it('should update the player attributes correctly in the KAOTIKA faction', () => {
@@ -53,7 +53,7 @@ describe('updatePlayerAttributes', () => {
     // Mock the setter functions
     const setFactionsPlayers = {
       kaotika: jest.fn(),
-      dravocar: jest.fn(),
+      dravokar: jest.fn(),
     };
 
     // Act
@@ -83,22 +83,22 @@ describe('updatePlayerAttributes', () => {
     const playerToUpdate = dravokarPlayerToUpdate;
 
     // Create a copy of the players array
-    const initialPlayers = [...mockDividedPlayers.dravocar];
+    const initialPlayers = [...mockDividedPlayers.dravokar];
 
     // Mock the setter functions
     const setFactionsPlayers = {
       kaotika: jest.fn(),
-      dravocar: jest.fn(),
+      dravokar: jest.fn(),
     };
 
     // Act
     updatePlayerAttributes(playerToUpdate, setFactionsPlayers);
 
     // Assert
-    expect(setFactionsPlayers.dravocar).toHaveBeenCalledWith(expect.any(Function));
+    expect(setFactionsPlayers.dravokar).toHaveBeenCalledWith(expect.any(Function));
 
     // Simulate the setter call and check the changes
-    const updateFunction = setFactionsPlayers.dravocar.mock.calls[0][0];
+    const updateFunction = setFactionsPlayers.dravokar.mock.calls[0][0];
     const updatedPlayers = updateFunction(initialPlayers);
 
     // Assert

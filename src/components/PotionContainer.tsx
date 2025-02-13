@@ -19,6 +19,7 @@ const PotionContainer: React.FC<PotionContainerProps> = ({
 
   return (
     <div
+      hidden={true}
       className='flex-row w-full rounded-3xl flex items-center justify-center' 
       data-testid="potion-container">
       {potionsToDisplay.length > 0 ? (

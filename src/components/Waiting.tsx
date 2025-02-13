@@ -8,15 +8,15 @@ import MortimerScreen from './MortimerScreen';
 interface WaitingProps {
   role: string;
   setShowWaitingScreen: React.Dispatch<React.SetStateAction<boolean>>;
-  setDravocarPlayers: (players: Player[]) => void;
+  setDravokarPlayers: (players: Player[]) => void;
   setKaotikaPlayers: (players: Player[]) => void;
 }
-const Waiting: React.FC<WaitingProps> = ({ role, setDravocarPlayers, setKaotikaPlayers, setShowWaitingScreen }) => {
+const Waiting: React.FC<WaitingProps> = ({ role, setDravokarPlayers, setKaotikaPlayers, setShowWaitingScreen }) => {
 
   const [insufficientPlayers, setInsufficientPlayers] = useState<boolean>(false);
   
   useEffect(() => {
-    listenToServerEventsBattleScreen(setKaotikaPlayers, setDravocarPlayers);
+    listenToServerEventsBattleScreen(setKaotikaPlayers, setDravokarPlayers);
     listenToGameStart(setShowWaitingScreen);
     listenToInsufficientPlayers(setInsufficientPlayers);
   }, []);

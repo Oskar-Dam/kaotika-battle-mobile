@@ -23,11 +23,11 @@ describe('Socket Listeners', () => {
     const setIsMyTurn = jest.fn();
     const setSelectedPlayerIndex = jest.fn();
   
-    const dravocarPlayers = mockDividedPlayers.dravocar;
+    const dravokarPlayers = mockDividedPlayers.dravokar;
     const kaotikaPlayers = mockDividedPlayers.kaotika;
     const mockPlayer = mockDividedPlayers.kaotika[1];
   
-    listenToChangeTurn(setIsMyTurn, mockPlayer, kaotikaPlayers, dravocarPlayers, setSelectedPlayerIndex);
+    listenToChangeTurn(setIsMyTurn, mockPlayer, kaotikaPlayers, dravokarPlayers, setSelectedPlayerIndex);
   
     const callback = (socket.on as jest.Mock).mock.calls.find(([event]) => event === SOCKET_EVENTS.TURN_CHANGE)?.[1];
         
@@ -36,9 +36,9 @@ describe('Socket Listeners', () => {
     console.log('Llamadas a setIsMyTurn:', setIsMyTurn.mock.calls);
   
     expect(setIsMyTurn).toHaveBeenCalledWith(true);
-    expect(setSelectedPlayerIndex).toHaveBeenCalledWith(dravocarPlayers.length);
+    expect(setSelectedPlayerIndex).toHaveBeenCalledWith(dravokarPlayers.length);
     expect(setSelectedPlayerIndex).toHaveBeenCalledWith(1);
-    expect(socket.emit).toHaveBeenCalledWith('mobile-setSelectedPlayer', dravocarPlayers[0]._id);
+    expect(socket.emit).toHaveBeenCalledWith('mobile-setSelectedPlayer', dravokarPlayers[0]._id);
   });
 });
  

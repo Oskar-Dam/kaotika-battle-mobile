@@ -7,7 +7,7 @@ export const updatePlayerAttributes = (updatedPlayer: { _id: string, attributes:
   console.log('Executing updatePlayerAttributes()');
   console.log('Updating player with id: ', updatedPlayer._id);
 
-  const factionSetter = updatedPlayer.isBetrayer ? factionsSetters['dravocar'] : factionsSetters['kaotika'];
+  const factionSetter = updatedPlayer.isBetrayer ? factionsSetters['dravokar'] : factionsSetters['kaotika'];
 
   factionSetter((prevPlayers: Player[]) =>
     prevPlayers.map(player =>
@@ -32,15 +32,15 @@ export const removePlayerFromArrayIfIdMatches = (playersArray: Player[], playerI
   return null;
 };
 
-export const removeSelectedPlayerFromTeams = (kaotikaPlayers: Player[], dravocarPlayers: Player[], setKaotikaPlayers: React.Dispatch<React.SetStateAction<Player[]>>, setDravocarPlayers: React.Dispatch<React.SetStateAction<Player[]>>, playerId: string) => {
-  //Removes player given either from Kaotika array or Dravocar
+export const removeSelectedPlayerFromTeams = (kaotikaPlayers: Player[], dravokarPlayers: Player[], setKaotikaPlayers: React.Dispatch<React.SetStateAction<Player[]>>, setDravokarPlayers: React.Dispatch<React.SetStateAction<Player[]>>, playerId: string) => {
+  //Removes player given either from Kaotika array or Dravokar
   console.log('Removing player with id: ', playerId);
   const newKaotikaPlayers: Player[] | null = removePlayerFromArrayIfIdMatches(kaotikaPlayers, playerId);
   if (newKaotikaPlayers) {
     setKaotikaPlayers(newKaotikaPlayers);
   } else {
-    const newDravocarPlayers: Player[] | null = removePlayerFromArrayIfIdMatches(dravocarPlayers, playerId);
-    newDravocarPlayers ? setDravocarPlayers(newDravocarPlayers) : null;
+    const newDravokarPlayers: Player[] | null = removePlayerFromArrayIfIdMatches(dravokarPlayers, playerId);
+    newDravokarPlayers ? setDravokarPlayers(newDravokarPlayers) : null;
   }
 };
 
