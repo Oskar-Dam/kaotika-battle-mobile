@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import GameStartButton from './GameStartButton';
 import BattleTypeDropdown from './BattleTypeDropdown';
-import { SOCKET_EVENTS } from '../sockets/events';
+import { SOCKET_EMIT_EVENTS } from '../sockets/events';
 import socket from '../sockets/socket';
 import WelcomeTexts from './WelcomeTexts';
 import EncounterDropdown from './EncounterDropdown';
@@ -11,7 +11,7 @@ const MortimerScreen: React.FC = () => {
 
   const handleStartGame = (): void => {
     console.log('Game start button pressed');
-    socket.emit(SOCKET_EVENTS.GAME_START);
+    socket.emit(SOCKET_EMIT_EVENTS.GAME_START);
   };
 
   return (

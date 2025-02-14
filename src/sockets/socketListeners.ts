@@ -2,7 +2,7 @@ import { FactionsSetters } from '../interfaces/FactionsSetters';
 import { Modifier } from '../interfaces/Modifier';
 import { Player } from '../interfaces/Player';
 import { removeSelectedPlayerFromTeams, setUserStatusToDeadIfIdMatches, updatePlayerAttributes, updateSessionPlayerAttributesIfIdMatches } from '../utils/players';
-import { SOCKET_EVENTS } from './events';
+import { SOCKET_EMIT_EVENTS, SOCKET_EVENTS } from './events';
 import socket from './socket';
 
 export const listenToServerEventsBattleScreen = (setKaotikaPlayers: (players: Player[]) => void, setDravokarPlayers: (players: Player[]) => void) => {
@@ -28,13 +28,13 @@ export const listenToChangeTurn = (setIsMyTurn: (turn: boolean) => void,player: 
         setSelectedPlayerIndex(dravokarPlayers.length);
         setSelectedPlayerIndex(1);
       
-        socket.emit('mobile-setSelectedPlayer', dravokarPlayers[0]._id);
+        socket.emit(SOCKET_EMIT_EVENTS.SET_SELECTED_PLAYER, dravokarPlayers[0]._id);
       }
       else {
         setSelectedPlayerIndex(kaotikaPlayers.length);
         setSelectedPlayerIndex(1);
 
-        socket.emit('mobile-setSelectedPlayer', dravokarPlayers[0]._id);
+        socket.emit(SOCKET_EMIT_EVENTS.SET_SELECTED_PLAYER, dravokarPlayers[0]._id);
       }
     } else {
       setIsMyTurn(false);
@@ -69,6 +69,15 @@ export const listenToRemovePlayer = (setKaotikaPlayers:React.Dispatch<React.SetS
   socket.on(SOCKET_EVENTS.REMOVE_PLAYER, (playerId: string) => {
 
     console.log(`'${SOCKET_EVENTS.REMOVE_PLAYER}' socket received.`);
+    console.log('Player ID to remove:', playerId);
+
+    removeSelectedPlayerFromTeams(kaotikaPlayers, dravokarPlayers, setKaotikaPlayers, setDravokarPlayers, playerId);
+    setUserStatusToDeadIfIdMatches(setUserDead, player._id, playerId);
+  });
+
+  socket.on(SOCKET_EVENTS.KILLED_PLAYER, (playerId: string) => {
+
+    console.log(`'${SOCKET_EVENTS.KILLED_PLAYER}' socket received.`);
     console.log('Player ID to remove:', playerId);
 
     removeSelectedPlayerFromTeams(kaotikaPlayers, dravokarPlayers, setKaotikaPlayers, setDravokarPlayers, playerId);
