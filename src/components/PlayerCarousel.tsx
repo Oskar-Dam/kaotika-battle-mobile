@@ -3,6 +3,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, useMotionValue, animate, PanInfo } from 'framer-motion';
 import socket from '../sockets/socket';
 import { Player } from '../interfaces/Player';
+import { SOCKET_EMIT_EVENTS } from '../sockets/events';
 
 interface PlayerCarouselProps {
   setSelectedPlayer: (player: Player) => void;
@@ -120,7 +121,7 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({ setSelectedPlayer, disp
       
       
       console.log('mobile-setSelectedPlayer SENT: ', selectedPlayer._id);
-      socket.emit('mobile-setSelectedPlayer', selectedPlayer._id);
+      socket.emit(SOCKET_EMIT_EVENTS.SET_SELECTED_PLAYER, selectedPlayer._id);
     }
   }, [selectedPlayer]);
 

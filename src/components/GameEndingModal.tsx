@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SOCKET_EVENTS } from '../sockets/events';
+import { SOCKET_EMIT_EVENTS } from '../sockets/events';
 import socket from '../sockets/socket';
 
 interface GameEndingModalProps {
@@ -11,8 +11,8 @@ const GameEndingModal: React.FC<GameEndingModalProps> = ({ winner, role }) => {
 
   const [winnerSide] = useState<string>(winner);
 
-  const handleResetGame = () => {
-    socket.emit(SOCKET_EVENTS.GAME_RESET);
+  const handleReconnect = () => {
+    socket.emit(SOCKET_EMIT_EVENTS.GAME_RESET);
   };
 
   const imgUrl: string = (winnerSide === 'kaotika') ? 'url(/images/kaotikaWinner.webp)' :
@@ -34,7 +34,7 @@ const GameEndingModal: React.FC<GameEndingModalProps> = ({ winner, role }) => {
 
           <button
             className="text-medievalSepia p-20 place-self-item rounded text-3xl"
-            onClick={handleResetGame}
+            onClick={handleReconnect}
             style={{
               backgroundImage: 'url(/images/end-button.webp)',
               backgroundSize: 'cover',
