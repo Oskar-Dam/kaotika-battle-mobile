@@ -132,6 +132,9 @@ export const clearListenToServerEventsBattleScreen = (): void => {
 
   socket.off(SOCKET_EVENTS.TURN_CHANGE);
   console.log(`'${SOCKET_EVENTS.TURN_CHANGE}' socket cleared.`);
+
+  socket.off(SOCKET_EVENTS.GAME_RESET);
+  console.log(`'${SOCKET_EVENTS.GAME_RESET}' socket cleared.`);
   
 };
 
