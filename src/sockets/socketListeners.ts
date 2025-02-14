@@ -96,6 +96,14 @@ export const listenToDisconnections = (setdisconnection: (disconnection: boolean
   });
 };
 
+export const listenToGameReset= (setGameEnded: (gameEnded: boolean) => void, setWinner: (winner: string) => void) => {
+  socket.on(SOCKET_EVENTS.GAME_END, (winner: string) => {
+    console.log(`'${SOCKET_EVENTS.GAME_END}' socket received.`);
+    setGameEnded(true);
+    setWinner(winner);
+  });
+};
+
 export const listenToGameEnded = (setGameEnded: (gameEnded: boolean) => void, setWinner: (winner: string) => void) => {
   socket.on(SOCKET_EVENTS.GAME_END, (winner: string) => {
     console.log(`'${SOCKET_EVENTS.GAME_END}' socket received.`);
