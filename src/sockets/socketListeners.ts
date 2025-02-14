@@ -96,7 +96,7 @@ export const listenToDisconnections = (setdisconnection: (disconnection: boolean
   });
 };
 
-export const listenToGameReset= (setGameEnded: (gameEnded: boolean) => void, 
+export const listenToGameReset = (setGameEnded: (gameEnded: boolean) => void, 
   setIsMyTurn: (turn: boolean) => void, 
   setIsLoggedIn: (turn: boolean) => void, 
   setEmail: (email: string) => void, 
