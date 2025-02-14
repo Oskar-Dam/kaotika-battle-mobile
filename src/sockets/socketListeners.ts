@@ -80,7 +80,7 @@ export const listenToRemovePlayer = (setKaotikaPlayers:React.Dispatch<React.SetS
     console.log(`'${SOCKET_EVENTS.KILLED_PLAYER}' socket received.`);
     console.log('Player ID to remove:', playerId);
 
-    removeSelectedPlayerFromTeams(kaotikaPlayers, dravocarPlayers, setKaotikaPlayers, setDravocarPlayers, playerId);
+    removeSelectedPlayerFromTeams(kaotikaPlayers, dravokarPlayers, setKaotikaPlayers, setDravokarPlayers, playerId);
     setUserStatusToDeadIfIdMatches(setUserDead, player._id, playerId);
   });
 };
