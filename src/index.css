@@ -51,6 +51,13 @@ body {
   }
 }
 
+@theme {
+  --color-medievalSepia: #cda882;
+  --color-darkSepia: #87634A;
+  --color-blackSepia: #513B2C;
+  --color-darkBlue: #232428;
+}
+
 .animate-saturation {
   animation: saturationAnimation 2s infinite;
 }
