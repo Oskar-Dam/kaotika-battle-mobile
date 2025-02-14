@@ -46,6 +46,8 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
   // ⬇️ SETTERS CALLED HERE FOR ESLINT TO IGNORE NOT CALLING THEM, DELETE AFTER SOCKET IMPLEMENTATION⬇️ //
   setGameEnded;
   setWinner;
+  setIsLoggedIn;
+  setEmail;
 
   const factionsSetters = {
     'kaotika': setKaotikaPlayers,
@@ -169,9 +171,6 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
 
       {gameEnded && (
         <GameEndingModal
-          setPlayer={setPlayer}
-          setIsLoggedIn={setIsLoggedIn}
-          setEmail={setEmail}
           role={player.role}
           winner={winner}  // Pass winner to GameEndingModal
         />

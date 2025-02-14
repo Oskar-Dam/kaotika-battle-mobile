@@ -17,5 +17,6 @@ export const SOCKET_EVENTS = {
 export const SOCKET_EMIT_EVENTS = {
   ATTACK: 'mobile-attack',
   SET_SELECTED_PLAYER: 'mobile-setSelectedPlayer',
-  GAME_START: 'mobile-gameStart'
+  GAME_START: 'mobile-gameStart',
+  GAME_RESET: 'mobile-gameReset',
 };
