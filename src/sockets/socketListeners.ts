@@ -4,6 +4,7 @@ import { Player } from '../interfaces/Player';
 import { removeSelectedPlayerFromTeams, setUserStatusToDeadIfIdMatches, updatePlayerAttributes, updateSessionPlayerAttributesIfIdMatches } from '../utils/players';
 import { SOCKET_EMIT_EVENTS, SOCKET_EVENTS } from './events';
 import socket from './socket';
+import { resetAllStates } from '../utils/resetGame';
 
 export const listenToServerEventsBattleScreen = (setKaotikaPlayers: (players: Player[]) => void, setDravokarPlayers: (players: Player[]) => void) => {
   socket.on(SOCKET_EVENTS.RECIVE_USERS, (players: {kaotika: Player[], dravokar: Player[]}) => {
@@ -100,18 +101,12 @@ export const listenToGameReset = (setGameEnded: (gameEnded: boolean) => void,
   setIsMyTurn: (turn: boolean) => void, 
   setIsLoggedIn: (turn: boolean) => void, 
   setEmail: (email: string) => void, 
-  setPlayer:React.Dispatch<React.SetStateAction<Player | null>>,
+  setPlayer: React.Dispatch<React.SetStateAction<Player | null>>,
   setKaotikaPlayers: (players: Player[]) => void, 
   setDravokarPlayers: (players: Player[]) => void) => {
   socket.on(SOCKET_EVENTS.GAME_RESET, () => {
     console.log(`'${SOCKET_EVENTS.GAME_RESET}' socket received.`);
-    setIsLoggedIn(false);
-    setGameEnded(false);
-    setIsMyTurn(false);
-    setEmail('');
-    setKaotikaPlayers([]);
-    setDravokarPlayers([]);
-    setPlayer(null);
+    resetAllStates(setGameEnded, setIsMyTurn, setIsLoggedIn, setEmail, setPlayer, setKaotikaPlayers, setDravokarPlayers);
   });
 };
 
