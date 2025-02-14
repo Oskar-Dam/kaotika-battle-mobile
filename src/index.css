@@ -38,12 +38,6 @@ body {
   }
 }
 
-@theme {
-  --color-medievalSepia: #cda882;
-  --color-darkSepia: #87634A;
-  --color-blackSepia: #513B2C;
-  --color-darkBlue: #232428;
-}
 
 @keyframes blueSaturationAnimation {
   0% {
@@ -55,6 +49,13 @@ body {
   100% {
     filter: saturate(1.65) hue-rotate(200deg);
   }
+}
+
+@theme {
+  --color-medievalSepia: #cda882;
+  --color-darkSepia: #87634A;
+  --color-blackSepia: #513B2C;
+  --color-darkBlue: #232428;
 }
 
 .animate-saturation {

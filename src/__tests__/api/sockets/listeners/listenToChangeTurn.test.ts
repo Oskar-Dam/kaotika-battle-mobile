@@ -1,5 +1,5 @@
 import { mockDividedPlayers } from '../../../../__mocks__/mockPlayers';
-import { SOCKET_EVENTS } from '../../../../sockets/events';
+import { SOCKET_EVENTS, SOCKET_EMIT_EVENTS } from '../../../../sockets/events';
 import socket from '../../../../sockets/socket';
 import { listenToChangeTurn } from '../../../../sockets/socketListeners';
 
@@ -38,7 +38,7 @@ describe('Socket Listeners', () => {
     expect(setIsMyTurn).toHaveBeenCalledWith(true);
     expect(setSelectedPlayerIndex).toHaveBeenCalledWith(dravokarPlayers.length);
     expect(setSelectedPlayerIndex).toHaveBeenCalledWith(1);
-    expect(socket.emit).toHaveBeenCalledWith('mobile-setSelectedPlayer', dravokarPlayers[0]._id);
+    expect(socket.emit).toHaveBeenCalledWith(SOCKET_EMIT_EVENTS.SET_SELECTED_PLAYER, dravokarPlayers[0]._id);
   });
 });
  

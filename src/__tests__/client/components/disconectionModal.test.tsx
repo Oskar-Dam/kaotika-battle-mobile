@@ -15,11 +15,13 @@ beforeAll(() => {
 describe('LoggedDisconnectionModal Component', () => {
   it('should render the LoggedDisconnectionModal', () => {
     const player = mockDividedPlayers.kaotika[0];
+    const setPermanentlyDisconnected = jest.fn();
     
     render(<LoggedDisconnectionModal
       setPlayer={() => player}
       setIsLoggedIn={() => true}
       setEmail={() => player.email}
+      setPermanentlyDisconnected={setPermanentlyDisconnected}
     />);
 
     const modalComponent = screen.getByTestId('logged-disconnection-modal');

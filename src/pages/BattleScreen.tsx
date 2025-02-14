@@ -16,6 +16,7 @@ import { Potion } from '../interfaces/Potion';
 import socket from '../sockets/socket';
 import { clearListenToServerEventsBattleScreen, listenToChangeTurn, listenToGameEnded, listenToRemovePlayer, listenToServerEventsBattleScreen, listenToUpdatePlayer } from '../sockets/socketListeners';
 import DeadScreen from './DeadScreen';
+import { SOCKET_EMIT_EVENTS } from '../sockets/events';
 interface BattleScreenProps {
   potions: Potion[];
   player: Player;
@@ -45,6 +46,8 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
   // ⬇️ SETTERS CALLED HERE FOR ESLINT TO IGNORE NOT CALLING THEM, DELETE AFTER SOCKET IMPLEMENTATION⬇️ //
   setGameEnded;
   setWinner;
+  setIsLoggedIn;
+  setEmail;
 
   const factionsSetters = {
     'kaotika': setKaotikaPlayers,
@@ -71,14 +74,14 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
       if (!player.isBetrayer) {
         if (dravokarPlayers.length > 0) {
           console.log('Emitting first dravokar player');
-          socket.emit('mobile-setSelectedPlayer', dravokarPlayers[0]._id);
+          socket.emit(SOCKET_EMIT_EVENTS.SET_SELECTED_PLAYER, dravokarPlayers[0]._id);
         } else {
           console.log('No dravokar players available');
         }
       } else {
         if (kaotikaPlayers.length > 0) {
           console.log('Emitting first kaotika player');
-          socket.emit('mobile-setSelectedPlayer', kaotikaPlayers[0]._id);
+          socket.emit(SOCKET_EMIT_EVENTS.SET_SELECTED_PLAYER, kaotikaPlayers[0]._id);
         } else {
           console.log('No kaotika players available');
         }
@@ -168,9 +171,6 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
 
       {gameEnded && (
         <GameEndingModal
-          setPlayer={setPlayer}
-          setIsLoggedIn={setIsLoggedIn}
-          setEmail={setEmail}
           role={player.role}
           winner={winner}  // Pass winner to GameEndingModal
         />
