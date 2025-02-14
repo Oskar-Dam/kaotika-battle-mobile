@@ -5,6 +5,7 @@ import { removeSelectedPlayerFromTeams, setUserStatusToDeadIfIdMatches, updatePl
 import { SOCKET_EMIT_EVENTS, SOCKET_EVENTS } from './events';
 import socket from './socket';
 import { resetAllStates } from '../utils/resetGame';
+import { Factions } from '../interfaces/Factions';
 
 export const listenToServerEventsBattleScreen = (setKaotikaPlayers: (players: Player[]) => void, setDravokarPlayers: (players: Player[]) => void) => {
   socket.on(SOCKET_EVENTS.RECIVE_USERS, (players: {kaotika: Player[], dravokar: Player[]}) => {
@@ -18,7 +19,7 @@ export const listenToServerEventsBattleScreen = (setKaotikaPlayers: (players: Pl
   });
 };
 
-export const listenToChangeTurn = (setIsMyTurn: (turn: boolean) => void,player: Player | null, kaotikaPlayers: Player[], dravokarPlayers: Player[], setSelectedPlayerIndex: (index: number) => void ) => {
+export const listenToChangeTurn = (setIsMyTurn: (turn: boolean) => void,player: Player | null, kaotikaPlayers: Player[], dravokarPlayers: Player[], setSelectedPlayerIndex: (index: number) => void, setFilteredFactions: React.Dispatch<React.SetStateAction<Factions | undefined>>) => {
   socket.on(SOCKET_EVENTS.TURN_CHANGE, (_id: string) => {
     console.log(`'${SOCKET_EVENTS.TURN_CHANGE}' socket received.`);
     console.log('FIRST DRAVOKAR PLAYER NOW: ', dravokarPlayers);
@@ -26,12 +27,14 @@ export const listenToChangeTurn = (setIsMyTurn: (turn: boolean) => void,player: 
     if (player?._id === _id) {
       setIsMyTurn(true);
       if (player && !player.isBetrayer) {
+        setFilteredFactions('DRAVOKAR');
         setSelectedPlayerIndex(dravokarPlayers.length);
         setSelectedPlayerIndex(1);
       
         socket.emit(SOCKET_EMIT_EVENTS.SET_SELECTED_PLAYER, dravokarPlayers[0]._id);
       }
       else {
+        setFilteredFactions('KAOTIKA');
         setSelectedPlayerIndex(kaotikaPlayers.length);
         setSelectedPlayerIndex(1);
 
