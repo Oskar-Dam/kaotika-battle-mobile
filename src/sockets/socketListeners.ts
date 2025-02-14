@@ -96,11 +96,22 @@ export const listenToDisconnections = (setdisconnection: (disconnection: boolean
   });
 };
 
-export const listenToGameReset= (setGameEnded: (gameEnded: boolean) => void, setWinner: (winner: string) => void) => {
-  socket.on(SOCKET_EVENTS.GAME_END, (winner: string) => {
-    console.log(`'${SOCKET_EVENTS.GAME_END}' socket received.`);
-    setGameEnded(true);
-    setWinner(winner);
+export const listenToGameReset= (setGameEnded: (gameEnded: boolean) => void, 
+  setIsMyTurn: (turn: boolean) => void, 
+  setIsLoggedIn: (turn: boolean) => void, 
+  setEmail: (email: string) => void, 
+  setPlayer:React.Dispatch<React.SetStateAction<Player | null>>,
+  setKaotikaPlayers: (players: Player[]) => void, 
+  setDravokarPlayers: (players: Player[]) => void) => {
+  socket.on(SOCKET_EVENTS.GAME_RESET, () => {
+    console.log(`'${SOCKET_EVENTS.GAME_RESET}' socket received.`);
+    setIsLoggedIn(false);
+    setGameEnded(false);
+    setIsMyTurn(false);
+    setEmail('');
+    setKaotikaPlayers([]);
+    setDravokarPlayers([]);
+    setPlayer(null);
   });
 };
 
