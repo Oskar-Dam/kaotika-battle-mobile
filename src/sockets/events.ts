@@ -12,6 +12,7 @@ export const SOCKET_EVENTS = {
   UPDATE_PLAYER: 'updatePlayer',
   REMOVE_PLAYER: 'removePlayer',
   KILLED_PLAYER: 'send-killedPlayer',
+  GAME_RESET: 'gameReset'
 };
 
 export const SOCKET_EMIT_EVENTS = {
