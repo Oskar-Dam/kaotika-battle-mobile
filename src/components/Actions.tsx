@@ -4,6 +4,7 @@ import { Potion } from '../interfaces/Potion';
 import socket from '../sockets/socket';
 import AttackButton from './AttackButton';
 import PotionContainer from './PotionContainer';
+import { SOCKET_EMIT_EVENTS } from '../sockets/events';
 
 interface ActionsProps {
   potions: Potion[];
@@ -21,7 +22,7 @@ const Actions: React.FC<ActionsProps> = ({ potions, openModal, isMyTurn, setIsMy
         player={player}
         onClick={() => {
           console.log('Attacking ', selectedPlayer?._id);
-          socket.emit('mobile-attack', selectedPlayer?._id);
+          socket.emit(SOCKET_EMIT_EVENTS.ATTACK, selectedPlayer?._id);
           setIsMyTurn(false);
         }}
         isMyTurn={isMyTurn}

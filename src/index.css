@@ -38,6 +38,7 @@ body {
   }
 }
 
+
 @keyframes blueSaturationAnimation {
   0% {
     filter: saturate(1.65) hue-rotate(200deg);

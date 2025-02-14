@@ -2,39 +2,39 @@ import { FactionsSetters } from '../interfaces/FactionsSetters';
 import { Modifier } from '../interfaces/Modifier';
 import { Player } from '../interfaces/Player';
 import { removeSelectedPlayerFromTeams, setUserStatusToDeadIfIdMatches, updatePlayerAttributes, updateSessionPlayerAttributesIfIdMatches } from '../utils/players';
-import { SOCKET_EVENTS } from './events';
+import { SOCKET_EMIT_EVENTS, SOCKET_EVENTS } from './events';
 import socket from './socket';
 
-export const listenToServerEventsBattleScreen = (setKaotikaPlayers: (players: Player[]) => void, setDravocarPlayers: (players: Player[]) => void) => {
-  socket.on(SOCKET_EVENTS.RECIVE_USERS, (players: {kaotika: Player[], dravocar: Player[]}) => {
+export const listenToServerEventsBattleScreen = (setKaotikaPlayers: (players: Player[]) => void, setDravokarPlayers: (players: Player[]) => void) => {
+  socket.on(SOCKET_EVENTS.RECIVE_USERS, (players: {kaotika: Player[], dravokar: Player[]}) => {
     console.log(`'${SOCKET_EVENTS.RECIVE_USERS}' socket received.`);    
     
     setKaotikaPlayers(players.kaotika);
-    setDravocarPlayers(players.dravocar);
+    setDravokarPlayers(players.dravokar);
     console.log('Kaotika players received:', players.kaotika);
-    console.log('Dravocar players received:', players.dravocar);
+    console.log('Dravokar players received:', players.dravokar);
     
   });
 };
 
-export const listenToChangeTurn = (setIsMyTurn: (turn: boolean) => void,player: Player | null, kaotikaPlayers: Player[], dravocarPlayers: Player[], setSelectedPlayerIndex: (index: number) => void ) => {
+export const listenToChangeTurn = (setIsMyTurn: (turn: boolean) => void,player: Player | null, kaotikaPlayers: Player[], dravokarPlayers: Player[], setSelectedPlayerIndex: (index: number) => void ) => {
   socket.on(SOCKET_EVENTS.TURN_CHANGE, (_id: string) => {
     console.log(`'${SOCKET_EVENTS.TURN_CHANGE}' socket received.`);
-    console.log('FIRST DRAVOKAR PLAYER NOW: ', dravocarPlayers);
+    console.log('FIRST DRAVOKAR PLAYER NOW: ', dravokarPlayers);
     console.log('FIRST KAOTIKA PLAYER NOW: ', kaotikaPlayers);
     if (player?._id === _id) {
       setIsMyTurn(true);
       if (player && !player.isBetrayer) {
-        setSelectedPlayerIndex(dravocarPlayers.length);
+        setSelectedPlayerIndex(dravokarPlayers.length);
         setSelectedPlayerIndex(1);
       
-        socket.emit('mobile-setSelectedPlayer', dravocarPlayers[0]._id);
+        socket.emit(SOCKET_EMIT_EVENTS.SET_SELECTED_PLAYER, dravokarPlayers[0]._id);
       }
       else {
         setSelectedPlayerIndex(kaotikaPlayers.length);
         setSelectedPlayerIndex(1);
 
-        socket.emit('mobile-setSelectedPlayer', dravocarPlayers[0]._id);
+        socket.emit(SOCKET_EMIT_EVENTS.SET_SELECTED_PLAYER, dravokarPlayers[0]._id);
       }
     } else {
       setIsMyTurn(false);
@@ -64,14 +64,14 @@ export const listenToUpdatePlayer = (factionsSetters: FactionsSetters, setPlayer
   });
 };
 
-export const listenToRemovePlayer = (setKaotikaPlayers:React.Dispatch<React.SetStateAction<Player[]>>, setDravocarPlayers:React.Dispatch<React.SetStateAction<Player[]>>, kaotikaPlayers: Player[], dravocarPlayers: Player[], setUserDead:React.Dispatch<React.SetStateAction<boolean>>, player: Player) => {
+export const listenToRemovePlayer = (setKaotikaPlayers:React.Dispatch<React.SetStateAction<Player[]>>, setDravokarPlayers:React.Dispatch<React.SetStateAction<Player[]>>, kaotikaPlayers: Player[], dravokarPlayers: Player[], setUserDead:React.Dispatch<React.SetStateAction<boolean>>, player: Player) => {
   
   socket.on(SOCKET_EVENTS.REMOVE_PLAYER, (playerId: string) => {
 
     console.log(`'${SOCKET_EVENTS.REMOVE_PLAYER}' socket received.`);
     console.log('Player ID to remove:', playerId);
 
-    removeSelectedPlayerFromTeams(kaotikaPlayers, dravocarPlayers, setKaotikaPlayers, setDravocarPlayers, playerId);
+    removeSelectedPlayerFromTeams(kaotikaPlayers, dravokarPlayers, setKaotikaPlayers, setDravokarPlayers, playerId);
     setUserStatusToDeadIfIdMatches(setUserDead, player._id, playerId);
   });
 
@@ -118,8 +118,6 @@ export const clearListenToServerEventsBattleScreen = (): void => {
 
   socket.off(SOCKET_EVENTS.TURN_CHANGE);
   console.log(`'${SOCKET_EVENTS.TURN_CHANGE}' socket cleared.`);
-  
-  
   
 };
 

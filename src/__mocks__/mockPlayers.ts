@@ -275,7 +275,7 @@ export const ONLINE_USERS_MOCK: Player[] =
 
 export const mockDividedPlayers: DividedPlayers = 
 {
-  dravocar: [
+  dravokar: [
     {
       _id: '66decc4ff42d4a193db77e71',
       name: 'AITOR MENDIBURU BOTAS',

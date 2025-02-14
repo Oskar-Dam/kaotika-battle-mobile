@@ -21,7 +21,7 @@ const Spinner: React.FC<SpinnerProps> = ({ text }) => {
       </div>
       {/* Texto */}
       {text && <p className={'text-4xl text-center font-medium text-white px-8'}>{text}</p>}
-    </div>
+    </div> 
   );
 };
 

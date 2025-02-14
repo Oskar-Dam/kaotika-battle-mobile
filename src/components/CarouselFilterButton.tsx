@@ -9,10 +9,10 @@ interface CarouselFilterButtonProps {
 
 const CarouselFilterButton: React.FC<CarouselFilterButtonProps> = ({faction, selected, onClick}) => {
 
-  if (!['KAOTIKA', 'DRAVOCAR'].includes(faction)) return;
+  if (!['KAOTIKA', 'DRAVOKAR'].includes(faction)) return;
 
-  const buttonBackground = faction === 'DRAVOCAR' 
-    ? 'url(/images/filter-button-dravocar.webp)' 
+  const buttonBackground = faction === 'DRAVOKAR' 
+    ? 'url(/images/filter-button-dravokar.webp)' 
     : 'url(/images/filter-button-kaotika.webp)';
 
   return (

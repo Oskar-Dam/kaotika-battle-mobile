@@ -7,6 +7,8 @@ export const getPlayerByEmail = async (email: string) => {
       throw new Error('Email not found');
     } else if (response.status === 403) {
       throw new Error('Game already started');
+    } else if (response.status === 409) {
+      throw new Error('User already logged in');
     } else {
       throw new Error('Failed to fetch player data');
     }

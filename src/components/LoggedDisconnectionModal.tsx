@@ -6,13 +6,15 @@ interface LoggedDisconnectionModalProps {
   setPlayer: (player: Player | null) => void;
   setIsLoggedIn: (isLoggedIn: boolean) => void;
   setEmail: (email: string) => void;
+  setPermanentlyDisconnected: (isDisconnected: boolean) => void;
 }
-const LoggedDisconnectionModal: React.FC<LoggedDisconnectionModalProps> = ({ setPlayer, setIsLoggedIn, setEmail }) => {
+const LoggedDisconnectionModal: React.FC<LoggedDisconnectionModalProps> = ({ setPlayer, setIsLoggedIn, setEmail, setPermanentlyDisconnected }) => {
 
   const handleReconnect = () => {
     setPlayer(null);
     setIsLoggedIn(false);
     setEmail('');
+    setPermanentlyDisconnected(false);
   };
 
   return (
