@@ -15,8 +15,8 @@ const GameEndingModal: React.FC<GameEndingModalProps> = ({ winner, role }) => {
     socket.emit(SOCKET_EMIT_EVENTS.GAME_RESET);
   };
 
-  const imgUrl: string = (winnerSide === 'kaotika') ? 'url(/images/kaotikaWinner.webp)' :
-    (winnerSide === 'dravokar') ? 'url(/images/dravokarWinner.webp)' :
+  const imgUrl: string = (winnerSide === 'Kaotika') ? 'url(/images/kaotikaWinner.webp)' :
+    (winnerSide === 'Dravokar') ? 'url(/images/dravokarWinner.webp)' :
       'url(/images/login-background.webp)';
 
   return (
