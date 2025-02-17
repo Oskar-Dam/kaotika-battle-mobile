@@ -29,10 +29,10 @@ describe('PlayerCarousel Component', () => {
       setFilteredFaction={() => {}}
       kaotikaPlayers={playersKaotika}
       dravokarPlayers={playersDravokar}
-      selectedPlayer={player}
       player={player}
       selectedPlayerIndex={0}
       setSelectedPlayerIndex={() => {}}
+      isMyTurn={true}
     />);
 
     const buttonElement = screen.getByTestId('carousel-container');
