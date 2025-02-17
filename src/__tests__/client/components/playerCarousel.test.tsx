@@ -20,12 +20,10 @@ beforeAll(() => {
 describe('PlayerCarousel Component', () => {
   it('should render the PlayerCarousel', () => {
     const players = mockDividedPlayers.dravokar;
-    const player = mockDividedPlayers.kaotika[0];
 
     render(<PlayerCarousel
       setSelectedPlayer={() => {}}
       displayedPlayers={players}
-      selectedPlayer={player}
       selectedPlayerIndex={1}
       setSelectedPlayerIndex={() => {}}
     />);

@@ -11,10 +11,10 @@ interface CarouselContainerProps {
   setSelectedPlayer: (player: Player) => void;
   kaotikaPlayers: Player[];
   dravokarPlayers: Player[];
-  selectedPlayer: Player;
   player: Player;
   selectedPlayerIndex: number;
   setSelectedPlayerIndex: (index: number) => void;
+  isMyTurn: boolean;
 }
 
 const CarouselContainer: React.FC<CarouselContainerProps> = ({
@@ -23,10 +23,10 @@ const CarouselContainer: React.FC<CarouselContainerProps> = ({
   setSelectedPlayer,
   kaotikaPlayers,
   dravokarPlayers,
-  selectedPlayer,
   player,
   selectedPlayerIndex,
-  setSelectedPlayerIndex
+  setSelectedPlayerIndex,
+  isMyTurn
 }) => {
 
   const [displayedPlayers, setDisplayedPlayers] = useState<Player[]>([]);
@@ -47,8 +47,22 @@ const CarouselContainer: React.FC<CarouselContainerProps> = ({
 
     setDisplayedPlayers(newDisplayedPlayers);
 
-  }, [filteredFaction, kaotikaPlayers, dravokarPlayers]);
+  }, [filteredFaction]);
 
+  useEffect(() => {
+    if (isMyTurn && displayedPlayers.length > 0) {
+      console.log('Setting selected player: ', displayedPlayers[0].nickname);
+      setSelectedPlayer(displayedPlayers[0]);
+    }
+  },[filteredFaction]);
+
+  useEffect(() => {
+    if (isMyTurn) {
+      const faction = player.isBetrayer ? 'KAOTIKA' : 'DRAVOKAR';
+      console.log('Changing faction to: ', faction);
+      handleFactionSelection(faction);
+    }
+  }, [isMyTurn]);
 
   const handleFactionSelection = (pressedFaction: Factions) => {
     const newFilteredFaction = filteredFaction === pressedFaction ? undefined : pressedFaction;
@@ -82,7 +96,6 @@ const CarouselContainer: React.FC<CarouselContainerProps> = ({
       <PlayerCarousel 
         setSelectedPlayer={setSelectedPlayer}
         displayedPlayers={displayedPlayers}
-        selectedPlayer={selectedPlayer}
         selectedPlayerIndex={selectedPlayerIndex}
         setSelectedPlayerIndex={setSelectedPlayerIndex}
       />
