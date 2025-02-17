@@ -46,7 +46,7 @@ const BlockedScreen: React.FC<BlockedScreenInterface> = ({role}) => {
         </h1>
       </div>
       { role === 'mortimer' && (
-        <div className='absolute top-[75%] left-0 w-[100%] h-[100%] flex items-start justify-center z-151'>
+        <div className='absolute top-[75%] w-full flex items-start justify-center z-151'>
           <EndGameButton classNameCss={classNameEndGameButton}/>
         </div>
       )}      
