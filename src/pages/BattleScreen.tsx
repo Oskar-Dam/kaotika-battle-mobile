@@ -174,6 +174,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
         <GameEndingModal
           role={player.role}
           winner={winner}  // Pass winner to GameEndingModal
+          player={player}
         />
       )}
     </>
