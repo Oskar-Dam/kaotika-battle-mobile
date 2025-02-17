@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { Player } from '../interfaces/Player';
 
-interface GameState {
+interface StoreState {
   isLoggedIn: boolean;
   email: string;
   player: Player | null;
@@ -16,7 +16,7 @@ interface GameState {
   setPermanentlyDisconnected: (disconnected: boolean) => void;
 }
 
-const useGameStore = create<GameState>((set) => ({
+const useStore = create<StoreState>((set) => ({
   isLoggedIn: false,
   email: '',
   player: null,
@@ -32,4 +32,4 @@ const useGameStore = create<GameState>((set) => ({
   setPermanentlyDisconnected: (disconnected) => set({ permanentlyDisconnected: disconnected }),
 }));
 
-export default useGameStore;
+export default useStore;
