@@ -13,7 +13,7 @@ interface PlayerCarouselProps {
   setSelectedPlayerIndex: (index: number) => void;
 }
 
-const PlayerCarousel: React.FC<PlayerCarouselProps> = ({ setSelectedPlayer, displayedPlayers, selectedPlayer, selectedPlayerIndex, setSelectedPlayerIndex}) => {
+const PlayerCarousel: React.FC<PlayerCarouselProps> = React.memo(({ setSelectedPlayer, displayedPlayers, selectedPlayer, selectedPlayerIndex, setSelectedPlayerIndex}) => {
 
   // We extend with placeholders at the beginning and end to keep the first and last elements centered
   const extendedPlayers = [
@@ -234,6 +234,6 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({ setSelectedPlayer, disp
       </motion.div>
     </div>
   );
-};
+});
 
 export default PlayerCarousel;

@@ -26,8 +26,7 @@ export const removePlayerFromArrayIfIdMatches = (playersArray: Player[], playerI
   const playerIndex: number = playersArray.findIndex(player => player._id === playerId);
   if (playerIndex !== -1) {
     console.log('Player removed: ', playersArray[playerIndex].nickname);
-    playersArray.splice(playerIndex, 1);
-    return playersArray;
+    return [...playersArray.slice(0, playerIndex), ...playersArray.slice(playerIndex + 1)];
   }
   return null;
 };

@@ -1,0 +1,10 @@
+export const DisconectionText = ['Lost in the chaos of battle, you are presumed fallen.',
+  'Your signal fades into the void... only silence remains.',
+  'The war rages on, but you are no longer part of it.',
+  'Swallowed by the storm of battle, your fate is unknown.',
+  'Vanished into the abyss, your comrades whisper your name in mourning.',
+  'The battlefield forgets those who stray too far... are you one of them?',
+  'You slip into the shadows, lost to time and war.',
+  'Your presence flickers and dies—just another ghost of the battlefield.',
+  'The battle moves on, but you remain a whisper in the wind.',
+  'Erased by the tides of war, your legend ends here… or does it?'];

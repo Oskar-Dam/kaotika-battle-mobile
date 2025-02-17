@@ -14,24 +14,27 @@ jest.mock('../../../../sockets/socket', () => ({
   emit: jest.fn(),
 }));
 
+beforeEach(() => {
+  jest.clearAllMocks();
+});
+
 describe('Socket Listeners', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
+
 
   it('should change the turn correctly and emits the selected player', () => {
     const setIsMyTurn = jest.fn();
     const setSelectedPlayerIndex = jest.fn();
+    const setFilteredFactions = jest.fn();
   
     const dravokarPlayers = mockDividedPlayers.dravokar;
     const kaotikaPlayers = mockDividedPlayers.kaotika;
-    const mockPlayer = mockDividedPlayers.kaotika[1];
+    const mockPlayer = mockDividedPlayers.kaotika[0];
   
-    listenToChangeTurn(setIsMyTurn, mockPlayer, kaotikaPlayers, dravokarPlayers, setSelectedPlayerIndex);
+    listenToChangeTurn(setIsMyTurn, mockPlayer, kaotikaPlayers, dravokarPlayers, setSelectedPlayerIndex, setFilteredFactions);
   
     const callback = (socket.on as jest.Mock).mock.calls.find(([event]) => event === SOCKET_EVENTS.TURN_CHANGE)?.[1];
         
-    callback();
+    callback(mockPlayer._id);
 
     console.log('Llamadas a setIsMyTurn:', setIsMyTurn.mock.calls);
   
