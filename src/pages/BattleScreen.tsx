@@ -13,10 +13,10 @@ import { Factions } from '../interfaces/Factions';
 import { Player } from '../interfaces/Player';
 
 import { Potion } from '../interfaces/Potion';
+import { SOCKET_EMIT_EVENTS } from '../sockets/events';
 import socket from '../sockets/socket';
 import { clearListenToServerEventsBattleScreen, listenToChangeTurn, listenToGameEnded, listenToGameReset, listenToRemovePlayer, listenToServerEventsBattleScreen, listenToUpdatePlayer } from '../sockets/socketListeners';
 import DeadScreen from './DeadScreen';
-import { SOCKET_EMIT_EVENTS } from '../sockets/events';
 interface BattleScreenProps {
   potions: Potion[];
   player: Player;
@@ -103,8 +103,8 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
 
   return (
     <>
-      {!isMyTurn && !userDead && <BlockedScreen />}
-      {userDead && <DeadScreen/>}
+      {!isMyTurn && !userDead && !showWaitingScreen &&<> <BlockedScreen role={player.role}/></> }
+      {userDead && <DeadScreen role={player.role} />}
 
       {showWaitingScreen && (
         <Waiting 
