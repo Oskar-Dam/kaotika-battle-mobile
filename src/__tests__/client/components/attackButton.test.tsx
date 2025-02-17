@@ -25,4 +25,49 @@ describe('AttackButton Component', () => {
     const buttonElement = screen.getByTestId('attack-button');
     expect(buttonElement).toBeInTheDocument();
   });
+  it('should be enabled and have saturation when attacking is allowed', () => {
+    const attacker = mockDividedPlayers.kaotika[0];
+    const target = mockDividedPlayers.dravokar[0];
+
+    render(<AttackButton
+      onClick={() => {}}
+      isMyTurn={true}
+      selectedPlayer={target}
+      player={attacker}
+    />);
+
+    const buttonElement = screen.getByTestId('attack-button');
+    expect(buttonElement).not.toBeDisabled();
+    expect(buttonElement).toHaveStyle('filter: saturate(1)');
+  });
+  it('should be disabled and have no saturation when attacking is not allowed', () => {
+    const attacker = mockDividedPlayers.kaotika[0];
+    const target = mockDividedPlayers.kaotika[1];
+
+    render(<AttackButton
+      onClick={() => {}}
+      isMyTurn={true}
+      selectedPlayer={target}
+      player={attacker}
+    />);
+
+    const buttonElement = screen.getByTestId('attack-button');
+    expect(buttonElement).toBeDisabled();
+    expect(buttonElement).toHaveStyle('filter: saturate(0)');
+  });
+  it('should be disabled when it is not the player turn', () => {
+    const attacker = mockDividedPlayers.kaotika[0];
+    const target = mockDividedPlayers.dravokar[0];
+
+    render(<AttackButton
+      onClick={() => {}}
+      isMyTurn={false}
+      selectedPlayer={target}
+      player={attacker}
+    />);
+
+    const buttonElement = screen.getByTestId('attack-button');
+    expect(buttonElement).toBeDisabled();
+    expect(buttonElement).toHaveStyle('filter: saturate(0)');
+  });
 });
