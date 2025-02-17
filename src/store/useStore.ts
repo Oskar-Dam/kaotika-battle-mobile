@@ -1,4 +1,4 @@
-import { create } from 'zustand';
+import {create} from 'zustand';
 import { Player } from '../interfaces/Player';
 import { Dispatch, SetStateAction } from 'react';
 
