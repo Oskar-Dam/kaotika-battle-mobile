@@ -1,19 +1,18 @@
 import React from 'react';
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, useMotionValue, animate, PanInfo } from 'framer-motion';
-import socket from '../sockets/socket';
+
 import { Player } from '../interfaces/Player';
-import { SOCKET_EMIT_EVENTS } from '../sockets/events';
+
 
 interface PlayerCarouselProps {
   setSelectedPlayer: (player: Player) => void;
-  selectedPlayer: Player;
   displayedPlayers: Player[];
   selectedPlayerIndex: number;
   setSelectedPlayerIndex: (index: number) => void;
 }
 
-const PlayerCarousel: React.FC<PlayerCarouselProps> = React.memo(({ setSelectedPlayer, displayedPlayers, selectedPlayer, selectedPlayerIndex, setSelectedPlayerIndex}) => {
+const PlayerCarousel: React.FC<PlayerCarouselProps> = ({ setSelectedPlayer, displayedPlayers, selectedPlayerIndex, setSelectedPlayerIndex }) => {
 
   // We extend with placeholders at the beginning and end to keep the first and last elements centered
   const extendedPlayers = [
@@ -33,7 +32,7 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = React.memo(({ setSelectedP
 
 
     if (selectedPlayerIndex !== undefined) {
-      if(selectedPlayerIndex === 0) {
+      if (selectedPlayerIndex === 0) {
         selectedPlayerIndex = 1;
       }
       console.log('SelectedPlayerIndex before clampIndex: ', selectedPlayerIndex);
@@ -102,28 +101,14 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = React.memo(({ setSelectedP
 
   // When selectedPlayerIndex changes => center
   useEffect(() => {
-    if(selectedPlayerIndex === 0) {
+    if (selectedPlayerIndex === 0) {
       selectedPlayerIndex = 1;
     }
     console.log('selectedPlayerIndex: ', selectedPlayerIndex);
-    
+
     centerOnIndex(selectedPlayerIndex);
     setSelectedPlayer(displayedPlayers[selectedPlayerIndex - 1]);
   }, [selectedPlayerIndex, centerOnIndex, displayedPlayers, setSelectedPlayer]);
-
-  useEffect(() => {
-    if (selectedPlayer) {
-      console.log('Selected player: ', selectedPlayer.nickname);
-      console.log('Selected player is betrayer? ', selectedPlayer.isBetrayer);
-      console.log('Array of DISPLAYED players: ', displayedPlayers);
-      console.log('Array of EXTENDED players: ', extendedPlayers);
-      
-      
-      
-      console.log('mobile-setSelectedPlayer SENT: ', selectedPlayer._id);
-      socket.emit(SOCKET_EMIT_EVENTS.SET_SELECTED_PLAYER, selectedPlayer._id);
-    }
-  }, [selectedPlayer]);
 
   // When the displayed players data changes recalculate the selected index.
   useEffect(() => {
@@ -234,6 +219,6 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = React.memo(({ setSelectedP
       </motion.div>
     </div>
   );
-});
+};
 
 export default PlayerCarousel;
