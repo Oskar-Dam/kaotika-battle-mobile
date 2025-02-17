@@ -10,17 +10,30 @@ beforeAll(() => {
   jest.spyOn(console, 'warn').mockImplementation(() => {}); // Silenciar advertencias
 });
 
-describe('BlockedScreen Component', () => {
-  it('should render the LoggedDisconnectionModal', () => {
+jest.mock('../../../sockets/socket', () => ({
+  on: jest.fn(),
+  emit: jest.fn(),
+  off: jest.fn(),
+}));
+
+describe('LoggedDisconnectionModal Component', () => {
+  it('should render the LoggedDisconnectionModal for role -ACOLYTE-', () => {
     
-    render(<BlockedScreen/>);
+    render(<BlockedScreen role='acolyte'/>);
+
+    const modalComponent = screen.getByTestId('blocked-modal');
+    expect(modalComponent).toBeInTheDocument();
+  });
+  it('should render the LoggedDisconnectionModal for role -MORTIMER-', () => {
+    
+    render(<BlockedScreen role='mortimer'/>);
 
     const modalComponent = screen.getByTestId('blocked-modal');
     expect(modalComponent).toBeInTheDocument();
   });
 
   it('should animate dots over time', () => {
-    render(<BlockedScreen />);
+    render(<BlockedScreen role='' />);
 
     const textElement = screen.getByText('Waiting for your turn');
     
