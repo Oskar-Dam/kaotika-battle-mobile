@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { Player } from '../interfaces/Player';
+import { Dispatch, SetStateAction } from 'react';
 
 interface StoreState {
   isLoggedIn: boolean;
@@ -10,8 +11,8 @@ interface StoreState {
   permanentlyDisconnected: boolean;
   setIsLoggedIn: (loggedIn: boolean) => void;
   setEmail: (email: string) => void;
-  setPlayer: (player: Player | null) => void;
-  setIsMyTurn: (turn: boolean) => void;
+  setPlayer: Dispatch<SetStateAction<Player | null>>;
+  setIsMyTurn: Dispatch<SetStateAction<boolean>>;
   setIsDisconnected: (disconnected: boolean) => void;
   setPermanentlyDisconnected: (disconnected: boolean) => void;
 }
@@ -26,8 +27,8 @@ const useStore = create<StoreState>((set) => ({
   
   setIsLoggedIn: (loggedIn) => set({ isLoggedIn: loggedIn }),
   setEmail: (email) => set({ email }),
-  setPlayer: (player) => set({ player }),
-  setIsMyTurn: (turn) => set({ isMyTurn: turn }),
+  setPlayer: (player) => set((state) => ({ player: typeof player === 'function' ? player(state.player) : player })),
+  setIsMyTurn: (turn) => set((state) => ({ isMyTurn: typeof turn === 'function' ? turn(state.isMyTurn) : turn })),
   setIsDisconnected: (disconnected) => set({ isDisconnected: disconnected }),
   setPermanentlyDisconnected: (disconnected) => set({ permanentlyDisconnected: disconnected }),
 }));
