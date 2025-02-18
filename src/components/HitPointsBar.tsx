@@ -1,12 +1,13 @@
 import React from 'react';
+import useStore from '../store/useStore';
 
 interface HitPointsBarProps {
-  base_hp: number
-  hp: number
 }
-const HitPointsBar: React.FC<HitPointsBarProps> = ({hp, base_hp}) => {
+const HitPointsBar: React.FC<HitPointsBarProps> = () => {
+  
+  const {player, maxPercent} = useStore();
 
-  const actualPercent = hp / base_hp * 100;
+  const actualPercent = player.attributes.hit_points / player.base_attributes.hit_points * maxPercent;
 
   return (
     <div

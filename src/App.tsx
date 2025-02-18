@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import BattleScreen from './pages/BattleScreen';
 import PWABadge from './PWABadge';
 import LoginScreen from './pages/LoginScreen';
-import { potions } from './data/data';
 import { listenToDisconnections } from './sockets/socketListeners';
 import UnloggedDisconnectionModal from './components/UnloggedDisconnectionModal';
 import LoggedDisconnectionModal from './components/LoggedDisconnectionModal';
@@ -13,13 +12,11 @@ const App: React.FC = () => {
     isLoggedIn,
     email,
     player,
-    isMyTurn,
     isDisconnected,
     permanentlyDisconnected,
     setIsLoggedIn,
     setEmail,
     setPlayer,
-    setIsMyTurn,
     setIsDisconnected,
     setPermanentlyDisconnected,
   } = useStore();
@@ -37,15 +34,7 @@ const App: React.FC = () => {
   return (
     <>
       {isLoggedIn && player ? (
-        <BattleScreen
-          potions={potions}
-          player={player}
-          setPlayer={setPlayer}
-          isMyTurn={isMyTurn}
-          setIsMyTurn={setIsMyTurn}
-          setIsLoggedIn={setIsLoggedIn}
-          setEmail={setEmail}
-        />
+        <BattleScreen/>
       ) : (
         <LoginScreen
           email={email}

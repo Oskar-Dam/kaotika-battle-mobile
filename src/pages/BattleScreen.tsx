@@ -10,48 +10,53 @@ import PotionModal from '../components/PotionModal';
 import StaminaBar from '../components/StaminaBar';
 import Waiting from '../components/Waiting';
 import { Factions } from '../interfaces/Factions';
-import { Player } from '../interfaces/Player';
-
 import { Potion } from '../interfaces/Potion';
 import { SOCKET_EMIT_EVENTS } from '../sockets/events';
 import socket from '../sockets/socket';
 import { clearListenToServerEventsBattleScreen, listenToChangeTurn, listenToGameEnded, listenToGameReset, listenToRemovePlayer, listenToServerEventsBattleScreen, listenToUpdatePlayer } from '../sockets/socketListeners';
+import useStore from '../store/useStore';
 import DeadScreen from './DeadScreen';
-interface BattleScreenProps {
-  potions: Potion[];
-  player: Player;
-  setPlayer:React.Dispatch<React.SetStateAction<Player | null>>;
-  isMyTurn: boolean;
-  setIsMyTurn: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsLoggedIn: (isLoggedIn: boolean) => void;
-  setEmail: (email: string) => void;
-}
 
-const BattleScreen: React.FC<BattleScreenProps> = ({
-  potions, player, isMyTurn, setIsMyTurn, setPlayer, setIsLoggedIn, setEmail
-}) => {
 
-  const [selectedPotion, setSelectedPotion] = useState<Potion | null>(null);
+
+const BattleScreen: React.FC = () => {
+  const {
+    player,
+    isMyTurn,
+    setIsMyTurn,
+    setPlayer,
+    setIsLoggedIn,
+    setEmail,
+    selectedPotion,
+    setSelectedPotion,
+    isPotionModalOpen,
+    setIsPotionModalOpen,
+    selectedPlayer,
+    setSelectedPlayer,
+    selectedPlayerIndex,
+    setSelectedPlayerIndex,
+    kaotikaPlayers,
+    dravokarPlayers,
+    setDravokarPlayers,
+    setKaotikaPlayers,
+    updateDravokarPlayerStatus, 
+    updateKaotikaPlayerStatus, 
+    updatePlayerStatus,
+    updateDravokarPlayerHitPoints,
+    updateKaotikaPlayerHitPoints,
+    updatePlayerHitPoints
+  } = useStore();
+
+
   const [showWaitingScreen, setShowWaitingScreen] = useState<boolean>(true);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedPlayer, setSelectedPlayer] = useState<Player>();
-  const [filteredFaction, setFilteredFaction] = useState<Factions|undefined>(player.isBetrayer ? 'KAOTIKA' : 'DRAVOKAR');
-  const [kaotikaPlayers, setKaotikaPlayers] = useState<Player[]>([]);
-  const [dravokarPlayers, setDravokarPlayers] = useState<Player[]>([]);
+  const [filteredFaction, setFilteredFaction] = useState<Factions | undefined>(player?.isBetrayer ? 'KAOTIKA' : 'DRAVOKAR');
   const [gameEnded, setGameEnded] = useState<boolean>(false);
   const [winner, setWinner] = useState<string>('Kaotika');
-  const [selectedPlayerIndex, setSelectedPlayerIndex] = useState<number>(1);
-  const [userDead, setUserDead] = useState<boolean>(false);
-
-  const factionsSetters = {
-    'kaotika': setKaotikaPlayers,
-    'dravokar': setDravokarPlayers
-  };
 
   useEffect(() => {
     listenToServerEventsBattleScreen(setKaotikaPlayers, setDravokarPlayers);
-    listenToUpdatePlayer(factionsSetters, setPlayer, player);
-    listenToRemovePlayer(setKaotikaPlayers, setDravokarPlayers, kaotikaPlayers, dravokarPlayers, setUserDead, player);
+    listenToUpdatePlayer(updateDravokarPlayerHitPoints, updateKaotikaPlayerHitPoints, updatePlayerHitPoints, player);
+    listenToRemovePlayer(updateDravokarPlayerStatus, updateKaotikaPlayerStatus, updatePlayerStatus, player);
     listenToChangeTurn(setIsMyTurn, player, kaotikaPlayers, dravokarPlayers, setSelectedPlayerIndex, setFilteredFaction);
     listenToGameEnded(setGameEnded, setWinner); 
     listenToGameReset(setGameEnded, setIsMyTurn, setIsLoggedIn, setEmail, setPlayer, setKaotikaPlayers, setDravokarPlayers);
@@ -66,7 +71,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
 
   useEffect(() => {
     if (isMyTurn) {
-      if (!player.isBetrayer) {
+      if (player && !player?.isBetrayer) {
         if (dravokarPlayers.length > 0) {
           console.log('Setting filtered faction to DRAVOKAR');
           setFilteredFaction('DRAVOKAR');
@@ -87,27 +92,32 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
   useEffect(() => {
     console.log('Emitting Socket: ', SOCKET_EMIT_EVENTS.SET_SELECTED_PLAYER, ' with ', selectedPlayer?._id);
     if (isMyTurn && selectedPlayer) socket.emit(SOCKET_EMIT_EVENTS.SET_SELECTED_PLAYER, selectedPlayer._id);
-  },[selectedPlayer, isMyTurn]);
+  }, [selectedPlayer, isMyTurn]);
 
   const openModal = (potion: Potion) => {
     setSelectedPotion(potion);
-    setIsModalOpen(true);
+    setIsPotionModalOpen(true);
   };
 
   const closeModal = () => {
-    setIsModalOpen(false);
+    setIsPotionModalOpen(false);
   };
 
-  const frameBackground = player?.isBetrayer ? 'url(/images/frame-betrayer.webp)' : 'url(/images/frame-loyal.webp)';
+  let frameBackground;
+
+  if(player){
+    frameBackground = player?.isBetrayer ? 'url(/images/frame-betrayer.webp)' : 'url(/images/frame-loyal.webp)';
+  }
+
 
   return (
     <>
-      {!isMyTurn && !userDead && !showWaitingScreen &&<> <BlockedScreen role={player.role}/></> }
-      {userDead && <DeadScreen role={player.role} />}
+      {!isMyTurn && player.isAlive && !showWaitingScreen &&<> <BlockedScreen /></> }
+      {!player.isAlive && <DeadScreen />}
 
       {showWaitingScreen && (
         <Waiting 
-          role={player.role}
+          role={player?.role}
           setDravokarPlayers={setDravokarPlayers}
           setKaotikaPlayers={setKaotikaPlayers}
           setShowWaitingScreen={setShowWaitingScreen}
@@ -120,19 +130,13 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
         style={{ backgroundImage: frameBackground, backgroundSize: '100% 100%' }}
         data-testid="battle-screen"
       >
-        <StaminaBar
-          resistance={player.attributes.resistance ?? 0}
-          base_resistance={player.base_attributes.resistance ?? 0}
-        />
-        <HitPointsBar
-          hp={player.attributes.hit_points ?? 0}
-          base_hp={player.base_attributes.hit_points ?? 0}
-        />
+        <StaminaBar/>
+        <HitPointsBar/>
 
         {/* AVATAR */}
         <Avatar
-          avatar={player.avatar}
-          faction={player.isBetrayer}/>
+          avatar={player?.avatar}
+          faction={player?.isBetrayer}/>
 
         {/* CAROUSEL CONTAINER */}
         <CarouselContainer
@@ -152,17 +156,12 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
 
         {/* ACTION BUTTONS */}
         <Actions
-          selectedPlayer={selectedPlayer}
-          player={player}
-          potions={potions}
           openModal={openModal}
-          isMyTurn={isMyTurn}
-          setIsMyTurn={setIsMyTurn}
         />
 
       </div>
 
-      {isModalOpen && selectedPotion && (
+      {isPotionModalOpen && selectedPotion && (
         <PotionModal
           potion={selectedPotion}
           closeModal={closeModal}
@@ -171,7 +170,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({
 
       {gameEnded && (
         <GameEndingModal
-          role={player.role}
+          role={player?.role}
           winner={winner}  // Pass winner to GameEndingModal
           player={player}
         />
