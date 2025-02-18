@@ -3,7 +3,6 @@ React;
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import BattleScreen from '../../../pages/BattleScreen';
-import { mockPotions } from '../../../__mocks__/mockPotions';
 import useStore from '../../../store/useStore';
 import { mockDividedPlayers } from '../../../__mocks__/mockPlayers';
 
@@ -29,11 +28,8 @@ describe('BattleScreen screen', () => {
     });
   });
   it('should render the BattleScreen', () => {
-    const potions = mockPotions;
     
-    render(<BattleScreen
-      potions={potions}
-    />);
+    render(<BattleScreen/>);
 
     const battleScreen = screen.getByTestId('battle-screen');
     expect(battleScreen).toBeInTheDocument();
