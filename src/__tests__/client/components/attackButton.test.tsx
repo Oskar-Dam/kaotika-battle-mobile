@@ -7,7 +7,7 @@ import { mockDividedPlayers } from '../../../__mocks__/mockPlayers';
 import useStore from '../../../store/useStore';
 
 beforeAll(() => {
-  // jest.spyOn(console, 'log').mockImplementation(() => {}); // Silence console logs
+  jest.spyOn(console, 'log').mockImplementation(() => {}); // Silence console logs
   jest.spyOn(console, 'error').mockImplementation(() => {}); // Silence console errors
   jest.spyOn(console, 'warn').mockImplementation(() => {}); // Silence console warnings
 });
