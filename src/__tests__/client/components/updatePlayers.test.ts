@@ -1,115 +1,74 @@
-import { updatePlayerAttributes } from '../../../utils/players';
+import useStore from '../../../store/useStore';
 import { mockDividedPlayers } from '../../../__mocks__/mockPlayers';
 import { dravokarPlayerToUpdate, kaotikaPlayerToUpdate } from '../../../__mocks__/mockPlayersToUpdate';
 
 beforeAll(() => {
-  jest.spyOn(console, 'log').mockImplementation(() => {}); // Silence console logs
-  jest.spyOn(console, 'error').mockImplementation(() => {}); // Silence console errors
-  jest.spyOn(console, 'warn').mockImplementation(() => {}); // Silence console warnings
+  jest.spyOn(console, 'log').mockImplementation(() => {}); // Silenciar logs
+  jest.spyOn(console, 'error').mockImplementation(() => {}); // Silenciar errores
+  jest.spyOn(console, 'warn').mockImplementation(() => {}); // Silenciar warnings
 });
 
-describe('updatePlayerAttributes', () => {
-  it('should call dravokar function if player is a betrayer', () => {
-    // Arrange
+beforeEach(() => {
+  useStore.setState({
+    dravokarPlayers: [...mockDividedPlayers.dravokar],
+    kaotikaPlayers: [...mockDividedPlayers.kaotika],
+  });
+});
+
+describe('updatePlayerAttributes with Zustand', () => {
+  it('should update the DRAVOKAR faction if player is a betrayer', () => {
     const playerToUpdate = dravokarPlayerToUpdate;
 
-    const setFactionsPlayers = {
-      kaotika: jest.fn(),
-      dravokar: jest.fn(),
-    };
+    useStore.getState().updateDravokarPlayerHitPoints(playerToUpdate._id, 150);
 
-    // Act
-    updatePlayerAttributes(playerToUpdate, setFactionsPlayers);
+    const { dravokarPlayers, kaotikaPlayers } = useStore.getState();
+    const updatedPlayer = dravokarPlayers.find(p => p._id === playerToUpdate._id);
 
-    // Assert
-    expect(setFactionsPlayers.dravokar).toHaveBeenCalled();
-    expect(setFactionsPlayers.kaotika).not.toHaveBeenCalled();
+    expect(updatedPlayer).toBeDefined();
+    expect(updatedPlayer?.attributes.hit_points).toBe(150);
+    expect(kaotikaPlayers).toEqual(mockDividedPlayers.kaotika);
   });
 
-  it('should call kaotika function if player is not a betrayer', () => {
-    // Arrange
+  it('should update the KAOTIKA faction if player is not a betrayer', () => {
     const playerToUpdate = kaotikaPlayerToUpdate;
 
-    const setFactionsPlayers = {
-      kaotika: jest.fn(),
-      dravokar: jest.fn(),
-    };
+    useStore.getState().updateKaotikaPlayerHitPoints(playerToUpdate._id, 150);
 
-    // Act
-    updatePlayerAttributes(playerToUpdate, setFactionsPlayers);
+    const { kaotikaPlayers, dravokarPlayers } = useStore.getState();
+    const updatedPlayer = kaotikaPlayers.find(p => p._id === playerToUpdate._id);
 
-    // Assert
-    expect(setFactionsPlayers.kaotika).toHaveBeenCalled();
-    expect(setFactionsPlayers.dravokar).not.toHaveBeenCalled();
+    expect(updatedPlayer).toBeDefined();
+    expect(updatedPlayer?.attributes.hit_points).toBe(150);
+    expect(dravokarPlayers).toEqual(mockDividedPlayers.dravokar);
   });
 
   it('should update the player attributes correctly in the KAOTIKA faction', () => {
-    // Arrange
     const playerToUpdate = kaotikaPlayerToUpdate;
 
-    // Create a copy of the players array
-    const initialPlayers = [...mockDividedPlayers.kaotika];
-
-    // Mock the setter functions
-    const setFactionsPlayers = {
-      kaotika: jest.fn(),
-      dravokar: jest.fn(),
-    };
-
     // Act
-    updatePlayerAttributes(playerToUpdate, setFactionsPlayers);
+    useStore.getState().updateKaotikaPlayerHitPoints(playerToUpdate._id, 150);
 
-    // Assert
-    expect(setFactionsPlayers.kaotika).toHaveBeenCalledWith(expect.any(Function));
+    const { kaotikaPlayers } = useStore.getState();
+    const updatedPlayer = kaotikaPlayers.find(p => p._id === playerToUpdate._id);
 
-    // Simulate the setter call and check the changes
-    const updateFunction = setFactionsPlayers.kaotika.mock.calls[0][0];
-    const updatedPlayers = updateFunction(initialPlayers);
-
-    // Assert
-    expect(updatedPlayers).toEqual(expect.arrayContaining([
-      expect.objectContaining({
-        _id: playerToUpdate._id,
-        attributes: expect.objectContaining({
-          charisma: 150,
-          constitution: 70,
-        }),
-      }),
-    ]));
+    expect(updatedPlayer).toBeDefined();
+    expect(updatedPlayer?.attributes.hit_points).toBe(150);
+    expect(updatedPlayer?.attributes.charisma).toBe(99);
+    expect(updatedPlayer?.attributes.constitution).toBe(53);
   });
 
   it('should update the player attributes correctly in the DRAVOKAR faction', () => {
-    // Arrange
     const playerToUpdate = dravokarPlayerToUpdate;
 
-    // Create a copy of the players array
-    const initialPlayers = [...mockDividedPlayers.dravokar];
+    useStore.getState().updateDravokarPlayerHitPoints(playerToUpdate._id, 150);
 
-    // Mock the setter functions
-    const setFactionsPlayers = {
-      kaotika: jest.fn(),
-      dravokar: jest.fn(),
-    };
+    const { dravokarPlayers } = useStore.getState();
+    const updatedPlayer = dravokarPlayers.find(p => p._id === playerToUpdate._id);
 
-    // Act
-    updatePlayerAttributes(playerToUpdate, setFactionsPlayers);
-
-    // Assert
-    expect(setFactionsPlayers.dravokar).toHaveBeenCalledWith(expect.any(Function));
-
-    // Simulate the setter call and check the changes
-    const updateFunction = setFactionsPlayers.dravokar.mock.calls[0][0];
-    const updatedPlayers = updateFunction(initialPlayers);
-
-    // Assert
-    expect(updatedPlayers).toEqual(expect.arrayContaining([
-      expect.objectContaining({
-        _id: playerToUpdate._id,
-        attributes: expect.objectContaining({
-          charisma: 150,
-          constitution: 70,
-        }),
-      }),
-    ]));
+    expect(updatedPlayer).toBeDefined();
+    expect(updatedPlayer?.attributes.hit_points).toBe(150);
+    expect(updatedPlayer?.attributes.charisma).toBe(130);
+    expect(updatedPlayer?.attributes.constitution).toBe(60);
   });
+
 });
