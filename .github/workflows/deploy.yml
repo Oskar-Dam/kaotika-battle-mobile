@@ -16,25 +16,16 @@ jobs:
       run: |
         echo "Configuring Enviroment..."
 
-    - name: Verify cloned repo
+    - name: Pull changes
       run: |
-        if [ -d "$GITHUB_WORKSPACE/.git" ]; then
-          echo "Repository exists, updating..."
-          cd $GITHUB_WORKSPACE
-          git pull origin main
-        else
-          echo "Repository not found, cloning..."
-          git clone git@github.com:Oskar-Dam/kaotika-battle-mobile.git 
-        fi
+        git pull origin main
 
     - name: Installing dependencies
       run: |
-        cd $GITHUB_WORKSPACE
         npm install
 
     - name: Build application
       run: |
-        cd $GITHUB_WORKSPACE
         npm run build
 
     - name: Deploy application on pm2
