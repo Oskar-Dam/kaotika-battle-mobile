@@ -25,7 +25,7 @@ const CarouselContainer: React.FC<CarouselContainerProps> = ({
 }) => {
 
   const [displayedPlayers, setDisplayedPlayers] = useState<Player[]>([]);
-  const {kaotikaPlayers, dravokarPlayers, player} = useStore()
+  const {kaotikaPlayers, dravokarPlayers, player} = useStore();
   useEffect(() => {
 
     let newDisplayedPlayers;
