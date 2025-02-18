@@ -110,7 +110,7 @@ const BattleScreen: React.FC = () => {
 
   return (
     <>
-      {!isMyTurn && !userDead && !showWaitingScreen &&<> <BlockedScreen role={player?.role}/></> }
+      {!isMyTurn && !userDead && !showWaitingScreen &&<> <BlockedScreen /></> }
       {userDead && <DeadScreen />}
 
       {showWaitingScreen && (
