@@ -18,11 +18,9 @@ import { clearListenToServerEventsBattleScreen, listenToChangeTurn, listenToGame
 import useStore from '../store/useStore';
 import DeadScreen from './DeadScreen';
 
-interface BattleScreenProps {
-  potions: Potion[];
-}
 
-const BattleScreen: React.FC<BattleScreenProps> = ({ potions }) => {
+
+const BattleScreen: React.FC = () => {
   const {
     player,
     isMyTurn,
@@ -156,7 +154,6 @@ const BattleScreen: React.FC<BattleScreenProps> = ({ potions }) => {
 
         {/* ACTION BUTTONS */}
         <Actions
-          potions={potions}
           openModal={openModal}
         />
 

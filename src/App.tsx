@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import BattleScreen from './pages/BattleScreen';
 import PWABadge from './PWABadge';
 import LoginScreen from './pages/LoginScreen';
-import { potions } from './data/data';
 import { listenToDisconnections } from './sockets/socketListeners';
 import UnloggedDisconnectionModal from './components/UnloggedDisconnectionModal';
 import LoggedDisconnectionModal from './components/LoggedDisconnectionModal';
@@ -35,10 +34,7 @@ const App: React.FC = () => {
   return (
     <>
       {isLoggedIn && player ? (
-        <BattleScreen
-          potions={potions}
-        
-        />
+        <BattleScreen/>
       ) : (
         <LoginScreen
           email={email}

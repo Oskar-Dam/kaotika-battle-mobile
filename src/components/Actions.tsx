@@ -6,11 +6,10 @@ import useStore from '../store/useStore';
 import { Potion } from '../interfaces/Potion';
 
 interface ActionsProps {
-  potions: Potion[];
   openModal: (potion: Potion) => void;
 }
 
-const Actions: React.FC<ActionsProps> = ({ potions, openModal }) => {
+const Actions: React.FC<ActionsProps> = ({openModal}) => {
   const {
     player,
   } = useStore();
@@ -27,7 +26,6 @@ const Actions: React.FC<ActionsProps> = ({ potions, openModal }) => {
       )}      
       <div className='w-full flex items-center justify-center m-[10%]'>
         <PotionContainer
-          potions={potions}
           onClick={openModal}
         />
       </div>

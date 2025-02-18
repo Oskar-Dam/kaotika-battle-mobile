@@ -1,14 +1,13 @@
 import React from 'react';
 import { Potion } from '../interfaces/Potion';
 import PotionCard from './Potion';
+import { potions } from '../data/data';
 
 interface PotionContainerProps {
-  potions: Potion[];
   onClick: (potion: Potion) => void
 }
 
 const PotionContainer: React.FC<PotionContainerProps> = ({
-  potions,
   onClick
 }) => {
 
