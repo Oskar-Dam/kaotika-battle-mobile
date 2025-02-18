@@ -1,6 +1,7 @@
 import {create} from 'zustand';
 import { Player } from '../interfaces/Player';
 import { Dispatch, SetStateAction } from 'react';
+import { Potion } from '../interfaces/Potion';
 
 interface StoreState {
   isLoggedIn: boolean;
@@ -9,12 +10,16 @@ interface StoreState {
   isMyTurn: boolean;
   isDisconnected: boolean;
   permanentlyDisconnected: boolean;
+  selectedPotion: Potion | null;
+  isPotionModalOpen: boolean;
   setIsLoggedIn: (loggedIn: boolean) => void;
   setEmail: (email: string) => void;
   setPlayer: (players: Player) => void;
   setIsMyTurn: Dispatch<SetStateAction<boolean>>;
   setIsDisconnected: (disconnected: boolean) => void;
   setPermanentlyDisconnected: (disconnected: boolean) => void;
+  setSelectedPotion: (potion: Potion | null) => void;
+  setIsPotionModalOpen: (isOpen: boolean) => void;
 }
 
 const useStore = create<StoreState>((set) => ({
@@ -24,6 +29,8 @@ const useStore = create<StoreState>((set) => ({
   isMyTurn: true,
   isDisconnected: false,
   permanentlyDisconnected: false,
+  selectedPotion: null,
+  isPotionModalOpen: false,
   
   setIsLoggedIn: (loggedIn) => set({ isLoggedIn: loggedIn }),
   setEmail: (email) => set({ email }),
@@ -31,6 +38,8 @@ const useStore = create<StoreState>((set) => ({
   setIsMyTurn: (turn) => set((state) => ({ isMyTurn: typeof turn === 'function' ? turn(state.isMyTurn) : turn })),
   setIsDisconnected: (disconnected) => set({ isDisconnected: disconnected }),
   setPermanentlyDisconnected: (disconnected) => set({ permanentlyDisconnected: disconnected }),
+  setSelectedPotion: (potion) => set({ selectedPotion: potion }),
+  setIsPotionModalOpen: (isOpen) => set({ isPotionModalOpen: isOpen }),
 }));
 
 export default useStore;

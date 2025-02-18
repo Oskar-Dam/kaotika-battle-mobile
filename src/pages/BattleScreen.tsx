@@ -30,11 +30,13 @@ const BattleScreen: React.FC<BattleScreenProps> = ({ potions }) => {
     setPlayer,
     setIsLoggedIn,
     setEmail,
+    selectedPotion,
+    setSelectedPotion,
+    isPotionModalOpen,
+    setIsPotionModalOpen,
   } = useStore();
 
-  const [selectedPotion, setSelectedPotion] = useState<Potion | null>(null);
   const [showWaitingScreen, setShowWaitingScreen] = useState<boolean>(true);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState<Player>();
   const [filteredFaction, setFilteredFaction] = useState<Factions | undefined>(player?.isBetrayer ? 'KAOTIKA' : 'DRAVOKAR');
   const [kaotikaPlayers, setKaotikaPlayers] = useState<Player[]>([]);
@@ -92,11 +94,11 @@ const BattleScreen: React.FC<BattleScreenProps> = ({ potions }) => {
 
   const openModal = (potion: Potion) => {
     setSelectedPotion(potion);
-    setIsModalOpen(true);
+    setIsPotionModalOpen(true);
   };
 
   const closeModal = () => {
-    setIsModalOpen(false);
+    setIsPotionModalOpen(false);
   };
 
   let frameBackground;
@@ -168,7 +170,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({ potions }) => {
 
       </div>
 
-      {isModalOpen && selectedPotion && (
+      {isPotionModalOpen && selectedPotion && (
         <PotionModal
           potion={selectedPotion}
           closeModal={closeModal}
