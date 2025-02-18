@@ -23,8 +23,8 @@ beforeAll(() => {
 beforeEach(() => {
   (useStore as unknown as jest.Mock).mockReturnValue({
     player: mockDividedPlayers.kaotika[0],
-    kaotikaPlayers: mockDividedPlayers.kaotika || [], // Ensure it’s an array
-    dravokarPlayers: mockDividedPlayers.dravokar || [], // Ensure it’s an array
+    kaotikaPlayers: mockDividedPlayers.kaotika || [],
+    dravokarPlayers: mockDividedPlayers.dravokar || [],
     setSelectedPlayerIndex: jest.fn(),
     setSelectedPlayer: jest.fn(),
   });
