@@ -16,7 +16,7 @@ export const updatePlayerAttributes = (updatedPlayer: { _id: string, attributes:
         : player));
 };
 
-export const updateSessionPlayerAttributesIfIdMatches = (updatedPlayer: { _id: string, attributes: Modifier, totalDamage: number, isBetrayer: boolean }, setPlayer: React.Dispatch<React.SetStateAction<Player | null>>, sessionPlayer: Player): void => {
+export const updateSessionPlayerAttributesIfIdMatches = (updatedPlayer: { _id: string, attributes: Modifier, totalDamage: number, isBetrayer: boolean }, setPlayer: (players: Player) => void, sessionPlayer: Player): void => {
   if (updatedPlayer._id === sessionPlayer._id) {
     setPlayer({ ...sessionPlayer, attributes: updatedPlayer.attributes });
   }

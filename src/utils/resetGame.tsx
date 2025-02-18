@@ -4,7 +4,7 @@ export const resetAllStates = (setGameEnded: (gameEnded: boolean) => void,
   setIsMyTurn: (turn: boolean) => void, 
   setIsLoggedIn: (turn: boolean) => void, 
   setEmail: (email: string) => void, 
-  setPlayer: React.Dispatch<React.SetStateAction<Player | null>>,
+  setPlayer:(players: Player) => void,
   setKaotikaPlayers: (players: Player[]) => void, 
   setDravokarPlayers: (players: Player[]) => void): void => {
     
@@ -14,5 +14,5 @@ export const resetAllStates = (setGameEnded: (gameEnded: boolean) => void,
   setEmail('');
   setKaotikaPlayers([]);
   setDravokarPlayers([]);
-  setPlayer(null);
+  setPlayer(null!);
 };
