@@ -7,20 +7,13 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
-
+    runs-on: self-hosted
     steps:
-      - name: Set up SSH
-        uses: webfactory/ssh-agent@v0.5.3
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: Deploy Kaotika Battle Mobile
-        run: |
-          ssh -o StrictHostKeyChecking=no user@10.50.0.50 << 'EOF'
-          cd /home/daw2/Documentos/ReactJS-Projects/kaotika-battle-mobile
-          git pull origin main
-          npm install
-          npm run build
-          pm2 restart kaotika-battle-mobile
-          EOF
+      - name: Actualizar código
+        run: git pull origin main
+      - name: Instalar dependencias
+        run: npm install
+      - name: Construir React
+        run: npm run build
+      - name: Reiniciar apps en PM2
+        run: pm2 restart all
