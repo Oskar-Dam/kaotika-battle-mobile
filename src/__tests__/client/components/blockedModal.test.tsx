@@ -1,8 +1,10 @@
-import * as React from 'react';
-React; //Add this line to disable the unused variable error for Vercel deployment
-import { render, screen } from '@testing-library/react'; // Importar act para simular el paso del tiempo
 import '@testing-library/jest-dom';
+import { render, screen } from '@testing-library/react'; // Importar act para simular el paso del tiempo
+import * as React from 'react';
+import { ONLINE_USERS_MOCK } from '../../../__mocks__/mockPlayers';
 import BlockedScreen from '../../../components/BlockedScreen';
+import useStore from '../../../store/useStore';
+React; //Add this line to disable the unused variable error for Vercel deployment
 
 beforeAll(() => {
   jest.spyOn(console, 'log').mockImplementation(() => {}); // Silenciar logs
@@ -16,24 +18,33 @@ jest.mock('../../../sockets/socket', () => ({
   off: jest.fn(),
 }));
 
+jest.mock('../../../store/useStore');
+
 describe('LoggedDisconnectionModal Component', () => {
   it('should render the LoggedDisconnectionModal for role -ACOLYTE-', () => {
-    
-    render(<BlockedScreen role='acolyte'/>);
+    (useStore as unknown as jest.Mock).mockReturnValue({
+      player: ONLINE_USERS_MOCK[0],
+    });
+    render(<BlockedScreen />);
 
     const modalComponent = screen.getByTestId('blocked-modal');
     expect(modalComponent).toBeInTheDocument();
   });
   it('should render the LoggedDisconnectionModal for role -MORTIMER-', () => {
-    
-    render(<BlockedScreen role='mortimer'/>);
+    (useStore as unknown as jest.Mock).mockReturnValue({
+      player: ONLINE_USERS_MOCK[4], // Position of the mock player with role mortimer
+    });
+    render(<BlockedScreen />);
 
     const modalComponent = screen.getByTestId('blocked-modal');
     expect(modalComponent).toBeInTheDocument();
   });
 
   it('should animate dots over time', () => {
-    render(<BlockedScreen role='' />);
+    (useStore as unknown as jest.Mock).mockReturnValue({
+      player: ONLINE_USERS_MOCK[0],
+    });
+    render(<BlockedScreen />);
 
     const textElement = screen.getByText('Waiting for your turn');
     

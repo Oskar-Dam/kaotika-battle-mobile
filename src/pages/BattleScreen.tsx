@@ -112,7 +112,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({ potions }) => {
 
   return (
     <>
-      {!isMyTurn && !userDead && !showWaitingScreen &&<> <BlockedScreen role={player?.role}/></> }
+      {!isMyTurn && !userDead && !showWaitingScreen &&<> <BlockedScreen /></> }
       {userDead && <DeadScreen />}
 
       {showWaitingScreen && (
