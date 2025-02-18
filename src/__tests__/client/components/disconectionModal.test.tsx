@@ -3,7 +3,6 @@ React;
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import LoggedDisconnectionModal from '../../../components/LoggedDisconnectionModal';
-import { mockDividedPlayers } from '../../../__mocks__/mockPlayers';
 import UnloggedDisconnectionModal from '../../../components/UnloggedDisconnectionModal';
 
 beforeAll(() => {
@@ -14,15 +13,8 @@ beforeAll(() => {
 
 describe('LoggedDisconnectionModal Component', () => {
   it('should render the LoggedDisconnectionModal', () => {
-    const player = mockDividedPlayers.kaotika[0];
-    const setPermanentlyDisconnected = jest.fn();
-    
-    render(<LoggedDisconnectionModal
-      setPlayer={() => player}
-      setIsLoggedIn={() => true}
-      setEmail={() => player.email}
-      setPermanentlyDisconnected={setPermanentlyDisconnected}
-    />);
+
+    render(<LoggedDisconnectionModal/>);
 
     const modalComponent = screen.getByTestId('logged-disconnection-modal');
     expect(modalComponent).toBeInTheDocument();
@@ -32,8 +24,7 @@ describe('LoggedDisconnectionModal Component', () => {
 describe('UnloggedDisconnectionModal Component', () => {
   it('should render the UnloggedDisconnectionModal', () => {
 
-    render(<UnloggedDisconnectionModal
-    />);
+    render(<UnloggedDisconnectionModal/>);
 
     const modalComponent = screen.getByTestId('unlogged-disconnection-modal');
     expect(modalComponent).toBeInTheDocument();
