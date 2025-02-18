@@ -34,16 +34,18 @@ const BattleScreen: React.FC<BattleScreenProps> = ({ potions }) => {
     setSelectedPotion,
     isPotionModalOpen,
     setIsPotionModalOpen,
+    selectedPlayer,
+    setSelectedPlayer,
+    selectedPlayerIndex,
+    setSelectedPlayerIndex,
   } = useStore();
 
   const [showWaitingScreen, setShowWaitingScreen] = useState<boolean>(true);
-  const [selectedPlayer, setSelectedPlayer] = useState<Player>();
   const [filteredFaction, setFilteredFaction] = useState<Factions | undefined>(player?.isBetrayer ? 'KAOTIKA' : 'DRAVOKAR');
   const [kaotikaPlayers, setKaotikaPlayers] = useState<Player[]>([]);
   const [dravokarPlayers, setDravokarPlayers] = useState<Player[]>([]);
   const [gameEnded, setGameEnded] = useState<boolean>(false);
   const [winner, setWinner] = useState<string>('Kaotika');
-  const [selectedPlayerIndex, setSelectedPlayerIndex] = useState<number>(1);
   const [userDead, setUserDead] = useState<boolean>(false);
 
   const factionsSetters = {
