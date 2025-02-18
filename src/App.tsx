@@ -1,20 +1,28 @@
-import { useEffect, useState } from 'react';
-import BattleScreen from './pages/BattleScreen.tsx';
-import PWABadge from './PWABadge.tsx';
-import LoginScreen from './pages/LoginScreen.tsx';
-import { potions } from './data/data.ts';
-import { listenToDisconnections } from './sockets/socketListeners.ts';
-import { Player } from './interfaces/Player.ts';
-import UnloggedDisconnectionModal from './components/UnloggedDisconnectionModal.tsx';
-import LoggedDisconnectionModal from './components/LoggedDisconnectionModal.tsx';
+import { useEffect } from 'react';
+import BattleScreen from './pages/BattleScreen';
+import PWABadge from './PWABadge';
+import LoginScreen from './pages/LoginScreen';
+import { potions } from './data/data';
+import { listenToDisconnections } from './sockets/socketListeners';
+import UnloggedDisconnectionModal from './components/UnloggedDisconnectionModal';
+import LoggedDisconnectionModal from './components/LoggedDisconnectionModal';
+import useStore from './store/useStore';
 
-function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const [email, setEmail] = useState<string>('');
-  const [player, setPlayer] = useState<Player | null>(null);
-  const [isMyTurn, setIsMyTurn] = useState<boolean>(true);
-  const [isDisconnected, setIsDisconnected] = useState<boolean>(false);
-  const [PermanentlyDisconnected, setPermanentlyDisconnected] = useState<boolean>(false);
+const App: React.FC = () => {
+  const {
+    isLoggedIn,
+    email,
+    player,
+    isMyTurn,
+    isDisconnected,
+    permanentlyDisconnected,
+    setIsLoggedIn,
+    setEmail,
+    setPlayer,
+    setIsMyTurn,
+    setIsDisconnected,
+    setPermanentlyDisconnected,
+  } = useStore();
 
   useEffect(() => {
     const handleDisconnection = (disconnected: boolean) => {
@@ -24,7 +32,7 @@ function App() {
       }
     };
     listenToDisconnections(handleDisconnection);
-  }, [isLoggedIn]);
+  }, [isLoggedIn, setIsDisconnected, setPermanentlyDisconnected]);
 
   return (
     <>
@@ -47,7 +55,7 @@ function App() {
         />
       )}
 
-      {PermanentlyDisconnected && isLoggedIn && (
+      {permanentlyDisconnected && isLoggedIn && (
         <LoggedDisconnectionModal
           setPlayer={setPlayer}
           setIsLoggedIn={setIsLoggedIn}
@@ -61,6 +69,6 @@ function App() {
       <PWABadge />
     </>
   );
-}
+};
 
 export default App;
