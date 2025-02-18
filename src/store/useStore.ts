@@ -22,10 +22,10 @@ interface StoreState {
   updatePlayerHitPoints: (newHitPoints: number) => void;
   setIsMyTurn: (turn: boolean) => void;
   setDravokarPlayers: (players: Player[]) => void;
-  removeDravokarPlayer: (_id: string) => void;
+  updateDravokarPlayerStatus: (_id: string, status: boolean) => void;
   updateDravokarPlayerHitPoints: (_id: string, newHitPoints: number) => void;
   setKaotikaPlayers: (players: Player[]) => void;
-  removeKaotikaPlayer: (_id: string) => void;
+  updateKaotikaPlayerStatus: (_id: string, status: boolean) => void;
   updateKaotikaPlayerHitPoints: (_id: string, newHitPoints: number) => void;
   setIsDisconnected: (disconnected: boolean) => void;
   setPermanentlyDisconnected: (disconnected: boolean) => void;
@@ -49,7 +49,7 @@ const useStore = create<StoreState>((set) => ({
   selectedPlayer: undefined,
   selectedPlayerIndex: 1,
   maxPercent: 100,
-  
+
   setIsLoggedIn: (loggedIn) => set({ isLoggedIn: loggedIn }),
   setEmail: (email) => set({ email }),
   setIsMyTurn: (turn) => set(() => ({ isMyTurn: turn })),
@@ -68,11 +68,18 @@ const useStore = create<StoreState>((set) => ({
         },
       };
     }),
+  updatePlayerStatus: (status: boolean) =>
+    set((state) => {
+      if (!state.player) return state;
+
+      return {
+        player: {
+          ...state.player,
+          isAlive: status,
+        },
+      };
+    }),
   setDravokarPlayers: (dravokarPlayers: Player[]) => set({ dravokarPlayers }),
-  removeDravokarPlayer: (_id) =>
-    set((state) => ({
-      dravokarPlayers: state.dravokarPlayers.filter((player) => player._id !== _id),
-    })),
   updateDravokarPlayerHitPoints: (_id, newHitPoints) =>
     set((state) => ({
       dravokarPlayers: state.dravokarPlayers.map((player) =>
@@ -86,10 +93,26 @@ const useStore = create<StoreState>((set) => ({
           }
           : player),
     })),
-  setKaotikaPlayers: (kaotikaPlayers: Player[]) => set({ kaotikaPlayers }),
-  removeKaotikaPlayer: (_id) =>
+  updateDravokarPlayerStatus: (_id, status) =>
     set((state) => ({
-      kaotikaPlayers: state.kaotikaPlayers.filter((player) => player._id !== _id),
+      dravokarPlayers: state.dravokarPlayers.map((player) =>
+        player._id === _id
+          ? {
+            ...player,
+            isAlive: status,
+          }
+          : player),
+    })),
+  setKaotikaPlayers: (kaotikaPlayers: Player[]) => set({ kaotikaPlayers }),
+  updateKaotikaPlayerStatus: (_id, status) =>
+    set((state) => ({
+      kaotikaPlayers: state.kaotikaPlayers.map((player) =>
+        player._id === _id
+          ? {
+            ...player,
+            isAlive: status,
+          }
+          : player),
     })),
   updateKaotikaPlayerHitPoints: (_id, newHitPoints) =>
     set((state) => ({
