@@ -67,7 +67,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({ potions }) => {
 
   useEffect(() => {
     if (isMyTurn) {
-      if (!player?.isBetrayer) {
+      if (player && !player?.isBetrayer) {
         if (dravokarPlayers.length > 0) {
           console.log('Setting filtered faction to DRAVOKAR');
           setFilteredFaction('DRAVOKAR');
@@ -99,7 +99,12 @@ const BattleScreen: React.FC<BattleScreenProps> = ({ potions }) => {
     setIsModalOpen(false);
   };
 
-  const frameBackground = player?.isBetrayer ? 'url(/images/frame-betrayer.webp)' : 'url(/images/frame-loyal.webp)';
+  let frameBackground;
+
+  if(player){
+    frameBackground = player?.isBetrayer ? 'url(/images/frame-betrayer.webp)' : 'url(/images/frame-loyal.webp)';
+  }
+
 
   return (
     <>
