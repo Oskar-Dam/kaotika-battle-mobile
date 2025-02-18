@@ -15,7 +15,7 @@ interface StoreState {
   selectedPlayerIndex: number;
   setIsLoggedIn: (loggedIn: boolean) => void;
   setEmail: (email: string) => void;
-  setPlayer: (players: Player) => void;
+  setPlayer: (player: Player) => void;
   setIsMyTurn: (turn: boolean) => void;
   setIsDisconnected: (disconnected: boolean) => void;
   setPermanentlyDisconnected: (disconnected: boolean) => void;
