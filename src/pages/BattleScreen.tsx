@@ -10,7 +10,6 @@ import PotionModal from '../components/PotionModal';
 import StaminaBar from '../components/StaminaBar';
 import Waiting from '../components/Waiting';
 import { Factions } from '../interfaces/Factions';
-import { Player } from '../interfaces/Player';
 import { Potion } from '../interfaces/Potion';
 import { SOCKET_EMIT_EVENTS } from '../sockets/events';
 import socket from '../sockets/socket';
@@ -36,25 +35,28 @@ const BattleScreen: React.FC = () => {
     setSelectedPlayer,
     selectedPlayerIndex,
     setSelectedPlayerIndex,
+    kaotikaPlayers,
+    dravokarPlayers,
+    setDravokarPlayers,
+    setKaotikaPlayers,
+    updateDravokarPlayerStatus, 
+    updateKaotikaPlayerStatus, 
+    updatePlayerStatus,
+    updateDravokarPlayerHitPoints,
+    updateKaotikaPlayerHitPoints,
+    updatePlayerHitPoints
   } = useStore();
+
 
   const [showWaitingScreen, setShowWaitingScreen] = useState<boolean>(true);
   const [filteredFaction, setFilteredFaction] = useState<Factions | undefined>(player?.isBetrayer ? 'KAOTIKA' : 'DRAVOKAR');
-  const [kaotikaPlayers, setKaotikaPlayers] = useState<Player[]>([]);
-  const [dravokarPlayers, setDravokarPlayers] = useState<Player[]>([]);
   const [gameEnded, setGameEnded] = useState<boolean>(false);
   const [winner, setWinner] = useState<string>('Kaotika');
-  const [userDead, setUserDead] = useState<boolean>(false);
-
-  const factionsSetters = {
-    'kaotika': setKaotikaPlayers,
-    'dravokar': setDravokarPlayers
-  };
 
   useEffect(() => {
     listenToServerEventsBattleScreen(setKaotikaPlayers, setDravokarPlayers);
-    listenToUpdatePlayer(factionsSetters, setPlayer, player);
-    listenToRemovePlayer(setKaotikaPlayers, setDravokarPlayers, kaotikaPlayers, dravokarPlayers, setUserDead, player);
+    listenToUpdatePlayer(updateDravokarPlayerHitPoints, updateKaotikaPlayerHitPoints, updatePlayerHitPoints, player);
+    listenToRemovePlayer(updateDravokarPlayerStatus, updateKaotikaPlayerStatus, updatePlayerStatus, player);
     listenToChangeTurn(setIsMyTurn, player, kaotikaPlayers, dravokarPlayers, setSelectedPlayerIndex, setFilteredFaction);
     listenToGameEnded(setGameEnded, setWinner); 
     listenToGameReset(setGameEnded, setIsMyTurn, setIsLoggedIn, setEmail, setPlayer, setKaotikaPlayers, setDravokarPlayers);
@@ -110,8 +112,8 @@ const BattleScreen: React.FC = () => {
 
   return (
     <>
-      {!isMyTurn && !userDead && !showWaitingScreen &&<> <BlockedScreen /></> }
-      {userDead && <DeadScreen />}
+      {!isMyTurn && player.isAlive && !showWaitingScreen &&<> <BlockedScreen /></> }
+      {!player.isAlive && <DeadScreen />}
 
       {showWaitingScreen && (
         <Waiting 

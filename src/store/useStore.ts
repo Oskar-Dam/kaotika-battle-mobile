@@ -20,6 +20,7 @@ interface StoreState {
   setEmail: (email: string) => void;
   setPlayer: (player: Player) => void;
   updatePlayerHitPoints: (newHitPoints: number) => void;
+  updatePlayerStatus: (status: boolean) => void;
   setIsMyTurn: (turn: boolean) => void;
   setDravokarPlayers: (players: Player[]) => void;
   updateDravokarPlayerStatus: (_id: string, status: boolean) => void;

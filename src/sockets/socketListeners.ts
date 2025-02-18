@@ -1,7 +1,5 @@
-import { FactionsSetters } from '../interfaces/FactionsSetters';
 import { Modifier } from '../interfaces/Modifier';
 import { Player } from '../interfaces/Player';
-import { removeSelectedPlayerFromTeams, setUserStatusToDeadIfIdMatches, updatePlayerAttributes, updateSessionPlayerAttributesIfIdMatches } from '../utils/players';
 import { SOCKET_EVENTS } from './events';
 import socket from './socket';
 import { resetAllStates } from '../utils/resetGame';
@@ -56,23 +54,24 @@ export const listenToGameStart = (setShowWaitingScreen: React.Dispatch<React.Set
   });
 };
 
-export const listenToUpdatePlayer = (factionsSetters: FactionsSetters, setPlayer: (players: Player) => void, player: Player) => {
+export const listenToUpdatePlayer = (updateDravokarPlayerHitPoints: (id: string, hitpoints: number)=> void, updateKaotikaPlayerHitPoints: (id: string, hitpoints: number)=> void, updatePlayerHitPoints: (hitpoints: number)=> void, player: Player) => {
   socket.on(SOCKET_EVENTS.UPDATE_PLAYER, (updatedPlayer: {_id: string, attributes: Modifier, totalDamage: number, isBetrayer: boolean}) => {
     console.log(`'${SOCKET_EVENTS.UPDATE_PLAYER}' socket received.`);
-    updatePlayerAttributes(updatedPlayer, factionsSetters);
-    updateSessionPlayerAttributesIfIdMatches(updatedPlayer, setPlayer, player);
+    updateDravokarPlayerHitPoints(updatedPlayer._id, updatedPlayer.attributes.hit_points);
+    updateKaotikaPlayerHitPoints(updatedPlayer._id, updatedPlayer.attributes.hit_points);
+    if (player._id === updatedPlayer._id) updatePlayerHitPoints(updatedPlayer.attributes.hit_points);
   });
 };
 
-export const listenToRemovePlayer = (setKaotikaPlayers:React.Dispatch<React.SetStateAction<Player[]>>, setDravokarPlayers:React.Dispatch<React.SetStateAction<Player[]>>, kaotikaPlayers: Player[], dravokarPlayers: Player[], setUserDead:React.Dispatch<React.SetStateAction<boolean>>, player: Player) => {
-  
+export const listenToRemovePlayer = (updateDravokarPlayerStatus: (playerId: string, status: boolean) => void, updateKaotikaPlayerStatus: (playerId: string, status: boolean) => void, updatePlayerStatus: (status: boolean) => void, player: Player) => {
   socket.on(SOCKET_EVENTS.REMOVE_PLAYER, (playerId: string) => {
 
     console.log(`'${SOCKET_EVENTS.REMOVE_PLAYER}' socket received.`);
     console.log('Player ID to remove:', playerId);
 
-    removeSelectedPlayerFromTeams(kaotikaPlayers, dravokarPlayers, setKaotikaPlayers, setDravokarPlayers, playerId);
-    setUserStatusToDeadIfIdMatches(setUserDead, player._id, playerId);
+    updateDravokarPlayerStatus(playerId, false);
+    updateKaotikaPlayerStatus(playerId, false);
+    if (player._id === playerId) updatePlayerStatus(false);
   });
 
   socket.on(SOCKET_EVENTS.KILLED_PLAYER, (playerId: string) => {
@@ -80,8 +79,9 @@ export const listenToRemovePlayer = (setKaotikaPlayers:React.Dispatch<React.SetS
     console.log(`'${SOCKET_EVENTS.KILLED_PLAYER}' socket received.`);
     console.log('Player ID to remove:', playerId);
 
-    removeSelectedPlayerFromTeams(kaotikaPlayers, dravokarPlayers, setKaotikaPlayers, setDravokarPlayers, playerId);
-    setUserStatusToDeadIfIdMatches(setUserDead, player._id, playerId);
+    updateDravokarPlayerStatus(playerId, false);
+    updateKaotikaPlayerStatus(playerId, false);
+    if (player._id === playerId) updatePlayerStatus(false);
   });
 };
 
