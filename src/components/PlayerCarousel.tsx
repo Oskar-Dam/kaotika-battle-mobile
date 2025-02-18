@@ -12,13 +12,14 @@ interface PlayerCarouselProps {
   setSelectedPlayerIndex: (index: number) => void;
 }
 
-const PlayerCarousel: React.FC<PlayerCarouselProps> = ({ setSelectedPlayer, displayedPlayers, selectedPlayerIndex, setSelectedPlayerIndex }) => {
-
+const PlayerCarousel: React.FC<PlayerCarouselProps> = React.memo(({ setSelectedPlayer, displayedPlayers, selectedPlayerIndex, setSelectedPlayerIndex }) => {
+  
+  const filteredplayers = displayedPlayers.filter((player) => player.isAlive);
   // We extend with placeholders at the beginning and end to keep the first and last elements centered
   const extendedPlayers = [
-    { _id: 'placeholder', name: '', avatar: '', isBetrayer: undefined, attributes: undefined, base_attributes: undefined },
-    ...displayedPlayers,
-    { _id: 'placeholder', name: '', avatar: '', isBetrayer: undefined, attributes: undefined, base_attributes: undefined },
+    { _id: 'placeholder', name: '', avatar: '', isBetrayer: undefined, attributes: undefined, base_attributes: undefined, isAlive: false },
+    ...filteredplayers,
+    { _id: 'placeholder', name: '', avatar: '', isBetrayer: undefined, attributes: undefined, base_attributes: undefined, isAlive: false },
   ];
 
   // valid indices
@@ -107,13 +108,13 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({ setSelectedPlayer, disp
     console.log('selectedPlayerIndex: ', selectedPlayerIndex);
 
     centerOnIndex(selectedPlayerIndex);
-    setSelectedPlayer(displayedPlayers[selectedPlayerIndex - 1]);
+    setSelectedPlayer(filteredplayers[selectedPlayerIndex - 1]);
   }, [selectedPlayerIndex, centerOnIndex, displayedPlayers, setSelectedPlayer]);
 
   // When the displayed players data changes recalculate the selected index.
   useEffect(() => {
     if (displayedPlayers.length === 0) { return; }
-    const maxPossibleIndex = displayedPlayers.length;
+    const maxPossibleIndex = filteredplayers.length;
     const newIndex = Math.min(maxPossibleIndex, selectedPlayerIndex);
     setSelectedPlayerIndex(newIndex);
   }, [displayedPlayers, selectedPlayerIndex]);
@@ -163,6 +164,7 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({ setSelectedPlayer, disp
         drag="x"
         onDragEnd={handleDragEnd}>
         {extendedPlayers.map((player, index) => {
+
           const isActive = index === selectedPlayerIndex;
           const frameSrc = player?.isBetrayer ? '/images/carousel-red-frame.webp' : '/images/carousel-blue-frame.webp';
           const fallbackAvatar = player?.isBetrayer
@@ -219,6 +221,6 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({ setSelectedPlayer, disp
       </motion.div>
     </div>
   );
-};
+});
 
 export default PlayerCarousel;

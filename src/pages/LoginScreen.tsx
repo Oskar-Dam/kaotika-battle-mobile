@@ -12,7 +12,7 @@ interface LoginScreenInterface {
   email: string;
   setEmail: (email: string) => void;
   setIsLoggedIn: (isLoggedIn: boolean) => void;
-  setPlayer: (player: Player | null) => void;
+  setPlayer: (player: Player) => void;
 }
 
 const LoginScreen: React.FC<LoginScreenInterface> = ({

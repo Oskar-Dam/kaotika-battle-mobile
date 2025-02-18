@@ -1,12 +1,12 @@
 import React from 'react';
 import EndGameButton from '../components/EndGameButton';
+import useStore from '../store/useStore';
 
-interface DeadScreenInterface {
-  role: string;
-}
+interface DeadScreenInterface {}
 
-const DeadScreen: React.FC<DeadScreenInterface> = ({role}) => {
+const DeadScreen: React.FC<DeadScreenInterface> = () => {
   const classNameEndGameButton = 'p-12 z-75';
+  const {player} = useStore();
   return (
     <div
       className="flex-row bg-black p-4 items-center justify-center h-screen w-screen overflow-y-hidden absolute z-4"
@@ -26,7 +26,7 @@ const DeadScreen: React.FC<DeadScreenInterface> = ({role}) => {
         <h1>You've were killed.</h1>
         <h1>Wait untill the battle is over.</h1>
       </div>
-      {(role === 'mortimer') && (
+      {(player.role === 'mortimer') && (
         <div className="w-full text-4xl text-white text-center mt-4">
           <EndGameButton classNameCss={classNameEndGameButton} />
         </div>

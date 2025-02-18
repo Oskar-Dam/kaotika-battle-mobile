@@ -57,7 +57,7 @@ const CarouselContainer: React.FC<CarouselContainerProps> = ({
   },[filteredFaction]);
 
   useEffect(() => {
-    if (isMyTurn) {
+    if (player && isMyTurn) {
       const faction = player.isBetrayer ? 'KAOTIKA' : 'DRAVOKAR';
       console.log('Changing faction to: ', faction);
       handleFactionSelection(faction);
