@@ -15,8 +15,8 @@ import { Potion } from '../interfaces/Potion';
 import { SOCKET_EMIT_EVENTS } from '../sockets/events';
 import socket from '../sockets/socket';
 import { clearListenToServerEventsBattleScreen, listenToChangeTurn, listenToGameEnded, listenToGameReset, listenToRemovePlayer, listenToServerEventsBattleScreen, listenToUpdatePlayer } from '../sockets/socketListeners';
-import DeadScreen from './DeadScreen';
 import useStore from '../store/useStore';
+import DeadScreen from './DeadScreen';
 
 interface BattleScreenProps {
   potions: Potion[];
@@ -113,7 +113,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({ potions }) => {
   return (
     <>
       {!isMyTurn && !userDead && !showWaitingScreen &&<> <BlockedScreen role={player?.role}/></> }
-      {userDead && <DeadScreen role={player?.role} />}
+      {userDead && <DeadScreen />}
 
       {showWaitingScreen && (
         <Waiting 
