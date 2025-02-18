@@ -117,8 +117,6 @@ const BattleScreen: React.FC = () => {
 
       {showWaitingScreen && (
         <Waiting 
-          setDravokarPlayers={setDravokarPlayers}
-          setKaotikaPlayers={setKaotikaPlayers}
           setShowWaitingScreen={setShowWaitingScreen}
         />)
       }

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Player } from '../interfaces/Player';
 import { listenToGameStart, listenToInsufficientPlayers, listenToServerEventsBattleScreen } from '../sockets/socketListeners';
 import useStore from './../store/useStore';
 import MortimerScreen from './MortimerScreen';
@@ -8,13 +7,15 @@ import Spinner from './Spinner';
 // the Waiting component is a modal that displays a spinner and a message while waiting for the game to start(mortimer) or if you are mortimer, you can start the game
 interface WaitingProps {
   setShowWaitingScreen: React.Dispatch<React.SetStateAction<boolean>>;
-  setDravokarPlayers: (players: Player[]) => void;
-  setKaotikaPlayers: (players: Player[]) => void;
 }
-const Waiting: React.FC<WaitingProps> = ({ setDravokarPlayers, setKaotikaPlayers, setShowWaitingScreen }) => {
+const Waiting: React.FC<WaitingProps> = ({ setShowWaitingScreen }) => {
 
   const [insufficientPlayers, setInsufficientPlayers] = useState<boolean>(false);
-  const {player} = useStore();
+  const {
+    player,
+    setDravokarPlayers, 
+    setKaotikaPlayers,
+  } = useStore();
 
   useEffect(() => {
     listenToServerEventsBattleScreen(setKaotikaPlayers, setDravokarPlayers);
