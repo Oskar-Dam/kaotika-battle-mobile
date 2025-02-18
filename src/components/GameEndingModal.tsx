@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { SOCKET_EMIT_EVENTS } from '../sockets/events';
 import socket from '../sockets/socket';
-import { Player } from '../interfaces/Player';
+import useStore from '../store/useStore';
 
 interface GameEndingModalProps {
-  role: string;
   winner: string;
-  player: Player | null;
 }
 
-const GameEndingModal: React.FC<GameEndingModalProps> = ({ winner, role, player }) => {
+const GameEndingModal: React.FC<GameEndingModalProps> = ({ winner }) => {
 
   const [winnerSide] = useState<string>(winner);
   const [resultTextColor, setResultTextColor] = useState<string>('text-medievalSepia');
+
+  const {
+    player
+  } = useStore();
 
   useEffect(() => {
     console.log('Winner:', winner);
@@ -65,10 +67,10 @@ const GameEndingModal: React.FC<GameEndingModalProps> = ({ winner, role, player 
           <p className={`mb-4 text-4xl ${resultTextColor}`}>{getResultText()}</p>  {/* Show result based on player status and winner */}
         </div>
 
-        <div>{role === 'mortimer' && (
+        <div>{player.role === 'mortimer' && (
 
           <button
-            className="text-medievalSepia p-20 place-self-item rounded text-3xl"
+            className="text-medievalSepia p-20 place-self-item rounded text-3xl brightness-50"
             onClick={handleReconnect}
             style={{
               backgroundImage: 'url(/images/end-button.webp)',
