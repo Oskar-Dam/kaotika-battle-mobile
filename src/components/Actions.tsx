@@ -1,22 +1,25 @@
 import React from 'react';
-import { Player } from '../interfaces/Player';
-import { Potion } from '../interfaces/Potion';
 import { SOCKET_EMIT_EVENTS } from '../sockets/events';
 import socket from '../sockets/socket';
 import AttackButton from './AttackButton';
 import EndGameButton from './EndGameButton';
 import PotionContainer from './PotionContainer';
+import useStore from '../store/useStore';
+import { Potion } from '../interfaces/Potion';
 
 interface ActionsProps {
   potions: Potion[];
-  openModal: (potion: Potion) => void
-  isMyTurn: boolean
-  setIsMyTurn: (turn: boolean) => void;
-  selectedPlayer: Player | undefined;
-  player: Player | undefined;
+  openModal: (potion: Potion) => void;
 }
 
-const Actions: React.FC<ActionsProps> = ({ potions, openModal, isMyTurn, setIsMyTurn, selectedPlayer, player}) => {
+const Actions: React.FC<ActionsProps> = ({ potions, openModal }) => {
+  const {
+    isMyTurn,
+    setIsMyTurn,
+    selectedPlayer,
+    player,
+  } = useStore();
+
   const classNameEndGameButton = 'p-16 z-75';
 
   return (
