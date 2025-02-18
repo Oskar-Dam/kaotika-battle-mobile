@@ -13,6 +13,9 @@ interface StoreState {
   permanentlyDisconnected: boolean;
   selectedPotion: Potion | null;
   isPotionModalOpen: boolean;
+  selectedPlayer: Player | undefined;
+  selectedPlayerIndex: number;
+  maxPercent: number;
   setIsLoggedIn: (loggedIn: boolean) => void;
   setEmail: (email: string) => void;
   setPlayer: (player: Player) => void;
@@ -28,6 +31,8 @@ interface StoreState {
   setPermanentlyDisconnected: (disconnected: boolean) => void;
   setSelectedPotion: (potion: Potion | null) => void;
   setIsPotionModalOpen: (isOpen: boolean) => void;
+  setSelectedPlayer: (player: Player | undefined) => void;
+  setSelectedPlayerIndex: (index: number) => void;
 }
 
 const useStore = create<StoreState>((set) => ({
@@ -41,6 +46,9 @@ const useStore = create<StoreState>((set) => ({
   permanentlyDisconnected: false,
   selectedPotion: null,
   isPotionModalOpen: false,
+  selectedPlayer: undefined,
+  selectedPlayerIndex: 1,
+  maxPercent: 100,
   
   setIsLoggedIn: (loggedIn) => set({ isLoggedIn: loggedIn }),
   setEmail: (email) => set({ email }),
@@ -100,6 +108,8 @@ const useStore = create<StoreState>((set) => ({
   setPermanentlyDisconnected: (disconnected) => set({ permanentlyDisconnected: disconnected }),
   setSelectedPotion: (potion) => set({ selectedPotion: potion }),
   setIsPotionModalOpen: (isOpen) => set({ isPotionModalOpen: isOpen }),
+  setSelectedPlayer: (player) => set({ selectedPlayer: player }),
+  setSelectedPlayerIndex: (index) => set({ selectedPlayerIndex: index }),
 }));
 
 export default useStore;

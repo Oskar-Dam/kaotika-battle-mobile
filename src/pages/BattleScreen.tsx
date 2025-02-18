@@ -34,16 +34,18 @@ const BattleScreen: React.FC<BattleScreenProps> = ({ potions }) => {
     setSelectedPotion,
     isPotionModalOpen,
     setIsPotionModalOpen,
+    selectedPlayer,
+    setSelectedPlayer,
+    selectedPlayerIndex,
+    setSelectedPlayerIndex,
   } = useStore();
 
   const [showWaitingScreen, setShowWaitingScreen] = useState<boolean>(true);
-  const [selectedPlayer, setSelectedPlayer] = useState<Player>();
   const [filteredFaction, setFilteredFaction] = useState<Factions | undefined>(player?.isBetrayer ? 'KAOTIKA' : 'DRAVOKAR');
   const [kaotikaPlayers, setKaotikaPlayers] = useState<Player[]>([]);
   const [dravokarPlayers, setDravokarPlayers] = useState<Player[]>([]);
   const [gameEnded, setGameEnded] = useState<boolean>(false);
   const [winner, setWinner] = useState<string>('Kaotika');
-  const [selectedPlayerIndex, setSelectedPlayerIndex] = useState<number>(1);
   const [userDead, setUserDead] = useState<boolean>(false);
 
   const factionsSetters = {
@@ -127,10 +129,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({ potions }) => {
         style={{ backgroundImage: frameBackground, backgroundSize: '100% 100%' }}
         data-testid="battle-screen"
       >
-        <StaminaBar
-          resistance={player?.attributes.resistance ?? 0}
-          base_resistance={player?.base_attributes.resistance ?? 0}
-        />
+        <StaminaBar/>
         <HitPointsBar
           hp={player?.attributes.hit_points ?? 0}
           base_hp={player?.base_attributes.hit_points ?? 0}
