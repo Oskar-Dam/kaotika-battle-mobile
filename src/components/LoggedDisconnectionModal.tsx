@@ -1,17 +1,21 @@
 import React from 'react';
-import { Player } from '../interfaces/Player';
-import { DisconectionText } from '../constants/DisconectionTextConstants';
 import { DisconectionImages } from '../constants/DisconectionImagesConstants';
+import { DisconectionText } from '../constants/DisconectionTextConstants';
+import useStore from '../store/useStore';
 
-interface LoggedDisconnectionModalProps {
-  setPlayer: (player: Player) => void;
-  setIsLoggedIn: (isLoggedIn: boolean) => void;
-  setEmail: (email: string) => void;
-  setPermanentlyDisconnected: (isDisconnected: boolean) => void;
-}
-const LoggedDisconnectionModal: React.FC<LoggedDisconnectionModalProps> = ({ setPlayer, setIsLoggedIn, setEmail, setPermanentlyDisconnected }) => {
+interface LoggedDisconnectionModalProps {}
+
+const LoggedDisconnectionModal: React.FC<LoggedDisconnectionModalProps> = () => {
   const disconectionText = DisconectionText;
   const imgUrl = DisconectionImages;
+  
+  const {
+    setPlayer,
+    setIsLoggedIn,
+    setEmail,
+    setPermanentlyDisconnected,
+  } = useStore();
+
   const handleReconnect = () => {
     setPlayer(null!);
     setIsLoggedIn(false);

@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
-import BattleScreen from './pages/BattleScreen';
-import PWABadge from './PWABadge';
-import LoginScreen from './pages/LoginScreen';
-import { listenToDisconnections } from './sockets/socketListeners';
-import UnloggedDisconnectionModal from './components/UnloggedDisconnectionModal';
 import LoggedDisconnectionModal from './components/LoggedDisconnectionModal';
+import UnloggedDisconnectionModal from './components/UnloggedDisconnectionModal';
+import BattleScreen from './pages/BattleScreen';
+import LoginScreen from './pages/LoginScreen';
+import PWABadge from './PWABadge';
+import { listenToDisconnections } from './sockets/socketListeners';
 import useStore from './store/useStore';
 
 const App: React.FC = () => {
@@ -45,12 +45,7 @@ const App: React.FC = () => {
       )}
 
       {permanentlyDisconnected && isLoggedIn && (
-        <LoggedDisconnectionModal
-          setPlayer={setPlayer}
-          setIsLoggedIn={setIsLoggedIn}
-          setEmail={setEmail}
-          setPermanentlyDisconnected={setPermanentlyDisconnected}
-        />
+        <LoggedDisconnectionModal />
       )}
 
       {!isLoggedIn && isDisconnected && <UnloggedDisconnectionModal />}

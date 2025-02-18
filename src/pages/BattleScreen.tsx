@@ -143,9 +143,6 @@ const BattleScreen: React.FC = () => {
           setSelectedPlayer={setSelectedPlayer}
           filteredFaction={filteredFaction}
           setFilteredFaction={setFilteredFaction}
-          kaotikaPlayers={kaotikaPlayers}
-          dravokarPlayers={dravokarPlayers}
-          player={player}
           selectedPlayerIndex={selectedPlayerIndex}
           setSelectedPlayerIndex={setSelectedPlayerIndex}
           isMyTurn={isMyTurn}
