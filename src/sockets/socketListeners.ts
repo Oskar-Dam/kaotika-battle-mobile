@@ -56,7 +56,7 @@ export const listenToGameStart = (setShowWaitingScreen: React.Dispatch<React.Set
   });
 };
 
-export const listenToUpdatePlayer = (factionsSetters: FactionsSetters, setPlayer: React.Dispatch<React.SetStateAction<Player | null>>, player: Player) => {
+export const listenToUpdatePlayer = (factionsSetters: FactionsSetters, setPlayer: (players: Player) => void, player: Player) => {
   socket.on(SOCKET_EVENTS.UPDATE_PLAYER, (updatedPlayer: {_id: string, attributes: Modifier, totalDamage: number, isBetrayer: boolean}) => {
     console.log(`'${SOCKET_EVENTS.UPDATE_PLAYER}' socket received.`);
     updatePlayerAttributes(updatedPlayer, factionsSetters);
@@ -100,7 +100,7 @@ export const listenToGameReset = (setGameEnded: (gameEnded: boolean) => void,
   setIsMyTurn: (turn: boolean) => void, 
   setIsLoggedIn: (turn: boolean) => void, 
   setEmail: (email: string) => void, 
-  setPlayer: React.Dispatch<React.SetStateAction<Player | null>>,
+  setPlayer: (players: Player) => void,
   setKaotikaPlayers: (players: Player[]) => void, 
   setDravokarPlayers: (players: Player[]) => void) => {
   socket.on(SOCKET_EVENTS.GAME_RESET, () => {

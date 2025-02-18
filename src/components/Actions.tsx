@@ -11,7 +11,7 @@ interface ActionsProps {
   potions: Potion[];
   openModal: (potion: Potion) => void
   isMyTurn: boolean
-  setIsMyTurn: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsMyTurn: (turn: boolean) => void;
   selectedPlayer: Player | undefined;
   player: Player | undefined;
 }
