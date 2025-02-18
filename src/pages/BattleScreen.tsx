@@ -131,10 +131,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({ potions }) => {
         data-testid="battle-screen"
       >
         <StaminaBar/>
-        <HitPointsBar
-          hp={player?.attributes.hit_points ?? 0}
-          base_hp={player?.base_attributes.hit_points ?? 0}
-        />
+        <HitPointsBar/>
 
         {/* AVATAR */}
         <Avatar
