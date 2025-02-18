@@ -11,7 +11,9 @@ const PotionContainer: React.FC<PotionContainerProps> = ({
   potions,
   onClick
 }) => {
-  const filteredPotions = potions;
+
+  const importedPotions = potions;
+  const filteredPotions = importedPotions;
 
   const PotionsPerRow = filteredPotions.length;
   const startIndex = 0;
