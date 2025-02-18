@@ -11,6 +11,7 @@ interface StoreState {
   permanentlyDisconnected: boolean;
   selectedPotion: Potion | null;
   isPotionModalOpen: boolean;
+  maxPercent: number;
   setIsLoggedIn: (loggedIn: boolean) => void;
   setEmail: (email: string) => void;
   setPlayer: (players: Player) => void;
@@ -30,6 +31,7 @@ const useStore = create<StoreState>((set) => ({
   permanentlyDisconnected: false,
   selectedPotion: null,
   isPotionModalOpen: false,
+  maxPercent: 100,
   
   setIsLoggedIn: (loggedIn) => set({ isLoggedIn: loggedIn }),
   setEmail: (email) => set({ email }),

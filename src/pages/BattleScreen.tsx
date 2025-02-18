@@ -128,10 +128,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({ potions }) => {
         style={{ backgroundImage: frameBackground, backgroundSize: '100% 100%' }}
         data-testid="battle-screen"
       >
-        <StaminaBar
-          resistance={player?.attributes.resistance ?? 0}
-          base_resistance={player?.base_attributes.resistance ?? 0}
-        />
+        <StaminaBar/>
         <HitPointsBar
           hp={player?.attributes.hit_points ?? 0}
           base_hp={player?.base_attributes.hit_points ?? 0}
