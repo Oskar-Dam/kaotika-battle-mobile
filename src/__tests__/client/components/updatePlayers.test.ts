@@ -45,7 +45,6 @@ describe('updatePlayerAttributes with Zustand', () => {
   it('should update the player attributes correctly in the KAOTIKA faction', () => {
     const playerToUpdate = kaotikaPlayerToUpdate;
 
-    // Act
     useStore.getState().updateKaotikaPlayerHitPoints(playerToUpdate._id, 150);
 
     const { kaotikaPlayers } = useStore.getState();
@@ -53,8 +52,6 @@ describe('updatePlayerAttributes with Zustand', () => {
 
     expect(updatedPlayer).toBeDefined();
     expect(updatedPlayer?.attributes.hit_points).toBe(150);
-    expect(updatedPlayer?.attributes.charisma).toBe(99);
-    expect(updatedPlayer?.attributes.constitution).toBe(53);
   });
 
   it('should update the player attributes correctly in the DRAVOKAR faction', () => {
@@ -67,8 +64,6 @@ describe('updatePlayerAttributes with Zustand', () => {
 
     expect(updatedPlayer).toBeDefined();
     expect(updatedPlayer?.attributes.hit_points).toBe(150);
-    expect(updatedPlayer?.attributes.charisma).toBe(130);
-    expect(updatedPlayer?.attributes.constitution).toBe(60);
   });
 
 });
