@@ -11,27 +11,35 @@ interface PlayerCarouselProps {
   selectedPlayerIndex: number;
   setSelectedPlayerIndex: (index: number) => void;
 }
+interface PlaceHolder {
+  _id: string, 
+  name: string, 
+  avatar: string, 
+  isBetrayer: undefined, 
+  attributes: undefined, 
+  base_attributes: undefined, 
+  isAlive: undefined 
+}
+const PlayerCarousel: React.FC<PlayerCarouselProps> = ({ setSelectedPlayer, displayedPlayers, selectedPlayerIndex, setSelectedPlayerIndex }) => {
+  const [players, setPlayers] = useState<(Player | PlaceHolder)[]>([]);
 
-const PlayerCarousel: React.FC<PlayerCarouselProps> = React.memo(({ setSelectedPlayer, displayedPlayers, selectedPlayerIndex, setSelectedPlayerIndex }) => {
-  
-  const filteredplayers = displayedPlayers.filter((player) => player.isAlive);
-  // We extend with placeholders at the beginning and end to keep the first and last elements centered
-  const extendedPlayers = [
-    { _id: 'placeholder', name: '', avatar: '', isBetrayer: undefined, attributes: undefined, base_attributes: undefined, isAlive: false },
-    ...filteredplayers,
-    { _id: 'placeholder', name: '', avatar: '', isBetrayer: undefined, attributes: undefined, base_attributes: undefined, isAlive: false },
-  ];
+  useEffect(() => {
+    // We extend with placeholders at the beginning and end to keep the first and last elements centered
+    const extendedPlayers = [
+      { _id: 'placeholder', name: '', avatar: '', isBetrayer: undefined, attributes: undefined, base_attributes: undefined, isAlive: undefined },
+      ...displayedPlayers,
+      { _id: 'placeholder', name: '', avatar: '', isBetrayer: undefined, attributes: undefined, base_attributes: undefined, isAlive: undefined },
+    ];
+    setPlayers(extendedPlayers);
+  }, [displayedPlayers]);
 
   // valid indices
   const MIN_SELECTABLE = 1;
-  const MAX_SELECTABLE = extendedPlayers.length - 2;
+  const MAX_SELECTABLE = players.length - 2;
 
   // State to know which card is selected
 
   useEffect(() => {
-
-
-
     if (selectedPlayerIndex !== undefined) {
       if (selectedPlayerIndex === 0) {
         selectedPlayerIndex = 1;
@@ -40,7 +48,7 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = React.memo(({ setSelectedP
       const clampedIndex = Math.min(Math.max(selectedPlayerIndex, MIN_SELECTABLE), MAX_SELECTABLE);
       setSelectedPlayerIndex(clampedIndex);
     }
-  }, [selectedPlayerIndex]);
+  }, [selectedPlayerIndex, players]);
 
   // We use a MotionValue for x
   const x = useMotionValue(0);
@@ -61,7 +69,7 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = React.memo(({ setSelectedP
   const GAP = 16;
 
   // Total number of cards
-  const totalCards = extendedPlayers.length;
+  const totalCards = players.length;
 
   useEffect(() => {
 
@@ -108,13 +116,13 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = React.memo(({ setSelectedP
     console.log('selectedPlayerIndex: ', selectedPlayerIndex);
 
     centerOnIndex(selectedPlayerIndex);
-    setSelectedPlayer(filteredplayers[selectedPlayerIndex - 1]);
+    setSelectedPlayer(displayedPlayers[selectedPlayerIndex - 1]);
   }, [selectedPlayerIndex, centerOnIndex, displayedPlayers, setSelectedPlayer]);
 
   // When the displayed players data changes recalculate the selected index.
   useEffect(() => {
     if (displayedPlayers.length === 0) { return; }
-    const maxPossibleIndex = filteredplayers.length;
+    const maxPossibleIndex = displayedPlayers.length;
     const newIndex = Math.min(maxPossibleIndex, selectedPlayerIndex);
     setSelectedPlayerIndex(newIndex);
   }, [displayedPlayers, selectedPlayerIndex]);
@@ -163,7 +171,7 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = React.memo(({ setSelectedP
         style={{ x }}
         drag="x"
         onDragEnd={handleDragEnd}>
-        {extendedPlayers.map((player, index) => {
+        {players.map((player, index) => {
 
           const isActive = index === selectedPlayerIndex;
           const frameSrc = player?.isBetrayer ? '/images/carousel-red-frame.webp' : '/images/carousel-blue-frame.webp';
@@ -221,6 +229,6 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = React.memo(({ setSelectedP
       </motion.div>
     </div>
   );
-});
+};
 
 export default PlayerCarousel;
