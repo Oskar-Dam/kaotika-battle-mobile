@@ -4,14 +4,12 @@ import CarouselFilterButton from './CarouselFilterButton';
 import { Factions } from '../interfaces/Factions';
 import { useEffect, useState } from 'react';
 import { Player } from '../interfaces/Player';
+import useStore from '../store/useStore';
 
 interface CarouselContainerProps {
   filteredFaction: Factions | undefined;
   setFilteredFaction: (filteredFaction: Factions | undefined) => void;
   setSelectedPlayer: (player: Player) => void;
-  kaotikaPlayers: Player[];
-  dravokarPlayers: Player[];
-  player: Player;
   selectedPlayerIndex: number;
   setSelectedPlayerIndex: (index: number) => void;
   isMyTurn: boolean;
@@ -21,16 +19,13 @@ const CarouselContainer: React.FC<CarouselContainerProps> = ({
   filteredFaction,
   setFilteredFaction,
   setSelectedPlayer,
-  kaotikaPlayers,
-  dravokarPlayers,
-  player,
   selectedPlayerIndex,
   setSelectedPlayerIndex,
   isMyTurn
 }) => {
 
   const [displayedPlayers, setDisplayedPlayers] = useState<Player[]>([]);
-
+  const {kaotikaPlayers, dravokarPlayers, player} = useStore()
   useEffect(() => {
 
     let newDisplayedPlayers;
@@ -44,17 +39,17 @@ const CarouselContainer: React.FC<CarouselContainerProps> = ({
     }
 
     newDisplayedPlayers = newDisplayedPlayers.filter(p => p._id !== player._id);
-
+    newDisplayedPlayers = newDisplayedPlayers.filter((player) => player.isAlive);
     setDisplayedPlayers(newDisplayedPlayers);
 
-  }, [filteredFaction]);
+  }, [filteredFaction, kaotikaPlayers, dravokarPlayers]);
 
   useEffect(() => {
     if (isMyTurn && displayedPlayers.length > 0) {
       console.log('Setting selected player: ', displayedPlayers[0].nickname);
       setSelectedPlayer(displayedPlayers[0]);
     }
-  },[filteredFaction]);
+  },[displayedPlayers]);
 
   useEffect(() => {
     if (player && isMyTurn) {
