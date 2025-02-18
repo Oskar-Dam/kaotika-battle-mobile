@@ -1,8 +1,8 @@
-import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
 import * as React from 'react';
+React; //Add this line to disable the unused variable error for Vercel deployment
+import { render, screen } from '@testing-library/react'; // Importar act para simular el paso del tiempo
+import '@testing-library/jest-dom';
 import BlockedScreen from '../../../components/BlockedScreen';
-React;
 
 beforeAll(() => {
   jest.spyOn(console, 'log').mockImplementation(() => {}); // Silenciar logs
@@ -30,5 +30,16 @@ describe('LoggedDisconnectionModal Component', () => {
 
     const modalComponent = screen.getByTestId('blocked-modal');
     expect(modalComponent).toBeInTheDocument();
+  });
+
+  it('should animate dots over time', () => {
+    render(<BlockedScreen role='' />);
+
+    const textElement = screen.getByText('Waiting for your turn');
+    
+    expect(textElement).toHaveTextContent('Waiting for your turn');
+    expect(textElement).toHaveTextContent('Waiting for your turn.');
+    expect(textElement).toHaveTextContent('Waiting for your turn..');
+    expect(textElement).toHaveTextContent('Waiting for your turn...');
   });
 });
