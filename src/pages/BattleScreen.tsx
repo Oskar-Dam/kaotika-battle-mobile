@@ -117,7 +117,6 @@ const BattleScreen: React.FC = () => {
 
       {showWaitingScreen && (
         <Waiting 
-          role={player?.role}
           setDravokarPlayers={setDravokarPlayers}
           setKaotikaPlayers={setKaotikaPlayers}
           setShowWaitingScreen={setShowWaitingScreen}
