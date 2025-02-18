@@ -16,7 +16,6 @@ const Avatar: React.FC<AvatarProps> = ({ avatar, faction }) => {
 
     if (avatar) {
       const img = new Image();
-      img.loading='lazy';
       img.src = avatar;
 
       img.onload = () => setImgSrc(avatar);

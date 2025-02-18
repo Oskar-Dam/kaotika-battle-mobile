@@ -99,6 +99,7 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({
       <div
         className="flex flex-col items-center justify-center w-full max-w-[630px] h-[40%] border-0 border-white"
         style={{ backgroundImage: 'url(/images/login-frame.webp)', backgroundSize: '100% 100%' }}>
+        {/*no firebase*/}
         <div className="w-[80%] h-[15%] mt-[10%]">
           <input
             type="search"
@@ -107,7 +108,9 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({
             className="text-2xl border border-yellow-600 text-yellow-600 rounded-xs  w-full p-2.5 bg-red-950 placeholder-yellow-600"
             value={email}
             style={{ fontFamily: 'Kaotika' }}
-            onChange={handleEmailChange}></input>
+            onChange={handleEmailChange}
+            hidden= {false}></input>
+            
         </div>
         <button
           className="mt-[5%] flex flex-col items-center justify-center bg-gray-500 h-[15%]"
@@ -123,7 +126,7 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({
             className="text-white mt-2 text-3xl mb-2"
             style={{ fontFamily: 'Kaotika', position: 'absolute' }}>ENTER</span>
         </button> 
-
+        {/*firebase*/}
         <button
           className="mt-[5%] flex flex-col items-center justify-center bg-gray-500 h-[15%]"
           onClick={handleGoogleSignIn}
@@ -135,7 +138,7 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({
             style={{ width: '100%' }} />
           <span
             className="text-white mt-2 text-3xl mb-2"
-            style={{ fontFamily: 'Kaotika', position: 'absolute' }}>ENTER</span>
+            style={{ fontFamily: 'Kaotika', position: 'absolute' }}>SING IN</span>
         </button> 
         {errorMessage && (
           <div
