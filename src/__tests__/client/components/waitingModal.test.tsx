@@ -30,8 +30,6 @@ describe('LoggedDisconnectionModal Component', () => {
   });
   it('should render the LoggedDisconnectionModal', () => {    
     render(<Waiting 
-      setDravokarPlayers={() => {}}
-      setKaotikaPlayers={() => {}}
       setShowWaitingScreen={() => {}}
     />);
 
