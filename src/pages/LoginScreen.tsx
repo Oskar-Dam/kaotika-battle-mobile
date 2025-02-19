@@ -150,7 +150,7 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({
       </div>
     </div>
   );
-};
+}; 
   
 export default LoginScreen; 
   
