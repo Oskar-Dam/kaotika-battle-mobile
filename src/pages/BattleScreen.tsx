@@ -117,9 +117,6 @@ const BattleScreen: React.FC = () => {
 
       {showWaitingScreen && (
         <Waiting 
-          role={player?.role}
-          setDravokarPlayers={setDravokarPlayers}
-          setKaotikaPlayers={setKaotikaPlayers}
           setShowWaitingScreen={setShowWaitingScreen}
         />)
       }
@@ -167,9 +164,7 @@ const BattleScreen: React.FC = () => {
 
       {gameEnded && (
         <GameEndingModal
-          role={player?.role}
           winner={winner}  // Pass winner to GameEndingModal
-          player={player}
         />
       )}
     </>
