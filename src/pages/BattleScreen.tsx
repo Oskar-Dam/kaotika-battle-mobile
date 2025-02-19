@@ -7,6 +7,7 @@ import GameEndingModal from '../components/GameEndingModal';
 import HitPointsBar from '../components/HitPointsBar';
 import NickName from '../components/NickName';
 import PotionModal from '../components/PotionModal';
+import SettingModal from '../components/SettingsModal';
 import StaminaBar from '../components/StaminaBar';
 import Waiting from '../components/Waiting';
 import { Factions } from '../interfaces/Factions';
@@ -31,6 +32,7 @@ const BattleScreen: React.FC = () => {
     setSelectedPotion,
     isPotionModalOpen,
     setIsPotionModalOpen,
+    isSettingModalOpen,
     selectedPlayer,
     setSelectedPlayer,
     selectedPlayerIndex,
@@ -103,6 +105,8 @@ const BattleScreen: React.FC = () => {
     setIsPotionModalOpen(false);
   };
 
+  
+
   let frameBackground;
 
   if(player){
@@ -150,7 +154,7 @@ const BattleScreen: React.FC = () => {
 
         {/* ACTION BUTTONS */}
         <Actions
-          openModal={openModal}
+          openPotionModal={openModal}
         />
 
       </div>
@@ -161,6 +165,11 @@ const BattleScreen: React.FC = () => {
           closeModal={closeModal}
         />
       )}
+
+
+      {isSettingModalOpen && (
+        <SettingModal />
+      )};
 
       {gameEnded && (
         <GameEndingModal
