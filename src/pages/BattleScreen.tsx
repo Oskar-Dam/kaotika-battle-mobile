@@ -42,7 +42,6 @@ const BattleScreen: React.FC = () => {
     updateDravokarPlayerHitPoints,
     updateKaotikaPlayerHitPoints,
     updatePlayerHitPoints,
-    filteredFaction,
     setFilteredFaction
   } = useStore();
 
@@ -135,10 +134,7 @@ const BattleScreen: React.FC = () => {
           faction={player?.isBetrayer}/>
 
         {/* CAROUSEL CONTAINER */}
-        <CarouselContainer
-          filteredFaction={filteredFaction}
-          setFilteredFaction={setFilteredFaction}
-        />
+        <CarouselContainer/>
         
         {/* SELECTED PLAYER NICK */}
         <NickName nickname={selectedPlayer?.nickname} />
