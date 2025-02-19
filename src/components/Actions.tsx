@@ -21,7 +21,7 @@ const Actions: React.FC<ActionsProps> = ({openPotionModal}) => {
         <div className='w-full flex items-center place-self-center justify-center mt-[5%]'>
           <SettingButton />
         </div>
-      )};
+      )}
       
       {/* )}       */}
       <div className='w-full flex items-center justify-center m-[10%]'>

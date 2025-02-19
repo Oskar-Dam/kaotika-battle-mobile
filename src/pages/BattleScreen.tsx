@@ -169,7 +169,7 @@ const BattleScreen: React.FC = () => {
 
       {isSettingModalOpen && (
         <SettingModal />
-      )};
+      )}
 
       {gameEnded && (
         <GameEndingModal

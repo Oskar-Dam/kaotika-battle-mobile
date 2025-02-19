@@ -15,7 +15,7 @@ const DeadScreen: React.FC<DeadScreenInterface> = () => {
         <h1 className="text-5xl text-white">Kaotika</h1>
         <h1 className="text-5xl text-white">The Final Battle</h1>
       </div>
-      <div className="h-[62%] w-full text-center">
+      <div className="h-[58%] w-full text-center">
 
       </div>
       <div className="w-full text-4xl text-white text-center">
