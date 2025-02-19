@@ -13,6 +13,7 @@ interface StoreState {
   permanentlyDisconnected: boolean;
   selectedPotion: Potion | null;
   isPotionModalOpen: boolean;
+  isSettingModalOpen: boolean;
   selectedPlayer: Player | undefined;
   selectedPlayerIndex: number;
   maxPercent: number;
@@ -32,6 +33,7 @@ interface StoreState {
   setPermanentlyDisconnected: (disconnected: boolean) => void;
   setSelectedPotion: (potion: Potion | null) => void;
   setIsPotionModalOpen: (isOpen: boolean) => void;
+  setIsSettingModalOpen: (isOpen: boolean) => void;
   setSelectedPlayer: (player: Player | undefined) => void;
   setSelectedPlayerIndex: (index: number) => void;
 }
@@ -47,6 +49,7 @@ const useStore = create<StoreState>((set) => ({
   permanentlyDisconnected: false,
   selectedPotion: null,
   isPotionModalOpen: false,
+  isSettingModalOpen: false,
   selectedPlayer: undefined,
   selectedPlayerIndex: 1,
   maxPercent: 100,
@@ -132,6 +135,7 @@ const useStore = create<StoreState>((set) => ({
   setPermanentlyDisconnected: (disconnected) => set({ permanentlyDisconnected: disconnected }),
   setSelectedPotion: (potion) => set({ selectedPotion: potion }),
   setIsPotionModalOpen: (isOpen) => set({ isPotionModalOpen: isOpen }),
+  setIsSettingModalOpen: (isOpen) => set({ isSettingModalOpen: isOpen }),
   setSelectedPlayer: (player) => set({ selectedPlayer: player }),
   setSelectedPlayerIndex: (index) => set({ selectedPlayerIndex: index }),
 }));
