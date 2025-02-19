@@ -59,6 +59,7 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
       if (user.email) {
+        console.log('User email:', user.email);
         const playerData = await getPlayerByEmail(user.email);
         socket.emit(SOCKET_EVENTS.SEND_SOCKETID, user.email);
         setIsLoggedIn(true);
@@ -152,5 +153,5 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({
   );
 }; 
   
-export default LoginScreen; 
+export default LoginScreen;  
   
