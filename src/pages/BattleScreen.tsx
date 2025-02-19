@@ -9,7 +9,6 @@ import NickName from '../components/NickName';
 import PotionModal from '../components/PotionModal';
 import StaminaBar from '../components/StaminaBar';
 import Waiting from '../components/Waiting';
-import { Factions } from '../interfaces/Factions';
 import { Potion } from '../interfaces/Potion';
 import { SOCKET_EMIT_EVENTS } from '../sockets/events';
 import socket from '../sockets/socket';
@@ -42,12 +41,14 @@ const BattleScreen: React.FC = () => {
     updatePlayerStatus,
     updateDravokarPlayerHitPoints,
     updateKaotikaPlayerHitPoints,
-    updatePlayerHitPoints
+    updatePlayerHitPoints,
+    filteredFaction,
+    setFilteredFaction
   } = useStore();
 
 
   const [showWaitingScreen, setShowWaitingScreen] = useState<boolean>(true);
-  const [filteredFaction, setFilteredFaction] = useState<Factions | undefined>(player?.isBetrayer ? 'KAOTIKA' : 'DRAVOKAR');
+  // const [filteredFaction, setFilteredFaction] = useState<Factions | undefined>(player?.isBetrayer ? 'KAOTIKA' : 'DRAVOKAR');
   const [gameEnded, setGameEnded] = useState<boolean>(false);
   const [winner, setWinner] = useState<string>('Kaotika');
 

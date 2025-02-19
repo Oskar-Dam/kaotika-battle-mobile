@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { Player } from '../interfaces/Player';
 import { Potion } from '../interfaces/Potion';
+import { Factions } from '../interfaces/Factions';
 
 interface StoreState {
   isLoggedIn: boolean;
@@ -16,6 +17,8 @@ interface StoreState {
   selectedPlayer: Player | undefined;
   selectedPlayerIndex: number;
   maxPercent: number;
+  filteredFaction: Factions | undefined;
+  setFilteredFaction: (filteredFaction: Factions | undefined) => void;
   setIsLoggedIn: (loggedIn: boolean) => void;
   setEmail: (email: string) => void;
   setPlayer: (player: Player) => void;
@@ -50,6 +53,8 @@ const useStore = create<StoreState>((set) => ({
   selectedPlayer: undefined,
   selectedPlayerIndex: 1,
   maxPercent: 100,
+  filteredFaction: 'KAOTIKA',
+  setFilteredFaction: (filteredFaction) => set({ filteredFaction: filteredFaction }),
 
   setIsLoggedIn: (loggedIn) => set({ isLoggedIn: loggedIn }),
   setEmail: (email) => set({ email }),

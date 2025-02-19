@@ -17,7 +17,7 @@ export const listenToServerEventsBattleScreen = (setKaotikaPlayers: (players: Pl
   });
 };
 
-export const listenToChangeTurn = (setIsMyTurn: (turn: boolean) => void,player: Player | null, kaotikaPlayers: Player[], dravokarPlayers: Player[], setSelectedPlayerIndex: (index: number) => void, setFilteredFactions: React.Dispatch<React.SetStateAction<Factions | undefined>>) => {
+export const listenToChangeTurn = (setIsMyTurn: (turn: boolean) => void,player: Player | null, kaotikaPlayers: Player[], dravokarPlayers: Player[], setSelectedPlayerIndex: (index: number) => void, setFilteredFactions: (filteredFaction: Factions | undefined) => void) => {
   socket.on(SOCKET_EVENTS.TURN_CHANGE, (_id: string) => {
     console.log(`'${SOCKET_EVENTS.TURN_CHANGE}' socket received.`);
     console.log('FIRST DRAVOKAR PLAYER NOW: ', dravokarPlayers);
