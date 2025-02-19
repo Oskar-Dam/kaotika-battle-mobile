@@ -1,6 +1,6 @@
 
-export const getPlayerByEmail = async (email: string) => {
-  const response = await fetch(`${import.meta.env.VITE_SOCKET_URL || 'http://localhost:3000'}/api/player/${email.toLowerCase()}`);
+export const getPlayerByEmail = async (email: string | null) => {
+  const response = await fetch(`${import.meta.env.VITE_SOCKET_URL || 'http://localhost:3000'}/api/player/${email?.toLowerCase()}`);
 
   if (!response.ok) {
     if (response.status === 500) {

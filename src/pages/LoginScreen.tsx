@@ -1,80 +1,113 @@
-// src/screens/LoginScreen.tsx
-import React, { ChangeEvent, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Spinner from '../components/Spinner';
 import socket from '../sockets/socket';
 import { SOCKET_EVENTS } from '../sockets/events';
 import { getPlayerByEmail } from '../api/player';
 import { Player } from '../interfaces/Player';
-import { signInWithPopup } from 'firebase/auth';
+import { getRedirectResult, onAuthStateChanged, signInWithRedirect } from 'firebase/auth';
 import { auth, provider } from '../api/firebase/firebaseConfig';
 
-interface LoginScreenInterface {
-  email: string;
-  setEmail: (email: string) => void;
+interface LoginScreenProps {
   setIsLoggedIn: (isLoggedIn: boolean) => void;
   setPlayer: (player: Player) => void;
 }
 
-const LoginScreen: React.FC<LoginScreenInterface> = ({
-  email,
-  setEmail,
-  setIsLoggedIn,
-  setPlayer,
-}) => {
+const LoginScreen: React.FC<LoginScreenProps> = ({ setIsLoggedIn, setPlayer }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-    setErrorMessage(''); // Clear error message when email changes
-  };
+  provider.setCustomParameters({ prompt: 'select_account' });
 
-  const handleEnterBattle = async () => {
+  useEffect(() => {
+    console.log('Checking user session...');
     setIsLoading(true);
-    console.log('Email:', email);
-    try {
-      const playerData = await getPlayerByEmail(email);
-      console.log('Player data:', playerData);
-
-      // Emit an event with an object containing the email and socket ID
-      socket.emit(SOCKET_EVENTS.SEND_SOCKETID, email);
-      setIsLoggedIn(true);
-      setIsLoading(false);
-      setPlayer(playerData);
-    } catch (error: unknown) {
-      console.error('Fetch error:', error);
-      if (error instanceof Error) {
-        setErrorMessage(error.message);
-      } else {
-        setErrorMessage('An unknown error occurred');
+    
+    const checkUserSession = async () => {
+      try {
+        const result = await getRedirectResult(auth);
+        if (result?.user) {
+          console.log('User logged in after redirect:', result.user);
+          handleUserLogin(result.user);
+          return;
+        }
+      } catch (error) {
+        console.error('Error obteniendo usuario después de redirección:', error);
       }
+
+      console.log('No user logged in after redirect, checking local storage...');
+      
+      const storedEmail = localStorage.getItem('userEmail');
+      console.log('Stored email:', storedEmail);
+      
+      try {
+        const playerData = await getPlayerByEmail(storedEmail);
+        console.log('Player data:', playerData);
+  
+        // Emit an event with an object containing the email and socket ID
+        socket.emit(SOCKET_EVENTS.SEND_SOCKETID, storedEmail);
+        setIsLoggedIn(true);
+        setIsLoading(false);
+        setPlayer(playerData);
+      } catch (error: unknown) {
+        console.error('Fetch error:', error);
+        if (error instanceof Error) {
+          setErrorMessage(error.message);
+        } else {
+          setErrorMessage('An unknown error occurred');
+        }
+        setIsLoading(false);
+      }
+      
+      const unsubscribe = onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          handleUserLogin(user);
+        } else {
+          setIsLoading(false);
+        }
+      });
+      
+      setIsLoading(false);
+
+      return () => unsubscribe();
+    };
+    
+    checkUserSession();
+  }, []);
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleUserLogin = async (user: any) => {
+    console.log('User logged in:', user);
+    
+    if (!user?.email) {
+      console.log('No email found in user:', user);
+      setErrorMessage('No se pudo obtener el correo electrónico del usuario.');
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      console.log('User email:', user.email);
+      
+      localStorage.setItem('userEmail', user.email);
+      const playerData = await getPlayerByEmail(user.email);
+      socket.emit(SOCKET_EVENTS.SEND_SOCKETID, user.email);
+      setIsLoggedIn(true);
+      setPlayer(playerData);
+    } catch (error) {
+      console.error('Error obteniendo datos del jugador:', error);
+      setErrorMessage('Error al recuperar datos del jugador.');
+    } finally {
       setIsLoading(false);
     }
   };
 
   const handleGoogleSignIn = async () => {
-    provider.setCustomParameters({ prompt: 'select_account' });
     setIsLoading(true);
     try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      if (user.email) {
-        const playerData = await getPlayerByEmail(user.email);
-        socket.emit(SOCKET_EVENTS.SEND_SOCKETID, user.email);
-        setIsLoggedIn(true);
-        setIsLoading(false);
-        setPlayer(playerData);
-      } else {
-        setErrorMessage('No se pudo obtener el correo electrónico del usuario.');
-      }
-    } catch (error: unknown) {
-      console.error('Error during Google sign-in:', error);
-      if (error instanceof Error) {
-        setErrorMessage(error.message);
-      } else {
-        setErrorMessage('An unknown error occurred during Google sign-in.');
-      }
-    } finally {
+      await signInWithRedirect(auth, provider);
+    } catch (error) {
+      console.error('Error en Google Sign-In:', error);
+      setErrorMessage('Error en el inicio de sesión con Google.');
       setIsLoading(false);
     }
   };
@@ -87,7 +120,7 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({
     >
       {isLoading && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/80 z-50">
-          <Spinner text={'Retrieving player from database, please wait...'} />
+          <Spinner text={'Cargando, por favor espera...'} />
         </div>
       )}
       <div
@@ -98,48 +131,23 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({
       </div>
       <div
         className="flex flex-col items-center justify-center w-full max-w-[630px] h-[40%] border-0 border-white"
-        style={{ backgroundImage: 'url(/images/login-frame.webp)', backgroundSize: '100% 100%' }}>
-        {/*no firebase*/}
-        <div className="w-[80%] h-[15%] mt-[10%]">
-          <input
-            type="search"
-            placeholder='Enter your email'
-            id="default-input"
-            className="text-2xl border border-yellow-600 text-yellow-600 rounded-xs  w-full p-2.5 bg-red-950 placeholder-yellow-600"
-            value={email}
-            style={{ fontFamily: 'Kaotika' }}
-            onChange={handleEmailChange}
-            hidden= {true}></input>
-            
-        </div>
-        <button
-          className="mt-[5%] flex flex-col items-center justify-center bg-gray-500 h-[15%]"
-          onClick={handleEnterBattle}
-          style={{ filter: email === '' ? 'grayscale(100%)' : 'none', transition: 'filter 0.3s ease', pointerEvents: email === '' ? 'none' : 'auto', width: '45%', height: 'auto' }}
-          disabled={email === ''}
-          hidden= {true}>
-          <img
-            src="/images/enter-button.webp"
-            alt="Enter the battle"
-            style={{ width: '100%' }} />
-          <span
-            className="text-white mt-2 text-3xl mb-2"
-            style={{ fontFamily: 'Kaotika', position: 'absolute' }}>ENTER</span>
-        </button> 
-        {/*firebase*/}
+        style={{ backgroundImage: 'url(/images/login-frame.webp)', backgroundSize: '100% 100%' }}
+      >
         <button
           className="mt-[5%] flex flex-col items-center justify-center bg-gray-500 h-[15%]"
           onClick={handleGoogleSignIn}
           style={{ width: '45%', height: 'auto' }}
-          hidden= {false}>
+        >
           <img
             src="/images/enter-button.webp"
-            alt="Enter the battle"
+            alt="Sign in with Google"
             style={{ width: '100%' }} />
           <span
             className="text-white mt-2 text-3xl mb-2"
-            style={{ fontFamily: 'Kaotika', position: 'absolute' }}>SING IN</span>
-        </button> 
+            style={{ fontFamily: 'Kaotika', position: 'absolute' }}>
+            SIGN IN
+          </span>
+        </button>
         {errorMessage && (
           <div
             className="mt-4 text-red-500"
@@ -150,7 +158,6 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({
       </div>
     </div>
   );
-}; 
-  
-export default LoginScreen; 
-  
+};
+
+export default LoginScreen;
