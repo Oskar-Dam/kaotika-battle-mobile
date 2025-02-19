@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { SOCKET_EMIT_EVENTS } from '../sockets/events';
-import socket from '../sockets/socket';
+import React, { useEffect, useState } from 'react';
 import useStore from '../store/useStore';
 
 interface GameEndingModalProps {
@@ -35,11 +33,6 @@ const GameEndingModal: React.FC<GameEndingModalProps> = ({ winner }) => {
     setResultTextColor(color);
   }, [winner, player]);
 
-  const handleReconnect = () => {
-    console.log('Reconnect button clicked');
-    socket.emit(SOCKET_EMIT_EVENTS.GAME_RESET);
-  };
-
   const imgUrl: string = (winnerSide === 'Kaotika') ? 'url(/images/kaotikaWinner.webp)' :
     (winnerSide === 'Dravokar') ? 'url(/images/dravokarWinner.webp)' :
       'url(/images/login-background.webp)';
@@ -67,21 +60,6 @@ const GameEndingModal: React.FC<GameEndingModalProps> = ({ winner }) => {
           <p className={`mb-4 text-4xl ${resultTextColor}`}>{getResultText()}</p>  {/* Show result based on player status and winner */}
         </div>
 
-        <div>{player.role === 'mortimer' && (
-
-          <button
-            className="text-medievalSepia p-20 place-self-item rounded text-3xl brightness-50"
-            onClick={handleReconnect}
-            style={{
-              backgroundImage: 'url(/images/end-button.webp)',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-            }}
-          />
-        )}
-
-
-        </div>
       </div>
     </div>
   );

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import GameStartButton from './GameStartButton';
-import BattleTypeDropdown from './BattleTypeDropdown';
 import { SOCKET_EMIT_EVENTS } from '../sockets/events';
 import socket from '../sockets/socket';
-import WelcomeTexts from './WelcomeTexts';
+import BattleTypeDropdown from './BattleTypeDropdown';
 import EncounterDropdown from './EncounterDropdown';
+import GameStartButton from './GameStartButton';
+import WelcomeTexts from './WelcomeTexts';
 
 const MortimerScreen: React.FC = () => {
   const [selection, setSelection] = useState<string>('CHOOSE BATTLE TYPE');
@@ -31,7 +31,7 @@ const MortimerScreen: React.FC = () => {
           )}
         </div>
       </div>
-      <div className='flex justify-center h-1/4 items-center'>
+      <div className='flex justify-center h-11/12 items-center'>
         <GameStartButton
           selection={selection}
           onClick={handleStartGame}/> 
