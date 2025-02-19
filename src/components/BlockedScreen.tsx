@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import useStore from '../store/useStore';
-import EndGameButton from './EndGameButton';
 
 interface BlockedScreenInterface {}
 
 
 const BlockedScreen: React.FC<BlockedScreenInterface> = () => {
   const [dots, setDots] = useState('');
-  const {player} = useStore();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -15,8 +12,6 @@ const BlockedScreen: React.FC<BlockedScreenInterface> = () => {
     }, 500);
     return () => clearInterval(interval);
   }, []);
-
-  const classNameEndGameButton = 'p-16 z-75';
 
   return (
     <div
@@ -44,12 +39,7 @@ const BlockedScreen: React.FC<BlockedScreenInterface> = () => {
           Waiting for your turn<span style={{ visibility: 'hidden' }}>...</span>
           <span style={{ position: 'absolute', marginLeft: '-0.85rem' }}>{dots}</span>
         </h1>
-      </div>
-      { player.role === 'mortimer' && (
-        <div className='absolute top-[75%] w-full flex items-start justify-center z-151'>
-          <EndGameButton classNameCss={classNameEndGameButton}/>
-        </div>
-      )}      
+      </div> 
     </div>
   );
 };

@@ -1,5 +1,4 @@
 import React from 'react';
-import EndGameButton from '../components/EndGameButton';
 import useStore from '../store/useStore';
 
 interface DeadScreenInterface {}
@@ -25,12 +24,7 @@ const DeadScreen: React.FC<DeadScreenInterface> = () => {
       <div className="w-full text-4xl text-white text-center">
         <h1>You've were killed.</h1>
         <h1>Wait untill the battle is over.</h1>
-      </div>
-      {(player.role === 'mortimer') && (
-        <div className="w-full text-4xl text-white text-center mt-4">
-          <EndGameButton classNameCss={classNameEndGameButton} />
-        </div>
-      )}      
+      </div> 
     </div>
   );
 
