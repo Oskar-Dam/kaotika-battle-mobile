@@ -3,7 +3,7 @@ import EndGameButton from './EndGameButton';
 
 
 // the Waiting component is a modal that displays a spinner and a message while waiting for the game to start(mortimer) or if you are mortimer, you can start the game
-interface SettingModalProps {}
+interface SettingModalProps { }
 
 const SettingModal: React.FC<SettingModalProps> = () => {
 
@@ -14,13 +14,13 @@ const SettingModal: React.FC<SettingModalProps> = () => {
     player,
   } = useStore();
 
-  const handleOnClick = () => {    
+  const handleOnClick = () => {
     setIsSettingModalOpen(false);
   };
-  
+
   return (
     <div
-      className="w-full fixed inset-0 z-55 flex-row grid-col-1 grid-row-3 items-end justify-center place-self-center h-screen bg-darkBlue/80 overflow-y-hidden "
+      className="w-full fixed inset-0 z-55 flex-row grid-col-1 grid-row-3 items-end justify-center place-self-center h-screen bg-darkBlue/90 overflow-y-hidden "
       data-testid="setting-modal"
     >
       <div className="w-full text-4xl text-white text-center mt-4 h-1/3">
@@ -31,14 +31,13 @@ const SettingModal: React.FC<SettingModalProps> = () => {
           className="place-self-center"
         />
       </div>
-    
-      
-      {(player.role === 'mortimer') && (
-        <div className="w-full text-4xl text-white text-center h-1/3">
-          <EndGameButton classNameCss={classNameEndGameButton} />
-        </div>
 
-      )}
+      <div className="w-full text-4xl text-white text-center h-1/3">
+        {(player.role === 'mortimer') && (
+          <EndGameButton classNameCss={classNameEndGameButton} />
+        )}
+      </div>
+      
       <div className='flex items-center justify-center text-medievalSepia place-self-center h-1/3'>
         <button
           className={' px-28 py-8 justify-center place-self-center text-5xl font-bold text-gray-100'}
@@ -51,10 +50,10 @@ const SettingModal: React.FC<SettingModalProps> = () => {
           data-testid="setting-modal"
         >
         </button>
-      </div>  
+      </div>
 
     </div>
-    
+
   );
 };
 
