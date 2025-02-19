@@ -129,9 +129,7 @@ const BattleScreen: React.FC = () => {
         <HitPointsBar/>
 
         {/* AVATAR */}
-        <Avatar
-          avatar={player?.avatar}
-          faction={player?.isBetrayer}/>
+        <Avatar/>
 
         {/* CAROUSEL CONTAINER */}
         <CarouselContainer/>

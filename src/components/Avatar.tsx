@@ -1,12 +1,16 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
+import useStore from '../store/useStore';
 
-interface AvatarProps {
-  avatar?: string;
-  faction?: boolean;
-}
 
-const Avatar: React.FC<AvatarProps> = ({ avatar, faction }) => {
+
+const Avatar: React.FC= () => {
+
+  const {player} = useStore();
+
+  const avatar = player.avatar;
+  const faction = player.isBetrayer;
+
   const [imgSrc, setImgSrc] = useState<string>('');
 
   useEffect(() => {
