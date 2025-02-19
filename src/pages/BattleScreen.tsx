@@ -33,7 +33,6 @@ const BattleScreen: React.FC = () => {
     setIsPotionModalOpen,
     selectedPlayer,
     setSelectedPlayer,
-    selectedPlayerIndex,
     setSelectedPlayerIndex,
     kaotikaPlayers,
     dravokarPlayers,
@@ -140,8 +139,6 @@ const BattleScreen: React.FC = () => {
           setSelectedPlayer={setSelectedPlayer}
           filteredFaction={filteredFaction}
           setFilteredFaction={setFilteredFaction}
-          selectedPlayerIndex={selectedPlayerIndex}
-          setSelectedPlayerIndex={setSelectedPlayerIndex}
           isMyTurn={isMyTurn}
         />
         

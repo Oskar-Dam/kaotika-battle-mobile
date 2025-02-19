@@ -10,8 +10,6 @@ interface CarouselContainerProps {
   filteredFaction: Factions | undefined;
   setFilteredFaction: (filteredFaction: Factions | undefined) => void;
   setSelectedPlayer: (player: Player) => void;
-  selectedPlayerIndex: number;
-  setSelectedPlayerIndex: (index: number) => void;
   isMyTurn: boolean;
 }
 
@@ -19,13 +17,11 @@ const CarouselContainer: React.FC<CarouselContainerProps> = ({
   filteredFaction,
   setFilteredFaction,
   setSelectedPlayer,
-  selectedPlayerIndex,
-  setSelectedPlayerIndex,
   isMyTurn
 }) => {
 
   const [displayedPlayers, setDisplayedPlayers] = useState<Player[]>([]);
-  const {kaotikaPlayers, dravokarPlayers, player} = useStore();
+  const {kaotikaPlayers, dravokarPlayers, player, selectedPlayerIndex, setSelectedPlayerIndex} = useStore();
   useEffect(() => {
 
     let newDisplayedPlayers;
