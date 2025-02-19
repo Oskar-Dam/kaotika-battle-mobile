@@ -20,32 +20,36 @@ const SettingModal: React.FC<SettingModalProps> = () => {
   
   return (
     <div
-      className="w-full rounded-3xl fixed inset-0 z-55 flex-row items-end justify-center place-self-center h-screen bg-darkBlue/50 overflow-y-hidden "
+      className="w-full fixed inset-0 z-55 flex-row grid-col-1 grid-row-3 items-end justify-center place-self-center h-screen bg-darkBlue/80 overflow-y-hidden "
       data-testid="setting-modal"
     >
-      <div className="w-full text-4xl text-white text-center mt-4">
-        <h2 className="text-6xl font-bold mb-4 text-medievalSepia">Settings</h2>
+      <div className="w-full text-4xl text-white text-center mt-4 h-1/3">
+        {/* <h2 className="text-6xl font-bold mb-4 text-darkSepia">Settings</h2> */}
+        <img
+          src={'/images/settings-button.webp'}
+          alt={'settings'}
+          className="place-self-center"
+        />
       </div>
     
       
       {(player.role === 'mortimer') && (
-        <div className="w-full text-4xl text-white text-center h-[49%]">
+        <div className="w-full text-4xl text-white text-center h-1/3">
           <EndGameButton classNameCss={classNameEndGameButton} />
         </div>
 
       )}
-      <div className='items-center justify-center text-medievalSepia place-self-center'>
+      <div className='flex items-center justify-center text-medievalSepia place-self-center h-1/3'>
         <button
-          className={'relative border-darkSepia border-2 px-12 py-8 text-5xl font-bold text-gray-100 z-10'}
+          className={' px-28 py-8 justify-center place-self-center text-5xl font-bold text-gray-100'}
           style={{
-            // backgroundImage: 'url(/images/settings-button.webp)',
+            backgroundImage: 'url(/images/setting-close-button.webp)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
           onClick={handleOnClick}
           data-testid="setting-modal"
         >
-        Close Modal
         </button>
       </div>  
 
