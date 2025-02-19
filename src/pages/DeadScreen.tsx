@@ -1,11 +1,8 @@
 import React from 'react';
-import useStore from '../store/useStore';
 
 interface DeadScreenInterface {}
 
 const DeadScreen: React.FC<DeadScreenInterface> = () => {
-  const classNameEndGameButton = 'p-12 z-75';
-  const {player} = useStore();
   return (
     <div
       className="flex-row bg-black p-4 items-center justify-center h-screen w-screen overflow-y-hidden absolute z-4"
