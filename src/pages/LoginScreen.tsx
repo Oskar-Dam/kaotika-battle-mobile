@@ -153,5 +153,5 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({
   );
 }; 
   
-export default LoginScreen; 
+export default LoginScreen;  
   
