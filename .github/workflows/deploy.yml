@@ -12,8 +12,8 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-      with:
-        fetch-depth: 1
+    - name: Restaurar archivo .env
+      run: cp ~/mobile-actions-runner/.env $GITHUB_WORKSPACE/.env
     - name: Configuration
       run: |
         echo "Configuring Enviroment..."
