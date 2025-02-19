@@ -9,19 +9,17 @@ import useStore from '../store/useStore';
 interface CarouselContainerProps {
   filteredFaction: Factions | undefined;
   setFilteredFaction: (filteredFaction: Factions | undefined) => void;
-  setSelectedPlayer: (player: Player) => void;
-  isMyTurn: boolean;
+
 }
 
 const CarouselContainer: React.FC<CarouselContainerProps> = ({
   filteredFaction,
   setFilteredFaction,
-  setSelectedPlayer,
-  isMyTurn
+
 }) => {
 
   const [displayedPlayers, setDisplayedPlayers] = useState<Player[]>([]);
-  const {kaotikaPlayers, dravokarPlayers, player, selectedPlayerIndex, setSelectedPlayerIndex} = useStore();
+  const {kaotikaPlayers, dravokarPlayers, player, selectedPlayerIndex, setSelectedPlayerIndex, isMyTurn, setSelectedPlayer} = useStore();
   useEffect(() => {
 
     let newDisplayedPlayers;

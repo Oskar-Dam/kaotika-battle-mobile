@@ -32,7 +32,6 @@ const BattleScreen: React.FC = () => {
     isPotionModalOpen,
     setIsPotionModalOpen,
     selectedPlayer,
-    setSelectedPlayer,
     setSelectedPlayerIndex,
     kaotikaPlayers,
     dravokarPlayers,
@@ -136,10 +135,8 @@ const BattleScreen: React.FC = () => {
 
         {/* CAROUSEL CONTAINER */}
         <CarouselContainer
-          setSelectedPlayer={setSelectedPlayer}
           filteredFaction={filteredFaction}
           setFilteredFaction={setFilteredFaction}
-          isMyTurn={isMyTurn}
         />
         
         {/* SELECTED PLAYER NICK */}
