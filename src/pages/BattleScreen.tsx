@@ -33,6 +33,7 @@ const BattleScreen: React.FC = () => {
     isPotionModalOpen,
     setIsPotionModalOpen,
     isSettingModalOpen,
+    setIsSettingModalOpen,
     selectedPlayer,
     setSelectedPlayer,
     selectedPlayerIndex,
@@ -61,7 +62,7 @@ const BattleScreen: React.FC = () => {
     listenToRemovePlayer(updateDravokarPlayerStatus, updateKaotikaPlayerStatus, updatePlayerStatus, player);
     listenToChangeTurn(setIsMyTurn, player, kaotikaPlayers, dravokarPlayers, setSelectedPlayerIndex, setFilteredFaction);
     listenToGameEnded(setGameEnded, setWinner); 
-    listenToGameReset(setGameEnded, setIsMyTurn, setIsLoggedIn, setEmail, setPlayer, setKaotikaPlayers, setDravokarPlayers);
+    listenToGameReset(setGameEnded, setIsMyTurn, setIsLoggedIn, setEmail, setPlayer, setKaotikaPlayers, setDravokarPlayers, setIsSettingModalOpen);
 
     console.log('KAOTIKA PLAYERS: ', kaotikaPlayers);
     console.log('DRAVOKAR PLAYERS: ', dravokarPlayers);
@@ -155,6 +156,7 @@ const BattleScreen: React.FC = () => {
         {/* ACTION BUTTONS */}
         <Actions
           openPotionModal={openModal}
+          showSettingsButton={(!gameEnded && !showWaitingScreen && player.isAlive)}
         />
 
       </div>

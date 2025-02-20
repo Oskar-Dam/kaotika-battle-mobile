@@ -1,8 +1,13 @@
 import React from 'react';
+import SettingButton from '../components/SettingsButton';
+import useStore from '../store/useStore';
 
 interface DeadScreenInterface {}
 
 const DeadScreen: React.FC<DeadScreenInterface> = () => {
+  const {
+    player,
+  } = useStore();
   return (
     <div
       className="flex-row bg-black p-4 items-center justify-center h-screen w-screen overflow-y-hidden absolute z-4"
@@ -22,6 +27,11 @@ const DeadScreen: React.FC<DeadScreenInterface> = () => {
         <h1>You've were killed.</h1>
         <h1>Wait untill the battle is over.</h1>
       </div> 
+      <div className="w-full flex items-center justify-center mt-4">
+        {(player.role === 'mortimer') && (
+          <SettingButton />
+        )}
+      </div>
     </div>
   );
 

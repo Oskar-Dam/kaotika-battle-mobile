@@ -7,22 +7,25 @@ import SettingButton from './SettingsButton';
 
 interface ActionsProps {
   openPotionModal: (potion: Potion) => void;
+  showSettingsButton: boolean;
 }
 
-const Actions: React.FC<ActionsProps> = ({openPotionModal}) => {
+const Actions: React.FC<ActionsProps> = ({openPotionModal, showSettingsButton}) => {
   const {
     isSettingModalOpen,
+    player,
   } = useStore();
 
   return (
     <div className="flex flex-col items-center justify-center w-full h-[49%] border-0 border-yellow-400">
+
       <AttackButton/>
-      { !isSettingModalOpen && (
-        <div className='w-full flex items-center place-self-center justify-center mt-[5%]'>
+      {(player.role === 'mortimer') && showSettingsButton && !isSettingModalOpen && (
+        <div className='w-full flex items-center place-self-center justify-center z-55'>
           <SettingButton />
         </div>
       )}
-      
+        
       {/* )}       */}
       <div className='w-full flex items-center justify-center m-[10%]'>
         <PotionContainer
