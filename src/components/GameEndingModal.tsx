@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import useStore from '../store/useStore';
+import SettingButton from './SettingsButton';
 
 interface GameEndingModalProps {
   winner: string;
@@ -58,6 +59,11 @@ const GameEndingModal: React.FC<GameEndingModalProps> = ({ winner }) => {
         <div className='border-2  bg-darkBlue/50 rounded-lg'>
           <h2 className="text-6xl font-bold mb-4 text-medievalSepia">Game Over</h2>
           <p className={`mb-4 text-4xl ${resultTextColor}`}>{getResultText()}</p>  {/* Show result based on player status and winner */}
+        </div>
+        <div className='' >
+          {(player.role === 'mortimer') && (
+            <SettingButton />
+          )}
         </div>
 
       </div>

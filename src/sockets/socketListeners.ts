@@ -1,9 +1,9 @@
+import { Factions } from '../interfaces/Factions';
 import { Modifier } from '../interfaces/Modifier';
 import { Player } from '../interfaces/Player';
+import { resetAllStates } from '../utils/resetGame';
 import { SOCKET_EVENTS } from './events';
 import socket from './socket';
-import { resetAllStates } from '../utils/resetGame';
-import { Factions } from '../interfaces/Factions';
 
 export const listenToServerEventsBattleScreen = (setKaotikaPlayers: (players: Player[]) => void, setDravokarPlayers: (players: Player[]) => void) => {
   socket.on(SOCKET_EVENTS.RECIVE_USERS, (players: {kaotika: Player[], dravokar: Player[]}) => {
@@ -102,10 +102,11 @@ export const listenToGameReset = (setGameEnded: (gameEnded: boolean) => void,
   setEmail: (email: string) => void, 
   setPlayer: (players: Player) => void,
   setKaotikaPlayers: (players: Player[]) => void, 
-  setDravokarPlayers: (players: Player[]) => void) => {
+  setDravokarPlayers: (players: Player[]) => void,
+  setIsSettingModalOpen: (isOpen: boolean) => void ) => {
   socket.on(SOCKET_EVENTS.GAME_RESET, () => {
     console.log(`'${SOCKET_EVENTS.GAME_RESET}' socket received.`);
-    resetAllStates(setGameEnded, setIsMyTurn, setIsLoggedIn, setEmail, setPlayer, setKaotikaPlayers, setDravokarPlayers);
+    resetAllStates(setGameEnded, setIsMyTurn, setIsLoggedIn, setEmail, setPlayer, setKaotikaPlayers, setDravokarPlayers, setIsSettingModalOpen);
   });
 };
 

@@ -6,7 +6,8 @@ export const resetAllStates = (setGameEnded: (gameEnded: boolean) => void,
   setEmail: (email: string) => void, 
   setPlayer:(players: Player) => void,
   setKaotikaPlayers: (players: Player[]) => void, 
-  setDravokarPlayers: (players: Player[]) => void): void => {
+  setDravokarPlayers: (players: Player[]) => void,
+  setIsSettingModalOpen: (isOpen: boolean) => void): void => {
     
   setIsLoggedIn(false);
   setGameEnded(false);
@@ -15,4 +16,5 @@ export const resetAllStates = (setGameEnded: (gameEnded: boolean) => void,
   setKaotikaPlayers([]);
   setDravokarPlayers([]);
   setPlayer(null!);
+  setIsSettingModalOpen(false);
 };
