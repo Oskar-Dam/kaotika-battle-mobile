@@ -31,7 +31,7 @@ const MortimerScreen: React.FC = () => {
           )}
         </div>
       </div>
-      <div className='flex justify-center h-11/12 items-center'>
+      <div className='flex justify-center h-1/4 items-center'>
         <GameStartButton
           selection={selection}
           onClick={handleStartGame}/> 
