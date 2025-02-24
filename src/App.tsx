@@ -15,7 +15,7 @@ const App: React.FC = () => {
     player,
     isDisconnected,
     permanentlyDisconnected,
-    gameSelected,
+    gameJoined,
     setIsLoggedIn,
     setEmail,
     setPlayer,
@@ -37,11 +37,11 @@ const App: React.FC = () => {
     <>
     
     
-      {isLoggedIn && player && gameSelected && <BattleScreen/>}
+      {isLoggedIn && player && gameJoined && <BattleScreen/>}
 
-      {isLoggedIn && player && !gameSelected && <AcolyteLobby/>}
+      {isLoggedIn && player && !gameJoined && <AcolyteLobby/>}
 
-      {!isLoggedIn && !player && !gameSelected &&
+      {!isLoggedIn && !player && !gameJoined &&
         <LoginScreen
           email={email}
           setEmail={setEmail}

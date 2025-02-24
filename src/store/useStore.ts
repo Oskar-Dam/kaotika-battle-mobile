@@ -19,6 +19,8 @@ interface StoreState {
   maxPercent: number;
   gameSelected: boolean;
   gameCreated: boolean;
+  gameJoined: boolean;
+  setGameJoined: (gameCreated: boolean) => void;
   setGameCreated: (gameCreated: boolean) => void;
   setGameSelected: (loggedIn: boolean) => void;
   setIsLoggedIn: (loggedIn: boolean) => void;
@@ -59,7 +61,9 @@ const useStore = create<StoreState>((set) => ({
   maxPercent: 100,
   gameSelected: false,
   gameCreated: false,
+  gameJoined: false,
 
+  setGameJoined: (gameJoined) => set({ gameJoined: gameJoined }),
   setGameCreated: (gameCreated) => set({ gameCreated: gameCreated }),
   setGameSelected: (gameSelected) => set({ gameSelected: gameSelected }),
   setIsLoggedIn: (loggedIn) => set({ isLoggedIn: loggedIn }),
