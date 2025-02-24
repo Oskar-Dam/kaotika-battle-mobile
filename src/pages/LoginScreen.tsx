@@ -23,7 +23,7 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({
 
   return (
     <div
-      className="flex bg-black p-4 items-center justify-center h-screen w-screen"
+      className="flex bg-black p-4 items-center justify-center h-screen w-screen bg-no-repeat"
       style={{ backgroundImage: 'url(/images/login-background.webp)', backgroundSize: '100% 100%' }}
       data-testid="login-screen"
     >
@@ -33,7 +33,7 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({
         </div>
       )}
       <div
-        className="absolute top-[8%] w-full text-center"
+        className="absolute top-[10%] w-full text-center animate-pulse"
         style={{ fontFamily: 'Kaotika' }}>
         <h1 className="text-7xl text-white">KA<span className='text-kaotikaGold'>O</span>TIKA</h1>
       </div>
