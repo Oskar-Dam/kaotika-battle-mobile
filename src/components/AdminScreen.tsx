@@ -6,7 +6,7 @@ import EncounterDropdown from './EncounterDropdown';
 import GameStartButton from './GameStartButton';
 import WelcomeTexts from './WelcomeTexts';
 
-const MortimerScreen: React.FC = () => {
+const AdminScreen: React.FC = () => {
   const [selection, setSelection] = useState<string>('CHOOSE BATTLE TYPE');
 
   const handleStartGame = (): void => {
@@ -40,4 +40,4 @@ const MortimerScreen: React.FC = () => {
   );
 };
 
-export default MortimerScreen;
+export default AdminScreen;
