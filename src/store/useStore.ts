@@ -17,6 +17,10 @@ interface StoreState {
   selectedPlayer: Player | undefined;
   selectedPlayerIndex: number;
   maxPercent: number;
+  gameSelected: boolean;
+  gameCreated: boolean;
+  setGameCreated: (gameCreated: boolean) => void;
+  setGameSelected: (loggedIn: boolean) => void;
   setIsLoggedIn: (loggedIn: boolean) => void;
   setEmail: (email: string) => void;
   setPlayer: (player: Player) => void;
@@ -53,7 +57,11 @@ const useStore = create<StoreState>((set) => ({
   selectedPlayer: undefined,
   selectedPlayerIndex: 1,
   maxPercent: 100,
+  gameSelected: false,
+  gameCreated: false,
 
+  setGameCreated: (gameCreated) => set({ gameCreated: gameCreated }),
+  setGameSelected: (gameSelected) => set({ gameSelected: gameSelected }),
   setIsLoggedIn: (loggedIn) => set({ isLoggedIn: loggedIn }),
   setEmail: (email) => set({ email }),
   setIsMyTurn: (turn) => set(() => ({ isMyTurn: turn })),
