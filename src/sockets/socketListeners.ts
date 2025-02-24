@@ -54,6 +54,13 @@ export const listenToGameStart = (setShowWaitingScreen: React.Dispatch<React.Set
   });
 };
 
+export const listenToGameCreated = (setGameCreated: (turn: boolean) => void) => {
+  socket.on(SOCKET_EVENTS.GAME_CREATED, () => {
+    console.log(`'${SOCKET_EVENTS.GAME_CREATED}' socket received.`);
+    setGameCreated(true);
+  });
+};
+
 export const listenToUpdatePlayer = (updateDravokarPlayerHitPoints: (id: string, hitpoints: number)=> void, updateKaotikaPlayerHitPoints: (id: string, hitpoints: number)=> void, updatePlayerHitPoints: (hitpoints: number)=> void, player: Player) => {
   socket.on(SOCKET_EVENTS.UPDATE_PLAYER, (updatedPlayer: {_id: string, attributes: Modifier, totalDamage: number, isBetrayer: boolean}) => {
     console.log(`'${SOCKET_EVENTS.UPDATE_PLAYER}' socket received.`);

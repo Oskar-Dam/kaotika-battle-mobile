@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import LoggedDisconnectionModal from './components/LoggedDisconnectionModal';
 import UnloggedDisconnectionModal from './components/UnloggedDisconnectionModal';
+import AcolyteLobby from './pages/AcolyteLobbyScreen';
 import BattleScreen from './pages/BattleScreen';
 import LoginScreen from './pages/LoginScreen';
 import PWABadge from './PWABadge';
@@ -14,6 +15,7 @@ const App: React.FC = () => {
     player,
     isDisconnected,
     permanentlyDisconnected,
+    gameJoined,
     setIsLoggedIn,
     setEmail,
     setPlayer,
@@ -33,16 +35,20 @@ const App: React.FC = () => {
 
   return (
     <>
-      {isLoggedIn && player ? (
-        <BattleScreen/>
-      ) : (
+    
+    
+      {isLoggedIn && player && gameJoined && <BattleScreen/>}
+
+      {isLoggedIn && player && !gameJoined && <AcolyteLobby/>}
+
+      {!isLoggedIn && !player && !gameJoined &&
         <LoginScreen
           email={email}
           setEmail={setEmail}
           setIsLoggedIn={setIsLoggedIn}
           setPlayer={setPlayer}
         />
-      )}
+      }
 
       {permanentlyDisconnected && isLoggedIn && (
         <LoggedDisconnectionModal />
