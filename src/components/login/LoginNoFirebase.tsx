@@ -74,13 +74,14 @@ const LoginNoFirebase: React.FC<LoginNoFirebaseProps> = ({
         disabled={email === ''}
       >
         <img
-          src="/images/enter-button.webp"
+          src="/images/signin-button.webp"
           alt="Enter the battle"
-          style={{ width: '100%' }} />
+          style={{ width: '100%' }} 
+          className='brightness-80'/>
         <span
           className="text-white mt-2 text-3xl mb-2"
           style={{ fontFamily: 'Kaotika', position: 'absolute' }}>
-            Enter
+          
         </span>
       </button> 
     </div>
