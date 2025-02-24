@@ -1,22 +1,19 @@
-import React, { useState } from 'react';
-import { SOCKET_EMIT_EVENTS } from '../sockets/events';
-import socket from '../sockets/socket';
-import BattleTypeDropdown from './BattleTypeDropdown';
-import EncounterDropdown from './EncounterDropdown';
-import GameStartButton from './GameStartButton';
-import WelcomeTexts from './WelcomeTexts';
+import React from 'react';
+import BattleCard from './BattleCard';
 
 const AdminScreen: React.FC = () => {
-  const [selection, setSelection] = useState<string>('CHOOSE BATTLE TYPE');
-
-  const handleStartGame = (): void => {
-    console.log('Game start button pressed');
-    socket.emit(SOCKET_EMIT_EVENTS.GAME_START);
-  };
 
   return (
-    <div className='flex flex-col h-screen'>
-      <div className='flex flex-col justify-center h-1/4 '>
+    <div className='flex flex-col h-screen w-screen bg-blue-500'>
+      <div className='flex flex-col justify-center items-center h-full w-[100%] bg-orange-500'>
+        <BattleCard />
+        <BattleCard />
+        <BattleCard />
+        <BattleCard />
+        <BattleCard />
+      </div>
+
+      {/* <div className='flex flex-col justify-center h-1/4 '>
         <WelcomeTexts />
       </div>
       <div className='flex flex-col justify-center h-1/2 '>
@@ -35,7 +32,7 @@ const AdminScreen: React.FC = () => {
         <GameStartButton
           selection={selection}
           onClick={handleStartGame}/> 
-      </div>
+      </div> */}
     </div>
   );
 };

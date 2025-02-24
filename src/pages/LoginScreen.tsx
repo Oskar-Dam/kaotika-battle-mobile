@@ -110,7 +110,7 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({
             value={email}
             style={{ fontFamily: 'Kaotika' }}
             onChange={handleEmailChange}
-            hidden= {true}></input>
+            hidden= {false}></input>
             
         </div>
         <button
@@ -118,7 +118,7 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({
           onClick={handleEnterBattle}
           style={{ filter: email === '' ? 'grayscale(100%)' : 'none', transition: 'filter 0.3s ease', pointerEvents: email === '' ? 'none' : 'auto', width: '45%', height: 'auto' }}
           disabled={email === ''}
-          hidden= {true}>
+          hidden= {false}>
           <img
             src="/images/enter-button.webp"
             alt="Enter the battle"
@@ -132,7 +132,7 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({
           className="mt-[5%] flex flex-col items-center justify-center bg-gray-500 h-[15%]"
           onClick={handleGoogleSignIn}
           style={{ width: '45%', height: 'auto' }}
-          hidden= {false}>
+          hidden= {true}>
           <img
             src="/images/enter-button.webp"
             alt="Enter the battle"
