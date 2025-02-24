@@ -6,7 +6,7 @@ const AdminScreen: React.FC = () => {
 
   return (
     <div className='flex h-screen w-screen'>
-      <div className='flex flex-col justify-center items-center h-full w-full '>
+      <div className='flex flex-col justify-start items-center h-full w-full '>
         <WelcomeTexts/>
         <BattleList />
       </div>
