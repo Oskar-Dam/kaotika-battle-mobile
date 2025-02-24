@@ -1,21 +1,21 @@
 import React from 'react';
-import BattleCardSeparator from './BattleCardSeparator';
 
-const BattleCard: React.FC = () => {
+interface BattleCardProps {
+  suggested_level: number;
+  name: string;
+}
+
+const BattleCard: React.FC<BattleCardProps> = ({ suggested_level, name }) => {
   return (
-    <>
-      <div className='flex flex-row h-[13%] w-[90%] bg-green-200'>
-        <div className='w-[25%] flex items-center justify-center bg-white'>
-          <h1 className='text-4xl'>Lv. 5</h1>
-        </div>
-        <div className='w-[1%] flex items-center justify-center bg-amber-950'>
-        </div>
-        <div className='w-[75%] flex items-center justify-center bg-blue-600'>
-          <h1 className='text-3xl'>The Fight on the Tower</h1>
-        </div>
+    <div className='flex flex-row w-[90%] h-[10vh] justify-center items-center my-1 border-2 border-white'>
+      <div className='flex w-[25%] h-full items-center justify-center'>
+        <h1 className='text-4xl text-white'>Lv. {suggested_level}</h1>
       </div>
-      <BattleCardSeparator/>
-    </>
+      <div className='flex w-[1%] items-center justify-center'></div>
+      <div className='flex w-[75%] h-full items-center justify-center'>
+        <h1 className='text-3xl text-white'>{name}</h1>
+      </div>
+    </div>
   );
 };
 

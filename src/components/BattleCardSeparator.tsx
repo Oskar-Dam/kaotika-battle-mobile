@@ -2,7 +2,7 @@ import React from 'react';
 
 const BattleCardSeparator: React.FC = () => {
   return (
-    <div className='h-[1%] w-full bg-yellow-500'>
+    <div className='flex flex-col w-[100%]'>
       {/* Separator content */}
     </div>
   );
