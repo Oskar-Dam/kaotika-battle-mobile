@@ -21,15 +21,17 @@ const BattleCard: React.FC<BattleCardProps> = ({ battle }) => {
   return (
     <>
       <button 
-        className='flex flex-row w-[100%] h-[13vh] justify-center items-center border-2 rounded border-white'
+        className='relative flex flex-row w-[100%] h-[13vh] justify-center items-center border-2 rounded border-white overflow-hidden'
         onClick={handleSelectedBattle}>
-        <div className='flex w-[30%] h-full items-center justify-center mr-1'>
-          <h1 className='text-4xl text-white'>Lv. {battle.suggested_level}</h1>
-        </div>
-        
-        <div className='flex w-[1%] h-[100%] items-center justify-center border-2 border-white border-solid'></div>
-        <div className='flex w-[75%] h-full items-center justify-center'>
-          <h1 className='text-3xl text-white'>{battle.name}</h1>
+        <img 
+          src='/images/background/TheFinalBattleBG.webp'
+          alt={battle.name} 
+          className='absolute w-full h-full object-cover' 
+        />
+        <div className='relative flex w-[100%] h-full items-center justify-center'>
+          <h1
+            className='text-3xl text-white bg-black/50 rounded-lg p-2'
+            style={{ textShadow: '2px 2px 2px black' }}>{battle.name}</h1>
         </div>
       </button>
       {isModalOpen && (
