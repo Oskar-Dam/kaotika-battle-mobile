@@ -18,8 +18,7 @@ const BattleList: React.FC = () => {
               <BattleCardSeparator/>
               <BattleCard
                 suggested_level={battle.suggested_level}
-                name={battle.name} 
-                index={index}/>
+                name={battle.name}/>
             </div>
           ))}
         </div>
