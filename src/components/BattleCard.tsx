@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import BattleModal from './BattleModal';
+import socket from '../sockets/socket';
+import { SOCKET_EMIT_EVENTS } from '../sockets/events';
 
 
 interface BattleCardProps {
@@ -10,11 +12,17 @@ interface BattleCardProps {
 const BattleCard: React.FC<BattleCardProps> = ({ suggested_level, name }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const handleSelectedBattle = () => {
+    setIsModalOpen(true);
+    socket.emit(SOCKET_EMIT_EVENTS.GAME_SELECTED, {name});
+    console.log('Emit battle selected');
+  };
+
   return (
     <>
       <button 
         className='flex flex-row w-[100%] h-[13vh] justify-center items-center border-2 rounded border-white'
-        onClick={() => setIsModalOpen(true)}>
+        onClick={handleSelectedBattle}>
         <div className='flex w-[30%] h-full items-center justify-center mr-1'>
           <h1 className='text-4xl text-white'>Lv. {suggested_level}</h1>
         </div>
