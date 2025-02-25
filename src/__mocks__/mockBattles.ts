@@ -1,4 +1,6 @@
-const mockBattles = [
+import { Battle } from '../interfaces/Battle';
+
+const mockBattles: Battle[] = [
   {
     'name': 'Forgotten Tavern',
     'description': 'In search of Angelo, a dark secret lurks in the shadows of the tavern.',
