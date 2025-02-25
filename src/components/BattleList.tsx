@@ -9,7 +9,7 @@ const BattleList: React.FC = () => {
         <div className='w-full text-center mb-2'>
           <h2 className='text-4xl  text-white'>BATTLES</h2>
         </div>
-        <div className='flex flex-col h-full w-full items-center overflow-y-auto scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100'>
+        <div className='flex flex-col h-full w-full items-center pr-5 overflow-y-scroll scrollbar scrollbar-thumb-white scrollbar-track-white'>
           {mockBattles.map((battle, index) => (
             <div
               key={index}
