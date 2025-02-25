@@ -1,12 +1,12 @@
 // src/screens/LoginScreen.tsx
-import React, { ChangeEvent, useState } from 'react';
-import Spinner from '../components/Spinner';
-import socket from '../sockets/socket';
-import { SOCKET_EVENTS } from '../sockets/events';
-import { getPlayerByEmail } from '../api/player';
-import { Player } from '../interfaces/Player';
 import { signInWithPopup } from 'firebase/auth';
+import React, { ChangeEvent, useState } from 'react';
 import { auth, provider } from '../api/firebase/firebaseConfig';
+import { getPlayerByEmail } from '../api/player';
+import Spinner from '../components/Spinner';
+import { Player } from '../interfaces/Player';
+import { SOCKET_EVENTS } from '../sockets/events';
+import socket from '../sockets/socket';
 
 interface LoginScreenInterface {
   email: string;
