@@ -16,8 +16,8 @@ const JoinButton: React.FC = () => {
         joinBattle(); 
       }}
       className="w-full h-full bg-black text-white text-5xl rounded border-2 border-white"
-      disabled={gameCreated}
-      aria-disabled={gameCreated}
+      disabled={!gameCreated}
+      aria-disabled={!gameCreated}
     >
       JOIN
     </button>
