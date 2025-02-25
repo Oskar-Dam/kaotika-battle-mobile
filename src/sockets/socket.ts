@@ -11,13 +11,8 @@ if (!SOCKET_URL) {
 
 // Socket configuration
 const socket: Socket = io(SOCKET_URL, {
-  autoConnect: true, // Automatic connection
+  autoConnect: false, // Automatic connection
   transports: ['websocket'], // Ensures the use of WebSockets
-});
-
-// Logs for main events
-socket.on(SOCKET_EVENTS.CONNECT, () => {
-  console.log('[Socket.io] Connected:', socket.id);
 });
 
 socket.on(SOCKET_EVENTS.DISCONNECT, (reason) => {

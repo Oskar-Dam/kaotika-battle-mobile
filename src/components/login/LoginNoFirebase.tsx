@@ -1,7 +1,6 @@
 import React, { ChangeEvent } from 'react';
-import { getPlayerByEmail } from '../../api/player';
 import { Player } from '../../interfaces/Player';
-import { SOCKET_EVENTS } from '../../sockets/events';
+import { SOCKET_EMIT_EVENTS, SOCKET_EVENTS } from '../../sockets/events';
 import socket from '../../sockets/socket';
 
 interface LoginNoFirebaseProps {
@@ -18,7 +17,6 @@ interface LoginNoFirebaseProps {
 const LoginNoFirebase: React.FC<LoginNoFirebaseProps> = ({
   email,
   setIsLoggedIn,
-  setPlayer,
   setErrorMessage,
   setEmail,
   setIsLoading
@@ -34,14 +32,22 @@ const LoginNoFirebase: React.FC<LoginNoFirebaseProps> = ({
     setIsLoading(true);
     console.log('Email:', email);
     try {
-      const playerData = await getPlayerByEmail(email);
-      console.log('Player data:', playerData);
-  
-      // Emit an event with an object containing the email and socket ID
-      socket.emit(SOCKET_EVENTS.SEND_SOCKETID, email);
+      
+      // Connect with socket
+      socket.connect();
+      socket.on(SOCKET_EVENTS.CONNECT, () => {
+        console.log('[Socket.io] Connected:', socket.id);
+        socket.emit(SOCKET_EMIT_EVENTS.SIGN_IN, email, (response: { status: string; player: Player; message: string; }) => {
+          if (response.status === 'ok') {
+            console.log('player found:', response.player.email);
+          } else {
+            console.error('Error:', response.message);
+          }
+        });
+      });
+
       setIsLoggedIn(true);
       setIsLoading(false);
-      setPlayer(playerData);
     } catch (error: unknown) {
       console.error('Fetch error:', error);
       if (error instanceof Error) {

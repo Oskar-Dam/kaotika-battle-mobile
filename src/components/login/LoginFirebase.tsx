@@ -1,10 +1,10 @@
 import { signInWithPopup } from 'firebase/auth';
 import React from 'react';
 import { auth, provider } from '../../api/firebase/firebaseConfig';
-import { getPlayerByEmail } from '../../api/player';
 import { Player } from '../../interfaces/Player';
-import { SOCKET_EVENTS } from '../../sockets/events';
+import { SOCKET_EMIT_EVENTS, SOCKET_EVENTS } from '../../sockets/events';
 import socket from '../../sockets/socket';
+import useStore from '../../store/useStore';
 
 interface LoginFirebaseProps {
     email: string;
@@ -20,10 +20,13 @@ interface LoginFirebaseProps {
 const LoginFirebase: React.FC<LoginFirebaseProps> = ({
   errorMessage,
   setIsLoggedIn,
-  setPlayer,
   setErrorMessage,
   setIsLoading
 }) => {
+
+  const {
+    setEmail,
+  } = useStore();
 
   const handleGoogleSignIn = async () => {
     provider.setCustomParameters({ prompt: 'select_account' });
@@ -33,11 +36,17 @@ const LoginFirebase: React.FC<LoginFirebaseProps> = ({
       const user = result.user;
       if (user.email) {
         console.log('User email:', user.email);
-        const playerData = await getPlayerByEmail(user.email);
-        socket.emit(SOCKET_EVENTS.SEND_SOCKETID, user.email);
+
+        // Connect with socket
+        socket.connect();
+        socket.on(SOCKET_EVENTS.CONNECT, () => {
+          console.log('[Socket.io] Connected:', socket.id);
+          socket.emit(SOCKET_EMIT_EVENTS.SIGN_IN, user.email );
+        });
+        
+        setEmail(user.email);
         setIsLoggedIn(true);
         setIsLoading(false);
-        setPlayer(playerData);
       } else {
         setErrorMessage('No se pudo obtener el correo electrónico del usuario.');
       }

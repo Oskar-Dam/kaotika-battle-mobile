@@ -47,6 +47,13 @@ export const listenToInsufficientPlayers = (setInsufficientPlayers: (turn: boole
   });
 };  
 
+export const listenToPlayerData = (setPlayer: (player: Player) => void) => {
+  socket.on(SOCKET_EVENTS.PLAYER_DATA, (playerData: Player) => {
+    console.log(`'${SOCKET_EVENTS.PLAYER_DATA}' socket received.`);
+    setPlayer(playerData);
+  });
+};
+
 export const listenToGameStart = (setShowWaitingScreen: React.Dispatch<React.SetStateAction<boolean>>) => {
   socket.on(SOCKET_EVENTS.GAME_STARTED, () => {
     console.log(`'${SOCKET_EVENTS.GAME_STARTED}' socket received.`);
@@ -150,3 +157,7 @@ export const clearWaitingScreenEvents = ():void => {
   console.log(`'${SOCKET_EVENTS.INSUFFICIENT_PLAYERS}' socket cleared.`);
 };
 
+export const clearListenToServerEventsLoginScreen = ():void => {
+  socket.off(SOCKET_EVENTS.PLAYER_DATA);
+  console.log(`'${SOCKET_EVENTS.PLAYER_DATA}' socket cleared.`);
+};
