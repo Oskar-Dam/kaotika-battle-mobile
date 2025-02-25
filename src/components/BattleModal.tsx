@@ -18,10 +18,10 @@ const BattleModal: React.FC<BattleModalProps> = ({ name, onClose }) => {
         </div>
         <div className='flex-shrink-0 h-[30%]'>
           <ModalImage
-            src='/path/to/image.jpg'
+            src='/images/background/TheFinalBattleBG.webp'
             alt='Battle' />
         </div>
-        <div className='flex-grow overflow-auto w-full bg-purple-500 h-[40%]'>
+        <div className='flex-grow overflow-auto w-full bg-purple-500'>
           <ModalDropdown
             title='Description'
             content='Description content...' />
