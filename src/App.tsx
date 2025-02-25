@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import AdminScreen from './components/AdminScreen';
 import LoggedDisconnectionModal from './components/LoggedDisconnectionModal';
 import UnloggedDisconnectionModal from './components/UnloggedDisconnectionModal';
 import AcolyteLobby from './pages/AcolyteLobbyScreen';
@@ -7,7 +8,6 @@ import LoginScreen from './pages/LoginScreen';
 import PWABadge from './PWABadge';
 import { listenToDisconnections, listenToJoinedToBattle } from './sockets/socketListeners';
 import useStore from './store/useStore';
-import AdminScreen from './components/AdminScreen';
 
 const App: React.FC = () => {
   const {
@@ -37,7 +37,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     listenToJoinedToBattle(setGameJoined, player);
-  }, [listenToJoinedToBattle]);
+  }, []);
 
   return (
     <>
