@@ -2,6 +2,7 @@ import { Battle } from '../interfaces/Battle';
 
 const mockBattles: Battle[] = [
   {
+    'id': '1',
     'name': 'Forgotten Tavern',
     'description': 'In search of Angelo, a dark secret lurks in the shadows of the tavern.',
     'enemies': ['boss_id', 'boos_id'],
@@ -14,6 +15,7 @@ const mockBattles: Battle[] = [
     'end_of_battle_background': ['victory.webp', 'defeat.webp']
   },
   {
+    'id': '2',
     'name': 'The Profane Ritual',
     'description': 'A coven of warlocks has summoned horrors from beyond the veil. Stop them before it’s too late.',
     'enemies': ['warlock_id', 'demon_id'],
@@ -26,6 +28,7 @@ const mockBattles: Battle[] = [
     'end_of_battle_background': ['victory.webp', 'defeat.webp']
   },
   {
+    'id': '3',
     'name': 'Forgotten Tavern',
     'description': 'In search of Angelo, a dark secret lurks in the shadows of the tavern.',
     'enemies': ['boss_id', 'boos_id'],
@@ -38,6 +41,7 @@ const mockBattles: Battle[] = [
     'end_of_battle_background': ['victory.webp', 'defeat.webp']
   },
   {
+    'id': '4',
     'name': 'The Profane Ritual',
     'description': 'A coven of warlocks has summoned horrors from beyond the veil. Stop them before it’s too late.',
     'enemies': ['warlock_id', 'demon_id'],
@@ -50,6 +54,7 @@ const mockBattles: Battle[] = [
     'end_of_battle_background': ['victory.webp', 'defeat.webp']
   },
   {
+    'id': '5',
     'name': 'Forgotten Tavern',
     'description': 'In search of Angelo, a dark secret lurks in the shadows of the tavern.',
     'enemies': ['boss_id', 'boos_id'],
@@ -62,6 +67,7 @@ const mockBattles: Battle[] = [
     'end_of_battle_background': ['victory.webp', 'defeat.webp']
   },
   {
+    'id': '6',
     'name': 'The Profane Ritual',
     'description': 'A coven of warlocks has summoned horrors from beyond the veil. Stop them before it’s too late.',
     'enemies': ['warlock_id', 'demon_id'],
@@ -74,6 +80,7 @@ const mockBattles: Battle[] = [
     'end_of_battle_background': ['victory.webp', 'defeat.webp']
   },
   {
+    'id': '7',
     'name': 'Forgotten Tavern',
     'description': 'In search of Angelo, a dark secret lurks in the shadows of the tavern.',
     'enemies': ['boss_id', 'boos_id'],
@@ -86,6 +93,7 @@ const mockBattles: Battle[] = [
     'end_of_battle_background': ['victory.webp', 'defeat.webp']
   },
   {
+    'id': '8',
     'name': 'The Profane Ritual',
     'description': 'A coven of warlocks has summoned horrors from beyond the veil. Stop them before it’s too late.',
     'enemies': ['warlock_id', 'demon_id'],
@@ -98,6 +106,7 @@ const mockBattles: Battle[] = [
     'end_of_battle_background': ['victory.webp', 'defeat.webp']
   },
   {
+    'id': '9',
     'name': 'Forgotten Tavern',
     'description': 'In search of Angelo, a dark secret lurks in the shadows of the tavern.',
     'enemies': ['boss_id', 'boos_id'],
@@ -110,6 +119,7 @@ const mockBattles: Battle[] = [
     'end_of_battle_background': ['victory.webp', 'defeat.webp']
   },
   {
+    'id': '10',
     'name': 'The Profane Ritual',
     'description': 'A coven of warlocks has summoned horrors from beyond the veil. Stop them before it’s too late.',
     'enemies': ['warlock_id', 'demon_id'],
@@ -122,6 +132,7 @@ const mockBattles: Battle[] = [
     'end_of_battle_background': ['victory.webp', 'defeat.webp']
   },
   {
+    'id': '11',
     'name': 'Forgotten Tavern',
     'description': 'In search of Angelo, a dark secret lurks in the shadows of the tavern.',
     'enemies': ['boss_id', 'boos_id'],
@@ -134,6 +145,7 @@ const mockBattles: Battle[] = [
     'end_of_battle_background': ['victory.webp', 'defeat.webp']
   },
   {
+    'id': '12',
     'name': 'The Profane Ritual',
     'description': 'A coven of warlocks has summoned horrors from beyond the veil. Stop them before it’s too late.',
     'enemies': ['warlock_id', 'demon_id'],
