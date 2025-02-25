@@ -6,7 +6,7 @@ const WelcomeTexts: React.FC = () => {
   const {player} = useStore();
 
   return (
-    <div className='flex flex-col mt-10'>
+    <div className='flex flex-col justify-center items-center w-full'>
       <div className='flex justify-center mb-5'>
         <h1 className='text-center text-5xl text-white capitalize'>Welcome, {player.role}</h1>
       </div>
