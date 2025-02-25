@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { Player } from '../interfaces/Player';
 import { Potion } from '../interfaces/Potion';
+import { Battle } from '../interfaces/Battle';
 
 interface StoreState {
   isLoggedIn: boolean;
@@ -20,6 +21,8 @@ interface StoreState {
   gameSelected: boolean;
   gameCreated: boolean;
   gameJoined: boolean;
+  selectedBattle: Battle;
+  setSelectedBattle: (battle: Battle) => void;
   setGameJoined: (gameJoined: boolean) => void;
   setGameCreated: (gameCreated: boolean) => void;
   setGameSelected: (loggedIn: boolean) => void;
@@ -62,7 +65,9 @@ const useStore = create<StoreState>((set) => ({
   gameSelected: false,
   gameCreated: false,
   gameJoined: false,
+  selectedBattle: null!,
 
+  setSelectedBattle: (battle) => set({ selectedBattle: battle }),
   setGameJoined: (gameJoined) => set({ gameJoined: gameJoined }),
   setGameCreated: (gameCreated) => set({ gameCreated: gameCreated }),
   setGameSelected: (gameSelected) => set({ gameSelected: gameSelected }),

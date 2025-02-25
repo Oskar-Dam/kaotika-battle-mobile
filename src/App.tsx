@@ -7,6 +7,7 @@ import LoginScreen from './pages/LoginScreen';
 import PWABadge from './PWABadge';
 import { listenToDisconnections, listenToJoinedToBattle } from './sockets/socketListeners';
 import useStore from './store/useStore';
+import AdminScreen from './components/AdminScreen';
 
 const App: React.FC = () => {
   const {
@@ -44,7 +45,9 @@ const App: React.FC = () => {
     
       {isLoggedIn && player && gameJoined && <BattleScreen/>}
 
-      {isLoggedIn && player && !gameJoined && <AcolyteLobby/>}
+      {isLoggedIn && player && !gameJoined && player.role === 'acolyte' && <AcolyteLobby/>}
+
+      {isLoggedIn && player && !gameJoined && (player.role === 'mortimer' || player.role === 'villain') && <AdminScreen/>}
 
       {!isLoggedIn && !player && !gameJoined &&
         <LoginScreen
