@@ -65,9 +65,18 @@ export const listenToGameStart = (setShowWaitingScreen: React.Dispatch<React.Set
 };
 
 export const listenToGameCreated = (setGameCreated: (turn: boolean) => void) => {
-  socket.on(SOCKET_EVENTS.GAME_CREATED, () => {
+  socket.on(SOCKET_EVENTS.GAME_CREATED, (gameCreated: boolean) => {
     console.log(`'${SOCKET_EVENTS.GAME_CREATED}' socket received.`);
-    setGameCreated(true);
+    setGameCreated(gameCreated);
+  });
+};
+
+export const listenToJoinedToBattle = (setGameJoined: (turn: boolean) => void, player: Player) => {
+  socket.on(SOCKET_EVENTS.JOINED_BATTLE, (_id: string) => {
+    console.log(`'${SOCKET_EVENTS.JOINED_BATTLE}' socket received.`);
+    if (player._id === _id){
+      setGameJoined(true);
+    }
   });
 };
 

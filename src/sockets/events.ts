@@ -13,8 +13,9 @@ export const SOCKET_EVENTS = {
   REMOVE_PLAYER: 'removePlayer',
   KILLED_PLAYER: 'send-killedPlayer',
   GAME_RESET: 'gameReset',
-  GAME_CREATED: 'gameCreated',
   PLAYER_DATA: 'playerData',
+  GAME_CREATED: 'mobile-isgameCreated',
+  JOINED_BATTLE: 'mobile-joinBattle',
 };
 
 export const SOCKET_EMIT_EVENTS = {
@@ -25,5 +26,6 @@ export const SOCKET_EMIT_EVENTS = {
   GAME_SELECTED: 'mobile-gameSelected',
   CREATE_GAME: 'mobile-createGame',
   SIGN_IN: 'mobile-signIn',
-  JOIN_BATTLE:  'joinedToBattle'
+  JOIN_BATTLE: 'mobile-joinBattle',
+  GAME_CREATED: 'mobile-isgameCreated',
 };

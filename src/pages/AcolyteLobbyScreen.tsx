@@ -1,16 +1,22 @@
 import React, { useEffect } from 'react';
 import JoinButton from '../components/JoinButton';
+import { SOCKET_EMIT_EVENTS } from '../sockets/events';
+import socket from '../sockets/socket';
 import { listenToGameCreated } from '../sockets/socketListeners';
 import useStore from './../store/useStore';
 
 const AcolyteLobby: React.FC = () => {
-  const { player, setGameCreated } = useStore();
+  const { setGameCreated } = useStore();
 
-  console.log('acolyte lobby player:', player.nickname);
+  useEffect(() => {
+    socket.emit(SOCKET_EMIT_EVENTS.GAME_CREATED);
+    console.log('sended game is created socket');
+  }, []);
 
   useEffect(() => {
     listenToGameCreated(setGameCreated);
-  }, []);
+  }
+  , []);
 
   return (
     <div

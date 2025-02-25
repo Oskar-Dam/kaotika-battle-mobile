@@ -1,9 +1,9 @@
 // src/screens/LoginScreen.tsx
 import React, { useEffect, useState } from 'react';
-import LoginFirebase from '../components/login/LoginFirebase';
 import Spinner from '../components/Spinner';
 import { Player } from '../interfaces/Player';
 import { clearListenToServerEventsLoginScreen, listenToPlayerData } from '../sockets/socketListeners';
+import LoginFirebase from '../components/login/LoginFirebase';
 
 interface LoginScreenInterface {
   email: string;

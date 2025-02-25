@@ -17,8 +17,8 @@ const BattleList: React.FC = () => {
               className='flex flex-col w-full items-center'>
               <BattleCardSeparator/>
               <BattleCard
-                suggested_level={battle.suggested_level}
-                name={battle.name}/>
+                battle={battle}>
+              </BattleCard>
             </div>
           ))}
         </div>
