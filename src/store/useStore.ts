@@ -23,7 +23,7 @@ interface StoreState {
   gameJoined: boolean;
   selectedBattle: Battle;
   setSelectedBattle: (battle: Battle) => void;
-  setGameJoined: (gameCreated: boolean) => void;
+  setGameJoined: (gameJoined: boolean) => void;
   setGameCreated: (gameCreated: boolean) => void;
   setGameSelected: (loggedIn: boolean) => void;
   setIsLoggedIn: (loggedIn: boolean) => void;
