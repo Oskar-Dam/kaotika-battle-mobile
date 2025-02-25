@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import BattleModal from './BattleModal';
 import socket from '../sockets/socket';
 import { SOCKET_EMIT_EVENTS } from '../sockets/events';
+import { Battle } from '../interfaces/Battle';
 
 
 interface BattleCardProps {
-  suggested_level: number;
-  name: string;
+battle: Battle;
 }
 
-const BattleCard: React.FC<BattleCardProps> = ({ suggested_level, name }) => {
+const BattleCard: React.FC<BattleCardProps> = ({ battle }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSelectedBattle = () => {
@@ -24,17 +24,17 @@ const BattleCard: React.FC<BattleCardProps> = ({ suggested_level, name }) => {
         className='flex flex-row w-[100%] h-[13vh] justify-center items-center border-2 rounded border-white'
         onClick={handleSelectedBattle}>
         <div className='flex w-[30%] h-full items-center justify-center mr-1'>
-          <h1 className='text-4xl text-white'>Lv. {suggested_level}</h1>
+          <h1 className='text-4xl text-white'>Lv. {battle.suggested_level}</h1>
         </div>
         
         <div className='flex w-[1%] h-[100%] items-center justify-center border-2 border-white border-solid'></div>
         <div className='flex w-[75%] h-full items-center justify-center'>
-          <h1 className='text-3xl text-white'>{name}</h1>
+          <h1 className='text-3xl text-white'>{battle.name}</h1>
         </div>
       </button>
       {isModalOpen && (
         <BattleModal 
-          name={name} 
+          name={battle.name} 
           onClose={() => setIsModalOpen(false)} 
         />
       )}
