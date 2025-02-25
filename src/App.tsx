@@ -5,7 +5,7 @@ import AcolyteLobby from './pages/AcolyteLobbyScreen';
 import BattleScreen from './pages/BattleScreen';
 import LoginScreen from './pages/LoginScreen';
 import PWABadge from './PWABadge';
-import { listenToDisconnections } from './sockets/socketListeners';
+import { listenToDisconnections, listenToJoinedToBattle } from './sockets/socketListeners';
 import useStore from './store/useStore';
 import AdminScreen from './components/AdminScreen';
 
@@ -17,6 +17,7 @@ const App: React.FC = () => {
     isDisconnected,
     permanentlyDisconnected,
     gameJoined,
+    setGameJoined,
     setIsLoggedIn,
     setEmail,
     setPlayer,
@@ -33,6 +34,10 @@ const App: React.FC = () => {
     };
     listenToDisconnections(handleDisconnection);
   }, [isLoggedIn, setIsDisconnected, setPermanentlyDisconnected]);
+
+  useEffect(() => {
+    listenToJoinedToBattle(setGameJoined, player);
+  }, [listenToJoinedToBattle]);
 
   return (
     <>
