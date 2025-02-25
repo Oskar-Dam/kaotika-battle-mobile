@@ -1,24 +1,18 @@
 import React, { ChangeEvent } from 'react';
-import { Player } from '../../interfaces/Player';
 import { SOCKET_EMIT_EVENTS, SOCKET_EVENTS } from '../../sockets/events';
 import socket from '../../sockets/socket';
+import useStore from '../../store/useStore';
+import { MobileSignInResponse } from '../../interfaces/MobileSignInResponse';
 
 interface LoginNoFirebaseProps {
-    email: string;
     isLoading: boolean; 
     errorMessage: string;
-      setEmail: (email: string) => void;
-      setIsLoggedIn: (isLoggedIn: boolean) => void;
       setIsLoading: (isLoggedIn: boolean) => void;
       setErrorMessage: (errorMessage: string ) => void;
-      setPlayer: (player: Player) => void;
 }
 
 const LoginNoFirebase: React.FC<LoginNoFirebaseProps> = ({
-  email,
-  setIsLoggedIn,
   setErrorMessage,
-  setEmail,
   setIsLoading
 }) => {
 
@@ -27,27 +21,34 @@ const LoginNoFirebase: React.FC<LoginNoFirebaseProps> = ({
     setEmail(e.target.value);
     setErrorMessage(''); // Clear error message when email changes
   };
+
+  const {
+    email,
+    setIsLoggedIn,
+    setEmail,
+    setPlayer,
+  } = useStore();
   
   const handleEnterBattle = async () => {
     setIsLoading(true);
     console.log('Email:', email);
     try {
-      
       // Connect with socket
       socket.connect();
       socket.on(SOCKET_EVENTS.CONNECT, () => {
         console.log('[Socket.io] Connected:', socket.id);
-        socket.emit(SOCKET_EMIT_EVENTS.SIGN_IN, email, (response: { status: string; player: Player; message: string; }) => {
-          if (response.status === 'ok') {
-            console.log('player found:', response.player.email);
+        socket.emit(SOCKET_EMIT_EVENTS.SIGN_IN, email, (response: MobileSignInResponse) => {
+          if (response.status === 'OK') {
+            console.log('Jugador encontrado:', response.player);
+            setPlayer(response.player);
+            setIsLoggedIn(true);
+            setIsLoading(false);
+            setEmail(response.player.email);
           } else {
-            console.error('Error:', response.message);
+            console.error('Error:', response.error);
           }
         });
       });
-
-      setIsLoggedIn(true);
-      setIsLoading(false);
     } catch (error: unknown) {
       console.error('Fetch error:', error);
       if (error instanceof Error) {

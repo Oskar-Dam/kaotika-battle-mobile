@@ -1,34 +1,14 @@
 // src/screens/LoginScreen.tsx
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Spinner from '../components/Spinner';
-import { Player } from '../interfaces/Player';
-import { clearListenToServerEventsLoginScreen, listenToPlayerData } from '../sockets/socketListeners';
 import LoginFirebase from '../components/login/LoginFirebase';
 
-interface LoginScreenInterface {
-  email: string;
-  setEmail: (email: string) => void;
-  setIsLoggedIn: (isLoggedIn: boolean) => void;
-  setPlayer: (player: Player) => void;
-}
+interface LoginScreenInterface {}
 
-const LoginScreen: React.FC<LoginScreenInterface> = ({
-  email,
-  setEmail,
-  setIsLoggedIn,
-  setPlayer,
-}) => {
+const LoginScreen: React.FC<LoginScreenInterface> = () => {
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState('');
-
-
-  useEffect(() => {
-    listenToPlayerData(setPlayer);
-    return () => {
-      clearListenToServerEventsLoginScreen();
-    };
-  }, []);
-
 
   return (
     <div
@@ -50,27 +30,19 @@ const LoginScreen: React.FC<LoginScreenInterface> = ({
         className="flex flex-col items-center justify-center w-full max-w-[630px] h-[40%] border-0 border-white"
       >
         {/*No Firebase Login*/}
-        {/* <LoginNoFirebase 
-          email={email} 
+        {/* <LoginNoFirebase
           isLoading={isLoading} 
           errorMessage={errorMessage} 
-          setEmail={setEmail} 
-          setIsLoggedIn={setIsLoggedIn} 
           setIsLoading={setIsLoading} 
           setErrorMessage={setErrorMessage} 
-          setPlayer={setPlayer}
         /> */}
                 
         {/*Firebase Login*/}
         <LoginFirebase 
-          setEmail={setEmail}
           setErrorMessage={setErrorMessage}
           errorMessage={''+errorMessage}
           setIsLoading={setIsLoading}
-          setPlayer={setPlayer} 
-          email={email} 
           isLoading={isLoading} 
-          setIsLoggedIn={setIsLoggedIn} 
         />
 
       </div>

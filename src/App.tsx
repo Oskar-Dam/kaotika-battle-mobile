@@ -12,15 +12,11 @@ import useStore from './store/useStore';
 const App: React.FC = () => {
   const {
     isLoggedIn,
-    email,
     player,
     isDisconnected,
     permanentlyDisconnected,
     gameJoined,
     setGameJoined,
-    setIsLoggedIn,
-    setEmail,
-    setPlayer,
     setIsDisconnected,
     setPermanentlyDisconnected,
   } = useStore();
@@ -50,12 +46,7 @@ const App: React.FC = () => {
       {isLoggedIn && player && !gameJoined && (player.role === 'mortimer' || player.role === 'villain') && <AdminScreen/>}
 
       {!isLoggedIn && !player && !gameJoined &&
-        <LoginScreen
-          email={email}
-          setEmail={setEmail}
-          setIsLoggedIn={setIsLoggedIn}
-          setPlayer={setPlayer}
-        />
+        <LoginScreen />
       }
 
       {permanentlyDisconnected && isLoggedIn && (
