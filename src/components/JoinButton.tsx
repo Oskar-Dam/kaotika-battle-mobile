@@ -15,7 +15,7 @@ const JoinButton: React.FC = () => {
       onClick={() => { 
         joinBattle(); 
       }}
-      className="w-full h-full bg-black text-white text-5xl rounded border-2 border-white"
+      className="w-full h-full bg-black text-white text-5xl rounded-4xl shadow-black shadow-xl border-2 border-white"
       disabled={!gameCreated}
       aria-disabled={!gameCreated}
     >
