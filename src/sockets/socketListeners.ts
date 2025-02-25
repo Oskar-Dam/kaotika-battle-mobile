@@ -61,6 +61,15 @@ export const listenToGameCreated = (setGameCreated: (turn: boolean) => void) => 
   });
 };
 
+export const listenToJoinedToBattle = (setGameJoined: (turn: boolean) => void, player: Player) => {
+  socket.on(SOCKET_EVENTS.JOINED_BATTLE, (_id: string) => {
+    console.log(`'${SOCKET_EVENTS.JOINED_BATTLE}' socket received.`);
+    if (player._id === _id){
+      setGameJoined(true);
+    }
+  });
+};
+
 export const listenToUpdatePlayer = (updateDravokarPlayerHitPoints: (id: string, hitpoints: number)=> void, updateKaotikaPlayerHitPoints: (id: string, hitpoints: number)=> void, updatePlayerHitPoints: (hitpoints: number)=> void, player: Player) => {
   socket.on(SOCKET_EVENTS.UPDATE_PLAYER, (updatedPlayer: {_id: string, attributes: Modifier, totalDamage: number, isBetrayer: boolean}) => {
     console.log(`'${SOCKET_EVENTS.UPDATE_PLAYER}' socket received.`);

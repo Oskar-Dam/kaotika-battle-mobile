@@ -5,11 +5,10 @@ import useStore from '../store/useStore';
 
 const JoinButton: React.FC = () => {
 
-  const { player ,gameCreated, setGameJoined } = useStore();
+  const { player ,gameCreated } = useStore();
   const joinBattle = () => {
     socket.emit(SOCKET_EMIT_EVENTS.JOIN_BATTLE, player._id);
-    setGameJoined(true);
-    console.log('game joined');
+    console.log('sended join battle socket');
   };
 
   return (
