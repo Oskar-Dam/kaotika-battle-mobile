@@ -1,6 +1,7 @@
 import { signInWithPopup } from 'firebase/auth';
 import React from 'react';
 import { auth, provider } from '../../api/firebase/firebaseConfig';
+import { MobileSignInResponse } from '../../interfaces/MobileSignInResponse';
 import { Player } from '../../interfaces/Player';
 import { SOCKET_EMIT_EVENTS, SOCKET_EVENTS } from '../../sockets/events';
 import socket from '../../sockets/socket';
@@ -41,7 +42,13 @@ const LoginFirebase: React.FC<LoginFirebaseProps> = ({
         socket.connect();
         socket.on(SOCKET_EVENTS.CONNECT, () => {
           console.log('[Socket.io] Connected:', socket.id);
-          socket.emit(SOCKET_EMIT_EVENTS.SIGN_IN, user.email );
+          socket.emit(SOCKET_EMIT_EVENTS.SIGN_IN, user.email , (response: MobileSignInResponse) => {
+            if (response.status === 'OK') {
+              console.log('Jugador encontrado:', response.player);
+            } else {
+              console.error('Error:', response.error);
+            }
+          });
         });
         
         setEmail(user.email);

@@ -1,4 +1,5 @@
 import { Factions } from '../interfaces/Factions';
+import { MobileSignInResponse } from '../interfaces/MobileSignInResponse';
 import { Modifier } from '../interfaces/Modifier';
 import { Player } from '../interfaces/Player';
 import { resetAllStates } from '../utils/resetGame';
@@ -48,9 +49,11 @@ export const listenToInsufficientPlayers = (setInsufficientPlayers: (turn: boole
 };  
 
 export const listenToPlayerData = (setPlayer: (player: Player) => void) => {
-  socket.on(SOCKET_EVENTS.PLAYER_DATA, (playerData: Player) => {
+  socket.on(SOCKET_EVENTS.PLAYER_DATA, (data: MobileSignInResponse) => {
     console.log(`'${SOCKET_EVENTS.PLAYER_DATA}' socket received.`);
-    setPlayer(playerData);
+    if (data.status === 'OK') {
+      setPlayer(data.player);
+    }    
   });
 };
 
