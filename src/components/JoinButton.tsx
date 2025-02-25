@@ -1,13 +1,15 @@
 import React from 'react';
+import { SOCKET_EMIT_EVENTS } from '../sockets/events';
+import socket from '../sockets/socket';
 import useStore from '../store/useStore';
 
 const JoinButton: React.FC = () => {
 
-  const { gameCreated, setGameJoined } = useStore();
+  const { player ,gameCreated, setGameJoined } = useStore();
   const joinBattle = () => {
+    socket.emit(SOCKET_EMIT_EVENTS.JOIN_BATTLE, player._id);
     setGameJoined(true);
     console.log('game joined');
-    
   };
 
   return (
