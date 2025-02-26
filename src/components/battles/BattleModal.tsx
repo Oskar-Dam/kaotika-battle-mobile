@@ -5,8 +5,11 @@ import BattleDescription from './BattleDescription';
 import { Battle } from '../../interfaces/Battle';
 import BattleEnemies from './BattleEnemies';
 import BattleSuggestions from './BattleSuggestions';
-import BattleRewards from '../BattleRewards';
+
 import BattleModalButton from '../ModalButton';
+import BattleRewards from './BattleRewards';
+import socket from '../../sockets/socket';
+import { SOCKET_EMIT_EVENTS } from '../../sockets/events';
 
 interface BattleModalProps {
   battle: Battle;
@@ -14,6 +17,12 @@ interface BattleModalProps {
 }
 
 const BattleModal: React.FC<BattleModalProps> = ({ battle, onClose }) => {
+
+  const handleBattleCreate = () => {
+    console.log('Emit create game of the battle: ' + battle.name);
+    socket.emit(SOCKET_EMIT_EVENTS.CREATE_GAME, battle.id);
+  };
+
   return (
     <div className='fixed inset-0 py-2 flex justify-center items-start bg-black/90 z-50 overflow-auto'>
       <div className='flex flex-col bg-black/90 p-4 rounded h-full w-[90%] max-h-full'>
@@ -34,7 +43,7 @@ const BattleModal: React.FC<BattleModalProps> = ({ battle, onClose }) => {
         <div className='flex flex-col h-[20%]'>
           <BattleModalButton
             text='Create Game'
-            onClick={() => alert('Game Created')} />
+            onClick={handleBattleCreate} />
           <BattleModalButton
             text='Close'
             onClick={onClose} />
