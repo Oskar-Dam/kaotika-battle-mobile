@@ -17,7 +17,7 @@ const AcolyteLobby: React.FC = () => {
       style={{ backgroundColor: 'black', backgroundRepeat:'no-repeat',backgroundPositionX:'50%',backgroundPositionY:'35%' ,backgroundImage: 'url(/images/acolyt-lobby-screen.webp)', backgroundSize: '100% 100%' }}
       data-testid="acolyte-lobby-screen"
     >
-      <div className="flex items-center justify-center w-full h-1/8 text-8xl text-black">Lobby</div>
+      <div className="flex items-center justify-center w-[80%] py-14 h-1/8 text-8xl text-white bg-black/50 rounded-lg">Lobby</div>
       <div className="h-1/8" />
       <div className="flex items-center justify-center w-full h-2/8">
         <JoinButton/>
@@ -30,7 +30,7 @@ const AcolyteLobby: React.FC = () => {
             console.log('???');
           }}
         >
-            ???
+            Comming soon...
         </button>
       </div>
       <div className="h-1/8" />
