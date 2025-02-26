@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import BattleModal from './BattleModal';
-import socket from '../../sockets/socket';
-import { SOCKET_EMIT_EVENTS } from '../../sockets/events';
 import { Battle } from '../../interfaces/Battle';
+import { SOCKET_EMIT_EVENTS } from '../../sockets/events';
+import socket from '../../sockets/socket';
+import BattleModal from './BattleModal';
 
 
 interface BattleCardProps {

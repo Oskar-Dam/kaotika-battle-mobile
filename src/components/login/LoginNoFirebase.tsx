@@ -1,8 +1,9 @@
 import React, { ChangeEvent } from 'react';
+import { MobileBattelsResponse } from '../../interfaces/response/MobileBattlesResponse';
+import { MobileSignInResponse } from '../../interfaces/response/MobileSignInResponse';
 import { SOCKET_EMIT_EVENTS, SOCKET_EVENTS } from '../../sockets/events';
 import socket from '../../sockets/socket';
 import useStore from '../../store/useStore';
-import { MobileSignInResponse } from '../../interfaces/MobileSignInResponse';
 
 interface LoginNoFirebaseProps {
     isLoading: boolean; 
@@ -27,7 +28,11 @@ const LoginNoFirebase: React.FC<LoginNoFirebaseProps> = ({
     setIsLoggedIn,
     setEmail,
     setPlayer,
+    setBattles,
   } = useStore();
+
+  const mortimerEmail = import.meta.env.VITE_MORTIMER_EMAIL;
+  const villainEmail = import.meta.env.VITE_VILLAIN_EMAIL;
   
   const handleEnterBattle = async () => {
     setIsLoading(true);
@@ -39,11 +44,22 @@ const LoginNoFirebase: React.FC<LoginNoFirebaseProps> = ({
         console.log('[Socket.io] Connected:', socket.id);
         socket.emit(SOCKET_EMIT_EVENTS.SIGN_IN, email, (response: MobileSignInResponse) => {
           if (response.status === 'OK') {
-            console.log('Jugador encontrado:', response.player);
+            console.log('player found with email:', response.player.email);
             setPlayer(response.player);
             setIsLoggedIn(true);
             setIsLoading(false);
             setEmail(response.player.email);
+            if ((email === mortimerEmail) || (email === villainEmail)) {
+              console.log('email send is mortimer or villain');
+              socket.emit(SOCKET_EMIT_EVENTS.GET_BATTLES, (response: MobileBattelsResponse) => {
+                if (response.status === 'OK') {
+                  console.log('Battles receive correctly'); 
+                  setBattles(response.battles);
+                } else {
+                  console.error('Error:', response.error);
+                }
+              });
+            }
           } else {
             console.error('Error:', response.error);
           }
