@@ -3,6 +3,7 @@ import { Battle } from '../../interfaces/Battle';
 import { SOCKET_EMIT_EVENTS } from '../../sockets/events';
 import socket from '../../sockets/socket';
 import BattleModal from './BattleModal';
+import useStore from '../../store/useStore';
 
 
 interface BattleCardProps {
@@ -12,9 +13,14 @@ battle: Battle;
 const BattleCard: React.FC<BattleCardProps> = ({ battle }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const {setSelectedBattle, gameCreated} = useStore();
+
   const handleSelectedBattle = () => {
     setIsModalOpen(true);
-    socket.emit(SOCKET_EMIT_EVENTS.GAME_SELECTED, {name});
+    if(!gameCreated)  {
+      setSelectedBattle(battle);
+    }
+    socket.emit(SOCKET_EMIT_EVENTS.GAME_SELECTED, battle.id);
     console.log('Emit battle selected');
   };
 
