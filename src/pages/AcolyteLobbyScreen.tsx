@@ -1,24 +1,13 @@
 import React, { useEffect } from 'react';
 import JoinButton from '../components/JoinButton';
 import ReturnToModeSelectionScreenButton from '../components/mode selection/ReturnToModeSelectionButton';
-import { MobileJoinBattleResponse } from '../interfaces/response/JoinBattleReponse';
 import { SOCKET_EMIT_EVENTS } from '../sockets/events';
 import socket from '../sockets/socket';
-import useStore from '../store/useStore';
 
 const AcolyteLobby: React.FC = () => {
 
-  const {setGameJoined} = useStore();
-
   useEffect(() => {
-    socket.emit(SOCKET_EMIT_EVENTS.GAME_CREATED, (response: MobileJoinBattleResponse) => {
-      if (response.status === 'OK') {
-        setGameJoined(response.joinBattle);
-      }
-      else {
-        console.error(response.error);
-      }
-    });
+    socket.emit(SOCKET_EMIT_EVENTS.GAME_CREATED);
     console.log('sended game is created socket');
   }, []);
 
