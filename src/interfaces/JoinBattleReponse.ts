@@ -1,3 +1,3 @@
-export type JoinBattleResponse =
-  | { status: 'OK'; isJoined: true }
-  | { status: 'FAILED'; isJoined: false };
+export type MobileJoinBattleResponse =
+  | { status: 'OK', joinBattle: boolean}
+  | { status: 'FAILED', error: string};
