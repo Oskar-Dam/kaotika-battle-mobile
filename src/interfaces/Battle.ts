@@ -1,7 +1,7 @@
 import { Player } from './Player';
 
 export interface Battle {
-  id: string;
+  _id: string;
   name: string;
   description: string;
   enemies: Player[];
