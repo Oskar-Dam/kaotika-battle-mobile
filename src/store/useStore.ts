@@ -1,7 +1,7 @@
 import { create } from 'zustand';
+import { Battle } from '../interfaces/Battle';
 import { Player } from '../interfaces/Player';
 import { Potion } from '../interfaces/Potion';
-import { Battle } from '../interfaces/Battle';
 
 interface StoreState {
   isLoggedIn: boolean;
@@ -15,6 +15,8 @@ interface StoreState {
   selectedPotion: Potion | null;
   isPotionModalOpen: boolean;
   isSettingModalOpen: boolean;
+  isBattleSelected: boolean;
+  isAdventureSelected: boolean;
   selectedPlayer: Player | undefined;
   selectedPlayerIndex: number;
   maxPercent: number;
@@ -27,6 +29,8 @@ interface StoreState {
   setGameCreated: (gameCreated: boolean) => void;
   setGameSelected: (loggedIn: boolean) => void;
   setIsLoggedIn: (loggedIn: boolean) => void;
+  setIsBattleSelected: (battleSelected: boolean) => void;
+  setIsAdventureSelected: (adventureSelected: boolean) => void;
   setEmail: (email: string) => void;
   setPlayer: (player: Player) => void;
   updatePlayerHitPoints: (newHitPoints: number) => void;
@@ -59,6 +63,8 @@ const useStore = create<StoreState>((set) => ({
   selectedPotion: null,
   isPotionModalOpen: false,
   isSettingModalOpen: false,
+  isBattleSelected: false,
+  isAdventureSelected: false,
   selectedPlayer: undefined,
   selectedPlayerIndex: 1,
   maxPercent: 100,
@@ -155,6 +161,8 @@ const useStore = create<StoreState>((set) => ({
   setIsSettingModalOpen: (isOpen) => set({ isSettingModalOpen: isOpen }),
   setSelectedPlayer: (player) => set({ selectedPlayer: player }),
   setSelectedPlayerIndex: (index) => set({ selectedPlayerIndex: index }),
+  setIsBattleSelected: (battleSelected) => set({ isBattleSelected: battleSelected }),
+  setIsAdventureSelected: (adventureSelected) => set({ isAdventureSelected: adventureSelected }),
 }));
 
 export default useStore;
