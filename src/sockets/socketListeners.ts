@@ -64,15 +64,6 @@ export const listenToGameCreated = (setGameCreated: (isCreated: boolean) => void
   });
 };
 
-export const listenToJoinedToBattle = (setGameJoined: (isJoined: boolean) => void, player: Player) => {
-  socket.on(SOCKET_EVENTS.JOINED_BATTLE, (_id: string) => {
-    console.log(`'${SOCKET_EVENTS.JOINED_BATTLE}' socket received.`);
-    if (player._id === _id){
-      setGameJoined(true);
-    }
-  });
-};
-
 export const listenToBattles = (setBattles: (battles: Battle[]) => void) => {
   socket.on(SOCKET_EVENTS.GET_BATTLES, (battles: Battle[]) => {
     console.log(`'${SOCKET_EVENTS.GET_BATTLES}' socket received.`);

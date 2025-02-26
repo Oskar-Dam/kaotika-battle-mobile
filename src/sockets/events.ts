@@ -15,7 +15,6 @@ export const SOCKET_EVENTS = {
   GAME_RESET: 'gameReset',
   PLAYER_DATA: 'playerData',
   GAME_CREATED: 'isgameCreated',
-  JOINED_BATTLE: 'mobile-joinBattle',
   GET_BATTLES: 'mobile-getBattles',
 };
 
