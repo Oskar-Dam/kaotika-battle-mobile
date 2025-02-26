@@ -72,7 +72,7 @@ const useStore = create<StoreState>((set) => ({
   maxPercent: 100,
   gameSelected: false,
   gameCreated: false,
-  gameJoined: true,
+  gameJoined: false,
   selectedBattle: null!,
   battles: [],
   setBattles: (battles) => set({ battles }),
