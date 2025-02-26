@@ -7,7 +7,7 @@ import BattleScreen from './pages/BattleScreen';
 import LoginScreen from './pages/LoginScreen';
 import ModeSelection from './pages/ModeSelectionScreen';
 import PWABadge from './PWABadge';
-import { listenToDisconnections, listenToGameCreated } from './sockets/socketListeners';
+import { listenToDisconnections, listenToGameCreated, listenToGameStarted } from './sockets/socketListeners';
 import useStore from './store/useStore';
 
 const App: React.FC = () => {
@@ -19,6 +19,7 @@ const App: React.FC = () => {
     isAdventureSelected,
     permanentlyDisconnected,
     gameJoined,
+    setGameStarted,
     setGameCreated,
     setIsDisconnected,
     setPermanentlyDisconnected,
@@ -36,6 +37,11 @@ const App: React.FC = () => {
 
   useEffect(() => {
     listenToGameCreated(setGameCreated);
+  }
+  , []);
+
+  useEffect(() => {
+    listenToGameStarted(setGameStarted);
   }
   , []);
 

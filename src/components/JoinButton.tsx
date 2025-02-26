@@ -6,7 +6,7 @@ import useStore from '../store/useStore';
 
 const JoinButton: React.FC = () => {
 
-  const { setGameJoined ,gameCreated, player} = useStore();
+  const { setGameJoined ,gameCreated, player, gameStarted} = useStore();
   const joinBattle = () => {
     socket.emit(SOCKET_EMIT_EVENTS.JOIN_BATTLE, player._id, (response: MobileJoinBattleResponse) => {
       if (response.status === 'OK') {
@@ -26,8 +26,8 @@ const JoinButton: React.FC = () => {
         joinBattle(); 
       }}
       className={`w-full h-full bg-black text-white text-5xl rounded-4xl shadow-black shadow-xl border-2 ${gameCreated ? 'border-green-500' : 'border-red-500'}`}
-      disabled={!gameCreated}
-      aria-disabled={!gameCreated}
+      disabled={!gameCreated || gameStarted}
+      aria-disabled={!gameCreated || gameStarted}
     >
       <span className={gameCreated ? 'text-green-500' : 'text-red-500'}>JOIN</span>
     </button>

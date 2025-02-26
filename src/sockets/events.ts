@@ -4,7 +4,6 @@ export const SOCKET_EVENTS = {
   ERROR:'connect_error',
   SEND_SOCKETID:'mobile-sendSocketId',
   RECIVE_USERS:'connectedUsers',
-  GAME_START:'mobile-gameStart',
   GAME_STARTED:'gameStart',
   GAME_END: 'gameEnd',
   TURN_CHANGE:'assign-turn',
@@ -30,4 +29,5 @@ export const SOCKET_EMIT_EVENTS = {
   JOIN_BATTLE: 'mobile-joinBattle',
   GAME_CREATED: 'mobile-isGameCreated',
   GET_BATTLES: 'mobile-getBattles',
+  GAME_STARTED: 'movile-gameStarted',
 };

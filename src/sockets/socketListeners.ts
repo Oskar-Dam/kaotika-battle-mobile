@@ -64,6 +64,13 @@ export const listenToGameCreated = (setGameCreated: (isCreated: boolean) => void
   });
 };
 
+export const listenToGameStarted = (setGameStarted: (isStarted: boolean) => void) => {
+  socket.on(SOCKET_EVENTS.GAME_STARTED, () => {
+    console.log(`'${SOCKET_EVENTS.GAME_STARTED}' socket received.`);
+    setGameStarted(true);
+  });
+};
+
 export const listenToBattles = (setBattles: (battles: Battle[]) => void) => {
   socket.on(SOCKET_EVENTS.GET_BATTLES, (battles: Battle[]) => {
     console.log(`'${SOCKET_EVENTS.GET_BATTLES}' socket received.`);
