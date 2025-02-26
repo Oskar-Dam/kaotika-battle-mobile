@@ -1,12 +1,12 @@
 import React from 'react';
-import ModalHeader from './ModalHeader';
-import ModalImage from './ModalImage';
+import ModalHeader from '../ModalHeader';
+import ModalImage from '../ModalImage';
 import BattleDescription from './BattleDescription';
-import { Battle } from '../interfaces/Battle';
+import { Battle } from '../../interfaces/Battle';
 import BattleEnemies from './BattleEnemies';
 import BattleSuggestions from './BattleSuggestions';
-import BattleRewards from './BattleRewards';
-import BattleModalButton from './ModalButton';
+import BattleRewards from '../BattleRewards';
+import BattleModalButton from '../ModalButton';
 
 interface BattleModalProps {
   battle: Battle;

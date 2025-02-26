@@ -1,6 +1,6 @@
 import React from 'react';
 import BattleCard from './BattleCard';
-import mockBattles from '../__mocks__/mockBattles';
+import mockBattles from '../../__mocks__/mockBattles';
 import BattleCardSeparator from './BattleCardSeparator';
 
 const BattleList: React.FC = () => {

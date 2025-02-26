@@ -3,7 +3,7 @@ import { SOCKET_EMIT_EVENTS } from '../sockets/events';
 import socket from '../sockets/socket';
 import { listenToGameCreated } from '../sockets/socketListeners';
 import useStore from '../store/useStore';
-import BattleList from './BattleList';
+import BattleList from './battles/BattleList';
 import JoinButton from './JoinButton';
 import WelcomeTexts from './WelcomeTexts';
 

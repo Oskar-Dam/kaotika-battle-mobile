@@ -1,5 +1,5 @@
 import React from 'react';
-import { Battle } from '../interfaces/Battle';
+import { Battle } from '../../interfaces/Battle';
 
 interface ModalDropdownProps {
   battle: Battle;
