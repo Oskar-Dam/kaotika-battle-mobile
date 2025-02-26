@@ -1,7 +1,8 @@
 import { signInWithPopup } from 'firebase/auth';
 import React from 'react';
 import { auth, provider } from '../../api/firebase/firebaseConfig';
-import { MobileSignInResponse } from '../../interfaces/MobileSignInResponse';
+import { MobileBattelsResponse } from '../../interfaces/response/MobileBattlesResponse';
+import { MobileSignInResponse } from '../../interfaces/response/MobileSignInResponse';
 import { SOCKET_EMIT_EVENTS, SOCKET_EVENTS } from '../../sockets/events';
 import socket from '../../sockets/socket';
 import useStore from '../../store/useStore';
@@ -23,7 +24,11 @@ const LoginFirebase: React.FC<LoginFirebaseProps> = ({
     setIsLoggedIn,
     setEmail,
     setPlayer,
+    setBattles,
   } = useStore();
+
+  const mortimerEmail = import.meta.env.VITE_MORTIMER_EMAIL;
+  const villainEmail = import.meta.env.VITE_VILLAIN_EMAIL;
 
   const handleGoogleSignIn = async () => {
     provider.setCustomParameters({ prompt: 'select_account' });
@@ -45,6 +50,17 @@ const LoginFirebase: React.FC<LoginFirebaseProps> = ({
               setIsLoggedIn(true);
               setIsLoading(false);
               setEmail(response.player.email);
+              if ((user.email === mortimerEmail) || (user.email === villainEmail)) {
+                console.log('email send is mortimer or villain');
+                socket.emit(SOCKET_EMIT_EVENTS.GET_BATTLES, (response: MobileBattelsResponse) => {
+                  if (response.status === 'OK') {
+                    console.log('Battles receive correctly'); 
+                    setBattles(response.battles);
+                  } else {
+                    console.error('Error:', response.error);
+                  }
+                });
+              }
             } else {
               console.error('Error:', response.error);
             }

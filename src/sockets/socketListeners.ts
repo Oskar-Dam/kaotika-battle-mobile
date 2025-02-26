@@ -76,6 +76,7 @@ export const listenToJoinedToBattle = (setGameJoined: (isJoined: boolean) => voi
 export const listenToBattles = (setBattles: (battles: Battle[]) => void) => {
   socket.on(SOCKET_EVENTS.GET_BATTLES, (battles: Battle[]) => {
     console.log(`'${SOCKET_EVENTS.GET_BATTLES}' socket received.`);
+    console.log(battles);
     setBattles(battles);
   });
 };

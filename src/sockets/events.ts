@@ -16,7 +16,7 @@ export const SOCKET_EVENTS = {
   PLAYER_DATA: 'playerData',
   GAME_CREATED: 'mobile-isgameCreated',
   JOINED_BATTLE: 'mobile-joinBattle',
-  GET_BATTLES: 'mobile-getBattles',
+  GET_BATTLES: 'battles',
 };
 
 export const SOCKET_EMIT_EVENTS = {
@@ -29,4 +29,5 @@ export const SOCKET_EMIT_EVENTS = {
   SIGN_IN: 'mobile-signIn',
   JOIN_BATTLE: 'mobile-joinBattle',
   GAME_CREATED: 'mobile-isgameCreated',
+  GET_BATTLES: 'mobile-getBattles',
 };
