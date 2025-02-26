@@ -41,6 +41,6 @@ describe('Socket Listeners', () => {
     expect(setIsMyTurn).toHaveBeenCalledWith(true);
     expect(setSelectedPlayerIndex).toHaveBeenCalledWith(dravokarPlayers.length);
     expect(setSelectedPlayerIndex).toHaveBeenCalledWith(1);
-  });
+  }); 
 });
  

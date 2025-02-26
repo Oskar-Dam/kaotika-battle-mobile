@@ -24,7 +24,7 @@ describe('LoggedDisconnectionModal Component', () => {
 describe('UnloggedDisconnectionModal Component', () => {
   it('should render the UnloggedDisconnectionModal', () => {
 
-    render(<UnloggedDisconnectionModal/>);
+    render(<UnloggedDisconnectionModal/>); 
 
     const modalComponent = screen.getByTestId('unlogged-disconnection-modal');
     expect(modalComponent).toBeInTheDocument();

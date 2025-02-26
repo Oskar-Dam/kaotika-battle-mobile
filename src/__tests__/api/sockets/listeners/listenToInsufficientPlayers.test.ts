@@ -14,7 +14,7 @@ jest.mock('../../../../sockets/socket', () => ({
 }));
 
 describe('Socket Listeners', () => {
-  beforeEach(() => {
+  beforeEach(() => { 
     jest.clearAllMocks();
   });
 

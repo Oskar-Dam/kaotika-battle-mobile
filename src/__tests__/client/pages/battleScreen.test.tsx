@@ -37,4 +37,4 @@ describe('BattleScreen screen', () => {
     const battleScreen = screen.getByTestId('battle-screen');
     expect(battleScreen).toBeInTheDocument();
   });
-});
+}); 

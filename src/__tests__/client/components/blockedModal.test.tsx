@@ -24,7 +24,7 @@ describe('LoggedDisconnectionModal Component', () => {
   it('should render the LoggedDisconnectionModal for role -ACOLYTE-', () => {
     (useStore as unknown as jest.Mock).mockReturnValue({
       player: ONLINE_USERS_MOCK[0],
-    });
+    }); 
     render(<BlockedScreen />);
 
     const modalComponent = screen.getByTestId('blocked-modal');

@@ -38,7 +38,7 @@ describe('AttackButton Component', () => {
   });
 
   it('should be enabled and have saturation when attacking is allowed', () => {
-    const mockStore = {
+    const mockStore = { 
       player: mockDividedPlayers.kaotika[0],
       selectedPlayer: mockDividedPlayers.dravokar[1],
       setSelectedPlayer: jest.fn(),

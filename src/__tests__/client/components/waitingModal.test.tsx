@@ -35,5 +35,5 @@ describe('LoggedDisconnectionModal Component', () => {
 
     const modalComponent = screen.getByTestId('waiting-modal');
     expect(modalComponent).toBeInTheDocument();
-  });
+  }); 
 });
