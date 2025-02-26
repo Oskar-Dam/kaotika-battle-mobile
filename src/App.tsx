@@ -5,6 +5,7 @@ import UnloggedDisconnectionModal from './components/UnloggedDisconnectionModal'
 import AcolyteLobby from './pages/AcolyteLobbyScreen';
 import BattleScreen from './pages/BattleScreen';
 import LoginScreen from './pages/LoginScreen';
+import ModeSelection from './pages/ModeSelectionScreen';
 import PWABadge from './PWABadge';
 import { listenToDisconnections, listenToJoinedToBattle } from './sockets/socketListeners';
 import useStore from './store/useStore';
@@ -14,6 +15,8 @@ const App: React.FC = () => {
     isLoggedIn,
     player,
     isDisconnected,
+    isBattleSelected,
+    isAdventureSelected,
     permanentlyDisconnected,
     gameJoined,
     setGameJoined,
@@ -38,12 +41,13 @@ const App: React.FC = () => {
   return (
     <>
     
+      {isLoggedIn && !isBattleSelected && !isAdventureSelected && player && !gameJoined && <ModeSelection/>}
     
-      {isLoggedIn && player && gameJoined && <BattleScreen/>}
+      {isLoggedIn && isBattleSelected && player && gameJoined && <BattleScreen/>}
 
-      {isLoggedIn && player && !gameJoined && player.role === 'acolyte' && <AcolyteLobby/>}
+      {isLoggedIn && isBattleSelected && player && !gameJoined && player.role === 'acolyte' && <AcolyteLobby/>}
 
-      {isLoggedIn && player && !gameJoined && (player.role === 'mortimer' || player.role === 'villain') && <AdminScreen/>}
+      {isLoggedIn && isBattleSelected && player && !gameJoined && (player.role === 'mortimer' || player.role === 'villain') && <AdminScreen/>}
 
       {!isLoggedIn && !player && !gameJoined &&
         <LoginScreen />

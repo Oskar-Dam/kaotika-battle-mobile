@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import JoinButton from '../components/JoinButton';
+import ReturnToModeSelectionScreenButton from '../components/mode selection/ReturnToModeSelectionButton';
 import { SOCKET_EMIT_EVENTS } from '../sockets/events';
 import socket from '../sockets/socket';
 import { listenToGameCreated } from '../sockets/socketListeners';
@@ -39,6 +40,10 @@ const AcolyteLobby: React.FC = () => {
         >
             ???
         </button>
+      </div>
+      <div className="h-1/8" />
+      <div className="flex items-center justify-center w-full h-2/8">
+        <ReturnToModeSelectionScreenButton/>
       </div>
       <div className="h-1/8" />
     </div>
