@@ -1,13 +1,22 @@
 import React from 'react';
+import { MobileJoinBattleResponse } from '../interfaces/JoinBattleReponse';
 import { SOCKET_EMIT_EVENTS } from '../sockets/events';
 import socket from '../sockets/socket';
 import useStore from '../store/useStore';
 
 const JoinButton: React.FC = () => {
 
-  const { player, gameCreated } = useStore();
+  const { setGameJoined ,gameCreated, player} = useStore();
   const joinBattle = () => {
-    socket.emit(SOCKET_EMIT_EVENTS.JOIN_BATTLE, player._id);
+    socket.emit(SOCKET_EMIT_EVENTS.JOIN_BATTLE, player._id, (response: MobileJoinBattleResponse) => {
+      if (response.status === 'OK') {
+        setGameJoined(response.joinBattle);
+      }
+      else {
+        console.error(response.error);
+      }
+    });
+    
     console.log('sended join battle socket');
   };
   
