@@ -19,5 +19,5 @@ describe('PotionContainer Component', () => {
 
     const modalComponent = screen.getByTestId('potion-container');
     expect(modalComponent).toBeInTheDocument();
-  });
+  }); 
 });

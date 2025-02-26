@@ -31,4 +31,4 @@ describe('PlayerCarousel Component', () => {
     const buttonElement = screen.getByTestId('player-carousel');
     expect(buttonElement).toBeInTheDocument();
   });
-});
+}); 

@@ -35,7 +35,7 @@ describe('Socket Listeners', () => {
   it('should call setdisconnection with false when a connect event occurs', () => {
 
     const setDisconnection = jest.fn();
-  
+   
     listenToDisconnections(setDisconnection);
   
     const callback = (socket.on as jest.Mock).mock.calls.find(([event]) => event === SOCKET_EVENTS.CONNECT)?.[1];

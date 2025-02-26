@@ -16,7 +16,7 @@ beforeAll(() => {
   jest.spyOn(console, 'warn').mockImplementation(() => {}); // Silence console warnings
   jest.spyOn(console, 'log').mockImplementation(() => {}); // Silence console logs
 });
-
+ 
 beforeEach(() => {
   jest.clearAllMocks();
 });
