@@ -2,21 +2,15 @@ import React, { useEffect } from 'react';
 import SelecteBattleModeButton from '../components/mode selection/SelectBattleModeButon';
 import { SOCKET_EMIT_EVENTS } from '../sockets/events';
 import socket from '../sockets/socket';
-import { listenToGameCreated } from '../sockets/socketListeners';
-import useStore from './../store/useStore';
 
 const ModeSelection: React.FC = () => {
-  const { setGameCreated } = useStore();
 
   useEffect(() => {
     socket.emit(SOCKET_EMIT_EVENTS.GAME_CREATED);
     console.log('sended game is created socket');
   }, []);
 
-  useEffect(() => {
-    listenToGameCreated(setGameCreated);
-  }
-  , []);
+
 
   return (
     <div
