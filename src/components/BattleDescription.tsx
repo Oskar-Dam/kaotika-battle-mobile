@@ -10,7 +10,7 @@ const BattleDescription: React.FC<ModalDropdownProps> = ({description}) => {
   return (
     <div>
       <div className='text-white text-3xl text-center'>Description</div>
-      <div className='mb-1 text-2xl drop-shadow-md p-2 text-white shadow-2xs shadow-white rounded outline-color-black'>
+      <div className='mb-1 text-2xl drop-shadow-md p-2 text-white shadow-2xs shadow-white rounded outline-color-black text-center'>
         {description}
       </div>
     </div>

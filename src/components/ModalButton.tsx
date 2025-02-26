@@ -5,14 +5,14 @@ interface ModalButtonProps {
   onClick: () => void;
 }
 
-const ModalButton: React.FC<ModalButtonProps> = ({ text, onClick }) => {
+const BattleModalButton: React.FC<ModalButtonProps> = ({ text, onClick }) => {
   return (
     <button 
-      className='mt-4 p-2 bg-green-500 text-white rounded text-3xl'
+      className='bg-black text-white text-5xl rounded-4xl shadow-black shadow-xl border-2 border-white mb-2'
       onClick={onClick}>
       {text}
     </button>
   );
 };
 
-export default ModalButton;
+export default BattleModalButton;
