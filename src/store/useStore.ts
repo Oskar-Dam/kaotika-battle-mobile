@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { Battle } from '../interfaces/Battle';
 import { Player } from '../interfaces/Player';
 import { Potion } from '../interfaces/Potion';
 
@@ -14,10 +15,26 @@ interface StoreState {
   selectedPotion: Potion | null;
   isPotionModalOpen: boolean;
   isSettingModalOpen: boolean;
+  isBattleSelected: boolean;
+  isAdventureSelected: boolean;
   selectedPlayer: Player | undefined;
   selectedPlayerIndex: number;
   maxPercent: number;
+  gameSelected: boolean;
+  gameCreated: boolean;
+  gameJoined: boolean;
+  selectedBattle: Battle;
+  battles: Battle[];
+  gameStarted: boolean;
+  setGameStarted: (gameStarted: boolean) => void;
+  setBattles: (battles: Battle[]) => void;
+  setSelectedBattle: (battle: Battle) => void;
+  setGameJoined: (gameJoined: boolean) => void;
+  setGameCreated: (gameCreated: boolean) => void;
+  setGameSelected: (loggedIn: boolean) => void;
   setIsLoggedIn: (loggedIn: boolean) => void;
+  setIsBattleSelected: (battleSelected: boolean) => void;
+  setIsAdventureSelected: (adventureSelected: boolean) => void;
   setEmail: (email: string) => void;
   setPlayer: (player: Player) => void;
   updatePlayerHitPoints: (newHitPoints: number) => void;
@@ -50,10 +67,23 @@ const useStore = create<StoreState>((set) => ({
   selectedPotion: null,
   isPotionModalOpen: false,
   isSettingModalOpen: false,
+  isBattleSelected: false,
+  isAdventureSelected: false,
   selectedPlayer: undefined,
   selectedPlayerIndex: 1,
   maxPercent: 100,
-
+  gameSelected: false,
+  gameCreated: false,
+  gameJoined: false,
+  selectedBattle: null!,
+  battles: [],
+  gameStarted: false,
+  setGameStarted: (gameStarted) => set({ gameStarted }),
+  setBattles: (battles) => set({ battles }),
+  setSelectedBattle: (battle) => set({ selectedBattle: battle }),
+  setGameJoined: (gameJoined) => set({ gameJoined: gameJoined }),
+  setGameCreated: (gameCreated) => set({ gameCreated: gameCreated }),
+  setGameSelected: (gameSelected) => set({ gameSelected: gameSelected }),
   setIsLoggedIn: (loggedIn) => set({ isLoggedIn: loggedIn }),
   setEmail: (email) => set({ email }),
   setIsMyTurn: (turn) => set(() => ({ isMyTurn: turn })),
@@ -138,6 +168,8 @@ const useStore = create<StoreState>((set) => ({
   setIsSettingModalOpen: (isOpen) => set({ isSettingModalOpen: isOpen }),
   setSelectedPlayer: (player) => set({ selectedPlayer: player }),
   setSelectedPlayerIndex: (index) => set({ selectedPlayerIndex: index }),
+  setIsBattleSelected: (battleSelected) => set({ isBattleSelected: battleSelected }),
+  setIsAdventureSelected: (adventureSelected) => set({ isAdventureSelected: adventureSelected }),
 }));
 
 export default useStore;

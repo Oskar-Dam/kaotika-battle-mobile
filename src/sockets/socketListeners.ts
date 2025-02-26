@@ -1,3 +1,4 @@
+import { Battle } from '../interfaces/Battle';
 import { Factions } from '../interfaces/Factions';
 import { Modifier } from '../interfaces/Modifier';
 import { Player } from '../interfaces/Player';
@@ -47,6 +48,8 @@ export const listenToInsufficientPlayers = (setInsufficientPlayers: (turn: boole
   });
 };  
 
+
+
 export const listenToGameStart = (setShowWaitingScreen: React.Dispatch<React.SetStateAction<boolean>>) => {
   socket.on(SOCKET_EVENTS.GAME_STARTED, () => {
     console.log(`'${SOCKET_EVENTS.GAME_STARTED}' socket received.`);
@@ -54,6 +57,27 @@ export const listenToGameStart = (setShowWaitingScreen: React.Dispatch<React.Set
   });
 };
 
+export const listenToGameCreated = (setGameCreated: (isCreated: boolean) => void) => {
+  socket.on(SOCKET_EVENTS.GAME_CREATED, (gameCreated: boolean) => {
+    console.log(`'${SOCKET_EVENTS.GAME_CREATED}' socket received.`);
+    setGameCreated(gameCreated);
+  });
+};
+
+export const listenToGameStarted = (setGameStarted: (isStarted: boolean) => void) => {
+  socket.on(SOCKET_EVENTS.GAME_STARTED, () => {
+    console.log(`'${SOCKET_EVENTS.GAME_STARTED}' socket received.`);
+    setGameStarted(true);
+  });
+};
+
+export const listenToBattles = (setBattles: (battles: Battle[]) => void) => {
+  socket.on(SOCKET_EVENTS.GET_BATTLES, (battles: Battle[]) => {
+    console.log(`'${SOCKET_EVENTS.GET_BATTLES}' socket received.`);
+    console.log(battles);
+    setBattles(battles);
+  });
+};
 export const listenToUpdatePlayer = (updateDravokarPlayerHitPoints: (id: string, hitpoints: number)=> void, updateKaotikaPlayerHitPoints: (id: string, hitpoints: number)=> void, updatePlayerHitPoints: (hitpoints: number)=> void, player: Player) => {
   socket.on(SOCKET_EVENTS.UPDATE_PLAYER, (updatedPlayer: {_id: string, attributes: Modifier, totalDamage: number, isBetrayer: boolean}) => {
     console.log(`'${SOCKET_EVENTS.UPDATE_PLAYER}' socket received.`);
@@ -143,3 +167,7 @@ export const clearWaitingScreenEvents = ():void => {
   console.log(`'${SOCKET_EVENTS.INSUFFICIENT_PLAYERS}' socket cleared.`);
 };
 
+export const clearListenToServerEventsLoginScreen = ():void => {
+  socket.off(SOCKET_EVENTS.PLAYER_DATA);
+  console.log(`'${SOCKET_EVENTS.PLAYER_DATA}' socket cleared.`);
+};

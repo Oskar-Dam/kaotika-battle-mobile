@@ -1,22 +1,26 @@
 import { useEffect } from 'react';
+import AdminScreen from './components/AdminScreen';
 import LoggedDisconnectionModal from './components/LoggedDisconnectionModal';
 import UnloggedDisconnectionModal from './components/UnloggedDisconnectionModal';
+import AcolyteLobby from './pages/AcolyteLobbyScreen';
 import BattleScreen from './pages/BattleScreen';
 import LoginScreen from './pages/LoginScreen';
+import ModeSelection from './pages/ModeSelectionScreen';
 import PWABadge from './PWABadge';
-import { listenToDisconnections } from './sockets/socketListeners';
+import { listenToDisconnections, listenToGameCreated, listenToGameStarted } from './sockets/socketListeners';
 import useStore from './store/useStore';
 
 const App: React.FC = () => {
   const {
     isLoggedIn,
-    email,
     player,
     isDisconnected,
+    isBattleSelected,
+    isAdventureSelected,
     permanentlyDisconnected,
-    setIsLoggedIn,
-    setEmail,
-    setPlayer,
+    gameJoined,
+    setGameStarted,
+    setGameCreated,
     setIsDisconnected,
     setPermanentlyDisconnected,
   } = useStore();
@@ -31,18 +35,30 @@ const App: React.FC = () => {
     listenToDisconnections(handleDisconnection);
   }, [isLoggedIn, setIsDisconnected, setPermanentlyDisconnected]);
 
+  useEffect(() => {
+    listenToGameCreated(setGameCreated);
+  }
+  , []);
+
+  useEffect(() => {
+    listenToGameStarted(setGameStarted);
+  }
+  , []);
+
   return (
     <>
-      {isLoggedIn && player ? (
-        <BattleScreen/>
-      ) : (
-        <LoginScreen
-          email={email}
-          setEmail={setEmail}
-          setIsLoggedIn={setIsLoggedIn}
-          setPlayer={setPlayer}
-        />
-      )}
+    
+      {isLoggedIn && !isBattleSelected && !isAdventureSelected && player && !gameJoined && <ModeSelection/>}
+    
+      {isLoggedIn && isBattleSelected && player && gameJoined && <BattleScreen/>}
+
+      {isLoggedIn && isBattleSelected && player && !gameJoined && player.role === 'acolyte' && <AcolyteLobby/>}
+
+      {isLoggedIn && isBattleSelected && player && !gameJoined && (player.role === 'mortimer' || player.role === 'villain') && <AdminScreen/>}
+
+      {!isLoggedIn && !player &&
+        <LoginScreen />
+      }
 
       {permanentlyDisconnected && isLoggedIn && (
         <LoggedDisconnectionModal />
