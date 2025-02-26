@@ -16,6 +16,7 @@ export const SOCKET_EVENTS = {
   PLAYER_DATA: 'playerData',
   GAME_CREATED: 'mobile-isgameCreated',
   JOINED_BATTLE: 'mobile-joinBattle',
+  GET_BATTLES: 'mobile-getBattles',
 };
 
 export const SOCKET_EMIT_EVENTS = {
