@@ -45,7 +45,7 @@ const App: React.FC = () => {
 
       {isLoggedIn && player && !gameJoined && (player.role === 'mortimer' || player.role === 'villain') && <AdminScreen/>}
 
-      {!isLoggedIn && !player && !gameJoined &&
+      {!isLoggedIn && !player &&
         <LoginScreen />
       }
 
