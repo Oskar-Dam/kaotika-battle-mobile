@@ -29,7 +29,7 @@ const BattleModal: React.FC<BattleModalProps> = ({ battle, onClose }) => {
         <div className='flex-shrink-0 h-[10%]'>
           <ModalHeader name={battle.name} />
         </div>
-        <div className='flex-shrink-0 h-[30%]'>
+        <div className='flex-shrink-0 h-[25%] w-full justify-center mb-2'>
           <ModalImage
             src='/images/background/TheFinalBattleBG.webp'
             alt='Battle' />
