@@ -24,6 +24,8 @@ interface StoreState {
   gameCreated: boolean;
   gameJoined: boolean;
   selectedBattle: Battle;
+  battles: Battle[];
+  setBattles: (battles: Battle[]) => void;
   setSelectedBattle: (battle: Battle) => void;
   setGameJoined: (gameJoined: boolean) => void;
   setGameCreated: (gameCreated: boolean) => void;
@@ -72,7 +74,8 @@ const useStore = create<StoreState>((set) => ({
   gameCreated: false,
   gameJoined: false,
   selectedBattle: null!,
-
+  battles: [],
+  setBattles: (battles) => set({ battles }),
   setSelectedBattle: (battle) => set({ selectedBattle: battle }),
   setGameJoined: (gameJoined) => set({ gameJoined: gameJoined }),
   setGameCreated: (gameCreated) => set({ gameCreated: gameCreated }),

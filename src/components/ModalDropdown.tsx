@@ -9,7 +9,7 @@ const ModalDropdown: React.FC<ModalDropdownProps> = ({ title, content }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className='mb-2'>
+    <div className='mb-1'>
       <button 
         className='w-full text-left p-2 bg-gray-200 rounded'
         onClick={() => setIsOpen(!isOpen)}>

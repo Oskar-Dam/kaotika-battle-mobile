@@ -1,3 +1,4 @@
+import { Battle } from '../interfaces/Battle';
 import { Factions } from '../interfaces/Factions';
 import { Modifier } from '../interfaces/Modifier';
 import { Player } from '../interfaces/Player';
@@ -56,14 +57,14 @@ export const listenToGameStart = (setShowWaitingScreen: React.Dispatch<React.Set
   });
 };
 
-export const listenToGameCreated = (setGameCreated: (turn: boolean) => void) => {
+export const listenToGameCreated = (setGameCreated: (isCreated: boolean) => void) => {
   socket.on(SOCKET_EVENTS.GAME_CREATED, (gameCreated: boolean) => {
     console.log(`'${SOCKET_EVENTS.GAME_CREATED}' socket received.`);
     setGameCreated(gameCreated);
   });
 };
 
-export const listenToJoinedToBattle = (setGameJoined: (turn: boolean) => void, player: Player) => {
+export const listenToJoinedToBattle = (setGameJoined: (isJoined: boolean) => void, player: Player) => {
   socket.on(SOCKET_EVENTS.JOINED_BATTLE, (_id: string) => {
     console.log(`'${SOCKET_EVENTS.JOINED_BATTLE}' socket received.`);
     if (player._id === _id){
@@ -72,6 +73,12 @@ export const listenToJoinedToBattle = (setGameJoined: (turn: boolean) => void, p
   });
 };
 
+export const listenToBattles = (setBattles: (battles: Battle[]) => void) => {
+  socket.on(SOCKET_EVENTS.GET_BATTLES, (battles: Battle[]) => {
+    console.log(`'${SOCKET_EVENTS.GET_BATTLES}' socket received.`);
+    setBattles(battles);
+  });
+};
 export const listenToUpdatePlayer = (updateDravokarPlayerHitPoints: (id: string, hitpoints: number)=> void, updateKaotikaPlayerHitPoints: (id: string, hitpoints: number)=> void, updatePlayerHitPoints: (hitpoints: number)=> void, player: Player) => {
   socket.on(SOCKET_EVENTS.UPDATE_PLAYER, (updatedPlayer: {_id: string, attributes: Modifier, totalDamage: number, isBetrayer: boolean}) => {
     console.log(`'${SOCKET_EVENTS.UPDATE_PLAYER}' socket received.`);
