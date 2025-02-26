@@ -1,7 +1,8 @@
 import React from 'react';
+import { Player } from '../../interfaces/Player';
 
 interface ModalDropdownProps {
-  enemies: string[];
+  enemies: Player[];
 }
 
 const BattleEnemies: React.FC<ModalDropdownProps> = ({enemies}) => {
@@ -13,7 +14,7 @@ const BattleEnemies: React.FC<ModalDropdownProps> = ({enemies}) => {
           <div
             key={index}
             className='text-white text-2xl text-center'>
-            {enemy}
+            {enemy.nickname}
           </div>
         ))}
       </div>

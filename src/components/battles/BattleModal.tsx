@@ -1,15 +1,15 @@
 import React from 'react';
+import { Battle } from '../../interfaces/Battle';
 import ModalHeader from '../ModalHeader';
 import ModalImage from '../ModalImage';
 import BattleDescription from './BattleDescription';
-import { Battle } from '../../interfaces/Battle';
 import BattleEnemies from './BattleEnemies';
 import BattleSuggestions from './BattleSuggestions';
 
+import { SOCKET_EMIT_EVENTS } from '../../sockets/events';
+import socket from '../../sockets/socket';
 import BattleModalButton from '../ModalButton';
 import BattleRewards from './BattleRewards';
-import socket from '../../sockets/socket';
-import { SOCKET_EMIT_EVENTS } from '../../sockets/events';
 
 interface BattleModalProps {
   battle: Battle;
@@ -37,6 +37,8 @@ const BattleModal: React.FC<BattleModalProps> = ({ battle, onClose }) => {
         <div className='flex-grow overflow-auto w-full border-2 border-white rounded-lg mb-2'>
           <BattleDescription description={battle.description}/>
           <BattleEnemies enemies={battle.enemies}/>
+          
+          
           <BattleSuggestions battle={battle}></BattleSuggestions>
           <BattleRewards battle={battle}/>
         </div>
