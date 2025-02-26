@@ -6,6 +6,7 @@ import ModalButton from './ModalButton';
 import BattleDescription from './BattleDescription';
 import { Battle } from '../interfaces/Battle';
 import BattleEnemies from './BattleEnemies';
+import BattleSuggestions from './BattleSuggestions';
 
 interface BattleModalProps {
   battle: Battle;
@@ -27,9 +28,7 @@ const BattleModal: React.FC<BattleModalProps> = ({ battle, onClose }) => {
         <div className='flex-grow overflow-auto w-full bg-purple-500'>
           <BattleDescription description={battle.description}/>
           <BattleEnemies enemies={battle.enemies}/>
-          <ModalDropdown
-            title='Suggested Level'
-            content='Suggested Level content...' />
+          <BattleSuggestions battle={battle}></BattleSuggestions>
           <ModalDropdown
             title='Rewards'
             content='Rewards content...' />

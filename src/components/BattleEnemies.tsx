@@ -6,7 +6,7 @@ interface ModalDropdownProps {
 
 const BattleEnemies: React.FC<ModalDropdownProps> = ({enemies}) => {
   return (
-    <div>
+    <div className='shadow-2xs shadow-white rounded'>
       <div className='text-white text-3xl text-center'>Enemies</div>
       <div className='grid grid-cols-2 gap-4'>
         {enemies.map((enemy, index) => (
