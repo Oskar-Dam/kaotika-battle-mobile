@@ -48,7 +48,6 @@ const LoginFirebase: React.FC<LoginFirebaseProps> = ({
               console.log('player found with email:', response.player.email);
               setPlayer(response.player);
               setIsLoggedIn(true);
-              setIsLoading(false);
               setEmail(response.player.email);
               if ((user.email === mortimerEmail) || (user.email === villainEmail)) {
                 console.log('email send is mortimer or villain');
@@ -61,14 +60,17 @@ const LoginFirebase: React.FC<LoginFirebaseProps> = ({
                   }
                 });
               }
+              setIsLoading(false);
             } else {
               console.error('Error:', response.error);
+              setIsLoading(false);
             }
           });
         });
         
       } else {
         setErrorMessage('No se pudo obtener el correo electrónico del usuario.');
+        setIsLoading(false);
       }
     } catch (error: unknown) {
       console.error('Error during Google sign-in:', error);
@@ -77,7 +79,6 @@ const LoginFirebase: React.FC<LoginFirebaseProps> = ({
       } else {
         setErrorMessage('An unknown error occurred during Google sign-in.');
       }
-    } finally {
       setIsLoading(false);
     }
   };

@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Battle } from '../../interfaces/Battle';
 import { SOCKET_EMIT_EVENTS } from '../../sockets/events';
 import socket from '../../sockets/socket';
-import BattleModal from './BattleModal';
 import useStore from '../../store/useStore';
+import BattleModal from './BattleModal';
 
 
 interface BattleCardProps {
@@ -20,7 +20,7 @@ const BattleCard: React.FC<BattleCardProps> = ({ battle }) => {
     if(!gameCreated)  {
       setSelectedBattle(battle);
     }
-    socket.emit(SOCKET_EMIT_EVENTS.GAME_SELECTED, battle.id);
+    socket.emit(SOCKET_EMIT_EVENTS.GAME_SELECTED, battle._id);
     console.log('Emit battle selected');
   };
 
