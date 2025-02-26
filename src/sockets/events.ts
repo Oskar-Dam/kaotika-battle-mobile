@@ -28,6 +28,6 @@ export const SOCKET_EMIT_EVENTS = {
   CREATE_GAME: 'mobile-createGame',
   SIGN_IN: 'mobile-signIn',
   JOIN_BATTLE: 'mobile-joinBattle',
-  GAME_CREATED: 'mobile-isgameCreated',
+  GAME_CREATED: 'mobile-isGameCreated',
   GET_BATTLES: 'mobile-getBattles',
 };

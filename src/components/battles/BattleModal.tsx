@@ -19,6 +19,7 @@ interface BattleModalProps {
 const BattleModal: React.FC<BattleModalProps> = ({ battle, onClose }) => {
 
   const handleBattleCreate = () => {
+    onClose();
     console.log('Emit create game of the battle: ' + battle.name);
     socket.emit(SOCKET_EMIT_EVENTS.CREATE_GAME, battle.id);
   };

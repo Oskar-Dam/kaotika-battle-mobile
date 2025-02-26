@@ -21,7 +21,7 @@ const GameStartButton: React.FC<GameStartButtonProps> = ({onClick }) => {
         {/* Texto */}
         <span className="relative text-2xl text-center">
           START
-          <span className="text-2xl text-red-600">{selectedBattle?.name}</span> 
+          <span className="text-2xl text-red-600"> {selectedBattle?.name} </span> 
           <span>BATTLE</span>
         </span>
       </button>
