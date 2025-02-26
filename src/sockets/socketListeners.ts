@@ -51,8 +51,8 @@ export const listenToInsufficientPlayers = (setInsufficientPlayers: (turn: boole
 
 
 export const listenToGameStart = (setShowWaitingScreen: React.Dispatch<React.SetStateAction<boolean>>) => {
-  socket.on(SOCKET_EVENTS.GAME_STARTED, () => {
-    console.log(`'${SOCKET_EVENTS.GAME_STARTED}' socket received.`);
+  socket.on(SOCKET_EVENTS.GAME_START, () => {
+    console.log(`'${SOCKET_EVENTS.GAME_START}' socket received.`);
     setShowWaitingScreen(false);
   });
 };
@@ -61,6 +61,13 @@ export const listenToGameCreated = (setGameCreated: (isCreated: boolean) => void
   socket.on(SOCKET_EVENTS.GAME_CREATED, (gameCreated: boolean) => {
     console.log(`'${SOCKET_EVENTS.GAME_CREATED}' socket received.`);
     setGameCreated(gameCreated);
+  });
+};
+
+export const listenToGameStarted = (setGameStarted: (isStarted: boolean) => void) => {
+  socket.on(SOCKET_EVENTS.GAME_STARTED, () => {
+    console.log(`'${SOCKET_EVENTS.GAME_STARTED}' socket received.`);
+    setGameStarted(true);
   });
 };
 

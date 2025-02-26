@@ -11,6 +11,8 @@ const AdminScreen: React.FC = () => {
   useEffect(() => {
     socket.emit(SOCKET_EMIT_EVENTS.GAME_CREATED);
     console.log('sended game is created socket');
+    socket.emit(SOCKET_EMIT_EVENTS.GAME_STARTED);
+    console.log('sended game started socket');
   }, []);
 
   return (
