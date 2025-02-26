@@ -6,6 +6,7 @@ import useStore from '../store/useStore';
 import BattleList from './battles/BattleList';
 import JoinButton from './JoinButton';
 import WelcomeTexts from './WelcomeTexts';
+import ReturnToModeSelectionScreenButton from './mode selection/ReturnToModeSelectionButton';
 
 const AdminScreen: React.FC = () => {
 
@@ -32,6 +33,9 @@ const AdminScreen: React.FC = () => {
         </div>
         <div className='flex h-[10%] w-[80%]'>
           <JoinButton/>
+        </div>
+        <div className='flex h-[10%] w-[80%] mt-2'>
+          <ReturnToModeSelectionScreenButton/>
         </div>
       </div>
     </div>
