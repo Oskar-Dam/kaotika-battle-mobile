@@ -1,22 +1,16 @@
 import React, { useEffect } from 'react';
 import { SOCKET_EMIT_EVENTS } from '../sockets/events';
 import socket from '../sockets/socket';
-import { listenToGameCreated } from '../sockets/socketListeners';
-import useStore from '../store/useStore';
 import BattleList from './battles/BattleList';
 import JoinButton from './JoinButton';
-import WelcomeTexts from './WelcomeTexts';
 import ReturnToModeSelectionScreenButton from './mode selection/ReturnToModeSelectionButton';
+import WelcomeTexts from './WelcomeTexts';
 
 const AdminScreen: React.FC = () => {
-
-  const { setGameCreated } = useStore();
-
+  
   useEffect(() => {
     socket.emit(SOCKET_EMIT_EVENTS.GAME_CREATED);
     console.log('sended game is created socket');
-
-    listenToGameCreated(setGameCreated);
   }, []);
 
   return (
