@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import AdminScreen from './components/AdminScreen';
 import LoggedDisconnectionModal from './components/LoggedDisconnectionModal';
 import UnloggedDisconnectionModal from './components/UnloggedDisconnectionModal';
 import AcolyteLobby from './pages/AcolyteLobbyScreen';
@@ -7,20 +8,15 @@ import LoginScreen from './pages/LoginScreen';
 import PWABadge from './PWABadge';
 import { listenToDisconnections, listenToJoinedToBattle } from './sockets/socketListeners';
 import useStore from './store/useStore';
-import AdminScreen from './components/AdminScreen';
 
 const App: React.FC = () => {
   const {
     isLoggedIn,
-    email,
     player,
     isDisconnected,
     permanentlyDisconnected,
     gameJoined,
     setGameJoined,
-    setIsLoggedIn,
-    setEmail,
-    setPlayer,
     setIsDisconnected,
     setPermanentlyDisconnected,
   } = useStore();
@@ -37,7 +33,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     listenToJoinedToBattle(setGameJoined, player);
-  }, [listenToJoinedToBattle]);
+  }, []);
 
   return (
     <>
@@ -50,12 +46,7 @@ const App: React.FC = () => {
       {isLoggedIn && player && !gameJoined && (player.role === 'mortimer' || player.role === 'villain') && <AdminScreen/>}
 
       {!isLoggedIn && !player && !gameJoined &&
-        <LoginScreen
-          email={email}
-          setEmail={setEmail}
-          setIsLoggedIn={setIsLoggedIn}
-          setPlayer={setPlayer}
-        />
+        <LoginScreen />
       }
 
       {permanentlyDisconnected && isLoggedIn && (

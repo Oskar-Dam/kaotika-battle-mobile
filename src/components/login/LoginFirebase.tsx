@@ -1,29 +1,29 @@
 import { signInWithPopup } from 'firebase/auth';
 import React from 'react';
 import { auth, provider } from '../../api/firebase/firebaseConfig';
-import { getPlayerByEmail } from '../../api/player';
-import { Player } from '../../interfaces/Player';
-import { SOCKET_EVENTS } from '../../sockets/events';
+import { MobileSignInResponse } from '../../interfaces/MobileSignInResponse';
+import { SOCKET_EMIT_EVENTS, SOCKET_EVENTS } from '../../sockets/events';
 import socket from '../../sockets/socket';
+import useStore from '../../store/useStore';
 
 interface LoginFirebaseProps {
-    email: string;
     isLoading: boolean; 
     errorMessage: string;
-      setEmail: (email: string) => void;
-      setIsLoggedIn: (isLoggedIn: boolean) => void;
       setIsLoading: (isLoggedIn: boolean) => void;
       setErrorMessage: (errorMessage: string ) => void;
-      setPlayer: (player: Player) => void;
 }
 
 const LoginFirebase: React.FC<LoginFirebaseProps> = ({
   errorMessage,
-  setIsLoggedIn,
-  setPlayer,
   setErrorMessage,
-  setIsLoading
+  setIsLoading,
 }) => {
+
+  const {
+    setIsLoggedIn,
+    setEmail,
+    setPlayer,
+  } = useStore();
 
   const handleGoogleSignIn = async () => {
     provider.setCustomParameters({ prompt: 'select_account' });
@@ -33,11 +33,24 @@ const LoginFirebase: React.FC<LoginFirebaseProps> = ({
       const user = result.user;
       if (user.email) {
         console.log('User email:', user.email);
-        const playerData = await getPlayerByEmail(user.email);
-        socket.emit(SOCKET_EVENTS.SEND_SOCKETID, user.email);
-        setIsLoggedIn(true);
-        setIsLoading(false);
-        setPlayer(playerData);
+
+        // Connect with socket
+        socket.connect();
+        socket.on(SOCKET_EVENTS.CONNECT, () => {
+          console.log('[Socket.io] Connected:', socket.id);
+          socket.emit(SOCKET_EMIT_EVENTS.SIGN_IN, user.email , (response: MobileSignInResponse) => {
+            if (response.status === 'OK') {
+              console.log('player found with email:', response.player.email);
+              setPlayer(response.player);
+              setIsLoggedIn(true);
+              setIsLoading(false);
+              setEmail(response.player.email);
+            } else {
+              console.error('Error:', response.error);
+            }
+          });
+        });
+        
       } else {
         setErrorMessage('No se pudo obtener el correo electrónico del usuario.');
       }
