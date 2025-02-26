@@ -36,7 +36,7 @@ const BattleCard: React.FC<BattleCardProps> = ({ battle }) => {
       </button>
       {isModalOpen && (
         <BattleModal 
-          name={battle.name} 
+          battle={battle}
           onClose={() => setIsModalOpen(false)} 
         />
       )}
