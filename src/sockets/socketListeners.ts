@@ -121,16 +121,19 @@ export const listenToDisconnections = (setdisconnection: (disconnection: boolean
 };
 
 export const listenToGameReset = (setGameEnded: (gameEnded: boolean) => void, 
-  setIsMyTurn: (turn: boolean) => void, 
-  setIsLoggedIn: (turn: boolean) => void, 
-  setEmail: (email: string) => void, 
-  setPlayer: (players: Player) => void,
+  setIsMyTurn: (turn: boolean) => void,
   setKaotikaPlayers: (players: Player[]) => void, 
   setDravokarPlayers: (players: Player[]) => void,
-  setIsSettingModalOpen: (isOpen: boolean) => void ) => {
+  setIsSettingModalOpen: (isOpen: boolean) => void,
+  setGameJoined: (gameJoined: boolean) => void,
+  setGameCreated: (gameCreated: boolean) => void,
+  setGameSelected: (loggedIn: boolean) => void,
+  setGameStarted: (loggedIn: boolean) => void,
+  setIsBattleSelected: (battleSelected: boolean) => void,
+  setIsAdventureSelected: (adventureSelected: boolean) => void) => {
   socket.on(SOCKET_EVENTS.GAME_RESET, () => {
     console.log(`'${SOCKET_EVENTS.GAME_RESET}' socket received.`);
-    resetAllStates(setGameEnded, setIsMyTurn, setIsLoggedIn, setEmail, setPlayer, setKaotikaPlayers, setDravokarPlayers, setIsSettingModalOpen);
+    resetAllStates(setGameEnded, setIsMyTurn, setKaotikaPlayers, setDravokarPlayers, setIsSettingModalOpen, setGameJoined, setGameCreated, setGameSelected, setIsBattleSelected, setIsAdventureSelected, setGameStarted);
   });
 };
 

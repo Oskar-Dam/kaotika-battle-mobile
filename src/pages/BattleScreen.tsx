@@ -25,9 +25,6 @@ const BattleScreen: React.FC = () => {
     player,
     isMyTurn,
     setIsMyTurn,
-    setPlayer,
-    setIsLoggedIn,
-    setEmail,
     selectedPotion,
     setSelectedPotion,
     isPotionModalOpen,
@@ -36,6 +33,12 @@ const BattleScreen: React.FC = () => {
     setIsSettingModalOpen,
     selectedPlayer,
     setSelectedPlayerIndex,
+    setIsAdventureSelected,
+    setIsBattleSelected,
+    setGameSelected,
+    setGameJoined,
+    setGameCreated,
+    setGameStarted,
     kaotikaPlayers,
     dravokarPlayers,
     setDravokarPlayers,
@@ -60,8 +63,7 @@ const BattleScreen: React.FC = () => {
     listenToRemovePlayer(updateDravokarPlayerStatus, updateKaotikaPlayerStatus, updatePlayerStatus, player);
     listenToChangeTurn(setIsMyTurn, player, kaotikaPlayers, dravokarPlayers, setSelectedPlayerIndex, setFilteredFaction);
     listenToGameEnded(setGameEnded, setWinner); 
-    listenToGameReset(setGameEnded, setIsMyTurn, setIsLoggedIn, setEmail, setPlayer, setKaotikaPlayers, setDravokarPlayers, setIsSettingModalOpen);
-
+    listenToGameReset(setGameEnded, setIsMyTurn, setKaotikaPlayers, setDravokarPlayers, setIsSettingModalOpen, setGameJoined, setGameCreated, setGameSelected, setGameStarted, setIsBattleSelected, setIsAdventureSelected);
     console.log('KAOTIKA PLAYERS: ', kaotikaPlayers);
     console.log('DRAVOKAR PLAYERS: ', dravokarPlayers);
     
