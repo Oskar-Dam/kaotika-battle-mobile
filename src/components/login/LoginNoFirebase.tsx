@@ -91,24 +91,14 @@ const LoginNoFirebase: React.FC<LoginNoFirebaseProps> = ({
             
       </div>
       <button
-        className="mt-[5%] flex flex-col items-center justify-center h-[15%]"
+        className=" mt-[10%] z-1 w-full h-[50%] bg-black/50 text-white text-5xl rounded-4xl shadow-black shadow-xl border-2 border-white"
         onClick={handleEnterBattle}
-        style={{ filter: email === '' ? 'grayscale(100%)' : 'none', transition: 'filter 0.3s ease', pointerEvents: email === '' ? 'none' : 'auto', width: '45%', height: 'auto' }}
+        style={{ filter: email === '' ? 'grayscale(100%)' : 'none', transition: 'filter 0.3s ease', pointerEvents: email === '' ? 'none' : 'auto', width: '95%', height: '175%' }}
         disabled={email === ''}
       >
-        <img
-          src="/images/signin-button.webp"
-          alt="Enter the battle"
-          style={{ width: '100%' }} 
-          className='brightness-80'/>
-        <span
-          className="text-white mt-2 text-3xl mb-2"
-          style={{ fontFamily: 'Kaotika', position: 'absolute' }}>
-          
-        </span>
+        Sign In
       </button> 
-    </div>
-    
+    </div>  
 
   );
 };

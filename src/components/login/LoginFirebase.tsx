@@ -84,20 +84,14 @@ const LoginFirebase: React.FC<LoginFirebaseProps> = ({
   };
 
   return (
-    <div className='mt-[60%] flex flex-col items-center justify-center h-[15%]'>
+      
+    <div  className="mt-[60%] flex items-center justify-center w-full h-2/8">
       <button
-        className="mt-[90%] flex flex-col items-center justify-center h-[15%]"
+        className=" mt-[75%] z-1 w-full h-[50%] bg-black/50 text-white text-7xl rounded-4xl shadow-black shadow-xl border-2 border-white"
         onClick={handleGoogleSignIn}
-        style={{ width: '70%', height: 'auto' }}
+        style={{ width: '95%', height: '175%' }}
       >
-        <img
-          src="/images/signin-button.webp"
-          alt="Enter the battle"
-          style={{ width: '100%' }} 
-          className='brightness-80'/>
-        <span
-          className="text-white mt-2 text-3xl mb-2"
-          style={{ fontFamily: 'Kaotika', position: 'absolute' }}></span>
+        Sign In
       </button> 
       {errorMessage && (
         <div
