@@ -1,12 +1,31 @@
 import React, { useEffect, useRef } from 'react';
-import SelectAdventureMode from '../components/mode selection/AdventureModeButton';
-import SelecteBattleModeButton from '../components/mode selection/SelectBattleModeButon';
 import { SOCKET_EMIT_EVENTS } from '../sockets/events';
 import socket from '../sockets/socket';
+import useStore from '../store/useStore';
+import MenuButton from '../components/MenuButton';
 
 const ModeSelection: React.FC = () => {
 
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  const { setIsBattleSelected } = useStore();
+
+  const selectBattleMode = () => {
+    setIsBattleSelected(true);
+    console.log('Battle mode selected');
+    
+  };
+
+  const selectAdventureMode = () => {
+    console.log('Adventure mode selected, comming soon...');
+    
+  };
+
+  const handleLogOut = () => {
+    console.log('Log out');
+    localStorage.removeItem('playerEmail');
+    window.location.reload();
+  };
 
   useEffect(() => {
     if (videoRef.current) {
@@ -21,8 +40,15 @@ const ModeSelection: React.FC = () => {
 
 
   const buttons = [
-    { id: 'selectBattle', component: <SelecteBattleModeButton/> },
-    { id: 'selectAdventure', component: <SelectAdventureMode/> },
+    { id: 'selectBattle', component: <MenuButton
+      text='Battle'
+      onClick={selectBattleMode}/> },
+    { id: 'selectAdventure', component: <MenuButton
+      text='Adventure'
+      onClick={selectAdventureMode}/> },
+    { id: 'log-out', component: <MenuButton
+      text='Log Out'
+      onClick={handleLogOut}/> },
   ];
 
   return (
