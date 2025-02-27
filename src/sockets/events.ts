@@ -30,5 +30,5 @@ export const SOCKET_EMIT_EVENTS = {
   JOIN_BATTLE: 'mobile-joinBattle',
   GAME_CREATED: 'mobile-isGameCreated',
   GET_BATTLES: 'mobile-getBattles',
-  GAME_STARTED: 'movile-isGameStarted',
+  GAME_STARTED: 'mobile-isGameStarted',
 };
