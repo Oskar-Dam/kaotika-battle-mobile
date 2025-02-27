@@ -51,7 +51,7 @@ const ModeSelection: React.FC = () => {
       onClick={selectAdventureMode}
       disabled={false}
       ariaDisabled={false}
-      extraStyles=''/> },
+      extraStyles='brightness-40'/> },
     { id: 'log-out', component: <MenuButton
       text='Log Out'
       onClick={handleLogOut}
