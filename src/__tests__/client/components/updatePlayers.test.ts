@@ -20,7 +20,7 @@ describe('updatePlayerAttributes with Zustand', () => {
     const playerToUpdate = dravokarPlayerToUpdate;
 
     useStore.getState().updateDravokarPlayerHitPoints(playerToUpdate._id, 150);
-
+ 
     const { dravokarPlayers, kaotikaPlayers } = useStore.getState();
     const updatedPlayer = dravokarPlayers.find(p => p._id === playerToUpdate._id);
 

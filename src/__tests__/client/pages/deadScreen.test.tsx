@@ -35,4 +35,4 @@ describe('DeadScreen screen', () => {
     const deadScreen = screen.getByTestId('dead-screen');
     expect(deadScreen).toBeInTheDocument();
   });
-});
+}); 

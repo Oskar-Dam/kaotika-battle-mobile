@@ -11,6 +11,9 @@ const ModeSelection: React.FC = () => {
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.playbackRate = 1;
+      videoRef.current.play().catch(() => {
+        console.log('Autoplay blocked, requires user interaction');
+      });
     }
     socket.emit(SOCKET_EMIT_EVENTS.GAME_CREATED);
     console.log('sended game is created socket');
@@ -25,15 +28,15 @@ const ModeSelection: React.FC = () => {
   return (
     <div
       className="flex flex-col items-center h-screen p-4 bg-black text-white text-2xl font-bold w-screen"
-      style={{ backgroundColor: 'black', backgroundRepeat:'no-repeat',backgroundPositionX:'50%',backgroundPositionY:'35%' ,backgroundImage: 'url(/images/acolyt-lobby-screen.webp)', backgroundSize: '100% 100%' }}
       data-testid="acolyte-lobby-screen"
     >
       <video
-        ref={videoRef}        
+        ref={videoRef}
         autoPlay
         muted
-        className="absolute top-0 left-0 w-full h-full object-cover"
-        loop      
+        playsInline
+        className="absolute top-0 left-0 w-full h-full object-cover pointer-events-none z-[0]"
+        loop
       >
         <source
           src="/videos/cript.mp4"

@@ -30,7 +30,7 @@ describe('listenToRemovePlayer', () => {
 
   const mockStore = {
     player: mockDividedPlayers.kaotika[0],
-    kaotikaPlayers: kaotika,
+    kaotikaPlayers: kaotika, 
     dravokarPlayers: dravokar,
     updateDravokarPlayerStatus: jest.fn(),
     updateKaotikaPlayerStatus: jest.fn(),
