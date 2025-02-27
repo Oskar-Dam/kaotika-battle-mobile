@@ -28,7 +28,8 @@ const BattleCard: React.FC<BattleCardProps> = ({ battle }) => {
     <>
       <button 
         className='relative flex flex-row w-[100%] h-[13vh] justify-center items-center border-2 rounded border-white overflow-hidden'
-        onClick={handleSelectedBattle}>
+        onClick={handleSelectedBattle}
+        disabled={gameCreated}>
         <img 
           src={`/images/background/${battle.battle_background}`}
           alt={battle.name} 

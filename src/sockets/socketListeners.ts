@@ -65,9 +65,9 @@ export const listenToGameCreated = (setGameCreated: (isCreated: boolean) => void
 };
 
 export const listenToGameStarted = (setGameStarted: (isStarted: boolean) => void) => {
-  socket.on(SOCKET_EVENTS.GAME_STARTED, () => {
+  socket.on(SOCKET_EVENTS.GAME_STARTED, (isStarted) => {
     console.log(`'${SOCKET_EVENTS.GAME_STARTED}' socket received.`);
-    setGameStarted(true);
+    setGameStarted(isStarted);
   });
 };
 
