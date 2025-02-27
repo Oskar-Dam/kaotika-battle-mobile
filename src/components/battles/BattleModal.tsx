@@ -32,7 +32,7 @@ const BattleModal: React.FC<BattleModalProps> = ({ battle, onClose }) => {
         </div>
         <div className='flex-shrink-0 h-[25%] w-full justify-center mb-2'>
           <ModalImage
-            src='/images/background/TheFinalBattleBG.webp'
+            src={`/images/background/${battle.battle_background}`}
             alt='Battle' />
         </div>
         <div className='flex-grow overflow-auto w-full border-2 border-white rounded-lg mb-2'>
