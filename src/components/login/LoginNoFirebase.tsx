@@ -46,7 +46,7 @@ const LoginNoFirebase: React.FC<LoginNoFirebaseProps> = ({
           if (response.status === 'OK') {
             console.log('player found with email:', response.player.email);
             localStorage.setItem('playerEmail', JSON.stringify(response.player.email));
-            console.log('Player saved in local storage: ',  JSON.stringify(response.player));
+            console.log('Email saved in local storage: ',  JSON.stringify(response.player.email));
             setPlayer(response.player);
             setIsLoggedIn(true);
             setIsLoading(false);
