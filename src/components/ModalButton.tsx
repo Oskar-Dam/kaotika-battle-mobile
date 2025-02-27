@@ -3,12 +3,15 @@ import React from 'react';
 interface ModalButtonProps {
   text: string;
   onClick: () => void;
+  color: 'green' | 'red';
 }
 
-const BattleModalButton: React.FC<ModalButtonProps> = ({ text, onClick }) => {
+const BattleModalButton: React.FC<ModalButtonProps> = ({ text, onClick, color }) => {
+  const colorClasses = color === 'green' ? 'text-green-500 border-green-500' : 'text-red-500 border-red-500';
+
   return (
     <button 
-      className='bg-black text-white text-5xl rounded-4xl shadow-black shadow-xl border-2 border-white mb-2'
+      className={`h-full w-[50%] bg-black text-5xl rounded-4xl shadow-black shadow-xl border-2 mb-2 ${colorClasses}`}
       onClick={onClick}>
       {text}
     </button>
