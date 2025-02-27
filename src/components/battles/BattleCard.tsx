@@ -40,7 +40,7 @@ const BattleCard: React.FC<BattleCardProps> = ({ battle }) => {
             style={{ textShadow: '2px 2px 2px black' }}>{battle.name}</h1>
         </div>
       </button>
-      {isModalOpen && (
+      {isModalOpen && !gameCreated && (
         <BattleModal 
           battle={battle}
           onClose={() => setIsModalOpen(false)} 
