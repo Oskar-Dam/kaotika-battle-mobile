@@ -25,7 +25,7 @@ const JoinButton: React.FC = () => {
       onClick={() => { 
         joinBattle(); 
       }}
-      className={`w-full h-full bg-black text-white text-5xl rounded-4xl shadow-black shadow-xl border-2 ${gameCreated ? 'border-green-500' : 'border-red-500'}`}
+      className={`w-full h-full bg-black/50 text-white text-5xl rounded-4xl shadow-black shadow-xl border-2 ${gameCreated ? 'border-green-500' : 'border-red-500'}`}
       disabled={!gameCreated || gameStarted}
       aria-disabled={!gameCreated || gameStarted}
     >

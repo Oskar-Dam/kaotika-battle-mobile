@@ -30,7 +30,7 @@ const BattleCard: React.FC<BattleCardProps> = ({ battle }) => {
         className='relative flex flex-row w-[100%] h-[13vh] justify-center items-center border-2 rounded border-white overflow-hidden'
         onClick={handleSelectedBattle}>
         <img 
-          src='/images/background/TheFinalBattleBG.webp'
+          src={`/images/background/${battle.battle_background}`}
           alt={battle.name} 
           className='absolute w-full h-full object-cover' 
         />
@@ -40,7 +40,7 @@ const BattleCard: React.FC<BattleCardProps> = ({ battle }) => {
             style={{ textShadow: '2px 2px 2px black' }}>{battle.name}</h1>
         </div>
       </button>
-      {isModalOpen && (
+      {isModalOpen && !gameCreated && (
         <BattleModal 
           battle={battle}
           onClose={() => setIsModalOpen(false)} 
