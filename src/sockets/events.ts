@@ -24,7 +24,7 @@ export const SOCKET_EMIT_EVENTS = {
   SET_SELECTED_PLAYER: 'mobile-setSelectedPlayer',
   GAME_START: 'mobile-gameStart',
   GAME_RESET: 'mobile-gameReset',
-  GAME_SELECTED: 'mobile-gameSelected',
+  GAME_SELECTED: 'mobile-selectedBattle',
   CREATE_GAME: 'mobile-createGame',
   SIGN_IN: 'mobile-signIn',
   JOIN_BATTLE: 'mobile-joinBattle',
