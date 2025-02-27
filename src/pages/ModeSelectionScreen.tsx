@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import SelectAdventureMode from '../components/mode selection/AdventureModeButton';
 import SelecteBattleModeButton from '../components/mode selection/SelectBattleModeButon';
 import { SOCKET_EMIT_EVENTS } from '../sockets/events';
 import socket from '../sockets/socket';
@@ -16,6 +17,10 @@ const ModeSelection: React.FC = () => {
   }, []);
 
 
+  const buttons = [
+    { id: 'selectBattle', component: <SelecteBattleModeButton/> },
+    { id: 'selectAdventure', component: <SelectAdventureMode/> },
+  ];
 
   return (
     <div
@@ -36,22 +41,15 @@ const ModeSelection: React.FC = () => {
       </video>
 
       <div className="z-1 flex items-center justify-center w-full h-1/8 text-6xl text-white">Mode Selection</div>
-      <div className="z-1 h-1/8" />
-      <div className="flex items-center justify-center w-full h-2/8">
-        <SelecteBattleModeButton/>
+      <div className={`flex flex-col items-center gap-6 w-full h-6/8 overflow-y-auto z-10 mt-5 ${buttons.length < 5 ? 'justify-center' : ''}`}>
+        {buttons.map(({ id, component }) => (
+          <div
+            key={id}
+            className="flex items-center justify-center w-full h-[15%] min-h-[15%]">
+            {component}
+          </div>
+        ))}
       </div>
-      <div className="z-1 h-1/8" />
-      <div className="z-1 flex items-center justify-center w-full h-2/8">
-        <button
-          className="w-full h-[50%] bg-black/50 text-white text-5xl rounded-4xl shadow-black shadow-xl border-2 border-white"
-          onClick={() => {
-            console.log('Adventure mode Coming Soon');
-          }}
-        >
-            Adventure
-        </button>
-      </div>
-      <div className="h-1/8" />
     </div>
   );
 };
