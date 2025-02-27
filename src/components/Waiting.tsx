@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import GameStartScreen from '../pages/GameStartScreen';
 import { listenToGameStart, listenToInsufficientPlayers, listenToServerEventsBattleScreen } from '../sockets/socketListeners';
 import useStore from './../store/useStore';
 import Spinner from './Spinner';
-import GameStartScreen from '../pages/GameStartScreen';
 
 // the Waiting component is a modal that displays a spinner and a message while waiting for the game to start(mortimer) or if you are mortimer, you can start the game
 interface WaitingProps {
@@ -25,7 +25,7 @@ const Waiting: React.FC<WaitingProps> = ({ setShowWaitingScreen }) => {
   
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center bg-black/90 z-50"
+      className="flex items-center justify-center bg-black/90 z-50"
       data-testid="waiting-modal">
       {player.role === 'mortimer' || player.role === 'villain' ? <GameStartScreen/> 
         : <Spinner text={'Waiting for Mortimer to start the game'} />}
