@@ -42,13 +42,22 @@ const ModeSelection: React.FC = () => {
   const buttons = [
     { id: 'selectBattle', component: <MenuButton
       text='Battle'
-      onClick={selectBattleMode}/> },
+      onClick={selectBattleMode}
+      disabled={false}
+      ariaDisabled={false}
+      extraStyles=''/> },
     { id: 'selectAdventure', component: <MenuButton
       text='Adventure'
-      onClick={selectAdventureMode}/> },
+      onClick={selectAdventureMode}
+      disabled={false}
+      ariaDisabled={false}
+      extraStyles='brightness-40'/> },
     { id: 'log-out', component: <MenuButton
       text='Log Out'
-      onClick={handleLogOut}/> },
+      onClick={handleLogOut}
+      disabled={false}
+      ariaDisabled={false}
+      extraStyles=''/> },
       
   ];
 
