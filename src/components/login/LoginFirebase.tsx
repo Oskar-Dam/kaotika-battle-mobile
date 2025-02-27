@@ -87,9 +87,8 @@ const LoginFirebase: React.FC<LoginFirebaseProps> = ({
       
     <div  className="flex items-center justify-center w-full h-2/8">
       <button
-        className="z-1 w-full h-[50%] bg-black/50 text-white text-7xl rounded-4xl shadow-black shadow-xl border-2 border-white"
+        className="w-full h-full bg-black/50 text-white text-6xl rounded-4xl shadow-black shadow-xl border-2 border-white"
         onClick={handleGoogleSignIn}
-        style={{ width: '95%', height: '175%' }}
       >
         Sign In
       </button> 
