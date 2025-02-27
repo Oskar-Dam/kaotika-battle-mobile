@@ -30,8 +30,7 @@ const AcolyteLobby: React.FC = () => {
       }}
       data-testid="acolyte-lobby-screen"
     >
-      <div className="flex items-center justify-center w-[80%] py-14 h-1/8 text-8xl text-white bg-black/50 rounded-lg">
-        Lobby
+      <div className="flex items-center justify-center w-[80%] py-14 h-1/8 text-8xl rounded-lg">
       </div>
 
       <div className={`flex flex-col items-center gap-6 w-full h-6/8 overflow-y-auto mt-5 ${buttons.length < 5 ? 'justify-center' : ''}`}>

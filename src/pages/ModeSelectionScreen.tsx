@@ -43,7 +43,7 @@ const ModeSelection: React.FC = () => {
           type="video/mp4" />
       </video>
 
-      <div className="z-1 flex items-center justify-center w-full h-1/8 text-6xl text-white">Mode Selection</div>
+      <div className="z-1 flex items-center justify-center w-full h-1/8 text-6xl text-white"></div>
       <div className={`flex flex-col items-center gap-6 w-full h-6/8 overflow-y-auto z-10 mt-5 ${buttons.length < 5 ? 'justify-center' : ''}`}>
         {buttons.map(({ id, component }) => (
           <div
