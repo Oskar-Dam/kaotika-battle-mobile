@@ -16,7 +16,7 @@ const SelecteBattleModeButton: React.FC = () => {
       onClick={() => { 
         selectBattleMode(); 
       }}
-      className="z-1 w-full h-[50%] bg-black/50 text-white text-5xl rounded-4xl shadow-black shadow-xl border-2 border-white"
+      className="w-full h-full bg-black/50 text-white text-4xl rounded-4xl shadow-black shadow-xl border-2 border-white"
     >
       Battle
     </button>
