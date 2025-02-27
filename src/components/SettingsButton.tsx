@@ -13,15 +13,11 @@ const SettingButton: React.FC = () => {
 
   return (
     <button
-      className={'relative p-10 text-2xl font-bold text-gray-100 brightness-70'}
-      style={{
-        backgroundImage: 'url(/images/settings-icon.webp)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
+      className={'z-50 relative font-bold min-w-[90%] max-w-[90%] min-h-[20%] max-h-[20%] bg-black/50 text-white text-4xl rounded-4xl shadow-black shadow-xl border-2 border-white'}
       onClick={handleOnClick}
       data-testid="setting-button"
     >
+      SETTINGS
     </button>
   );
 };

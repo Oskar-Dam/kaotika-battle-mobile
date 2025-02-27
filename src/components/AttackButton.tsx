@@ -1,7 +1,7 @@
 import React from 'react';
-import useStore from '../store/useStore';
-import socket from '../sockets/socket';
 import { SOCKET_EMIT_EVENTS } from '../sockets/events';
+import socket from '../sockets/socket';
+import useStore from '../store/useStore';
 
 const AttackButton: React.FC = () => {
 
@@ -23,21 +23,13 @@ const AttackButton: React.FC = () => {
 
   return (
     <button
-      className={`relative px-25 py-10 text-2xl font-bold text-gray-100 ${
-        isMyTurn && !sameFaction ? 'animate-saturation' : ''
-      }`}
-      style={{
-        backgroundImage: 'url(/images/attack-button.webp)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        filter: isMyTurn && !sameFaction ? 'saturate(1)' : 'saturate(0)',
-      }}
+      className={'relative font-bold min-w-[90%] max-w-[90%] min-h-[20%] max-h-[20%] bg-black/50 text-white text-4xl rounded-4xl shadow-black shadow-xl border-2 border-white mb-5'}
       onClick={handleOnClick}
       disabled={isDisabled}
       aria-disabled={isDisabled}
       data-testid="attack-button"
     >
-      <span className="absolute inset-0 w-full h-full border-0 border-gray-400 rounded-lg opacity-20"></span>
+    ATTACK
     </button>
   );
 };

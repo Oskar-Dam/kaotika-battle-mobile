@@ -2,10 +2,32 @@ import React, { useEffect } from 'react';
 import { SOCKET_EMIT_EVENTS } from '../sockets/events';
 import socket from '../sockets/socket';
 import BattleList from './battles/BattleList';
-import JoinButton from './JoinButton';
-import ReturnToModeSelectionScreenButton from './mode selection/ReturnToModeSelectionButton';
+import MenuButton from './MenuButton';
+import useStore from '../store/useStore';
+import { MobileJoinBattleResponse } from '../interfaces/JoinBattleReponse';
 
 const AdminScreen: React.FC = () => {
+
+  const { setGameJoined, gameCreated, player, gameStarted, setIsBattleSelected, setIsAdventureSelected} = useStore();
+
+  const joinBattle = () => {
+    socket.emit(SOCKET_EMIT_EVENTS.JOIN_BATTLE, player._id, (response: MobileJoinBattleResponse ) => {
+      if (response.status === 'OK') {
+        console.log('Received OK status from join battle');    
+        setGameJoined(response.joinBattle);
+      }
+      else {
+        console.error(response.error);
+      }
+    });
+    console.log('Sent join battle socket');
+  };
+
+  const returnToModeSelection = () => {
+    setIsBattleSelected(false);
+    setIsAdventureSelected(false);
+    console.log('Return to the mode selection screen');
+  };
   
   useEffect(() => {
     socket.emit(SOCKET_EMIT_EVENTS.GAME_CREATED);
@@ -23,11 +45,21 @@ const AdminScreen: React.FC = () => {
         <div className='flex h-[70%] w-[95%] mb-3 mt-5'>
           <BattleList/>
         </div>
-        <div className='flex h-[10%] w-[80%] mb-2'>
-          <JoinButton/>
+        <div className='flex h-[10%] w-[90%] mb-2'>
+          <MenuButton
+            text='JOIN'
+            onClick={joinBattle}
+            disabled={!gameCreated || gameStarted}
+            ariaDisabled={!gameCreated || gameStarted}
+            extraStyles={!gameCreated || gameStarted ? 'text-red-500 border-red-500' : 'text-green-500 border-green-500'}/>
         </div>
-        <div className='flex h-[10%] w-[80%] mt-2'>
-          <ReturnToModeSelectionScreenButton/>
+        <div className='flex h-[10%] w-[90%] mt-2'>
+          <MenuButton
+            text='Back to mode selection'
+            onClick={returnToModeSelection}
+            disabled={false}
+            ariaDisabled={false} 
+            extraStyles=''/> 
         </div>
       </div>
     </div>

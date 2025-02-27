@@ -20,10 +20,9 @@ const Actions: React.FC<ActionsProps> = ({openPotionModal, showSettingsButton}) 
     <div className="flex flex-col items-center justify-center w-full h-[49%] border-0 border-yellow-400">
 
       <AttackButton/>
+      
       {(player.role === 'mortimer') && showSettingsButton && !isSettingModalOpen && (
-        <div className='w-full flex items-center place-self-center justify-center z-55'>
-          <SettingButton />
-        </div>
+        <SettingButton />
       )}
         
       {/* )}       */}

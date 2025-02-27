@@ -1,12 +1,36 @@
 import React, { useEffect, useRef } from 'react';
-import SelectAdventureMode from '../components/mode selection/AdventureModeButton';
-import SelecteBattleModeButton from '../components/mode selection/SelectBattleModeButon';
 import { SOCKET_EMIT_EVENTS } from '../sockets/events';
 import socket from '../sockets/socket';
+import useStore from '../store/useStore';
+import MenuButton from '../components/MenuButton';
+import SettingModal from '../components/SettingsModal';
 
 const ModeSelection: React.FC = () => {
 
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  const { setIsBattleSelected, isSettingModalOpen, setIsSettingModalOpen } = useStore();
+
+  const selectBattleMode = () => {
+    setIsBattleSelected(true);
+    console.log('Battle mode selected');
+    
+  };
+
+  const selectAdventureMode = () => {
+    console.log('Adventure mode selected, comming soon...');
+    
+  };
+
+  const handleLogOut = () => {
+    console.log('Log out');
+    localStorage.removeItem('playerEmail');
+    window.location.reload();
+  };
+
+  const handleSettingsOnClick = () => {    
+    setIsSettingModalOpen(true);
+  };
 
   useEffect(() => {
     if (videoRef.current) {
@@ -21,13 +45,36 @@ const ModeSelection: React.FC = () => {
 
 
   const buttons = [
-    { id: 'selectBattle', component: <SelecteBattleModeButton/> },
-    { id: 'selectAdventure', component: <SelectAdventureMode/> },
+    { id: 'selectBattle', component: <MenuButton
+      text='Battle'
+      onClick={selectBattleMode}
+      disabled={false}
+      ariaDisabled={false}
+      extraStyles=''/> },
+    { id: 'selectAdventure', component: <MenuButton
+      text='Adventure'
+      onClick={selectAdventureMode}
+      disabled={false}
+      ariaDisabled={false}
+      extraStyles='brightness-40'/> },
+    { id: 'log-out', component: <MenuButton
+      text='Log Out'
+      onClick={handleLogOut}
+      disabled={false}
+      ariaDisabled={false}
+      extraStyles=''/> },
+    { id: 'settings', component: <MenuButton
+      text='Settings'
+      onClick={handleSettingsOnClick}
+      disabled={false}
+      ariaDisabled={false}
+      extraStyles=''/>}
+      
   ];
 
   return (
     <div
-      className="flex flex-col items-center h-screen p-4 bg-black text-white text-2xl font-bold w-screen"
+      className="flex flex-col justify-center items-center h-screen p-4 bg-black text-white text-2xl font-bold w-screen"
       data-testid="acolyte-lobby-screen"
     >
       <video
@@ -43,8 +90,7 @@ const ModeSelection: React.FC = () => {
           type="video/mp4" />
       </video>
 
-      <div className="z-1 flex items-center justify-center w-full h-1/8 text-6xl text-white"></div>
-      <div className={`flex flex-col items-center gap-6 w-full h-6/8 overflow-y-auto z-10 mt-5 ${buttons.length < 5 ? 'justify-center' : ''}`}>
+      <div className={`flex flex-col items-center gap-6 p-3 w-full overflow-y-auto pr-3 z-10 mt-5 ${buttons.length <= 5 ? 'justify-between h-[70%] ' : 'h-[90%] border-2 border-white rounded-lg'}`}>
         {buttons.map(({ id, component }) => (
           <div
             key={id}
@@ -53,6 +99,10 @@ const ModeSelection: React.FC = () => {
           </div>
         ))}
       </div>
+
+      {isSettingModalOpen && (
+        <SettingModal />
+      )}
     </div>
   );
 };
