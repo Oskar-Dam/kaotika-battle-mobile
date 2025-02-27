@@ -3,12 +3,13 @@ import { SOCKET_EMIT_EVENTS } from '../sockets/events';
 import socket from '../sockets/socket';
 import useStore from '../store/useStore';
 import MenuButton from '../components/MenuButton';
+import SettingModal from '../components/SettingsModal';
 
 const ModeSelection: React.FC = () => {
 
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const { setIsBattleSelected } = useStore();
+  const { setIsBattleSelected, isSettingModalOpen, setIsSettingModalOpen } = useStore();
 
   const selectBattleMode = () => {
     setIsBattleSelected(true);
@@ -25,6 +26,10 @@ const ModeSelection: React.FC = () => {
     console.log('Log out');
     localStorage.removeItem('playerEmail');
     window.location.reload();
+  };
+
+  const handleSettingsOnClick = () => {    
+    setIsSettingModalOpen(true);
   };
 
   useEffect(() => {
@@ -58,6 +63,12 @@ const ModeSelection: React.FC = () => {
       disabled={false}
       ariaDisabled={false}
       extraStyles=''/> },
+    { id: 'settings', component: <MenuButton
+      text='Settings'
+      onClick={handleSettingsOnClick}
+      disabled={false}
+      ariaDisabled={false}
+      extraStyles=''/>}
       
   ];
 
@@ -88,6 +99,10 @@ const ModeSelection: React.FC = () => {
           </div>
         ))}
       </div>
+
+      {isSettingModalOpen && (
+        <SettingModal />
+      )}
     </div>
   );
 };
