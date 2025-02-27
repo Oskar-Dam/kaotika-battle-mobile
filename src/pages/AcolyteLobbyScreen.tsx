@@ -65,7 +65,7 @@ const AcolyteLobby: React.FC = () => {
       <div className="flex items-center justify-center w-[80%] py-14 h-1/8 text-8xl rounded-lg">
       </div>
 
-      <div className={`flex flex-col items-center gap-6 w-full h-6/8 overflow-y-auto mt-5 ${buttons.length < 5 ? 'justify-center' : ''}`}>
+      <div className={`flex flex-col items-center gap-6 p-3 w-full overflow-y-auto pr-3 z-10 mt-5 ${buttons.length <= 5 ? 'justify-between h-[70%] ' : 'h-[90%] border-2 border-white rounded-lg'}`}>
         {buttons.map(({ id, component }) => (
           <div
             key={id}
