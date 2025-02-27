@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { SOCKET_EMIT_EVENTS } from '../sockets/events';
 import socket from '../sockets/socket';
 import useStore from '../store/useStore';
@@ -9,8 +10,14 @@ interface SettingModalProps { }
 
 const SettingModal: React.FC<SettingModalProps> = () => {
 
+  useEffect(() => {
+    socket.emit(SOCKET_EMIT_EVENTS.GAME_STARTED);
+    socket.emit(SOCKET_EMIT_EVENTS.GAME_CREATED);
+    console.log('sended game is created and game started socket');
+  }, []);
+
   const {
-    setIsSettingModalOpen,
+    setIsSettingModalOpen, gameStarted, gameCreated,
   } = useStore();
 
   const handleCloseOnClick = () => {
@@ -30,15 +37,15 @@ const SettingModal: React.FC<SettingModalProps> = () => {
     { id: 'resetGame', component: <MenuButton
       text='Reset Game'
       onClick={handleReconnect}
-      disabled={false}
+      disabled={gameCreated || !gameStarted}
       ariaDisabled={false}
-      extraStyles=''/> },
+      extraStyles={gameCreated ? 'text-green-500 border-green-500' : 'text-red-500 border-red-500'}/> },
     { id: 'startGame', component: <MenuButton
       text='Start Game'
       onClick={handleStartGame}
-      disabled={false}
+      disabled={!gameCreated || gameStarted}
       ariaDisabled={false}
-      extraStyles='brightness-40'/> },
+      extraStyles={!gameStarted ? 'text-green-500 border-green-500' : 'text-red-500 border-red-500'}/> },
     { id: 'closeSettings', component: <MenuButton
       text='Close'
       onClick={handleCloseOnClick}
