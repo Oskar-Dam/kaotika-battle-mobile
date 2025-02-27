@@ -1,7 +1,7 @@
 // src/screens/LoginScreen.tsx
 import React, { useState } from 'react';
 import Spinner from '../components/Spinner';
-import LoginFirebase from '../components/login/LoginFirebase';
+import LoginNoFirebase from '../components/login/LoginNoFirebase';
 
 interface LoginScreenInterface {}
 
@@ -30,20 +30,20 @@ const LoginScreen: React.FC<LoginScreenInterface> = () => {
         className="flex flex-col items-center justify-center w-full max-w-[630px] h-[40%] border-0 border-white"
       >
         {/*No Firebase Login*/}
-        {/* <LoginNoFirebase
+        <LoginNoFirebase
           isLoading={isLoading} 
           errorMessage={errorMessage} 
           setIsLoading={setIsLoading} 
           setErrorMessage={setErrorMessage} 
-        /> */}
+        />
                 
         {/*Firebase Login*/}
-        <LoginFirebase 
+        {/* <LoginFirebase 
           setErrorMessage={setErrorMessage}
           errorMessage={''+errorMessage}
           setIsLoading={setIsLoading}
           isLoading={isLoading} 
-        />
+        /> */}
 
       </div>
     </div>
