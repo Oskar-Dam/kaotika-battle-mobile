@@ -30,7 +30,7 @@ const BattleCard: React.FC<BattleCardProps> = ({ battle }) => {
         className='relative flex flex-row w-[100%] h-[13vh] justify-center items-center border-2 rounded border-white overflow-hidden'
         onClick={handleSelectedBattle}>
         <img 
-          src='/images/background/TheFinalBattleBG.webp'
+          src={`/images/background/${battle.battle_background}.webp`}
           alt={battle.name} 
           className='absolute w-full h-full object-cover' 
         />
