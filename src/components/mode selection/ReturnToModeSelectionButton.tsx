@@ -16,7 +16,7 @@ const ReturnToModeSelectionScreenButton: React.FC = () => {
       onClick={() => { 
         selectBattleMode(); 
       }}
-      className="w-full h-full bg-black text-white text-4xl rounded-4xl shadow-black shadow-xl border-2 border-white"
+      className="w-full h-full bg-black/50 text-white text-4xl rounded-4xl shadow-black shadow-xl border-2 border-white"
     >
       Back To Mode Selection
     </button>
