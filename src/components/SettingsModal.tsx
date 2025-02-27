@@ -1,5 +1,6 @@
 import useStore from '../store/useStore';
 import EndGameButton from './EndGameButton';
+import GameStartButton from './GameStartButton';
 
 
 // the Waiting component is a modal that displays a spinner and a message while waiting for the game to start(mortimer) or if you are mortimer, you can start the game
@@ -7,11 +8,8 @@ interface SettingModalProps { }
 
 const SettingModal: React.FC<SettingModalProps> = () => {
 
-  const classNameEndGameButton = 'p-16 z-75';
-
   const {
     setIsSettingModalOpen,
-    player,
   } = useStore();
 
   const handleOnClick = () => {
@@ -20,38 +18,30 @@ const SettingModal: React.FC<SettingModalProps> = () => {
 
   return (
     <div
-      className="w-full fixed inset-0 z-55 flex-row grid-col-1 grid-row-3 items-end justify-center place-self-center h-screen bg-darkBlue/90 overflow-y-hidden "
+      className="w-full flex flex-col fixed inset-0 items-center justify-center z-55 grid-col-1 grid-row-3 place-self-center h-screen bg-darkBlue/90 overflow-y-hidden "
       data-testid="setting-modal"
     >
-      <div className="w-full text-4xl text-white text-center mt-4 h-1/3">
-        {/* <h2 className="text-6xl font-bold mb-4 text-darkSepia">Settings</h2> */}
+
+      <div className='h-[70%] flex flex-col items-center justify-between'>
         <img
           src={'/images/settings-button.webp'}
           alt={'settings'}
           className="place-self-center"
         />
-      </div>
 
-      <div className="w-full text-4xl text-white text-center h-1/3">
-        {(player.role === 'mortimer') && (
-          <EndGameButton classNameCss={classNameEndGameButton} />
-        )}
-      </div>
-      
-      <div className='flex items-center justify-center text-medievalSepia place-self-center h-1/3'>
+
+        <EndGameButton/>
+        <GameStartButton/>
+
         <button
-          className={' px-28 py-8 justify-center place-self-center text-5xl font-bold text-gray-100'}
-          style={{
-            backgroundImage: 'url(/images/setting-close-button.webp)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
+          className="min-w-[90%] max-w-[90%] min-h-[15%] max-h-[15%] bg-black/50 text-white text-4xl rounded-4xl shadow-black shadow-xl border-2 border-white"
           onClick={handleOnClick}
           data-testid="setting-modal"
         >
+          CLOSE
         </button>
       </div>
-
+      
     </div>
 
   );

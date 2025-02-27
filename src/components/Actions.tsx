@@ -21,9 +21,7 @@ const Actions: React.FC<ActionsProps> = ({openPotionModal, showSettingsButton}) 
 
       <AttackButton/>
       {(player.role === 'mortimer') && showSettingsButton && !isSettingModalOpen && (
-        <div className='w-full flex items-center place-self-center justify-center z-55'>
-          <SettingButton />
-        </div>
+        <SettingButton />
       )}
         
       {/* )}       */}
