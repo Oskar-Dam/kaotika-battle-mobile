@@ -7,7 +7,7 @@ import BattleScreen from './pages/BattleScreen';
 import LoginScreen from './pages/LoginScreen';
 import ModeSelection from './pages/ModeSelectionScreen';
 import PWABadge from './PWABadge';
-import { listenToDisconnections, listenToGameCreated, listenToGameStarted } from './sockets/socketListeners';
+import { clearListenToServerEventsApp, listenToDisconnections, listenToGameCreated, listenToGameStarted } from './sockets/socketListeners';
 import useStore from './store/useStore';
 
 const App: React.FC = () => {
@@ -37,11 +37,11 @@ const App: React.FC = () => {
 
   useEffect(() => {
     listenToGameCreated(setGameCreated);
-  }
-  , []);
-
-  useEffect(() => {
     listenToGameStarted(setGameStarted);
+    
+    return () => {
+      clearListenToServerEventsApp();
+    };
   }
   , []);
 

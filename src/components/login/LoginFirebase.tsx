@@ -46,6 +46,8 @@ const LoginFirebase: React.FC<LoginFirebaseProps> = ({
           socket.emit(SOCKET_EMIT_EVENTS.SIGN_IN, user.email , (response: MobileSignInResponse) => {
             if (response.status === 'OK') {
               console.log('player found with email:', response.player.email);
+              localStorage.setItem('playerEmail', JSON.stringify(response.player.email));
+              console.log('Player saved in local storage: ',  JSON.stringify(response.player));
               setPlayer(response.player);
               setIsLoggedIn(true);
               setEmail(response.player.email);

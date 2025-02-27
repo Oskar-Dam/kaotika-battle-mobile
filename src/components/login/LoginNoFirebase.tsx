@@ -37,6 +37,7 @@ const LoginNoFirebase: React.FC<LoginNoFirebaseProps> = ({
   const handleEnterBattle = async () => {
     setIsLoading(true);
     console.log('Email:', email);
+    localStorage.removeItem('playerEmail');
     try {
       // Connect with socket
       socket.connect();
@@ -45,6 +46,8 @@ const LoginNoFirebase: React.FC<LoginNoFirebaseProps> = ({
         socket.emit(SOCKET_EMIT_EVENTS.SIGN_IN, email, (response: MobileSignInResponse) => {
           if (response.status === 'OK') {
             console.log('player found with email:', response.player.email);
+            localStorage.setItem('playerEmail', JSON.stringify(response.player.email));
+            console.log('Email saved in local storage: ',  JSON.stringify(response.player.email));
             setPlayer(response.player);
             setIsLoggedIn(true);
             setIsLoading(false);
