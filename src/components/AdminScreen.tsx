@@ -4,7 +4,6 @@ import socket from '../sockets/socket';
 import BattleList from './battles/BattleList';
 import JoinButton from './JoinButton';
 import ReturnToModeSelectionScreenButton from './mode selection/ReturnToModeSelectionButton';
-import WelcomeTexts from './WelcomeTexts';
 
 const AdminScreen: React.FC = () => {
   
@@ -21,13 +20,10 @@ const AdminScreen: React.FC = () => {
       style={{backgroundImage: 'url(/images/background/adminScreenBG.webp)', backgroundSize: '100% 100%'}}>
 
       <div className='flex flex-col justify-start items-center h-full w-full'>
-        <div className='flex h-[20%]'>
-          <WelcomeTexts/>
-        </div>
-        <div className='flex h-[55%] w-[95%] mb-5'>
+        <div className='flex h-[70%] w-[95%] mb-3 mt-5'>
           <BattleList/>
         </div>
-        <div className='flex h-[10%] w-[80%]'>
+        <div className='flex h-[10%] w-[80%] mb-2'>
           <JoinButton/>
         </div>
         <div className='flex h-[10%] w-[80%] mt-2'>
