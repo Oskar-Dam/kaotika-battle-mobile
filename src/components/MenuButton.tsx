@@ -3,17 +3,19 @@ import React from 'react';
 interface MenuButtonProps {
   text: string;
   onClick: () => void;
+  disabled: boolean;
+  ariaDisabled: boolean;
+  extraStyles: string;
 }
 
-const MenuButton: React.FC<MenuButtonProps> = ({text, onClick}) => {
-
-
-
-
+const MenuButton: React.FC<MenuButtonProps> = ({text, onClick, disabled, ariaDisabled, extraStyles}) => {
+  const appliedStyles = extraStyles || 'text-white border-white';
   return (
     <button
       onClick={onClick}
-      className="w-full h-full bg-black/50 text-white text-5xl rounded-4xl shadow-black shadow-xl border-2 border-white"
+      className={`w-full h-full bg-black/50 text-5xl rounded-4xl shadow-black shadow-xl border-2 ${appliedStyles}`}
+      disabled={disabled}
+      aria-disabled={ariaDisabled}
     >
       {text}
     </button>

@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import JoinButton from '../components/JoinButton';
-import ReturnToModeSelectionScreenButton from '../components/mode selection/ReturnToModeSelectionButton';
 import { SOCKET_EMIT_EVENTS } from '../sockets/events';
 import socket from '../sockets/socket';
+import MenuButton from '../components/MenuButton';
+import useStore from '../store/useStore';
+import { MobileJoinBattleResponse } from '../interfaces/JoinBattleReponse';
 
 const AcolyteLobby: React.FC = () => {
   useEffect(() => {
@@ -12,9 +13,40 @@ const AcolyteLobby: React.FC = () => {
     console.log('sended game started socket');
   }, []);
 
+  const { setGameJoined ,gameCreated, player, gameStarted, setIsBattleSelected, setIsAdventureSelected} = useStore();
+  
+  const joinBattle = () => {
+    socket.emit(SOCKET_EMIT_EVENTS.JOIN_BATTLE, player._id, (response: MobileJoinBattleResponse) => {
+      if (response.status === 'OK') {
+        console.log('Received OK status from join battle');    
+        setGameJoined(response.joinBattle);
+      }
+      else {
+        console.error(response.error);
+      }
+    });
+    console.log('Sent join battle socket');
+  };
+
+  const returnToModeSelection = () => {
+    setIsBattleSelected(false);
+    setIsAdventureSelected(false);
+    console.log('Return to the mode selection screen');
+  };
+
   const buttons = [
-    { id: 'join', component: <JoinButton/> },
-    { id: 'return', component: <ReturnToModeSelectionScreenButton /> },
+    { id: 'Join', component: <MenuButton
+      text='JOIN'
+      onClick={joinBattle}
+      disabled={!gameCreated || gameStarted}
+      ariaDisabled={!gameCreated || gameStarted}
+      extraStyles={!gameCreated || gameStarted ? 'text-red-500 border-red-500' : 'text-green-500 border-green-500'}/> },
+    { id: 'Return', component: <MenuButton
+      text='Back to mode selection'
+      onClick={returnToModeSelection}
+      disabled={false}
+      ariaDisabled={false} 
+      extraStyles=''/> },
   ];
 
   return (
