@@ -1,15 +1,15 @@
 import React, { useEffect, useRef } from 'react';
+import MenuButton from '../components/MenuButton';
+import SettingModal from '../components/SettingsModal';
 import { SOCKET_EMIT_EVENTS } from '../sockets/events';
 import socket from '../sockets/socket';
 import useStore from '../store/useStore';
-import MenuButton from '../components/MenuButton';
-import SettingModal from '../components/SettingsModal';
 
 const ModeSelection: React.FC = () => {
 
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const { setIsBattleSelected, isSettingModalOpen, setIsSettingModalOpen } = useStore();
+  const { setIsBattleSelected, isSettingModalOpen, setIsSettingModalOpen, player } = useStore();
 
   const selectBattleMode = () => {
     setIsBattleSelected(true);
@@ -63,14 +63,18 @@ const ModeSelection: React.FC = () => {
       disabled={false}
       ariaDisabled={false}
       extraStyles=''/> },
-    { id: 'settings', component: <MenuButton
-      text='Settings'
-      onClick={handleSettingsOnClick}
-      disabled={false}
-      ariaDisabled={false}
-      extraStyles=''/>}
-      
+    ...(player.role === 'mortimer' ? [{
+      id: 'settings',
+      component: <MenuButton
+        text='Settings'
+        onClick={handleSettingsOnClick}
+        disabled={false}
+        ariaDisabled={false}
+        extraStyles=''/>
+    }] : [])
   ];
+  
+  
 
   return (
     <div

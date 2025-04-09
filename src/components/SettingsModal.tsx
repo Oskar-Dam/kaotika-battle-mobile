@@ -25,6 +25,7 @@ const SettingModal: React.FC<SettingModalProps> = () => {
   };
 
   const handleReconnect = () => {
+    console.log('Game reset button pressed');
     socket.emit(SOCKET_EMIT_EVENTS.GAME_RESET);
   };
 
@@ -37,15 +38,15 @@ const SettingModal: React.FC<SettingModalProps> = () => {
     { id: 'resetGame', component: <MenuButton
       text='Reset Game'
       onClick={handleReconnect}
-      disabled={gameCreated || !gameStarted}
+      disabled={!gameStarted}
       ariaDisabled={false}
-      extraStyles={gameCreated ? 'text-green-500 border-green-500' : 'text-red-500 border-red-500'}/> },
+      extraStyles={gameStarted? 'text-green-500 border-green-500' : 'text-red-500 border-red-500'}/> },
     { id: 'startGame', component: <MenuButton
       text='Start Game'
       onClick={handleStartGame}
       disabled={!gameCreated || gameStarted}
       ariaDisabled={false}
-      extraStyles={!gameStarted ? 'text-green-500 border-green-500' : 'text-red-500 border-red-500'}/> },
+      extraStyles={!gameStarted && gameCreated ? 'text-green-500 border-green-500' : 'text-red-500 border-red-500'}/> },
     { id: 'closeSettings', component: <MenuButton
       text='Close'
       onClick={handleCloseOnClick}
