@@ -5,14 +5,11 @@ import GameStartButton from '../components/GameStartButton';
 const GameStartScreen: React.FC = () => {
 
   return (
-    <div className='flex flex-col h-screen items-center'>
-      <div className='flex flex-col justify-center h-1/4 text-white text-4xl text-center '>
+    <div className='flex flex-col h-screen items-center justify-around'>
+      <div className='flex flex-col justify-center w-[90%] text-white text-6xl text-center '>
         Press the button to start the previously selected battle
       </div>
 
-      <div className='flex flex-col justify-center h-1/2'></div>
-
-      
       <GameStartButton/> 
     </div>
   );

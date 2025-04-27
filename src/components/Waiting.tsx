@@ -25,7 +25,7 @@ const Waiting: React.FC<WaitingProps> = ({ setShowWaitingScreen }) => {
   
   return (
     <div
-      className="flex items-center justify-center bg-black/90 z-50"
+      className="flex items-center justify-center bg-black/95 z-1 absolute h-full"
       data-testid="waiting-modal">
       {player.role === 'mortimer' || player.role === 'villain' ? <GameStartScreen/> 
         : <Spinner text={'Waiting for Mortimer to start the game'} />}
