@@ -45,13 +45,13 @@ const BattleModal: React.FC<BattleModalProps> = ({ battle, onClose }) => {
         </div>
         <div className='flex flex-row h-[10%] mt-2 gap-2'>
           <BattleModalButton
-            text='Create'
-            color='green'
-            onClick={handleBattleCreate} />
-          <BattleModalButton
             text='Close'
             color='red'
             onClick={onClose} />
+          <BattleModalButton
+            text='Create'
+            color='green'
+            onClick={handleBattleCreate} />
         </div>
       </div>
     </div>
