@@ -1,22 +1,21 @@
 import React, { useEffect } from 'react';
+import { MobileJoinBattleResponse } from '../interfaces/JoinBattleReponse';
 import { SOCKET_EMIT_EVENTS } from '../sockets/events';
 import socket from '../sockets/socket';
+import { listenToGameCreated } from '../sockets/socketListeners';
+import useStore from '../store/useStore';
 import BattleList from './battles/BattleList';
 import MenuButton from './MenuButton';
-import useStore from '../store/useStore';
-import { MobileJoinBattleResponse } from '../interfaces/JoinBattleReponse';
 
 const AdminScreen: React.FC = () => {
-
-  const { setGameJoined, gameCreated, player, gameStarted, setIsBattleSelected, setIsAdventureSelected} = useStore();
+  const { setGameJoined, gameCreated, player, gameStarted, setIsBattleSelected, setIsAdventureSelected, setGameCreated } = useStore();
 
   const joinBattle = () => {
-    socket.emit(SOCKET_EMIT_EVENTS.JOIN_BATTLE, player._id, (response: MobileJoinBattleResponse ) => {
+    socket.emit(SOCKET_EMIT_EVENTS.JOIN_BATTLE, player._id, (response: MobileJoinBattleResponse) => {
       if (response.status === 'OK') {
-        console.log('Received OK status from join battle');    
+        console.log('Received OK status from join battle');
         setGameJoined(response.joinBattle);
-      }
-      else {
+      } else {
         console.error(response.error);
       }
     });
@@ -28,38 +27,53 @@ const AdminScreen: React.FC = () => {
     setIsAdventureSelected(false);
     console.log('Return to the mode selection screen');
   };
-  
+
   useEffect(() => {
+    // Emitir eventos iniciales
     socket.emit(SOCKET_EMIT_EVENTS.GAME_CREATED);
     console.log('sended game is created socket');
     socket.emit(SOCKET_EMIT_EVENTS.GAME_STARTED);
     console.log('sended game started socket');
-  }, []);
+
+    // Escuchar el evento GAME_CREATED
+    listenToGameCreated(setGameCreated);
+
+    return () => {
+      // Limpieza de listeners si es necesario
+      socket.off(SOCKET_EMIT_EVENTS.GAME_CREATED);
+    };
+  }, [setGameCreated]);
 
   return (
     <div
-      className='flex h-screen w-screen'
-      style={{backgroundImage: 'url(/images/background/adminScreenBG.webp)', backgroundSize: '100% 100%'}}>
-
-      <div className='flex flex-col justify-start items-center h-full w-full'>
-        <div className='flex h-[70%] w-[95%] mb-3 mt-5'>
-          <BattleList/>
+      className="flex h-screen w-screen"
+      style={{ backgroundImage: 'url(/images/background/adminScreenBG.webp)', backgroundSize: '100% 100%' }}
+    >
+      <div className="flex flex-col justify-start items-center h-full w-full">
+        <div className="flex h-[70%] w-[95%] mb-3 mt-5">
+          <BattleList />
         </div>
-        <div className='flex h-[10%] w-[90%] mb-2'>
+        <div className="flex h-[10%] w-[90%] mb-2">
           <MenuButton
-            text='JOIN'
+            text="JOIN"
             onClick={joinBattle}
             disabled={!gameCreated || gameStarted}
             ariaDisabled={!gameCreated || gameStarted}
-            extraStyles={!gameCreated || gameStarted ? 'text-red-500 border-red-500' : 'text-green-500 border-green-500'}/>
+            extraStyles={
+              !gameCreated || gameStarted
+                ? 'text-red-500 border-red-500'
+                : 'text-green-500 border-green-500'
+            }
+          />
         </div>
-        <div className='flex h-[10%] w-[90%] mt-2'>
+        <div className="flex h-[10%] w-[90%] mt-2">
           <MenuButton
-            text='Back to mode selection'
+            text="Back to mode selection"
             onClick={returnToModeSelection}
             disabled={false}
-            ariaDisabled={false} 
-            extraStyles=''/> 
+            ariaDisabled={false}
+            extraStyles=""
+          />
         </div>
       </div>
     </div>
