@@ -48,13 +48,14 @@ const BattleScreen: React.FC = () => {
     updatePlayerStatus,
     updateDravokarPlayerHitPoints,
     updateKaotikaPlayerHitPoints,
-    updatePlayerHitPoints
+    updatePlayerHitPoints,
+    setGameEnded,
+    gameEnded,
   } = useStore();
 
 
   const [showWaitingScreen, setShowWaitingScreen] = useState<boolean>(true);
   const [filteredFaction, setFilteredFaction] = useState<Factions | undefined>(player?.isBetrayer ? 'KAOTIKA' : 'DRAVOKAR');
-  const [gameEnded, setGameEnded] = useState<boolean>(false);
   const [winner, setWinner] = useState<string>('Kaotika');
 
   useEffect(() => {

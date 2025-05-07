@@ -1,46 +1,68 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { SOCKET_EMIT_EVENTS } from '../sockets/events';
 import socket from '../sockets/socket';
+import { clearListenToServerEventsApp, listenToGameCreated, listenToGameStarted } from '../sockets/socketListeners';
 import useStore from '../store/useStore';
 import MenuButton from './MenuButton';
 
-
-// the Waiting component is a modal that displays a spinner and a message while waiting for the game to start(mortimer) or if you are mortimer, you can start the game
 interface SettingModalProps { }
 
 const SettingModal: React.FC<SettingModalProps> = () => {
+  const [resetEffect, setResetEffect] = useState(false); // 1. Crear el estado que controlará la ejecución del useEffect
 
+  const {
+    setIsSettingModalOpen,
+    gameStarted,
+    gameCreated,
+    setGameCreated,
+    setGameStarted,
+    gameEnded,
+  } = useStore();
+
+  // 2. Ejecutar useEffect cada vez que `resetEffect` cambie
   useEffect(() => {
     socket.emit(SOCKET_EMIT_EVENTS.GAME_STARTED);
     socket.emit(SOCKET_EMIT_EVENTS.GAME_CREATED);
     console.log('sended game is created and game started socket');
-  }, []);
 
-  const {
-    setIsSettingModalOpen, gameStarted, gameCreated,
-  } = useStore();
+    listenToGameCreated(setGameCreated);
+    listenToGameStarted(setGameStarted);
+    console.log('listening to game created and game started');
 
-  const handleCloseOnClick = () => {
-    setIsSettingModalOpen(false);
-  };
+    return () => {
+      clearListenToServerEventsApp();
+    };
+  }, [resetEffect]); // 3. Añadir el estado resetEffect como dependencia para que el efecto se ejecute cuando cambie
 
+  console.log('Game created:', gameCreated);
+  console.log('Game started:', gameStarted);
+  console.log('Game ended:', gameEnded);
+  
+
+  // 4. Función que cambiará el estado resetEffect al presionar un botón
   const handleReconnect = () => {
     console.log('Game reset button pressed');
     socket.emit(SOCKET_EMIT_EVENTS.GAME_RESET);
+    setResetEffect(prev => !prev);  // 5. Cambiar el estado para que el useEffect se ejecute nuevamente
   };
 
   const handleStartGame = (): void => {
     console.log('Game start button pressed');
     socket.emit(SOCKET_EMIT_EVENTS.GAME_START);
+    setResetEffect(prev => !prev);  // 6. Cambiar el estado para que el useEffect se ejecute nuevamente
+  };
+
+  const handleCloseOnClick = () => {
+    setIsSettingModalOpen(false);
   };
 
   const buttons = [
     { id: 'resetGame', component: <MenuButton
       text='Reset Game'
       onClick={handleReconnect}
-      disabled={!gameStarted}
+      disabled={!gameStarted || !gameEnded}
       ariaDisabled={false}
-      extraStyles={gameStarted? 'text-green-500 border-green-500' : 'text-red-500 border-red-500'}/> },
+      extraStyles={gameStarted || gameEnded ? 'text-green-500 border-green-500' : 'text-red-500 border-red-500'}/> },
     { id: 'startGame', component: <MenuButton
       text='Start Game'
       onClick={handleStartGame}
@@ -55,14 +77,11 @@ const SettingModal: React.FC<SettingModalProps> = () => {
       extraStyles=''/> },
   ];
 
-
-
   return (
     <div
       className="w-full flex flex-col fixed inset-0 items-center justify-center z-55 grid-col-1 grid-row-3 place-self-center h-screen bg-black/90 overflow-y-hidden "
       data-testid="setting-modal"
     >
-
       <div className='h-[70%] flex flex-col items-center justify-between'>
         <img
           src={'/images/settings-button.webp'}
@@ -80,10 +99,9 @@ const SettingModal: React.FC<SettingModalProps> = () => {
           ))}
         </div>
       </div>
-      
     </div>
-
   );
 };
 
 export default SettingModal;
+

@@ -26,6 +26,8 @@ interface StoreState {
   selectedBattle: Battle;
   battles: Battle[];
   gameStarted: boolean;
+  gameEnded: boolean;
+  setGameEnded: (gameEnded: boolean) => void;
   setGameStarted: (gameStarted: boolean) => void;
   setBattles: (battles: Battle[]) => void;
   setSelectedBattle: (battle: Battle) => void;
@@ -78,6 +80,8 @@ const useStore = create<StoreState>((set) => ({
   selectedBattle: null!,
   battles: [],
   gameStarted: false,
+  gameEnded: false,
+  setGameEnded: (gameEnded) => set({ gameEnded }),
   setGameStarted: (gameStarted) => set({ gameStarted }),
   setBattles: (battles) => set({ battles }),
   setSelectedBattle: (battle) => set({ selectedBattle: battle }),
