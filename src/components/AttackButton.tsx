@@ -23,7 +23,7 @@ const AttackButton: React.FC = () => {
 
   return (
     <button
-      className={'relative font-bold min-w-[90%] max-w-[90%] min-h-[20%] max-h-[20%] bg-black/50 text-white text-4xl rounded-4xl shadow-black shadow-xl border-2 border-white mb-5'}
+      className={'relative font-bold min-w-[70%] max-w-[90%] min-h-[20%] max-h-[20%] bg-black/50 text-white text-4xl rounded-4xl shadow-black shadow-xl border-2 border-white mb-5'}
       onClick={handleOnClick}
       disabled={isDisabled}
       aria-disabled={isDisabled}
