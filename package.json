@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "test": "jest",
     "test:api": "jest api --verbose",
-    "test:client": "jest client --verbose"
+    "test:client": "jest client --verbose",
+    "start": "vite preview --host"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.0",
