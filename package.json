@@ -52,7 +52,7 @@
     "ts-jest": "^29.2.5",
     "typescript": "^5.2.2",
     "vite": "^6.0.5",
-    "vite-plugin-pwa": "^0.20.5",
+    "vite-plugin-pwa": "1.0.0",
     "workbox-core": "^7.1.0",
     "workbox-window": "^7.1.0"
   },
