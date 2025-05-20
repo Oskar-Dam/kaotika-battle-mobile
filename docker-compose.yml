@@ -1,0 +1,7 @@
+services:
+  web:
+    build: .
+    container_name: kaotika-battle-mobile
+    ports:
+      - "3001:3001"
+    restart: unless-stopped
