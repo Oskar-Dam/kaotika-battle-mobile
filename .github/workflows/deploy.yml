@@ -1,41 +1,30 @@
-name: Deploy Kaotika Battle Mobile
+name: Deploy Kaotika Battle Mobile (Docker)
 
 on:
   push:
     branches:
-      - main  
+      - main
 
 jobs:
-  build:
-    runs-on: self-hosted 
+  deploy:
+    runs-on: self-hosted
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-    - name: Restaurar archivo .env
-      run: cp ~/mobile-actions-runner/.env $GITHUB_WORKSPACE/.env
-    - name: Configuration
-      run: |
-        echo "Configuring Enviroment..."
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Pull changes
-      run: |
-        git pull origin main
+      - name: Create .env file from GitHub secret
+        run: echo "${{ secrets.WEB_ENV_FILE }}" > .env
 
-    - name: Installing dependencies
-      run: |
-        npm install
+      - name: Pull latest changes
+        run: git pull origin main
 
-    - name: Build application
-      run: |
-        npm run build
+      - name: Build and restart Docker container
+        run: |
+          cd $GITHUB_WORKSPACE
+          docker rm -f kaotika-battle-mobile || true
+          docker compose -f docker-compose.yml build web
+          docker compose -f docker-compose.yml up -d web
 
-    - name: Deploy application on pm2
-      run: |
-        pm2 stop kaotika-battle-mobile || true
-        pm2 restart kaotika-battle-mobile
-
-    - name: Clean after deploy
-      run: |
-        pm2 save
-        echo "Deploy complete"
+      - name: Clean up
+        run: echo "Deployment complete."
