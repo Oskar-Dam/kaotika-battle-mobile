@@ -1,10 +1,12 @@
-
+import { SOCKET_EVENTS } from '../../../../sockets/events';
+import { listenToGameStart } from '../../../../sockets/socketListeners';
+import socket from '../../../../sockets/socket';
 
 // Arrange
 beforeAll(() => {
-  jest.spyOn(console, 'error').mockImplementation(() => {}); // Silence console errors
-  jest.spyOn(console, 'warn').mockImplementation(() => {}); // Silence console warnings
-  jest.spyOn(console, 'log').mockImplementation(() => {}); // Silence console logs
+  jest.spyOn(console, 'error').mockImplementation(() => {});
+  jest.spyOn(console, 'warn').mockImplementation(() => {});
+  jest.spyOn(console, 'log').mockImplementation(() => {});
 });
 
 // Arrange
@@ -20,19 +22,19 @@ beforeEach(() => {
 
 describe('Socket Listeners', () => {
 
-  it('should call setShowWaitingScreen with false when GAME_STARTED is received', () => {
+  it('should call setShowWaitingScreen with false when GAME_START is received', () => {
     // Arrange
-    // const setShowWaitingScreen = jest.fn();
+    const setShowWaitingScreen = jest.fn();
 
-    // // Act
-    // listenToGameStart(setShowWaitingScreen);
+    // Act
+    listenToGameStart(setShowWaitingScreen);
 
-    // const callback = (socket.on as jest.Mock).mock.calls.find(([event]) => event === SOCKET_EVENTS.GAME_STARTED)?.[1];
-    // callback();
+    // Simulate the socket event
+    const callback = (socket.on as jest.Mock).mock.calls.find(([event]) => event === SOCKET_EVENTS.GAME_START)?.[1];
+    callback();
 
-    // // Assert
-    // expect(setShowWaitingScreen).toHaveBeenCalledWith(false);
-
-    expect(true).toBe(true);
+    // Assert
+    expect(setShowWaitingScreen).toHaveBeenCalledWith(false);
   });
+
 });
