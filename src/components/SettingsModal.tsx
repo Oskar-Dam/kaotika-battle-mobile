@@ -25,6 +25,7 @@ const SettingModal: React.FC<SettingModalProps> = () => {
     setGameSelected,
     setIsMyTurn,
     gameEnded,
+    player
   } = useStore();
 
   // Escuchar eventos de sockets
@@ -46,7 +47,8 @@ const SettingModal: React.FC<SettingModalProps> = () => {
       setGameSelected,
       setGameStarted,
       setIsBattleSelected,
-      setIsAdventureSelected); // Escuchar GAME_RESET
+      setIsAdventureSelected,
+      player);
 
     console.log('listening to game created, game started, game ended, and game reset');
 
