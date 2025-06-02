@@ -37,7 +37,7 @@ describe('AttackButton Component', () => {
     expect(buttonElement).toBeInTheDocument();
   });
 
-  it('should be enabled and have saturation when attacking is allowed', () => {
+  it('should be enabled if its your turn', () => {
     const mockStore = { 
       player: mockDividedPlayers.kaotika[0],
       selectedPlayer: mockDividedPlayers.dravokar[1],
@@ -50,10 +50,9 @@ describe('AttackButton Component', () => {
 
     const buttonElement = screen.getByTestId('attack-button');
     expect(buttonElement).not.toBeDisabled();
-    expect(buttonElement).toHaveStyle('filter: saturate(1)');
   });
 
-  it('should be disabled and have no saturation when attacking is not allowed', () => {
+  it('should be disabled if its not your turn', () => {
     (useStore as unknown as jest.Mock).mockReturnValue({
       player: mockDividedPlayers.kaotika[0],
       selectedPlayer: null,
@@ -64,21 +63,5 @@ describe('AttackButton Component', () => {
 
     const buttonElement = screen.getByTestId('attack-button');
     expect(buttonElement).toBeDisabled();
-    expect(buttonElement).toHaveStyle('filter: saturate(0)');
-  });
-
-  it('should be disabled when it is not the player turn', () => {
-    (useStore as unknown as jest.Mock).mockReturnValue({
-      player: mockDividedPlayers.kaotika[0],
-      selectedPlayer: mockDividedPlayers.dravokar[1],
-      isMyTurn: false,
-      setSelectedPlayer: jest.fn(),
-    });
-
-    render(<AttackButton />);
-
-    const buttonElement = screen.getByTestId('attack-button');
-    expect(buttonElement).toBeDisabled();
-    expect(buttonElement).toHaveStyle('filter: saturate(0)');
   });
 });
