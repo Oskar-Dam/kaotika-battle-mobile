@@ -10,8 +10,8 @@ export const resetAllStates = (setGameEnded: (gameEnded: boolean) => void,
   setGameSelected: (loggedIn: boolean) => void, 
   setIsBattleSelected: (battleSelected: boolean) => void, 
   setIsAdventureSelected: (adventureSelected: boolean) => void,
-  setGameStarted: (isGameStarted: boolean) => void) : void => {
-    
+  setGameStarted: (isGameStarted: boolean) => void,
+  player: Player): void => {
   setGameEnded(false);
   setIsMyTurn(false);
   setKaotikaPlayers([]);
@@ -23,4 +23,13 @@ export const resetAllStates = (setGameEnded: (gameEnded: boolean) => void,
   setIsBattleSelected(false);
   setIsAdventureSelected(false);
   setGameStarted(false);
+
+  console.log('Player in reset All States: ', player);
+
+  resetPlayerAttributes(player);
+};
+
+export const resetPlayerAttributes = (player: Player): void => {
+  player.attributes = { ...player.base_attributes };
+  player.isAlive = true;
 };

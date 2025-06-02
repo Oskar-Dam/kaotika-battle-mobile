@@ -7,18 +7,18 @@ import { SOCKET_EVENTS } from './events';
 import socket from './socket';
 
 export const listenToServerEventsBattleScreen = (setKaotikaPlayers: (players: Player[]) => void, setDravokarPlayers: (players: Player[]) => void) => {
-  socket.on(SOCKET_EVENTS.RECIVE_USERS, (players: {kaotika: Player[], dravokar: Player[]}) => {
-    console.log(`'${SOCKET_EVENTS.RECIVE_USERS}' socket received.`);    
-    
+  socket.on(SOCKET_EVENTS.RECIVE_USERS, (players: { kaotika: Player[], dravokar: Player[] }) => {
+    console.log(`'${SOCKET_EVENTS.RECIVE_USERS}' socket received.`);
+
     setKaotikaPlayers(players.kaotika);
     setDravokarPlayers(players.dravokar);
     console.log('Kaotika players received:', players.kaotika);
     console.log('Dravokar players received:', players.dravokar);
-    
+
   });
 };
 
-export const listenToChangeTurn = (setIsMyTurn: (turn: boolean) => void,player: Player | null, kaotikaPlayers: Player[], dravokarPlayers: Player[], setSelectedPlayerIndex: (index: number) => void, setFilteredFactions: React.Dispatch<React.SetStateAction<Factions | undefined>>) => {
+export const listenToChangeTurn = (setIsMyTurn: (turn: boolean) => void, player: Player | null, kaotikaPlayers: Player[], dravokarPlayers: Player[], setSelectedPlayerIndex: (index: number) => void, setFilteredFactions: React.Dispatch<React.SetStateAction<Factions | undefined>>) => {
   socket.on(SOCKET_EVENTS.TURN_CHANGE, (_id: string) => {
     console.log(`'${SOCKET_EVENTS.TURN_CHANGE}' socket received.`);
     console.log('FIRST DRAVOKAR PLAYER NOW: ', dravokarPlayers);
@@ -41,12 +41,12 @@ export const listenToChangeTurn = (setIsMyTurn: (turn: boolean) => void,player: 
   });
 };
 
-export const listenToInsufficientPlayers = (setInsufficientPlayers: (turn: boolean) => void) =>{
+export const listenToInsufficientPlayers = (setInsufficientPlayers: (turn: boolean) => void) => {
   socket.on(SOCKET_EVENTS.INSUFFICIENT_PLAYERS, () => {
     console.log(`'${SOCKET_EVENTS.INSUFFICIENT_PLAYERS}' socket received.`);
     setInsufficientPlayers(true);
   });
-};  
+};
 
 
 
@@ -78,8 +78,8 @@ export const listenToBattles = (setBattles: (battles: Battle[]) => void) => {
     setBattles(battles);
   });
 };
-export const listenToUpdatePlayer = (updateDravokarPlayerHitPoints: (id: string, hitpoints: number)=> void, updateKaotikaPlayerHitPoints: (id: string, hitpoints: number)=> void, updatePlayerHitPoints: (hitpoints: number)=> void, player: Player) => {
-  socket.on(SOCKET_EVENTS.UPDATE_PLAYER, (updatedPlayer: {_id: string, attributes: Modifier, totalDamage: number, isBetrayer: boolean}) => {
+export const listenToUpdatePlayer = (updateDravokarPlayerHitPoints: (id: string, hitpoints: number) => void, updateKaotikaPlayerHitPoints: (id: string, hitpoints: number) => void, updatePlayerHitPoints: (hitpoints: number) => void, player: Player) => {
+  socket.on(SOCKET_EVENTS.UPDATE_PLAYER, (updatedPlayer: { _id: string, attributes: Modifier, totalDamage: number, isBetrayer: boolean }) => {
     console.log(`'${SOCKET_EVENTS.UPDATE_PLAYER}' socket received.`);
     updateDravokarPlayerHitPoints(updatedPlayer._id, updatedPlayer.attributes.hit_points);
     updateKaotikaPlayerHitPoints(updatedPlayer._id, updatedPlayer.attributes.hit_points);
@@ -120,9 +120,9 @@ export const listenToDisconnections = (setdisconnection: (disconnection: boolean
   });
 };
 
-export const listenToGameReset = (setGameEnded: (gameEnded: boolean) => void, 
+export const listenToGameReset = (setGameEnded: (gameEnded: boolean) => void,
   setIsMyTurn: (turn: boolean) => void,
-  setKaotikaPlayers: (players: Player[]) => void, 
+  setKaotikaPlayers: (players: Player[]) => void,
   setDravokarPlayers: (players: Player[]) => void,
   setIsSettingModalOpen: (isOpen: boolean) => void,
   setGameJoined: (gameJoined: boolean) => void,
@@ -130,10 +130,13 @@ export const listenToGameReset = (setGameEnded: (gameEnded: boolean) => void,
   setGameSelected: (loggedIn: boolean) => void,
   setGameStarted: (loggedIn: boolean) => void,
   setIsBattleSelected: (battleSelected: boolean) => void,
-  setIsAdventureSelected: (adventureSelected: boolean) => void) => {
+  setIsAdventureSelected: (adventureSelected: boolean) => void,
+  player: Player) => {
   socket.on(SOCKET_EVENTS.GAME_RESET, () => {
     console.log(`'${SOCKET_EVENTS.GAME_RESET}' socket received.`);
-    resetAllStates(setGameEnded, setIsMyTurn, setKaotikaPlayers, setDravokarPlayers, setIsSettingModalOpen, setGameJoined, setGameCreated, setGameSelected, setIsBattleSelected, setIsAdventureSelected, setGameStarted);
+    resetAllStates(setGameEnded, setIsMyTurn, setKaotikaPlayers, setDravokarPlayers,
+      setIsSettingModalOpen, setGameJoined, setGameCreated, setGameSelected,
+      setIsBattleSelected, setIsAdventureSelected, setGameStarted, player);
   });
 };
 
@@ -164,7 +167,7 @@ export const clearListenToServerEventsBattleScreen = (): void => {
   console.log(`'${SOCKET_EVENTS.GAME_RESET}' socket cleared.`);
 };
 
-export const clearListenToServerEventsApp= (): void => {
+export const clearListenToServerEventsApp = (): void => {
   socket.off(SOCKET_EVENTS.GAME_STARTED);
   console.log(`'${SOCKET_EVENTS.GAME_STARTED}' socket cleared.`);
 
@@ -172,12 +175,12 @@ export const clearListenToServerEventsApp= (): void => {
   console.log(`'${SOCKET_EVENTS.GAME_CREATED}' socket cleared.`);
 };
 
-export const clearWaitingScreenEvents = ():void => {
+export const clearWaitingScreenEvents = (): void => {
   socket.off(SOCKET_EVENTS.INSUFFICIENT_PLAYERS);
   console.log(`'${SOCKET_EVENTS.INSUFFICIENT_PLAYERS}' socket cleared.`);
 };
 
-export const clearListenToServerEventsLoginScreen = ():void => {
+export const clearListenToServerEventsLoginScreen = (): void => {
   socket.off(SOCKET_EVENTS.PLAYER_DATA);
   console.log(`'${SOCKET_EVENTS.PLAYER_DATA}' socket cleared.`);
 };

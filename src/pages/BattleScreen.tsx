@@ -64,7 +64,7 @@ const BattleScreen: React.FC = () => {
     listenToRemovePlayer(updateDravokarPlayerStatus, updateKaotikaPlayerStatus, updatePlayerStatus, player);
     listenToChangeTurn(setIsMyTurn, player, kaotikaPlayers, dravokarPlayers, setSelectedPlayerIndex, setFilteredFaction);
     listenToGameEnded(setGameEnded, setWinner); 
-    listenToGameReset(setGameEnded, setIsMyTurn, setKaotikaPlayers, setDravokarPlayers, setIsSettingModalOpen, setGameJoined, setGameCreated, setGameSelected, setGameStarted, setIsBattleSelected, setIsAdventureSelected);
+    listenToGameReset(setGameEnded, setIsMyTurn, setKaotikaPlayers, setDravokarPlayers, setIsSettingModalOpen, setGameJoined, setGameCreated, setGameSelected, setGameStarted, setIsBattleSelected, setIsAdventureSelected, player);
     console.log('KAOTIKA PLAYERS: ', kaotikaPlayers);
     console.log('DRAVOKAR PLAYERS: ', dravokarPlayers);
     
