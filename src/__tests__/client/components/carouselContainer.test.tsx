@@ -1,32 +1,32 @@
-import * as React from 'react';
 React;
+import * as React from 'react';
+import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
-jest.mock('../../../sockets/socket', () => ({
-  on: jest.fn(),
-  emit: jest.fn(),
-  off: jest.fn(),
-}));
+import CarouselContainer from '../../../components/CarouselContainer';
+import useStore from '../../../store/useStore';
 
-beforeAll(() => {
-  jest.spyOn(console, 'log').mockImplementation(() => {}); // Silence console logs
-  jest.spyOn(console, 'error').mockImplementation(() => {}); // Silence console errors
-  jest.spyOn(console, 'warn').mockImplementation(() => {}); // Silence console warnings
-});
+jest.mock('../../../store/useStore');
 
-describe('PlayerCarousel Component', () => {
-  it('should render the PlayerCarousel', () => {
-    
-    // render(<CarouselContainer
-    //   setSelectedPlayer={() => {}}
-    //   filteredFaction={'DRAVOKAR'}
-    //   setFilteredFaction={() => {}}
-    //   selectedPlayerIndex={0}
-    //   setSelectedPlayerIndex={() => {}}
-    //   isMyTurn={true}
-    // />);
+describe('CarouselContainer component rendering', () => {
+  beforeEach(() => {
+    (useStore as unknown as jest.Mock).mockReturnValue({
+      kaotikaPlayers: [],
+      dravokarPlayers: [],
+      player: { _id: '0', isBetrayer: false },
+      setSelectedPlayer: jest.fn(),
+      setSelectedPlayerIndex: jest.fn(),
+      selectedPlayerIndex: 0,
+      isMyTurn: false,
+    });
+  });
 
-    // const buttonElement = screen.getByTestId('carousel-container');
-    expect(true).toBe(true);
+  it('should render when mounted', () => {
+    render(<CarouselContainer
+      filteredFaction={undefined}
+      setFilteredFaction={() => {}}
+    />);
+
+    expect(screen.getByTestId('carousel-container')).toBeInTheDocument();
   });
 });
