@@ -15,7 +15,6 @@ const GameStartButton: React.FC<GameStartButtonProps> = () => {
   };
 
   const{gameStarted} = useStore();
-  const {selectedBattle} = useStore();
 
   console.log(gameStarted);
   
@@ -29,8 +28,7 @@ const GameStartButton: React.FC<GameStartButtonProps> = () => {
       <span className="absolute inset-0 w-full h-full border-2 border-gray-400 rounded-lg"></span>
       {/* Texto */}
       <span className="relative text-center">
-          START
-        <span className="text-red-600 uppercase"> {selectedBattle?.name} </span>
+          START BATTLE
       </span>
     </button>
   );
