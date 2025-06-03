@@ -29,7 +29,7 @@ const Waiting: React.FC<WaitingProps> = ({ setShowWaitingScreen }) => {
       data-testid="waiting-modal">
       {player.role === 'mortimer' || player.role === 'villain' ? <GameStartScreen/> 
         : <Spinner text={'Waiting for Mortimer to start the game'} />}
-      {player.role === 'mortimer' && insufficientPlayers && <p className='text-4xl text-red-500 justify-center  absolute top-[60%]'>Insufficient Acolytes</p>}
+      {(player.role === 'mortimer' || player.role === 'villain') && insufficientPlayers && <p className='text-4xl text-red-500 justify-center  absolute top-[60%]'>Insufficient Acolytes</p>}
     </div>
   );
 };

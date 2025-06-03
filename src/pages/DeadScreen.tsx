@@ -28,7 +28,7 @@ const DeadScreen: React.FC<DeadScreenInterface> = () => {
         <h1>Wait untill the battle is over.</h1>
       </div> 
       <div className="w-full flex items-center justify-center mt-4">
-        {(player.role === 'mortimer') && (
+        {(player.role === 'mortimer' || player.role === 'villain') && (
           <SettingButton />
         )}
       </div>

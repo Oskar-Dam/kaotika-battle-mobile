@@ -61,7 +61,7 @@ const GameEndingModal: React.FC<GameEndingModalProps> = ({ winner }) => {
           <p className={`mb-4 text-4xl ${resultTextColor}`}>{getResultText()}</p>  {/* Show result based on player status and winner */}
         </div>
         <div className='' >
-          {(player.role === 'mortimer') && (
+          {(player.role === 'mortimer' || player.role === 'villain') && (
             <SettingButton />
           )}
         </div>
