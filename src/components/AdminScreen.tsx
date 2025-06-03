@@ -2,15 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { MobileJoinBattleResponse } from '../interfaces/JoinBattleReponse';
 import { SOCKET_EMIT_EVENTS } from '../sockets/events';
 import socket from '../sockets/socket';
-import { listenToGameCreated } from '../sockets/socketListeners';
+import { listenToGameCreated, listenToInsufficientPlayers } from '../sockets/socketListeners';
 import useStore from '../store/useStore';
 import BattleList from './battles/BattleList';
 import MenuButton from './MenuButton';
 
 const AdminScreen: React.FC = () => {
-  const { setGameJoined, gameCreated, player, gameStarted, setIsBattleSelected, setIsAdventureSelected, setGameCreated, setGameEnded } = useStore();
+  const { setGameJoined, gameCreated, gameEnded, player, gameStarted, selectedBattle, setIsBattleSelected, setIsAdventureSelected, setGameCreated, setGameEnded } = useStore();
 
   const [resetEffect, setResetEffect] = useState(false);
+  const [insufficientPlayers, setInsufficientPlayers] = useState<boolean>(false);
+
+  console.log(selectedBattle);
 
   const joinBattle = () => {
     socket.emit(SOCKET_EMIT_EVENTS.JOIN_BATTLE, player._id, (response: MobileJoinBattleResponse) => {
@@ -46,11 +49,36 @@ const AdminScreen: React.FC = () => {
     };
   }, [resetEffect, setGameCreated]);
 
+  useEffect(() => {
+    listenToInsufficientPlayers(setInsufficientPlayers);
+  }, []);
+
+  useEffect(() => {
+    if (insufficientPlayers) {
+      const timeout = setTimeout(() => {
+        setInsufficientPlayers(false);
+      }, 5000); // 5000 ms = 5 segundos
+
+      return () => clearTimeout(timeout); // limpiar si cambia antes de tiempo
+    }
+  }, [insufficientPlayers]);
+
   const handleStartGame = (): void => {
     console.log('Game start button pressed');
     socket.emit(SOCKET_EMIT_EVENTS.GAME_START);
     setResetEffect(prev => !prev);
     setGameEnded(false);
+  };
+
+  const handleBattleCreate = () => {
+    console.log('Emit create game of the battle: ' + selectedBattle.name);
+    socket.emit(SOCKET_EMIT_EVENTS.CREATE_GAME, selectedBattle._id);
+  };
+
+  const handleCancelGame = () => {
+    console.log('Game reset button pressed');
+    socket.emit(SOCKET_EMIT_EVENTS.GAME_RESET);
+    setResetEffect(prev => !prev);
   };
 
   return (
@@ -62,34 +90,79 @@ const AdminScreen: React.FC = () => {
         <div className="flex h-[70%] w-[95%] mb-3 mt-5">
           <BattleList />
         </div>
-        <div className="flex h-[10%] w-[90%] mb-2">
-          <div className='flex w-[50%] mr-1'>
-            <MenuButton
-              text="JOIN"
-              onClick={joinBattle}
-              disabled={!gameCreated || gameStarted}
-              ariaDisabled={!gameCreated || gameStarted}
-              extraStyles={
-                !gameCreated || gameStarted
-                  ? 'text-red-500 border-red-500'
-                  : 'text-green-500 border-green-500'
-              }
-            />
+        {!gameCreated ? (
+          // Show only the CREATE BATTLE button
+          <div className="flex h-[10%] w-[90%] mb-2">
+            <div className="flex w-[50%] mr-1">
+              <MenuButton
+                text="Create battle"
+                onClick={handleBattleCreate}
+                disabled={selectedBattle == null}
+                ariaDisabled={selectedBattle == null}
+                extraStyles={
+                  selectedBattle === null
+                    ? 'text-red-500 border-red-500'
+                    : 'text-green-500 border-green-500'
+                }
+              />
+            </div>
+            <div className="flex w-[50%] mr-1">
+              <MenuButton
+                text="Cancel battle"
+                onClick={handleCancelGame}
+                disabled={!gameEnded && !gameStarted}
+                ariaDisabled={false}
+                extraStyles={
+                  gameEnded || gameStarted
+                    ? 'text-green-500 border-green-500'
+                    : 'text-red-500 border-red-500'
+                }
+              />
+            </div>
           </div>
-          <div className='flex w-[50%] ml-1'>
-            <MenuButton
-              text="START"
-              onClick={handleStartGame}
-              disabled={!gameCreated || gameStarted}
-              ariaDisabled={false}
-              extraStyles={
-                !gameStarted && gameCreated
-                  ? 'text-green-500 border-green-500'
-                  : 'text-red-500 border-red-500'
-              }
-            />
+        ) : (
+          <div className="flex h-[10%] w-[90%] mb-2">
+            <div className="flex w-[50%] mr-1">
+              <MenuButton
+                text="Join the battle"
+                onClick={joinBattle}
+                disabled={gameStarted}
+                ariaDisabled={gameStarted}
+                extraStyles={
+                  gameStarted
+                    ? 'text-red-500 border-red-500'
+                    : 'text-green-500 border-green-500'
+                }
+              />
+            </div>
+            <div className="flex w-[50%] ml-1">
+              <MenuButton
+                text="Start the battle"
+                onClick={handleStartGame}
+                disabled={gameStarted}
+                ariaDisabled={false}
+                extraStyles={
+                  !gameStarted
+                    ? 'text-green-500 border-green-500'
+                    : 'text-red-500 border-red-500'
+                }
+              />
+            </div>
           </div>
-        </div>
+        )}
+
+        {(player.role === 'mortimer' || player.role === 'villain') && insufficientPlayers &&
+          <p
+            className={`
+          text-5xl text-red-500 absolute bottom-[30%] bg-black/80 p-4 rounded-xl text-center w-[95%]
+          transition-opacity duration-700 ease-in-out
+          ${insufficientPlayers ? 'opacity-100' : 'opacity-0 pointer-events-none'}
+        `}
+          >
+            Insufficient Acolytes to start the battle
+          </p>
+        }
+
         <div className="flex h-[10%] w-[90%] mt-2">
           <MenuButton
             text="Back to mode selection"

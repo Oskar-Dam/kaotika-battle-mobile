@@ -16,7 +16,6 @@ const BattleCard: React.FC<BattleCardProps> = ({ battle }) => {
   const {setSelectedBattle, gameCreated} = useStore();
 
   const handleSelectedBattle = () => {
-    setIsModalOpen(true);
     if(!gameCreated)  {
       setSelectedBattle(battle);
     }
