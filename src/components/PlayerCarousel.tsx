@@ -36,7 +36,7 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({ setSelectedPlayer, disp
   // valid indices
   const MIN_SELECTABLE = 1;
   const MAX_SELECTABLE = players.length - 2;
-
+ 
   // State to know which card is selected
 
   useEffect(() => {
