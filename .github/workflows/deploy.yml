@@ -1,4 +1,4 @@
-name: Deploy Kaotika Battle Mobile (Docker)
+name: Deploy Kaotika Battle Mobile with lint and test (Docker)
 
 on:
   push:
@@ -13,6 +13,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'  # Cambia según tu versión
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run lint
+        run: npm run lint
+
+      - name: Run tests
+        run: npm run test
+
       - name: Create .env file from GitHub secret
         run: echo "${{ secrets.MOBILE_ENV_FILE }}" > .env
 
@@ -25,6 +39,5 @@ jobs:
           docker rm -f kaotika-battle-mobile || true
           docker compose -f docker-compose.yml build mobile
           docker compose -f docker-compose.yml up -d mobile
-
       - name: Clean up
         run: echo "Deployment complete."
