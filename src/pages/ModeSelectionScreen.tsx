@@ -63,7 +63,7 @@ const ModeSelection: React.FC = () => {
       disabled={false}
       ariaDisabled={false}
       extraStyles=''/> },
-    ...(player.role === 'mortimer' ? [{
+    ...(player.role === 'mortimer'|| player.role === 'villain' ? [{
       id: 'settings',
       component: <MenuButton
         text='Settings'

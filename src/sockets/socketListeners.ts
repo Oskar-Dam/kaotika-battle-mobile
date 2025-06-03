@@ -81,6 +81,7 @@ export const listenToBattles = (setBattles: (battles: Battle[]) => void) => {
 export const listenToUpdatePlayer = (updateDravokarPlayerHitPoints: (id: string, hitpoints: number) => void, updateKaotikaPlayerHitPoints: (id: string, hitpoints: number) => void, updatePlayerHitPoints: (hitpoints: number) => void, player: Player) => {
   socket.on(SOCKET_EVENTS.UPDATE_PLAYER, (updatedPlayer: { _id: string, attributes: Modifier, totalDamage: number, isBetrayer: boolean }) => {
     console.log(`'${SOCKET_EVENTS.UPDATE_PLAYER}' socket received.`);
+    console.log('Data of the updated player. ID: ', updatedPlayer._id + '. Atributes: ', updatedPlayer.attributes + '. Is betrayer? ', updatedPlayer.isBetrayer);
     updateDravokarPlayerHitPoints(updatedPlayer._id, updatedPlayer.attributes.hit_points);
     updateKaotikaPlayerHitPoints(updatedPlayer._id, updatedPlayer.attributes.hit_points);
     if (player._id === updatedPlayer._id) updatePlayerHitPoints(updatedPlayer.attributes.hit_points);

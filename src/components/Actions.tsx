@@ -23,7 +23,7 @@ const Actions: React.FC<ActionsProps> = ({openPotionModal, showSettingsButton}) 
       <AttackButton/>
 
       
-      {(player.role === 'mortimer') && showSettingsButton && !isSettingModalOpen && (
+      {(player.role === 'mortimer' || player.role === 'villain') && showSettingsButton && !isSettingModalOpen && (
         <SettingButton />
       )}
         
