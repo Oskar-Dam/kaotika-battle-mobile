@@ -18,7 +18,7 @@ This project uses custom Git pre-commit and pre-push hooks located in the `.hook
 
 ### How to enable the pre-commit hook
 
-After cloning the repository, run the following commands:
+After cloning the repository and having the dependencies installed, run the following commands:
 
 ```bash
 npm run setup-hooks
