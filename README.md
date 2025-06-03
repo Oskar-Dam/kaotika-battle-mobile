@@ -5,6 +5,26 @@ This project uses **React**, **TypeScript**, and **Vite** as a modern developmen
 
 ---
 
+## 📥 Install Dependencies
+
+After cloning the repository, run:
+
+```bash
+npm install
+
+## Git Hooks Setup
+
+This project uses custom Git pre-commit and pre-push hooks located in the `.hooks` folder directory to automatically run linting and tests before each commit.
+
+### How to enable the pre-commit hook
+
+After cloning the repository, run the following commands:
+
+```bash
+npm run setup-hooks
+
+---
+
 ## 🚀 Running the Project
 
 To launch the project in local **production mode**, use the following command:

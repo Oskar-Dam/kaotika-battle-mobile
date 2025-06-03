@@ -12,7 +12,9 @@
     "test:api": "jest api --verbose",
     "test:client": "jest client --verbose",
     "start": "vite preview --host",
-    "setup-hooks": "mkdir -p .git/hooks && ln -sf ../../.hooks/pre-commit .git/hooks/pre-commit && chmod +x .hooks/pre-commit"
+    "setup-precommit": "mkdir -p .git/hooks && ln -sf ../../.hooks/pre-commit .git/hooks/pre-commit && chmod +x .hooks/pre-commit",
+    "setup-prepush": "mkdir -p .git/hooks && ln -sf ../../.hooks/pre-push .git/hooks/pre-push && chmod +x .hooks/pre-push",
+    "setup-hooks": "npm run setup-precommit && npm run setup-prepush"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.0",
