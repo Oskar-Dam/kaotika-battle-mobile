@@ -44,7 +44,6 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({ setSelectedPlayer, disp
       if (selectedPlayerIndex === 0) {
         selectedPlayerIndex = 1;
       }
-      console.log('SelectedPlayerIndex before clampIndex: ', selectedPlayerIndex);
       const clampedIndex = Math.min(Math.max(selectedPlayerIndex, MIN_SELECTABLE), MAX_SELECTABLE);
       setSelectedPlayerIndex(clampedIndex);
     }
@@ -113,7 +112,6 @@ const PlayerCarousel: React.FC<PlayerCarouselProps> = ({ setSelectedPlayer, disp
     if (selectedPlayerIndex === 0) {
       selectedPlayerIndex = 1;
     }
-    console.log('selectedPlayerIndex: ', selectedPlayerIndex);
 
     centerOnIndex(selectedPlayerIndex);
     setSelectedPlayer(displayedPlayers[selectedPlayerIndex - 1]);
