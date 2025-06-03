@@ -13,6 +13,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Use Node.js  # Añadimos esta acción para tener node instalado
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'  # Cambia la versión si usas otra
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run lint
+        run: npm run lint
+
+      - name: Run tests
+        run: npm run test
+
       - name: Create .env file from GitHub secret
         run: echo "${{ secrets.MOBILE_ENV_FILE }}" > .env
 
