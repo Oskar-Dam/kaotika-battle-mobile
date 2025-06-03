@@ -1,0 +1,15 @@
+#!/bin/sh
+
+echo "👉 Running custom lint and test..."
+
+npm run lint
+npm run test
+
+RESULT=$?
+if [ $RESULT -ne 0 ]; then
+  echo "❌ Lint or tests failed. Commit aborted."
+  exit 1
+fi
+
+echo "✅ All checks passed. Proceeding with commit."
+exit 0
