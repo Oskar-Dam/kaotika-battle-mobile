@@ -24,7 +24,7 @@ const DeadScreen: React.FC<DeadScreenInterface> = () => {
 
       </div>
       <div className="w-full text-4xl text-white text-center">
-        <h1>You've were killed.</h1>
+        <h1>You've been killed.</h1>
         <h1>Wait untill the battle is over.</h1>
       </div> 
       <div className="w-full flex items-center justify-center mt-4">
