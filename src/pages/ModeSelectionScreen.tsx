@@ -9,7 +9,7 @@ const ModeSelection: React.FC = () => {
 
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const { setIsBattleSelected, isSettingModalOpen, setIsSettingModalOpen, player } = useStore();
+  const { setIsBattleSelected, isSettingModalOpen } = useStore();
 
   const selectBattleMode = () => {
     setIsBattleSelected(true);
@@ -26,10 +26,6 @@ const ModeSelection: React.FC = () => {
     console.log('Log out');
     localStorage.removeItem('playerEmail');
     window.location.reload();
-  };
-
-  const handleSettingsOnClick = () => {    
-    setIsSettingModalOpen(true);
   };
 
   useEffect(() => {
@@ -62,17 +58,7 @@ const ModeSelection: React.FC = () => {
       onClick={handleLogOut}
       disabled={false}
       ariaDisabled={false}
-      extraStyles=''/> },
-    ...(player.role === 'mortimer'|| player.role === 'villain' ? [{
-      id: 'settings',
-      component: <MenuButton
-        text='Settings'
-        onClick={handleSettingsOnClick}
-        disabled={false}
-        ariaDisabled={false}
-        extraStyles=''/>
-    }] : [])
-  ];
+      extraStyles=''/> }];
   
   
 

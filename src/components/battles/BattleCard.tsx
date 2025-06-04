@@ -7,32 +7,35 @@ import BattleModal from './BattleModal';
 
 
 interface BattleCardProps {
-battle: Battle;
+  battle: Battle;
 }
 
 const BattleCard: React.FC<BattleCardProps> = ({ battle }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const {setSelectedBattle, gameCreated} = useStore();
+  const { setSelectedBattle, gameCreated, selectedBattle } = useStore();
 
   const handleSelectedBattle = () => {
-    if(!gameCreated)  {
+    if (!gameCreated) {
       setSelectedBattle(battle);
     }
     socket.emit(SOCKET_EMIT_EVENTS.GAME_SELECTED, battle._id);
     console.log('Emit battle selected');
   };
 
+  const isSelected = selectedBattle?._id === battle._id;
+
   return (
     <>
-      <button 
-        className='relative flex flex-row w-[100%] h-[13vh] justify-center items-center border-2 rounded border-white overflow-hidden'
+      <button
+        className={`relative flex flex-row w-full h-[13vh] justify-center items-center border-2 rounded overflow-hidden transition-transform duration-100 active:scale-95 ${isSelected ? 'border-green-500' : 'border-white'}`}
         onClick={handleSelectedBattle}
-        disabled={gameCreated}>
-        <img 
+        disabled={gameCreated}
+      >
+        <img
           src={`/images/background/${battle.battle_background}`}
-          alt={battle.name} 
-          className='absolute w-full h-full object-cover' 
+          alt={battle.name}
+          className='absolute w-full h-full object-cover'
         />
         <div className='relative flex w-[100%] h-full items-center justify-center'>
           <h1
@@ -41,9 +44,9 @@ const BattleCard: React.FC<BattleCardProps> = ({ battle }) => {
         </div>
       </button>
       {isModalOpen && !gameCreated && (
-        <BattleModal 
+        <BattleModal
           battle={battle}
-          onClose={() => setIsModalOpen(false)} 
+          onClose={() => setIsModalOpen(false)}
         />
       )}
     </>

@@ -8,7 +8,7 @@ import BattleList from './battles/BattleList';
 import MenuButton from './MenuButton';
 
 const AdminScreen: React.FC = () => {
-  const { setGameJoined, gameCreated, gameEnded, player, gameStarted, selectedBattle, setIsBattleSelected, setIsAdventureSelected, setGameCreated, setGameEnded } = useStore();
+  const { setGameJoined, gameCreated, player, gameStarted, selectedBattle, setIsBattleSelected, setIsAdventureSelected, setGameCreated, setGameEnded } = useStore();
 
   const [resetEffect, setResetEffect] = useState(false);
   const [insufficientPlayers, setInsufficientPlayers] = useState<boolean>(false);
@@ -87,68 +87,74 @@ const AdminScreen: React.FC = () => {
       style={{ backgroundImage: 'url(/images/background/adminScreenBG.webp)', backgroundSize: '100% 100%' }}
     >
       <div className="flex flex-col justify-start items-center h-full w-full">
-        <div className="flex h-[70%] w-[95%] mb-3 mt-5">
+        <div className="flex h-[60%] w-[95%] mb-3 mt-5">
           <BattleList />
         </div>
         {!gameCreated ? (
-          // Show only the CREATE BATTLE button
-          <div className="flex h-[10%] w-[90%] mb-2">
-            <div className="flex w-[50%] mr-1">
-              <MenuButton
-                text="Create battle"
-                onClick={handleBattleCreate}
-                disabled={selectedBattle == null}
-                ariaDisabled={selectedBattle == null}
-                extraStyles={
-                  selectedBattle === null
-                    ? 'text-red-500 border-red-500'
-                    : 'text-green-500 border-green-500'
-                }
-              />
+          <>
+            <div className="flex h-[10%] w-[90%] mb-2">
+              <div className="flex w-[100%] mr-1">
+                <MenuButton
+                  text="Create battle"
+                  onClick={handleBattleCreate}
+                  disabled={selectedBattle == null}
+                  ariaDisabled={selectedBattle == null}
+                  extraStyles={
+                    selectedBattle === null
+                      ? 'text-red-500 border-red-500'
+                      : 'text-green-500 border-green-500'
+                  }
+                />
+              </div>
             </div>
-            <div className="flex w-[50%] mr-1">
-              <MenuButton
-                text="Cancel battle"
-                onClick={handleCancelGame}
-                disabled={!gameEnded && !gameStarted}
-                ariaDisabled={false}
-                extraStyles={
-                  gameEnded || gameStarted
-                    ? 'text-green-500 border-green-500'
-                    : 'text-red-500 border-red-500'
-                }
-              />
-            </div>
-          </div>
+            <div className="flex h-[10%] w-[90%] mt-2"></div>
+          </>
         ) : (
-          <div className="flex h-[10%] w-[90%] mb-2">
-            <div className="flex w-[50%] mr-1">
-              <MenuButton
-                text="Join the battle"
-                onClick={joinBattle}
-                disabled={gameStarted}
-                ariaDisabled={gameStarted}
-                extraStyles={
-                  gameStarted
-                    ? 'text-red-500 border-red-500'
-                    : 'text-green-500 border-green-500'
-                }
-              />
+          <>
+            <div className='flex h-[10%] w-[90%] mb-2'>
+              <div className="flex w-[100%] mr-1">
+                <MenuButton
+                  text="Cancel the battle"
+                  onClick={handleCancelGame}
+                  disabled={!gameCreated}
+                  ariaDisabled={false}
+                  extraStyles={
+                    gameCreated
+                      ? 'text-green-500 border-green-500'
+                      : 'text-red-500 border-red-500'
+                  }
+                />
+              </div>
             </div>
-            <div className="flex w-[50%] ml-1">
-              <MenuButton
-                text="Start the battle"
-                onClick={handleStartGame}
-                disabled={gameStarted}
-                ariaDisabled={false}
-                extraStyles={
-                  !gameStarted
-                    ? 'text-green-500 border-green-500'
-                    : 'text-red-500 border-red-500'
-                }
-              />
+            <div className="flex h-[10%] w-[90%] mb-2">
+              <div className="flex w-[50%] mr-1">
+                <MenuButton
+                  text="Join"
+                  onClick={joinBattle}
+                  disabled={gameStarted}
+                  ariaDisabled={gameStarted}
+                  extraStyles={
+                    gameStarted
+                      ? 'text-red-500 border-red-500'
+                      : 'text-green-500 border-green-500'
+                  }
+                />
+              </div>
+              <div className="flex w-[50%] ml-1">
+                <MenuButton
+                  text="Start"
+                  onClick={handleStartGame}
+                  disabled={gameStarted}
+                  ariaDisabled={false}
+                  extraStyles={
+                    !gameStarted
+                      ? 'text-green-500 border-green-500'
+                      : 'text-red-500 border-red-500'
+                  }
+                />
+              </div>
             </div>
-          </div>
+          </>
         )}
 
         {(player.role === 'mortimer' || player.role === 'villain') && insufficientPlayers &&
@@ -162,7 +168,6 @@ const AdminScreen: React.FC = () => {
             Insufficient Acolytes to start the battle
           </p>
         }
-
         <div className="flex h-[10%] w-[90%] mt-2">
           <MenuButton
             text="Back to mode selection"
