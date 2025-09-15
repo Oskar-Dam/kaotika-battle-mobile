@@ -1,7 +1,7 @@
 import { signInWithPopup } from 'firebase/auth';
 import React, { useState } from 'react';
 import { auth, provider } from '../../api/firebase/firebaseConfig';
-import { MobileBattelsResponse } from '../../interfaces/response/MobileBattlesResponse';
+import { MobileBattlesResponse } from '../../interfaces/response/MobileBattlesResponse';
 import { MobileSignInResponse } from '../../interfaces/response/MobileSignInResponse';
 import { SOCKET_EMIT_EVENTS, SOCKET_EVENTS } from '../../sockets/events';
 import socket from '../../sockets/socket';
@@ -54,7 +54,7 @@ const LoginFirebase: React.FC<LoginFirebaseProps> = ({
               setEmail(response.player.email);
               if ((user.email === mortimerEmail) || (user.email === villainEmail)) {
                 console.log('email send is mortimer or villain');
-                socket.emit(SOCKET_EMIT_EVENTS.GET_BATTLES, (response: MobileBattelsResponse) => {
+                socket.emit(SOCKET_EMIT_EVENTS.GET_BATTLES, (response: MobileBattlesResponse) => {
                   if (response.status === 'OK') {
                     console.log('Battles receive correctly');
                     setBattles(response.battles);
@@ -92,7 +92,7 @@ const LoginFirebase: React.FC<LoginFirebaseProps> = ({
   return (
     <div className="flex items-center justify-center w-full h-2/8">
       <button
-        className="w-full h-full bg-black/50 text-white text-6xl rounded-4xl shadow-black shadow-xl border-2 border-white"
+        className="w-full h-full bg-black/50 text-white text-6xl rounded-xl shadow-black shadow-xl border-2 border-white"
         onClick={handleGoogleSignIn}
       >
         Sign In

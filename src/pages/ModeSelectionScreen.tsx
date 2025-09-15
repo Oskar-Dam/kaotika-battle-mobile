@@ -64,7 +64,7 @@ const ModeSelection: React.FC = () => {
 
   return (
     <div
-      className="flex flex-col justify-center items-center h-screen p-4 bg-black text-white text-2xl font-bold w-screen"
+      className="flex flex-col justify-center items-center h-screen bg-black text-white text-2xl font-bold w-screen"
       data-testid="acolyte-lobby-screen"
     >
       <video

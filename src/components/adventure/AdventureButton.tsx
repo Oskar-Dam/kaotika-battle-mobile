@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface MenuButtonProps {
+interface AdventureButtonProps {
   text: string;
   onClick: () => void;
   disabled: boolean;
@@ -8,12 +8,12 @@ interface MenuButtonProps {
   extraStyles: string;
 }
 
-const MenuButton: React.FC<MenuButtonProps> = ({ text, onClick, disabled, ariaDisabled, extraStyles }) => {
+const AdventureButton: React.FC<AdventureButtonProps> = ({text, onClick, disabled, ariaDisabled, extraStyles}) => {
   const appliedStyles = extraStyles || 'text-white border-white';
   return (
     <button
       onClick={onClick}
-      className={`w-full h-full bg-black/50 text-4xl rounded-xl shadow-black shadow-xl border-2 transition-none active:scale-95 ${appliedStyles}`}
+      className={`w-full h-full bg-black/50 text-5xl rounded-2xl shadow-black shadow-xl border-2 ${appliedStyles}`}
       disabled={disabled}
       aria-disabled={ariaDisabled}
     >
@@ -22,4 +22,4 @@ const MenuButton: React.FC<MenuButtonProps> = ({ text, onClick, disabled, ariaDi
   );
 };
 
-export default MenuButton;
+export default AdventureButton;

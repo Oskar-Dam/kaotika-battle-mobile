@@ -1,5 +1,5 @@
 import { Battle } from './../Battle.ts';
 
-export type MobileBattelsResponse =
+export type MobileBattlesResponse =
   | { status: 'OK'; battles: Battle[] }
   | { status: 'FAILED'; error: string };
