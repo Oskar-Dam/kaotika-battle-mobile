@@ -1,12 +1,12 @@
-import React from 'react'
+import React from 'react';
 import AdventureButton from '../components/adventure/AdventureButton';
 
 const AdventureScreen: React.FC = () => {
 
   const handleClick = (option:number): void => {
     console.log(option);
-  }
-  const content = "Lorem ipsum dolor.Lorem ipsum dolor.Lorem ipsum dolor.Lorem ipsum dolor.";
+  };
+  const content = 'Lorem ipsum dolor.Lorem ipsum dolor.Lorem ipsum dolor.Lorem ipsum dolor.';
   const buttons = [
     { id: 'selectBattle', 
       component: <AdventureButton
@@ -52,10 +52,10 @@ const AdventureScreen: React.FC = () => {
       <div className="flex items-center justify-center w-[80%] py-14 h-1/8 text-8xl rounded-lg">
         <h1>Adventure</h1> 
       </div>
-      <div className={`w-full h-96 p-2 text-center bg-black/50 text-5xl rounded-2xl shadow-black shadow-xl border-2 text-white border-white`}>
+      <div className={'w-full h-96 p-2 text-center bg-black/50 text-5xl rounded-2xl shadow-black shadow-xl border-2 text-white border-white'}>
         <p>{content}</p> 
       </div>
-      <div className={`flex flex-col gap-6 w-full overflow-y-auto pr-3 z-10 mt-5 h-[50%] `}>
+      <div className={'flex flex-col gap-6 w-full overflow-y-auto pr-3 z-10 mt-5 h-[50%]'}>
         {buttons.map(({ id, component }) => (
           <div
             key={id}
@@ -67,6 +67,6 @@ const AdventureScreen: React.FC = () => {
       
     </div>
   );
-}
+};
 
 export default AdventureScreen;

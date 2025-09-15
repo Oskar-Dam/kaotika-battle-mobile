@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import LoginFirebase from '../components/login/LoginFirebase';
 import Spinner from '../components/Spinner';
-import { MobileBattelsResponse } from '../interfaces/response/MobileBattlesResponse';
+import { MobileBattlesResponse } from '../interfaces/response/MobileBattlesResponse';
 import { MobileSignInResponse } from '../interfaces/response/MobileSignInResponse';
 import { SOCKET_EMIT_EVENTS, SOCKET_EVENTS } from '../sockets/events';
 import socket from '../sockets/socket';
@@ -43,7 +43,7 @@ const LoginScreen: React.FC<LoginScreenInterface> = () => {
                 setEmail(response.player.email);
                 if ((email === mortimerEmail) || (email === villainEmail)) {
                   console.log('email send is mortimer or villain');
-                  socket.emit(SOCKET_EMIT_EVENTS.GET_BATTLES, (response: MobileBattelsResponse) => {
+                  socket.emit(SOCKET_EMIT_EVENTS.GET_BATTLES, (response: MobileBattlesResponse) => {
                     if (response.status === 'OK') {
                       console.log('Battles receive correctly'); 
                       setBattles(response.battles);
